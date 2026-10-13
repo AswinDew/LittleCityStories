@@ -129,7 +129,10 @@ export class GridSystem {
               cell &&
               typeof cell.x === 'number' &&
               typeof cell.z === 'number' &&
-              typeof cell.terrain === 'string'
+              typeof cell.terrain === 'string' &&
+              typeof cell.isRoad === 'boolean' &&
+              typeof cell.canBuild === 'boolean' &&
+              (cell.buildingId === null || typeof cell.buildingId === 'string')
           )
       )
     ) {

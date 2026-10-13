@@ -40,10 +40,14 @@ describe('MaterialLibrary', () => {
     expect((wallMat as THREE.MeshLambertMaterial).color.getHex()).toBe(0xfff3e0);
   });
 
-  it('returns fallback material for unregistered name with warning', () => {
+  it('returns fallback material for unregistered name with warning and caches it', () => {
     const mats = MaterialLibrary.getInstance();
     const fallback = mats.get('non_existent_mat');
     expect(fallback).toBeInstanceOf(THREE.Material);
     expect((fallback as THREE.MeshLambertMaterial).color.getHex()).toBe(0xff00ff);
+
+    // Verify subsequent calls return the same cached instance rather than allocating new materials
+    const fallback2 = mats.get('another_missing_mat');
+    expect(fallback2).toBe(fallback);
   });
 });

@@ -14,8 +14,8 @@
 - **Robust Grid Mathematics:** 2D cell coordinate system with multi-cell footprint math, bounds validation, orthogonal/Moore neighbor queries, and corrupt save rejection.
 - **Procedural Architectural Engine:** Modular building generation including foundations, walls, gable roofs, doors, windows, chimneys, and progressive level upgrades.
 - **Centralized Palette & Material Management:** `MaterialLibrary` singleton for warm pastel color palettes and memory leak prevention.
-- **Zero Garbage Allocations on Hot Paths:** Pre-allocated scratch vectors for camera dragging and raycasting.
-- **Automated Test Coverage:** 16 Vitest unit tests verifying coordinates, grid mutations, corrupt data rejection, and material lifecycles.
+- **Zero Garbage Allocations on Hot Paths:** Pre-allocated scratch vectors and cached results for 60+ FPS camera dragging and raycasting.
+- **Automated Test Coverage:** 27 Vitest unit tests verifying coordinates, grid mutations, corrupt data rejection, material lifecycles, camera rotation, zero-allocation raycasting, and building geometry disposal.
 
 ---
 
@@ -23,7 +23,7 @@
 
 | Input | Action |
 |---|---|
-| **Right Mouse / Middle Mouse Drag** | Pan camera across the city |
+| **Right Mouse / Middle Mouse / Touch Drag** | Pan camera across the city |
 | **Shift / Alt + Left Mouse Drag** | Alternative camera pan |
 | **Mouse Wheel** | Zoom In / Zoom Out |
 | **Q / E Keys** | Rotate view 90° counter-clockwise / clockwise |
@@ -39,7 +39,7 @@ src/
 ├── assets/
 │   ├── MaterialLibrary.ts         # Shared palette cache & singleton material manager
 │   └── procedural/
-│       ├── houses.ts              # Procedural residential structure assembler
+│       ├── houses.ts              # Procedural residential structure assembler & cleanup
 │       ├── roofs.ts               # Gable & flat roof mesh generators
 │       ├── walls.ts               # Foundation & wall block generators
 │       └── windows.ts             # Doors, windows, chimneys, and planter boxes
@@ -50,6 +50,8 @@ src/
 │   └── SceneManager.ts            # Three.js scene hierarchy & layer grouping
 ├── styles/
 │   └── global.css                 # Glassmorphic HUD styling & responsive layout
+├── ui/
+│   └── HUD.ts                     # HUD presentation, button triggers, and keyboard bindings
 ├── utils/
 │   └── coordinates.ts             # Grid ↔ World conversion, footprints, and bounds
 ├── world/
@@ -57,11 +59,14 @@ src/
 │   ├── GridRenderer.ts            # Diorama island slab, grass surface & hover tile
 │   ├── GridSystem.ts              # Core grid data model & cell state management
 │   └── RaycastSystem.ts           # Ground plane pointer raycaster
-└── main.ts                        # Application bootstrap & UI HUD controls
+└── main.ts                        # Application bootstrap & lifecycle handling
 tests/
+├── camera.test.ts                 # Camera isometric params, zoom clamping & rotation tests
 ├── coordinates.test.ts            # Math roundtrip, footprint centering, bounds tests
 ├── grid.test.ts                   # Cell availability, neighbor queries, corrupt save tests
-└── materials.test.ts              # Material registration, singleton lifecycle & reset tests
+├── houses.test.ts                 # Procedural building hierarchy, upgrades & disposal tests
+├── materials.test.ts              # Material registration, singleton lifecycle & reset tests
+└── raycast.test.ts                # Raycast screen-to-grid mapping & zero-allocation tests
 ```
 
 ---

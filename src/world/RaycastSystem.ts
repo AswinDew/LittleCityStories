@@ -16,6 +16,12 @@ export class RaycastSystem {
   private _currentCell: GridCoord | null = null;
   private _currentHitPoint: THREE.Vector3 | null = null;
 
+  // Pre-allocated scratch objects to achieve zero garbage allocations during 60+ FPS loop
+  private readonly _scratchHitPoint: THREE.Vector3 = new THREE.Vector3();
+  private readonly _scratchCell: GridCoord = { x: 0, z: 0 };
+  private readonly _cachedResult: RaycastHitResult;
+  private readonly _screenCoords: THREE.Vector2 = new THREE.Vector2();
+
   public get currentCell(): GridCoord | null {
     return this._currentCell;
   }
@@ -30,6 +36,11 @@ export class RaycastSystem {
     this.groundMesh = groundMesh;
     this.raycaster = new THREE.Raycaster();
     this.pointer = new THREE.Vector2(-999, -999);
+
+    this._cachedResult = {
+      cell: this._scratchCell,
+      worldPoint: this._scratchHitPoint,
+    };
 
     this.attachEventListeners();
   }
@@ -51,14 +62,11 @@ export class RaycastSystem {
     this._currentHitPoint = null;
   };
 
-  public update(): RaycastHitResult | null {
-    if (this.pointer.x < -1 || this.pointer.x > 1 || this.pointer.y < -1 || this.pointer.y > 1) {
-      this._currentCell = null;
-      this._currentHitPoint = null;
-      return null;
-    }
-
-    this.raycaster.setFromCamera(this.pointer, this.camera);
+  /**
+   * Internal reusable raycasting routine from normalized device coordinates (NDC).
+   */
+  private performRaycast(ndc: THREE.Vector2): RaycastHitResult | null {
+    this.raycaster.setFromCamera(ndc, this.camera);
     const intersects = this.raycaster.intersectObject(this.groundMesh, false);
 
     if (intersects.length > 0) {
@@ -66,12 +74,12 @@ export class RaycastSystem {
       const cell = worldToGrid(hit.point);
 
       if (isWithinBounds(cell.x, cell.z)) {
-        this._currentCell = cell;
-        this._currentHitPoint = hit.point.clone();
-        return {
-          cell,
-          worldPoint: this._currentHitPoint,
-        };
+        this._scratchCell.x = cell.x;
+        this._scratchCell.z = cell.z;
+        this._scratchHitPoint.copy(hit.point);
+        this._currentCell = this._scratchCell;
+        this._currentHitPoint = this._scratchHitPoint;
+        return this._cachedResult;
       }
     }
 
@@ -81,29 +89,35 @@ export class RaycastSystem {
   }
 
   /**
-   * Raycast from an explicit screen coordinate (e.g. on click)
+   * Evaluates hover intersection for the current pointer position.
+   * Reuses internal pre-allocated buffers for zero-allocation performance.
+   */
+  public update(): RaycastHitResult | null {
+    if (this.pointer.x < -1 || this.pointer.x > 1 || this.pointer.y < -1 || this.pointer.y > 1) {
+      this._currentCell = null;
+      this._currentHitPoint = null;
+      return null;
+    }
+
+    return this.performRaycast(this.pointer);
+  }
+
+  /**
+   * Raycast from an explicit screen coordinate (e.g. on click / tap).
    */
   public castFromScreen(clientX: number, clientY: number): RaycastHitResult | null {
     const rect = this.domElement.getBoundingClientRect();
-    const x = ((clientX - rect.left) / rect.width) * 2 - 1;
-    const y = -((clientY - rect.top) / rect.height) * 2 + 1;
+    this._screenCoords.x = ((clientX - rect.left) / rect.width) * 2 - 1;
+    this._screenCoords.y = -((clientY - rect.top) / rect.height) * 2 + 1;
 
-    const coords = new THREE.Vector2(x, y);
-    this.raycaster.setFromCamera(coords, this.camera);
-    const intersects = this.raycaster.intersectObject(this.groundMesh, false);
+    const hit = this.performRaycast(this._screenCoords);
+    if (!hit) return null;
 
-    if (intersects.length > 0) {
-      const hit = intersects[0];
-      const cell = worldToGrid(hit.point);
-      if (isWithinBounds(cell.x, cell.z)) {
-        return {
-          cell,
-          worldPoint: hit.point.clone(),
-        };
-      }
-    }
-
-    return null;
+    // Return a cloned copy so click events can store results without being mutated by subsequent hover updates
+    return {
+      cell: { ...hit.cell },
+      worldPoint: hit.worldPoint.clone(),
+    };
   }
 
   public dispose(): void {

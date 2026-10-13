@@ -32,10 +32,12 @@ export function gridToWorld(gx: number, gz: number, footprint: Footprint = { wid
 
 /**
  * Converts a 3D world position to the nearest containing grid coordinate (cell index).
+ * Uses a minute epsilon tolerance (1e-8) to absorb IEEE 754 floating point rounding near cell boundaries.
  */
+const COORD_EPSILON = 1e-8;
 export function worldToGrid(position: Vector3 | { x: number; z: number }): GridCoord {
-  const gx = Math.floor((position.x - GRID_ORIGIN_X) / CELL_SIZE);
-  const gz = Math.floor((position.z - GRID_ORIGIN_Z) / CELL_SIZE);
+  const gx = Math.floor((position.x - GRID_ORIGIN_X + COORD_EPSILON) / CELL_SIZE);
+  const gz = Math.floor((position.z - GRID_ORIGIN_Z + COORD_EPSILON) / CELL_SIZE);
   return { x: gx, z: gz };
 }
 

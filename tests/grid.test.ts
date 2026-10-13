@@ -82,6 +82,13 @@ describe('GridSystem', () => {
     const malformed = Array(20).fill(Array(20).fill(null));
     grid.deserialize(malformed as any);
     expect(grid.getCell(5, 5)?.buildingId).toBe('preserve-me');
+
+    // Corrupt field types (e.g. isRoad is not boolean)
+    const corruptFields = Array(20).fill(
+      Array(20).fill({ x: 0, z: 0, terrain: 'grass', isRoad: 'invalid', canBuild: true, buildingId: null })
+    );
+    grid.deserialize(corruptFields as any);
+    expect(grid.getCell(5, 5)?.buildingId).toBe('preserve-me');
   });
 
   it('resets grid cleanly via reset()', () => {

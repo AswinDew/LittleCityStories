@@ -27,15 +27,10 @@ export class SceneManager {
   }
 
   public dispose(): void {
-    // Traverse and clean up
+    // Clean up scene geometries. Materials are managed by MaterialLibrary or dedicated owners.
     this.scene.traverse((obj: THREE.Object3D) => {
-      if (obj instanceof THREE.Mesh) {
+      if (obj instanceof THREE.Mesh || obj instanceof THREE.LineSegments) {
         obj.geometry.dispose();
-        if (Array.isArray(obj.material)) {
-          obj.material.forEach((m: THREE.Material) => m.dispose());
-        } else if (obj.material) {
-          obj.material.dispose();
-        }
       }
     });
   }

@@ -93,3 +93,16 @@ export function createSmallHouse(level = 1, seed = 0): THREE.Group {
 
   return group;
 }
+
+/**
+ * Traverses and cleanly disposes all mesh geometries associated with a procedural building.
+ * Leaves shared palette materials in MaterialLibrary intact.
+ */
+export function disposeBuilding(building: THREE.Object3D): void {
+  building.traverse((child: THREE.Object3D) => {
+    if (child instanceof THREE.Mesh) {
+      child.geometry.dispose();
+    }
+  });
+}
+

@@ -65,6 +65,8 @@ export class MaterialLibrary {
     // Street Furniture & Props
     this.register('metal_black', new THREE.MeshLambertMaterial({ color: 0x2c3e50 }));
     this.register('lamp_light_warm', new THREE.MeshBasicMaterial({ color: 0xfff59d }));
+    // Fallback material for missing keys
+    this.register('__fallback_default__', new THREE.MeshLambertMaterial({ color: 0xff00ff }));
   }
 
   public register(name: string, material: THREE.Material): void {
@@ -75,7 +77,7 @@ export class MaterialLibrary {
     const mat = this.materials.get(name);
     if (!mat) {
       console.warn(`[MaterialLibrary] Material "${name}" not found. Falling back to default.`);
-      return new THREE.MeshLambertMaterial({ color: 0xff00ff });
+      return this.materials.get('__fallback_default__')!;
     }
     return mat;
   }

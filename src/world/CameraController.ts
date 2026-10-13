@@ -96,7 +96,10 @@ export class CameraController {
   public resetView(): void {
     this.target.set(0, 0, 0);
     this.setZoom(1.0);
-    this.targetRotationAngle = Math.PI / 4;
+    // Smoothly rotate along the shortest angular distance to the default pi / 4 view
+    const diff = Math.PI / 4 - this.rotationAngle;
+    const shortestDelta = Math.atan2(Math.sin(diff), Math.cos(diff));
+    this.targetRotationAngle = this.rotationAngle + shortestDelta;
   }
 
   public update(deltaTime: number): void {
@@ -108,6 +111,13 @@ export class CameraController {
       rotSpeed,
       deltaTime
     );
+
+    // Periodically wrap angle when settled to avoid floating point precision degradation
+    if (Math.abs(this.rotationAngle - this.targetRotationAngle) < 0.001) {
+      const twoPi = Math.PI * 2;
+      this.rotationAngle = ((this.rotationAngle % twoPi) + twoPi) % twoPi;
+      this.targetRotationAngle = this.rotationAngle;
+    }
 
     // Smooth target panning interpolation
     const panDamp = 14.0;
@@ -140,10 +150,16 @@ export class CameraController {
   }
 
   private onPointerDown = (event: PointerEvent): void => {
-    // Allow dragging with right button (2), middle button (1), or left button (0) with Space or Alt
-    if (event.button === 1 || event.button === 2 || (event.button === 0 && (event.altKey || event.shiftKey))) {
+    const isTouch = event.pointerType === 'touch';
+    // Allow dragging with right button (2), middle button (1), left button with Alt/Shift, or touch
+    if (
+      event.button === 1 ||
+      event.button === 2 ||
+      (event.button === 0 && (event.altKey || event.shiftKey)) ||
+      isTouch
+    ) {
       this.isDragging = true;
-      this.dragButton = event.button;
+      this.dragButton = isTouch ? -2 : event.button;
       this.lastPointerX = event.clientX;
       this.lastPointerY = event.clientY;
       this.dragDistance = 0;
@@ -176,11 +192,14 @@ export class CameraController {
     this._right.normalize();
     this._forward.set(-this._right.z, 0, this._right.x).normalize();
 
+    // Exact isometric foreshortening multiplier: 1 / sin(elevation)
+    const elevationMultiplier = 1 / Math.sin(this.elevation);
+
     // In isometric, screen up corresponds to -forward vector in ground projection
     this._panVector
       .set(0, 0, 0)
       .addScaledVector(this._right, worldDeltaX)
-      .addScaledVector(this._forward, -worldDeltaY * 1.25);
+      .addScaledVector(this._forward, -worldDeltaY * elevationMultiplier);
 
     this.target.add(this._panVector);
 
@@ -190,7 +209,8 @@ export class CameraController {
   };
 
   private onPointerUp = (event: PointerEvent): void => {
-    if (event.button === this.dragButton || this.isDragging) {
+    const isTouch = event.pointerType === 'touch';
+    if ((isTouch && this.dragButton === -2) || event.button === this.dragButton) {
       this.isDragging = false;
       this.dragButton = -1;
     }
