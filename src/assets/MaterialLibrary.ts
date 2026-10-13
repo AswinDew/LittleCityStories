@@ -65,6 +65,16 @@ export class MaterialLibrary {
     // Street Furniture & Props
     this.register('metal_black', new THREE.MeshLambertMaterial({ color: 0x2c3e50 }));
     this.register('lamp_light_warm', new THREE.MeshBasicMaterial({ color: 0xfff59d }));
+
+    // Commercial & Park details
+    this.register('awning_red', new THREE.MeshLambertMaterial({ color: 0xef4444 }));
+    this.register('awning_blue', new THREE.MeshLambertMaterial({ color: 0x3b82f6 }));
+    this.register('park_path', new THREE.MeshLambertMaterial({ color: 0xdfd3c3 }));
+    this.register('park_bench_wood', new THREE.MeshLambertMaterial({ color: 0x8d5b4c }));
+    this.register('cross_red', new THREE.MeshBasicMaterial({ color: 0xef4444 }));
+    this.register('umbrella_yellow', new THREE.MeshLambertMaterial({ color: 0xfbbf24 }));
+    this.register('cupola_copper', new THREE.MeshLambertMaterial({ color: 0x4d7c67 }));
+
     // Fallback material for missing keys
     this.register('__fallback_default__', new THREE.MeshLambertMaterial({ color: 0xff00ff }));
   }

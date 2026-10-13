@@ -67,6 +67,7 @@ export class GridSystem {
     const cell = this.getCell(x, z);
     if (!cell) return false;
     cell.buildingId = null;
+    cell.isRoad = false;
     return true;
   }
 

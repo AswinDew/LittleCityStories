@@ -8,14 +8,15 @@
 
 **Little City Stories** blends low-poly pastel aesthetics with deep management simulation. Players design a bustling town on a floating diorama island—laying down residential districts, commercial businesses, and road networks, balancing taxes, city happiness, and neighbor synergy.
 
-### Current Milestone: Phase A (Playable 3D Foundation) ✅
-- **Isometric 3D Diorama:** 20×20 grid rendered on a floating earthen slab island with soft pastel lighting, shadow mapping, and hemisphere ambient bounce.
-- **True Isometric Camera:** Orthographic projection with fixed ~35.264° elevation, smooth 4-direction 90° discrete rotation (Q/E), pan boundaries, and zoom limits.
-- **Robust Grid Mathematics:** 2D cell coordinate system with multi-cell footprint math, bounds validation, orthogonal/Moore neighbor queries, and corrupt save rejection.
-- **Procedural Architectural Engine:** Modular building generation including foundations, walls, gable roofs, doors, windows, chimneys, and progressive level upgrades.
-- **Centralized Palette & Material Management:** `MaterialLibrary` singleton for warm pastel color palettes and memory leak prevention.
-- **Zero Garbage Allocations on Hot Paths:** Pre-allocated scratch vectors and cached results for 60+ FPS camera dragging and raycasting.
-- **Automated Test Coverage:** 27 Vitest unit tests verifying coordinates, grid mutations, corrupt data rejection, material lifecycles, camera rotation, zero-allocation raycasting, and building geometry disposal.
+### Current Milestone: Phase B (Construction Loop) ✅
+- **Complete 12-Building Procedural Catalog:** 5 distinct categories (Residential, Commercial, Municipal, Nature, Transport) with custom procedural meshes (Houses, Apartments, Shops, Bakery, Bistro with patio, Schoolhouse with cupola, Clinic, Parks, Trees, Roads, Streetlights).
+- **Zustand State Engine:** Centralized store managing city treasury ($10,000 starting funds), active tool states, and placed building registries without React dependencies (`zustand/vanilla`).
+- **Interactive Ghost Preview:** Real-time semi-transparent preview meshes following cursor with dynamic 1×1 and 2×2 footprint snapping.
+- **Strict Multi-Cell Validation:** Real-time green/red validity highlights validating grid boundaries, multi-cell overlap conflicts, and treasury affordability.
+- **Bulldozer / Demolition Engine:** Instant structure demolition with cell restoration, 50% fund refunds, and clean GPU geometry disposal.
+- **Glassmorphic Category Dock:** Intuitive bottom HUD with category filter tabs and shortcuts.
+- **True Isometric 3D Diorama:** 20×20 diorama grid with ~35.264° elevation, discrete 90° rotation, and zero-allocation raycasting.
+- **Automated Test Coverage:** 39 Vitest unit tests verifying placement math, overlap prevention, multi-cell footprints, demolition refunds, catalog schemas, and camera controls.
 
 ---
 
@@ -23,12 +24,17 @@
 
 | Input | Action |
 |---|---|
+| **Left Click** | Place selected building / Demolish target |
 | **Right Mouse / Middle Mouse / Touch Drag** | Pan camera across the city |
 | **Shift / Alt + Left Mouse Drag** | Alternative camera pan |
 | **Mouse Wheel** | Zoom In / Zoom Out |
 | **Q / E Keys** | Rotate view 90° counter-clockwise / clockwise |
+| **R Key** | Rotate building orientation 90° during placement |
+| **Number Keys (1–4)** | Quick-select primary buildings |
+| **B Key** | Toggle Bulldoze mode |
+| **Escape Key** | Cancel active tool (Idle mode) |
 | **HUD Buttons (↺ / ↻ / + / −)** | On-screen camera rotation and zoom controls |
-| **Mouse Move** | Interactive hover tile raycasting (green = valid, red = blocked) |
+| **Mouse Move** | Interactive hover tile raycasting and ghost preview |
 
 ---
 
@@ -52,20 +58,26 @@ src/
 │   └── global.css                 # Glassmorphic HUD styling & responsive layout
 ├── ui/
 │   └── HUD.ts                     # HUD presentation, button triggers, and keyboard bindings
+├── state/
+│   └── GameStore.ts               # Vanilla Zustand store for treasury, active tool & placed buildings
 ├── utils/
 │   └── coordinates.ts             # Grid ↔ World conversion, footprints, and bounds
 ├── world/
 │   ├── CameraController.ts        # Isometric orthographic camera controller
 │   ├── GridRenderer.ts            # Diorama island slab, grass surface & hover tile
 │   ├── GridSystem.ts              # Core grid data model & cell state management
+│   ├── PlacementSystem.ts         # Ghost preview cursor, placement validation & bulldoze tool
 │   └── RaycastSystem.ts           # Ground plane pointer raycaster
 └── main.ts                        # Application bootstrap & lifecycle handling
 tests/
+├── buildingRegistry.test.ts       # Building catalog schemas, costs & categories
 ├── camera.test.ts                 # Camera isometric params, zoom clamping & rotation tests
 ├── coordinates.test.ts            # Math roundtrip, footprint centering, bounds tests
+├── demolition.test.ts             # Bulldozer refund, cell freeing & cleanup tests
 ├── grid.test.ts                   # Cell availability, neighbor queries, corrupt save tests
 ├── houses.test.ts                 # Procedural building hierarchy, upgrades & disposal tests
 ├── materials.test.ts              # Material registration, singleton lifecycle & reset tests
+├── placement.test.ts              # Footprint bounds, cost deduction & treasury tests
 └── raycast.test.ts                # Raycast screen-to-grid mapping & zero-allocation tests
 ```
 
@@ -121,7 +133,7 @@ npm run preview
 ## 🗺️ Roadmap
 
 - [x] **Phase A: Playable 3D Foundation** — Isometric rendering, 20×20 diorama slab, orthographic camera controls, grid math, procedural house meshes, and unit test suite.
-- [ ] **Phase B: Construction & Core Gameplay** — Building placement system, category toolbar (Residential, Commercial, Municipal, Roads, Parks), bulldoze tool, and procedural variety.
+- [x] **Phase B: Construction & Core Gameplay** — Building placement system, 12-building procedural catalog across 5 categories, interactive ghost cursor preview, multi-cell validation, bulldozer tool with 50% refund, Zustand state store, and glassmorphic HUD toolbar.
 - [ ] **Phase C: Simulation Loop & People** — Citizen agents, pathfinding on road networks, work/shop schedules, and service synergy bonuses.
 - [ ] **Phase D: Economy, Progression, Save/Load & Polish** — City finances, taxes, operating costs, city rank unlocks, LocalStorage save/load, and full game HUD.
 - [ ] **Phase E: Juice, Audio, Effects & Release** — Day/night transitions, construction dust particles, bouncy placement juice, and sound effects.

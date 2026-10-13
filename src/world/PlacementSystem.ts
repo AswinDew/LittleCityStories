@@ -1,0 +1,287 @@
+import * as THREE from 'three';
+import { GridSystem } from './GridSystem';
+import { GridRenderer } from './GridRenderer';
+import { RaycastSystem } from './RaycastSystem';
+import { SceneManager } from '@/game/SceneManager';
+import { BuildingRegistry } from '@/buildings/BuildingRegistry';
+import { BuildingDefinition, PlacedBuilding } from '@/buildings/types';
+import { BuildingFactory } from '@/assets/BuildingFactory';
+import { disposeBuilding } from '@/assets/procedural/houses';
+import {
+  gridToWorld,
+  isFootprintWithinBounds,
+  getOccupiedCells,
+  GridCoord,
+} from '@/utils/coordinates';
+import { useGameStore, ActiveTool } from '@/state/GameStore';
+
+export class PlacementSystem {
+  private domElement: HTMLElement;
+  private sceneManager: SceneManager;
+  private gridSystem: GridSystem;
+  private gridRenderer: GridRenderer;
+  private raycastSystem: RaycastSystem;
+
+  private activeTool: ActiveTool = { mode: 'idle' };
+  private activeDef: BuildingDefinition | null = null;
+  private ghostMesh: THREE.Group | null = null;
+  private buildingMeshes: Map<string, THREE.Group> = new Map();
+
+  /**
+   * Current building placement orientation:
+   * 0: 0°, 1: 90°, 2: 180°, 3: 270°
+   */
+  public placementRotation = 0;
+
+  private unsubscribeStore: () => void;
+
+  constructor(
+    domElement: HTMLElement,
+    sceneManager: SceneManager,
+    gridSystem: GridSystem,
+    gridRenderer: GridRenderer,
+    raycastSystem: RaycastSystem
+  ) {
+    this.domElement = domElement;
+    this.sceneManager = sceneManager;
+    this.gridSystem = gridSystem;
+    this.gridRenderer = gridRenderer;
+    this.raycastSystem = raycastSystem;
+
+    // Subscribe to tool changes in Zustand store
+    this.unsubscribeStore = useGameStore.subscribe((state) => {
+      this.handleToolChange(state.activeTool);
+    });
+
+    this.attachEventListeners();
+  }
+
+  public rotatePlacement(): void {
+    this.placementRotation = (this.placementRotation + 1) % 4;
+    if (this.ghostMesh) {
+      this.ghostMesh.rotation.y = this.placementRotation * (Math.PI / 2);
+    }
+  }
+
+  public getEffectiveFootprint(def: BuildingDefinition, rotation = this.placementRotation): { width: number; depth: number } {
+    const isRotated = rotation === 1 || rotation === 3;
+    return {
+      width: isRotated ? def.footprint.depth : def.footprint.width,
+      depth: isRotated ? def.footprint.width : def.footprint.depth,
+    };
+  }
+
+  private handleToolChange(newTool: ActiveTool): void {
+    this.activeTool = newTool;
+    this.placementRotation = 0;
+
+    // Clean up existing ghost preview
+    this.removeGhostPreview();
+
+    if (newTool.mode === 'place' && newTool.defId) {
+      const def = BuildingRegistry.getInstance().get(newTool.defId);
+      this.activeDef = def || null;
+      if (this.activeDef) {
+        this.ghostMesh = BuildingFactory.createGhostPreviewMesh(this.activeDef.id);
+        this.ghostMesh.rotation.y = this.placementRotation * (Math.PI / 2);
+        this.sceneManager.scene.add(this.ghostMesh);
+        this.ghostMesh.visible = false;
+      }
+    } else {
+      this.activeDef = null;
+    }
+  }
+
+  private removeGhostPreview(): void {
+    if (this.ghostMesh) {
+      this.sceneManager.scene.remove(this.ghostMesh);
+      disposeBuilding(this.ghostMesh);
+      this.ghostMesh = null;
+    }
+  }
+
+  private attachEventListeners(): void {
+    this.domElement.addEventListener('pointerup', this.onPointerUp);
+  }
+
+  /**
+   * Tracks manual registration of externally created meshes (e.g. starter sample houses)
+   */
+  public registerBuildingMesh(instanceId: string, mesh: THREE.Group): void {
+    this.buildingMeshes.set(instanceId, mesh);
+  }
+
+  public update(): void {
+    const hit = this.raycastSystem.currentCell;
+
+    if (!hit) {
+      if (this.ghostMesh) this.ghostMesh.visible = false;
+      this.gridRenderer.setHoverCell(null, null);
+      return;
+    }
+
+    if (this.activeTool.mode === 'place' && this.activeDef) {
+      const footprint = this.getEffectiveFootprint(this.activeDef, this.placementRotation);
+      const isValid = this.validatePlacement(hit.x, hit.z, this.activeDef, this.placementRotation);
+
+      // Position ghost preview
+      if (this.ghostMesh) {
+        const worldPos = gridToWorld(hit.x, hit.z, footprint);
+        this.ghostMesh.position.copy(worldPos);
+        this.ghostMesh.rotation.y = this.placementRotation * (Math.PI / 2);
+        this.ghostMesh.visible = true;
+      }
+
+      // Update diorama hover tile dimensions & validity color
+      this.gridRenderer.setHoverCell(hit.x, hit.z, footprint.width, footprint.depth, isValid);
+    } else if (this.activeTool.mode === 'demolish') {
+      if (this.ghostMesh) this.ghostMesh.visible = false;
+      const cell = this.gridSystem.getCell(hit.x, hit.z);
+      const hasTarget = cell !== null && cell.buildingId !== null;
+      // In demolish mode, highlight red over targets, dim red otherwise
+      this.gridRenderer.setHoverCell(hit.x, hit.z, 1, 1, !hasTarget);
+    } else {
+      // Idle mode: default 1x1 cell hover
+      if (this.ghostMesh) this.ghostMesh.visible = false;
+      const isAvailable = this.gridSystem.isCellAvailable(hit.x, hit.z);
+      this.gridRenderer.setHoverCell(hit.x, hit.z, 1, 1, isAvailable);
+    }
+  }
+
+  public validatePlacement(gx: number, gz: number, def: BuildingDefinition, rotation = this.placementRotation): boolean {
+    const footprint = this.getEffectiveFootprint(def, rotation);
+
+    // 1. Check grid boundaries
+    if (!isFootprintWithinBounds(gx, gz, footprint, this.gridSystem.size)) {
+      return false;
+    }
+
+    // 2. Check treasury affordability
+    if (!useGameStore.getState().canAfford(def.cost)) {
+      return false;
+    }
+
+    // 3. Check every cell in the multi-cell footprint
+    const occupied = getOccupiedCells(gx, gz, footprint);
+    for (const cellCoord of occupied) {
+      if (!this.gridSystem.isCellAvailable(cellCoord.x, cellCoord.z)) {
+        return false;
+      }
+    }
+
+    return true;
+  }
+
+  private onPointerUp = (event: PointerEvent): void => {
+    // Only execute on primary left-clicks without modifier keys
+    if (event.button !== 0 || event.altKey || event.shiftKey) return;
+
+    // Raycast current hit target
+    const hit = this.raycastSystem.castFromScreen(event.clientX, event.clientY);
+    if (!hit) return;
+
+    if (this.activeTool.mode === 'place' && this.activeDef) {
+      this.executePlacement(hit.cell, this.activeDef);
+    } else if (this.activeTool.mode === 'demolish') {
+      this.executeDemolition(hit.cell);
+    }
+  };
+
+  public executePlacement(cell: GridCoord, def: BuildingDefinition): boolean {
+    if (!this.validatePlacement(cell.x, cell.z, def, this.placementRotation)) {
+      return false;
+    }
+
+    const footprint = this.getEffectiveFootprint(def, this.placementRotation);
+    const instanceId = `bldg_${def.id}_${Date.now()}_${Math.floor(Math.random() * 1000)}`;
+    const seed = Math.floor(Math.random() * 1000);
+
+    const placedData: PlacedBuilding = {
+      instanceId,
+      defId: def.id,
+      gridX: cell.x,
+      gridZ: cell.z,
+      rotation: this.placementRotation,
+      level: 1,
+      seed,
+      placedAt: Date.now(),
+    };
+
+    // Deduct cost and add to Zustand store
+    const storeSuccess = useGameStore.getState().addBuilding(placedData, def.cost);
+    if (!storeSuccess) return false;
+
+    // Occupy cells in gridSystem
+    const occupied = getOccupiedCells(cell.x, cell.z, footprint);
+    for (const c of occupied) {
+      this.gridSystem.setBuilding(c.x, c.z, instanceId);
+      if (def.category === 'transport') {
+        this.gridSystem.setRoad(c.x, c.z, true);
+      }
+    }
+
+    // Create 3D world mesh
+    const mesh = BuildingFactory.createBuildingMesh(def.id, 1, seed);
+    mesh.name = instanceId;
+    mesh.rotation.y = this.placementRotation * (Math.PI / 2);
+    const worldPos = gridToWorld(cell.x, cell.z, footprint);
+    mesh.position.copy(worldPos);
+
+    this.sceneManager.buildingsGroup.add(mesh);
+    this.buildingMeshes.set(instanceId, mesh);
+
+    return true;
+  }
+
+  public executeDemolition(cell: GridCoord): boolean {
+    const cellData = this.gridSystem.getCell(cell.x, cell.z);
+    if (!cellData || !cellData.buildingId) {
+      return false;
+    }
+
+    const instanceId = cellData.buildingId;
+    const buildingData = useGameStore.getState().placedBuildings[instanceId];
+
+    // Refund and remove from Zustand store
+    useGameStore.getState().removeBuilding(instanceId);
+
+    // Free all cells on the grid occupied by this building
+    if (buildingData) {
+      const def = BuildingRegistry.getInstance().get(buildingData.defId);
+      if (def) {
+        const footprint = this.getEffectiveFootprint(def, buildingData.rotation || 0);
+        const occupied = getOccupiedCells(buildingData.gridX, buildingData.gridZ, footprint);
+        for (const c of occupied) {
+          this.gridSystem.clearBuilding(c.x, c.z);
+        }
+      } else {
+        this.gridSystem.clearBuilding(cell.x, cell.z);
+      }
+    } else {
+      this.gridSystem.clearBuilding(cell.x, cell.z);
+    }
+
+    // Remove 3D mesh and dispose GPU geometries
+    const mesh = this.buildingMeshes.get(instanceId);
+    if (mesh) {
+      this.sceneManager.buildingsGroup.remove(mesh);
+      disposeBuilding(mesh);
+      this.buildingMeshes.delete(instanceId);
+    }
+
+    return true;
+  }
+
+  public dispose(): void {
+    this.unsubscribeStore();
+    this.removeGhostPreview();
+    this.domElement.removeEventListener('pointerup', this.onPointerUp);
+
+    // Dispose all tracked building meshes
+    this.buildingMeshes.forEach((mesh) => {
+      this.sceneManager.buildingsGroup.remove(mesh);
+      disposeBuilding(mesh);
+    });
+    this.buildingMeshes.clear();
+  }
+}
