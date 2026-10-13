@@ -1,7 +1,9 @@
 import { describe, it, expect, beforeEach } from 'vitest';
+import * as THREE from 'three';
 import { GridSystem } from '../src/world/GridSystem';
 import { BuildingRegistry } from '../src/buildings/BuildingRegistry';
 import { useGameStore } from '../src/state/GameStore';
+import { PlacementSystem } from '../src/world/PlacementSystem';
 import { isFootprintWithinBounds, getOccupiedCells } from '../src/utils/coordinates';
 
 describe('Placement & Validation Logic', () => {
@@ -119,6 +121,47 @@ describe('Placement & Validation Logic', () => {
     const retrieved = useGameStore.getState().placedBuildings['rotated_road_1'];
     expect(retrieved).toBeDefined();
     expect(retrieved.rotation).toBe(1);
+  });
+
+  it('preserves placementRotation across consecutive placements and applies rotation to created mesh', () => {
+    const mockElement = { addEventListener: () => {}, removeEventListener: () => {} } as any;
+    const scene = new THREE.Scene();
+    const buildingsGroup = new THREE.Group();
+    scene.add(buildingsGroup);
+    const sceneManager = { scene, buildingsGroup } as any;
+    const gridRenderer = { setHoverCell: () => {}, group: new THREE.Group() } as any;
+    const raycastSystem = { currentCell: null, castFromScreen: () => null } as any;
+
+    const system = new PlacementSystem(mockElement, sceneManager, grid, gridRenderer, raycastSystem);
+    const roadDef = registry.get('road')!;
+
+    useGameStore.getState().setPlacementTool('road');
+    expect(system.placementRotation).toBe(0);
+
+    // Rotate 90 degrees (rotation = 1)
+    system.rotatePlacement();
+    expect(system.placementRotation).toBe(1);
+
+    // Place building at (2, 2)
+    const placed1 = system.executePlacement({ x: 2, z: 2 }, roadDef);
+    expect(placed1).toBe(true);
+
+    // Verify rotation was preserved on the system and not wiped to 0
+    expect(system.placementRotation).toBe(1);
+
+    // Verify placed mesh in buildingsGroup has rotation.y = Math.PI / 2
+    const mesh1 = buildingsGroup.children[0] as THREE.Group;
+    expect(mesh1.rotation.y).toBeCloseTo(Math.PI / 2);
+
+    // Place second building at (3, 2)
+    const placed2 = system.executePlacement({ x: 3, z: 2 }, roadDef);
+    expect(placed2).toBe(true);
+    expect(system.placementRotation).toBe(1);
+
+    const mesh2 = buildingsGroup.children[1] as THREE.Group;
+    expect(mesh2.rotation.y).toBeCloseTo(Math.PI / 2);
+
+    system.dispose();
   });
 });
 

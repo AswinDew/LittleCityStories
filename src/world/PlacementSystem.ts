@@ -48,9 +48,17 @@ export class PlacementSystem {
     this.gridRenderer = gridRenderer;
     this.raycastSystem = raycastSystem;
 
-    // Subscribe to tool changes in Zustand store
+    // Subscribe to tool changes in Zustand store (only fire when tool actually changes)
+    let prevTool = useGameStore.getState().activeTool;
     this.unsubscribeStore = useGameStore.subscribe((state) => {
-      this.handleToolChange(state.activeTool);
+      const nextTool = state.activeTool;
+      if (
+        nextTool.mode !== prevTool.mode ||
+        nextTool.defId !== prevTool.defId
+      ) {
+        prevTool = nextTool;
+        this.handleToolChange(nextTool);
+      }
     });
 
     this.attachEventListeners();
@@ -95,7 +103,16 @@ export class PlacementSystem {
   private removeGhostPreview(): void {
     if (this.ghostMesh) {
       this.sceneManager.scene.remove(this.ghostMesh);
-      disposeBuilding(this.ghostMesh);
+      this.ghostMesh.traverse((child) => {
+        if (child instanceof THREE.Mesh) {
+          child.geometry.dispose();
+          if (Array.isArray(child.material)) {
+            child.material.forEach((m) => m.dispose());
+          } else if (child.material) {
+            child.material.dispose();
+          }
+        }
+      });
       this.ghostMesh = null;
     }
   }
@@ -188,11 +205,12 @@ export class PlacementSystem {
   };
 
   public executePlacement(cell: GridCoord, def: BuildingDefinition): boolean {
-    if (!this.validatePlacement(cell.x, cell.z, def, this.placementRotation)) {
+    const currentRotation = this.placementRotation;
+    if (!this.validatePlacement(cell.x, cell.z, def, currentRotation)) {
       return false;
     }
 
-    const footprint = this.getEffectiveFootprint(def, this.placementRotation);
+    const footprint = this.getEffectiveFootprint(def, currentRotation);
     const instanceId = `bldg_${def.id}_${Date.now()}_${Math.floor(Math.random() * 1000)}`;
     const seed = Math.floor(Math.random() * 1000);
 
@@ -201,7 +219,7 @@ export class PlacementSystem {
       defId: def.id,
       gridX: cell.x,
       gridZ: cell.z,
-      rotation: this.placementRotation,
+      rotation: currentRotation,
       level: 1,
       seed,
       placedAt: Date.now(),
@@ -220,10 +238,10 @@ export class PlacementSystem {
       }
     }
 
-    // Create 3D world mesh
+    // Create 3D world mesh with matching rotation
     const mesh = BuildingFactory.createBuildingMesh(def.id, 1, seed);
     mesh.name = instanceId;
-    mesh.rotation.y = this.placementRotation * (Math.PI / 2);
+    mesh.rotation.y = currentRotation * (Math.PI / 2);
     const worldPos = gridToWorld(cell.x, cell.z, footprint);
     mesh.position.copy(worldPos);
 

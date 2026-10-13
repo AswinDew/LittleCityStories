@@ -36,20 +36,7 @@ export class HUD {
   private getBuildingsForCurrentTab(): BuildingDefinition[] {
     const registry = BuildingRegistry.getInstance();
     if (this.currentTab === 'featured') {
-      return [
-        registry.get('small_house')!,
-        registry.get('family_house')!,
-        registry.get('apartment')!,
-        registry.get('road')!,
-        registry.get('shop')!,
-        registry.get('bakery')!,
-        registry.get('restaurant')!,
-        registry.get('school')!,
-        registry.get('clinic')!,
-        registry.get('park')!,
-        registry.get('tree')!,
-        registry.get('streetlight')!,
-      ].filter(Boolean);
+      return registry.getAll();
     }
     return registry.getByCategory(this.currentTab);
   }
