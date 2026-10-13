@@ -154,9 +154,20 @@ export class PlacementSystem {
     } else if (this.activeTool.mode === 'demolish') {
       if (this.ghostMesh) this.ghostMesh.visible = false;
       const cell = this.gridSystem.getCell(hit.x, hit.z);
-      const hasTarget = cell !== null && cell.buildingId !== null;
-      // In demolish mode, highlight red over targets, dim red otherwise
-      this.gridRenderer.setHoverCell(hit.x, hit.z, 1, 1, !hasTarget);
+      if (cell && cell.buildingId) {
+        const bldg = useGameStore.getState().placedBuildings[cell.buildingId];
+        if (bldg) {
+          const def = BuildingRegistry.getInstance().get(bldg.defId);
+          if (def) {
+            const footprint = this.getEffectiveFootprint(def, bldg.rotation || 0);
+            this.gridRenderer.setHoverCell(bldg.gridX, bldg.gridZ, footprint.width, footprint.depth, false);
+            return;
+          }
+        }
+        this.gridRenderer.setHoverCell(hit.x, hit.z, 1, 1, false);
+      } else {
+        this.gridRenderer.setHoverCell(hit.x, hit.z, 1, 1, true);
+      }
     } else {
       // Idle mode: default 1x1 cell hover
       if (this.ghostMesh) this.ghostMesh.visible = false;
@@ -233,7 +244,7 @@ export class PlacementSystem {
     const occupied = getOccupiedCells(cell.x, cell.z, footprint);
     for (const c of occupied) {
       this.gridSystem.setBuilding(c.x, c.z, instanceId);
-      if (def.category === 'transport') {
+      if (def.id === 'road') {
         this.gridSystem.setRoad(c.x, c.z, true);
       }
     }
