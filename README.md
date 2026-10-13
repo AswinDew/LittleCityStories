@@ -122,7 +122,3 @@ npm run preview
 - [ ] **Phase E: Juice, Audio, Effects & Release** — Day/night transitions, construction dust particles, bouncy placement juice, and sound effects.
 
 ---
-
-## 📄 License
-
-MIT
