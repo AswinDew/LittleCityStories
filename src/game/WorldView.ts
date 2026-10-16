@@ -2,9 +2,8 @@ import * as THREE from 'three';
 import type { SimulationState } from '@/simulation/types';
 import { CELL_SIZE, GridMetrics } from '@/world/GridMath';
 import { gridToWorld } from '@/utils/coordinates';
-import { createShadeTree } from '@/assets/procedural/decorations';
+import { createAncientEnvironment } from '@/assets/procedural/ancientEnvironment';
 import { disposeBuilding } from '@/assets/procedural/houses';
-import { MaterialLibrary } from '@/assets/MaterialLibrary';
 import { SceneManager } from './SceneManager';
 
 /** Projects environment data into meshes; never owns or mutates simulation data. */
@@ -27,15 +26,7 @@ export class WorldView {
     }
     for (const object of snapshot.world.environment) {
       if (this.objects.has(object.id)) continue;
-      let mesh: THREE.Object3D;
-      if (object.kind === 'tree') mesh = createShadeTree(object.variation);
-      else {
-        const material = MaterialLibrary.getInstance().get(object.kind === 'rock' ? 'roof_slate_blue' : 'tree_canopy_light');
-        mesh = new THREE.Mesh(new THREE.DodecahedronGeometry(object.kind === 'rock' ? 0.55 : 0.3, 0), material);
-        mesh.position.y = object.kind === 'rock' ? 0.4 : 0.2;
-        mesh.scale.y = object.kind === 'rock' ? 0.7 : 1;
-        mesh.castShadow = true;
-      }
+      const mesh = createAncientEnvironment(object.kind, object.variation);
       const point = gridToWorld(object.x, object.z, undefined, this.metrics);
       const scale = this.metrics.cellSize / CELL_SIZE;
       mesh.scale.multiplyScalar(scale);

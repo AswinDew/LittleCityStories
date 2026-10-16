@@ -7,12 +7,14 @@ import { createFamilyHouse, createApartment } from './procedural/apartments';
 import { createSchool, createClinic } from './procedural/civic';
 import { createBakery, createRestaurant } from './procedural/commercialExtra';
 import { createShadeTree, createStreetlight } from './procedural/decorations';
+import { ANCIENT_FOOTPRINTS, AncientBuildingId, createAncientBuilding } from './procedural/ancientBuildings';
 
 export class BuildingFactory {
   /**
    * Instantiates the complete 3D procedural mesh for any of the 12 building definitions.
    */
   public static createBuildingMesh(defId: string, level = 1, seed = 0): THREE.Group {
+    if (Object.hasOwn(ANCIENT_FOOTPRINTS, defId)) return createAncientBuilding(defId as AncientBuildingId, seed);
     switch (defId) {
       // Transport
       case 'road':
@@ -63,6 +65,7 @@ export class BuildingFactory {
 
     mesh.traverse((child: THREE.Object3D) => {
       if (child instanceof THREE.Mesh) {
+        child.userData.ownsMaterial = true;
         child.castShadow = false;
         child.receiveShadow = false;
 

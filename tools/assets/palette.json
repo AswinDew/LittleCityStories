@@ -1,0 +1,14 @@
+{
+  "name": "Civilization Town / warm earth 28",
+  "style": "Modern Pixel, hard edges, upper-right light",
+  "colors": {
+    "ink": "#302C36", "wood_dark": "#65483C", "wood": "#96704D", "wood_light": "#C19B68",
+    "skin_shadow": "#B97456", "skin": "#DEA078", "skin_light": "#F2C49A",
+    "clay": "#AD644D", "clay_light": "#D28B64", "straw": "#C2A05B", "straw_light": "#E3C882",
+    "stone_dark": "#687574", "stone": "#919B8B", "stone_light": "#BEC5AE",
+    "green_dark": "#385C46", "green": "#59845A", "green_light": "#8BA66A",
+    "grass_dark": "#78965C", "grass": "#93AF75", "grass_light": "#AEC38A",
+    "soil_dark": "#96734F", "soil": "#B28E65", "soil_light": "#C7AA7B",
+    "blue": "#527B8C", "blue_light": "#8DB9BE", "coin": "#E8BA55", "purple": "#87709B", "linen": "#E7DABC"
+  }
+}

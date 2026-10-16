@@ -1,5 +1,21 @@
 import * as THREE from 'three';
 import { MaterialLibrary } from '../MaterialLibrary';
+import { cachedMesh } from '../GeometryCache';
+
+/** Unit prism has UVs for future roof textures and uses shared cached geometry. */
+export function createThatchRoof(width: number, depth: number, height: number): THREE.Group {
+  const group = new THREE.Group();
+  const mesh = cachedMesh('ancient/thatch-roof', () => {
+    const shape = new THREE.Shape();
+    shape.moveTo(-0.5, 0); shape.lineTo(0, 1); shape.lineTo(0.5, 0); shape.closePath();
+    const geometry = new THREE.ExtrudeGeometry(shape, { depth: 1, bevelEnabled: false, steps: 1 });
+    geometry.translate(0, 0, -0.5);
+    return geometry;
+  }, MaterialLibrary.getInstance().get('ancient_straw'));
+  mesh.scale.set(width, height, depth); group.add(mesh);
+  // Sparse thatch bands emphasize the sloping silhouette without dense geometry.
+  return group;
+}
 
 /**
  * Creates a charming pitched gable roof with overhang along the eaves.

@@ -1,7 +1,8 @@
 import * as THREE from 'three';
+import palette from '../../tools/assets/palette.json';
 
 /**
- * Shared palette and material library to guarantee batching, prevent memory leaks,
+ * Shared palette and material library to reuse materials, prevent memory leaks,
  * and enforce a cohesive Kairosoft-style warm pastel aesthetic.
  */
 export class MaterialLibrary {
@@ -20,6 +21,10 @@ export class MaterialLibrary {
   }
 
   private initDefaultMaterials(): void {
+    for (const [key, color] of Object.entries(palette.colors)) {
+      this.register(`ancient_${key}`, new THREE.MeshLambertMaterial({ color }));
+    }
+    this.register('ancient_road', new THREE.MeshLambertMaterial({ color: palette.colors.soil_light }));
     // Walls - pastel warm tones
     this.register('wall_cream', new THREE.MeshLambertMaterial({ color: 0xfff3e0 }));
     this.register('wall_white', new THREE.MeshLambertMaterial({ color: 0xfafafa }));

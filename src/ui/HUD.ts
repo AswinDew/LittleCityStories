@@ -49,7 +49,7 @@ export class HUD {
           <div style="width: 14px; height: 14px; border-radius: 50%; background: #10b981; box-shadow: 0 0 10px #10b981;"></div>
           <div>
             <h1 style="font-size: 1.1rem; font-weight: 700; margin: 0; color: #0f172a; letter-spacing: -0.02em;">Civilization Town</h1>
-            <p style="font-size: 0.8rem; color: #64748b; margin: 2px 0 0 0;">M1 Foundation · ${this.game.gridSystem.size}×${this.game.gridSystem.size} · Legacy Catalog</p>
+            <p style="font-size: 0.8rem; color: #64748b; margin: 2px 0 0 0;">M2 Asset Pipeline · ${this.game.gridSystem.size}×${this.game.gridSystem.size} · Legacy Catalog</p>
           </div>
         </div>
 

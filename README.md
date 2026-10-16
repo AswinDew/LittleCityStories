@@ -2,7 +2,16 @@
 
 Pengembangan bertahap dari Little City Stories menjadi Ancient Settlement dengan TypeScript, Vite, vanilla Three.js, dan Zustand vanilla.
 
-## Status: M1 — Foundation
+## Status: M2 — Asset Pipeline
+
+- Pipeline Pillow lokal dengan palet warm earth 28 warna: 3 tekstur seamless, 19 ikon resource/UI/katalog/teknologi, dan atlas warga 224 frame.
+- Delapan factory model kuno: Town Center, Primitive House, Farm, Lumber Camp, Stone Quarry, Storage Hut, Research Hut, dan Dirt Road; lima jenis environment: tree, bush, rock, grass decoration, crop.
+- Empat profesi, empat arah NE/NW/SE/SW, idle 2 frame, walk 6 frame, serta 6 frame harvest/chop/build/work. Target 32×32 dengan anchor kaki (16,30), alpha biner dan nearest filtering.
+- Loader texture cache, geometri model dengan reference counting, material bersama dan clone material milik ghost preview. Animator menerima waktu simulasi; tidak menentukan pekerjaan warga.
+- Galeri pemeriksaan khusus development: [http://localhost:3000/?assets=1](http://localhost:3000/?assets=1). Tombol pose/pause hanya memeriksa animasi aset; tidak membuat warga domain.
+- Empat skill lokal di `.agents/skills/` memandu engine, ekonomi, aset procedural, dan playtesting sesuai batas milestone.
+
+Fondasi M1 tetap tersedia:
 
 - Dunia grassland seeded dengan default 32×32 tile, cell size 2, pohon/batu/semak, serta area awal yang bersih. Dunia yang sama dapat dibuat ulang dari config dan seed yang sama.
 - Konfigurasi di `src/config/WorldConfig.ts`: ukuran dunia 12–128 tile, seed uint32, kepadatan environment, populasi awal, dan empat resource awal. Batas minimum menyediakan ruang starter dan dua sumber awal. Grid math mandiri juga mendukung grid lebih kecil.
@@ -11,9 +20,9 @@ Pengembangan bertahap dari Little City Stories menjadi Ancient Settlement dengan
 - Kamera mengikuti ukuran dunia, mempertahankan pan/zoom. Rotasi view dinonaktifkan selama MVP.
 - Unit test dan smoke test browser mencakup determinisme, clock, lifecycle, snapshot, rendering, kamera, placement, dan demolisi.
 
-M1 masih menggunakan katalog modern 12 bangunan dan treasury $10,000 dari versi sebelumnya sebagai adapter transisi. Sumber data bangunan/treasury tetap di store lama; grid dimiliki oleh session. Cutover inventory dan konstruksi authoritative dilakukan pada M3. Nilai awal 3 warga dan resource 160 wood / 100 stone / 90 food / 50 coins baru berupa konfigurasi. Town Center, warga aktif, ekonomi, riset, dan save/load belum diimplementasikan. Tiga rumah contoh tidak lagi muncul.
+Game utama masih menggunakan katalog modern 12 bangunan dan treasury $10,000 sebagai adapter transisi. Sumber data bangunan/treasury tetap di store lama; grid dimiliki oleh session. Cutover inventory, katalog kuno aktif, dan bootstrap Town Center dilakukan pada M3. Model Town Center sudah ada di galeri M2. Nilai awal 3 warga dan resource 160 wood / 100 stone / 90 food / 50 coins masih berupa konfigurasi. Warga domain, ekonomi, riset, dan save/load mengikuti milestone berikutnya. Tiga rumah contoh tidak lagi muncul.
 
-Rencana lengkap: [Implementation plan](docs/superpowers/plans/2026-10-15-civilization-town-mvp.md). Catatan verifikasi: [M1 execution ledger](docs/progress/m1-foundation.md).
+Rencana lengkap: [Implementation plan](docs/superpowers/plans/2026-10-15-civilization-town-mvp.md). Catatan verifikasi: [M1](docs/progress/m1-foundation.md), [M2](docs/progress/m2-assets.md).
 
 ## Menjalankan proyek
 
@@ -53,6 +62,21 @@ Playwright membuat profil browser terpisah, menjalankan dev server mode `test` p
 
 Mode `test` saja mengekspos `window.__CIV_TOWN_TEST__`: snapshot, command terrain, manual stepping, konversi grid ke layar, dan inspeksi kamera. `/?manual=1` mematikan scheduler hanya pada mode ini. Development biasa dan production tidak mengekspos hook; parameter manual diabaikan pada keduanya.
 
+## Reproduksi aset
+
+Gunakan Python 3.12+ dengan executable nyata; alias WindowsApps `python` mungkin belum menunjuk instalasi Python. Runtime Python/Pillow bawaan Codex juga dapat digunakan. Untuk checkout bersih dengan Python tersedia:
+
+```powershell
+python -m pip install -r tools/assets/requirements.txt
+python tools/assets/generate_assets.py --seed 42 --output public/generated
+python tools/assets/validate_assets.py --input public/generated
+python -m unittest discover -s tests/assets
+npm.cmd test
+npm.cmd run build
+```
+
+PNG dan manifest di `public/generated/` disertakan dalam repository sehingga menjalankan game tidak memerlukan Python. Edit generator/palet, kemudian regenerasi seluruh output; jangan menggambar ulang PNG secara manual. Manifest mencatat seed, versi, palette hash, file hash, dimensi dan atlas metadata tanpa timestamp atau path mesin. Seed identik menghasilkan file identik. Validator memeriksa file wajib, alpha/palet/dimensi, batas frame, anchor dan hash. Texture terrain merupakan patch warna seamless; ukuran patch visual tidak mengubah grid logis.
+
 ## Kontrol saat ini
 
 | Input | Aksi |
@@ -83,4 +107,4 @@ Penanganan drag/cancel dan touch yang lengkap dijadwalkan pada Task 9. Kontrol p
 | `src/citizens/types.ts`, `src/economy/types.ts` | Kontrak data untuk milestone selanjutnya |
 | `src/testing/`, `tests/` | Hook khusus mode test, unit/integration test dan Playwright |
 
-Pengembangan berhenti setelah verifikasi M1 sampai pengguna meminta melanjutkan. M2 adalah pipeline aset lokal; M3 konstruksi/resource; M4 ekonomi; M5 warga dan navigasi; M6 riset; M7 persistence/HUD; M8 playtest dan polish.
+Pengembangan berhenti setelah verifikasi M2 sampai pengguna meminta melanjutkan. Berikutnya M3 konstruksi/resource; M4 ekonomi; M5 warga dan navigasi; M6 riset; M7 persistence/HUD; M8 playtest dan polish.

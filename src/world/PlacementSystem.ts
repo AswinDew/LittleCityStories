@@ -111,16 +111,7 @@ export class PlacementSystem {
   private removeGhostPreview(): void {
     if (this.ghostMesh) {
       this.ghostMesh.removeFromParent();
-      this.ghostMesh.traverse((child) => {
-        if (child instanceof THREE.Mesh) {
-          child.geometry.dispose();
-          if (Array.isArray(child.material)) {
-            child.material.forEach((m) => m.dispose());
-          } else if (child.material) {
-            child.material.dispose();
-          }
-        }
-      });
+      disposeBuilding(this.ghostMesh);
       this.ghostMesh = null;
     }
   }

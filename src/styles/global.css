@@ -36,6 +36,19 @@
   --transition-normal: 250ms cubic-bezier(0.4, 0, 0.2, 1);
 }
 
+.asset-gallery-panel {
+  position: absolute; top: 12px; left: 12px; right: 12px; pointer-events: auto;
+  padding: 12px 18px; border-radius: 12px; background: rgba(250, 246, 231, .95); color: #302c36;
+  font-size: 12px; line-height: 1.5; box-shadow: 0 3px 16px #302c3622;
+}
+.asset-gallery-panel h1 { font-size: 18px; }
+.asset-gallery-actions { display: flex; gap: 8px; margin: 5px 0; }
+.asset-gallery-actions button { padding: 5px 12px; border: 1px solid #96704d; border-radius: 4px; background: #e7dabc; cursor: pointer; }
+.asset-gallery-icons { display: flex; gap: 5px; flex-wrap: wrap; }
+.asset-gallery-icons img { width: 24px; height: 24px; image-rendering: pixelated; }
+.asset-gallery-label { position: absolute; transform: translateX(-50%); padding: 2px 5px; border-radius: 3px;
+  background: #faf6e7dd; color: #302c36; font-size: 11px; pointer-events: none; }
+
 * {
   box-sizing: border-box;
   margin: 0;

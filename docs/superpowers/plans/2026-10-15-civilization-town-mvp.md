@@ -10,7 +10,7 @@
 
 **Spec:** Dokumen pengguna “CIVILIZATION TOWN — MASTER DEVELOPMENT PROMPT V2”, sumber: `C:/Users/ROG/.codex/attachments/3cee12ae-5ee0-4225-9ecd-37cb8c69b672/Pasted text.txt`.
 
-**Status (2026-10-16):** M1 / Task 1–3 telah diimplementasikan, diverifikasi, dan direview setelah pengguna mengizinkan eksekusi bertahap. M2–M8 belum dijalankan. Berhenti sampai pengguna meminta lanjut. Bukti pemeriksaan dan keputusan transisi dicatat di `docs/progress/m1-foundation.md`.
+**Status (2026-10-16):** M1 / Task 1–3 dan M2 / Task 4–6 telah diimplementasikan, diverifikasi, dan direview. M3–M8 belum dijalankan. Berhenti sampai pengguna meminta lanjut. Bukti pemeriksaan dan keputusan transisi dicatat di `docs/progress/m1-foundation.md` dan `docs/progress/m2-assets.md`.
 
 ## Global Constraints
 
@@ -200,10 +200,10 @@ Migrasi state dilakukan bertahap: Task 3 memperkenalkan kontrak session/bridge d
 
 **Interfaces:** CLI `python tools/assets/generate_assets.py --seed 42 --output public/generated` dan `python tools/assets/validate_assets.py --input public/generated`. Manifest memuat versi generator, seed, palette hash, file, dimensi, serta atlas metadata; tidak ada absolute path mesin pengguna.
 
-- [ ] Tulis tes generator dua kali dengan seed sama: `self.assertEqual(first_hashes, second_hashes)`; PNG tidak memiliki warna di luar palet, dimensi salah, atau alpha antara 1–254.
-- [ ] Implementasikan shared drawing primitives, generator grass/dirt/path texture, delapan jenis ikon UI wajib dan ikon katalog/teknologi. Gunakan original art, Pillow, serta integer pixel coordinates.
-- [ ] Tulis empat skill singkat dengan ownership, workflow, command dan batas tanggung jawab nyata; tidak menyalin seluruh master prompt atau menciptakan framework skill baru. Dokumentasikan reproduksi aset dari checkout bersih.
-- [ ] Jalankan `python -m unittest discover -s tests/assets` dan kedua CLI; proses validasi harus exit 0. Dependencies Python dipasang hanya jika fase implementasi membutuhkannya.
+- [x] Tulis tes generator dua kali dengan seed sama: `self.assertEqual(first_hashes, second_hashes)`; PNG tidak memiliki warna di luar palet, dimensi salah, atau alpha antara 1–254.
+- [x] Implementasikan shared drawing primitives, generator grass/dirt/path texture, delapan jenis ikon UI wajib dan ikon katalog/teknologi. Gunakan original art, Pillow, serta integer pixel coordinates.
+- [x] Tulis empat skill singkat dengan ownership, workflow, command dan batas tanggung jawab nyata; tidak menyalin seluruh master prompt atau menciptakan framework skill baru. Dokumentasikan reproduksi aset dari checkout bersih.
+- [x] Jalankan `python -m unittest discover -s tests/assets` dan kedua CLI; proses validasi harus exit 0. Dependencies Python dipasang hanya jika fase implementasi membutuhkannya.
 
 ### Task 5 — Bangunan kuno dan environment
 
@@ -211,10 +211,10 @@ Migrasi state dilakukan bertahap: Task 3 memperkenalkan kontrak session/bridge d
 
 **Interfaces:** Pertahankan `BuildingFactory.createBuildingMesh(defId, level, seed): THREE.Group`; dukung ID `town_center`, `primitive_house`, `farm`, `lumber_camp`, `stone_quarry`, `storage_hut`, `research_hut`, `dirt_road`. Loader menyediakan texture cache menurut asset key, dengan nearest filtering dan pengaturan color space yang sesuai.
 
-- [ ] Tulis tes semua model menghasilkan geometri finite/nonempty dan berada dalam footprint yang ditetapkan, kecuali overhang visual kecil yang terdokumentasi; `expect(requiredIds.every(id => factorySupports(id))).toBe(true)` menjadi matriks katalog tes, bukan API produksi tambahan.
-- [ ] Susun model melalui wall/roof/door/window/fence bersama; buat tree, bush, rock, grass decoration, dan crop. Pertahankan skala bangunan terhadap cell size; tidak mengaktifkan model modern pada katalog baru.
-- [ ] Tetapkan ownership: preview memiliki material clone, mesh bangunan memakai material bersama; geometri cache memakai release/ref-count, bukan dibuang setiap demolisi. Tidak mengklaim shared material otomatis menyatukan draw call.
-- [ ] Jalankan `npm.cmd test -- tests/ancientAssets.test.ts tests/materials.test.ts tests/houses.test.ts`; browser scene memverifikasi palet, siluet, tekstur, dan proporsi.
+- [x] Tulis tes semua model menghasilkan geometri finite/nonempty dan berada dalam footprint yang ditetapkan, kecuali overhang visual kecil yang terdokumentasi; `expect(requiredIds.every(id => factorySupports(id))).toBe(true)` menjadi matriks katalog tes, bukan API produksi tambahan.
+- [x] Susun model melalui wall/roof/door/window/fence bersama; buat tree, bush, rock, grass decoration, dan crop. Pertahankan skala bangunan terhadap cell size; tidak mengaktifkan model modern pada katalog baru.
+- [x] Tetapkan ownership: preview memiliki material clone, mesh bangunan memakai material bersama; geometri cache memakai release/ref-count, bukan dibuang setiap demolisi. Tidak mengklaim shared material otomatis menyatukan draw call.
+- [x] Jalankan `npm.cmd test -- tests/ancientAssets.test.ts tests/materials.test.ts tests/houses.test.ts`; browser scene memverifikasi palet, siluet, tekstur, dan proporsi.
 
 ### Task 6 — Sprite atlas dan animasi empat arah
 
@@ -222,10 +222,10 @@ Migrasi state dilakukan bertahap: Task 3 memperkenalkan kontrak session/bridge d
 
 **Interfaces:** Atlas metadata `animations[occupation][direction][state]` berisi frame rect integer, configurable FPS/frame durationMs, loop, dan anchor kaki. `SpriteAnimator.sample(occupation, direction, activity, elapsedMs: number): FrameRect` menghasilkan frame tanpa memutasi simulasi; elapsedMs berasal dari clock presentasi yang mengikuti waktu simulasi, bukan wall clock terpisah.
 
-- [ ] Gunakan draft target 32×32 px dengan foot anchor `(16, 30)`; evaluasi pada zoom gameplay sebelum seluruh variasi dibuat. Beralih ke 48×48 hanya jika readability gagal, lalu regenerasi seluruh atlas secara konsisten.
-- [ ] Tulis tes empat arah NE/NW/SE/SW, idle/walk semua role, harvest farmer, chop lumberjack, build builder; termasuk transisi/reset frame, loop, durasi, dan semua frame di dalam atlas.
-- [ ] Buat layered anatomy kepala/badan/lengan/kaki/pakaian/tool; usulan idle 2 frame, walk 6, work 6. Gambar perspektif tool per arah; jangan memakai mirror yang menukar tangan atau arah cahaya. Tambahkan gerak kerja generik villager untuk quarry/research.
-- [ ] Jalankan validator aset dan `npm.cmd test -- tests/spriteAnimator.test.ts`; verifikasi alpha biner, dimensi/anchor seragam dan nearest filtering. Tidak membuat pekerjaan domain hanya agar animasi terlihat aktif.
+- [x] Gunakan draft target 32×32 px dengan foot anchor `(16, 30)`; evaluasi pada zoom gameplay sebelum seluruh variasi dibuat. Beralih ke 48×48 hanya jika readability gagal, lalu regenerasi seluruh atlas secara konsisten.
+- [x] Tulis tes empat arah NE/NW/SE/SW, idle/walk semua role, harvest farmer, chop lumberjack, build builder; termasuk transisi/reset frame, loop, durasi, dan semua frame di dalam atlas.
+- [x] Buat layered anatomy kepala/badan/lengan/kaki/pakaian/tool; usulan idle 2 frame, walk 6, work 6. Gambar perspektif tool per arah; jangan memakai mirror yang menukar tangan atau arah cahaya. Tambahkan gerak kerja generik villager untuk quarry/research.
+- [x] Jalankan validator aset dan `npm.cmd test -- tests/spriteAnimator.test.ts`; verifikasi alpha biner, dimensi/anchor seragam dan nearest filtering. Tidak membuat pekerjaan domain hanya agar animasi terlihat aktif.
 
 ## M3 — Construction
 

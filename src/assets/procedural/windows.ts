@@ -1,5 +1,12 @@
 import * as THREE from 'three';
 import { MaterialLibrary } from '../MaterialLibrary';
+import { assetBox } from '../GeometryCache';
+
+export function createAncientOpening(kind: 'door' | 'window'): THREE.Mesh {
+  const width = kind === 'door' ? 0.38 : 0.3;
+  const height = kind === 'door' ? 0.65 : 0.32;
+  return assetBox(width, height, 0.05, MaterialLibrary.getInstance().get('ancient_wood_dark'));
+}
 
 export function createWindow(
   width = 0.4,
