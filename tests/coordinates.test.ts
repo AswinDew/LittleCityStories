@@ -19,8 +19,8 @@ describe('Coordinates and Grid Utilities', () => {
     expect(world00.z).toBeCloseTo(GRID_ORIGIN_Z + 0.5 * CELL_SIZE);
     expect(world00.y).toBe(0);
 
-    // Center of the grid (10, 10) in 20x20
-    const world1010 = gridToWorld(10, 10);
+    // Center cell of the default grid.
+    const world1010 = gridToWorld(GRID_SIZE / 2, GRID_SIZE / 2);
     expect(world1010.x).toBeCloseTo(0 + 0.5 * CELL_SIZE);
     expect(world1010.z).toBeCloseTo(0 + 0.5 * CELL_SIZE);
   });

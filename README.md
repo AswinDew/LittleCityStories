@@ -1,141 +1,86 @@
-# Little City Stories 🏙️
+# Civilization Town
 
-> A cozy, gameplay-first isometric 3D city-building simulation inspired by the charm, compact layouts, and satisfying progression of classic Kairosoft simulation games. Built with Three.js, TypeScript, and Vite.
+Pengembangan bertahap dari Little City Stories menjadi Ancient Settlement dengan TypeScript, Vite, vanilla Three.js, dan Zustand vanilla.
 
----
+## Status: M1 — Foundation
 
-## 🎮 Overview
+- Dunia grassland seeded dengan default 32×32 tile, cell size 2, pohon/batu/semak, serta area awal yang bersih. Dunia yang sama dapat dibuat ulang dari config dan seed yang sama.
+- Konfigurasi di `src/config/WorldConfig.ts`: ukuran dunia 12–128 tile, seed uint32, kepadatan environment, populasi awal, dan empat resource awal. Batas minimum menyediakan ruang starter dan dua sumber awal. Grid math mandiri juga mendukung grid lebih kecil.
+- Fixed tick 100 ms dengan pause/1×/2×, maksimum 20 tick per pump, dan sisa waktu tetap disimpan. Scheduler terpisah dari render. Tab tersembunyi menghentikan simulasi; waktu tersembunyi tidak dihitung saat kembali.
+- Session headless dengan snapshot immutable; renderer memproyeksikan data ke grup terrain, roads, buildings, vegetation, citizens, effects, dan selection.
+- Kamera mengikuti ukuran dunia, mempertahankan pan/zoom. Rotasi view dinonaktifkan selama MVP.
+- Unit test dan smoke test browser mencakup determinisme, clock, lifecycle, snapshot, rendering, kamera, placement, dan demolisi.
 
-**Little City Stories** blends low-poly pastel aesthetics with deep management simulation. Players design a bustling town on a floating diorama island—laying down residential districts, commercial businesses, and road networks, balancing taxes, city happiness, and neighbor synergy.
+M1 masih menggunakan katalog modern 12 bangunan dan treasury $10,000 dari versi sebelumnya sebagai adapter transisi. Sumber data bangunan/treasury tetap di store lama; grid dimiliki oleh session. Cutover inventory dan konstruksi authoritative dilakukan pada M3. Nilai awal 3 warga dan resource 160 wood / 100 stone / 90 food / 50 coins baru berupa konfigurasi. Town Center, warga aktif, ekonomi, riset, dan save/load belum diimplementasikan. Tiga rumah contoh tidak lagi muncul.
 
-### Current Milestone: Phase B (Construction Loop) ✅
-- **Complete 12-Building Procedural Catalog:** 5 distinct categories (Residential, Commercial, Municipal, Nature, Transport) with custom procedural meshes (Houses, Apartments, Shops, Bakery, Bistro with patio, Schoolhouse with cupola, Clinic, Parks, Trees, Roads, Streetlights).
-- **Zustand State Engine:** Centralized store managing city treasury ($10,000 starting funds), active tool states, and placed building registries without React dependencies (`zustand/vanilla`).
-- **Interactive Ghost Preview:** Real-time semi-transparent preview meshes following cursor with dynamic 1×1 and 2×2 footprint snapping.
-- **Strict Multi-Cell Validation:** Real-time green/red validity highlights validating grid boundaries, multi-cell overlap conflicts, and treasury affordability.
-- **Bulldozer / Demolition Engine:** Instant structure demolition with cell restoration, 50% fund refunds, and clean GPU geometry disposal.
-- **Glassmorphic Category Dock:** Intuitive bottom HUD with category filter tabs and shortcuts.
-- **True Isometric 3D Diorama:** 20×20 diorama grid with ~35.264° elevation, discrete 90° rotation, and zero-allocation raycasting.
-- **Automated Test Coverage:** 39 Vitest unit tests verifying placement math, overlap prevention, multi-cell footprints, demolition refunds, catalog schemas, and camera controls.
+Rencana lengkap: [Implementation plan](docs/superpowers/plans/2026-10-15-civilization-town-mvp.md). Catatan verifikasi: [M1 execution ledger](docs/progress/m1-foundation.md).
 
----
+## Menjalankan proyek
 
-## ⌨️ Controls
+Gunakan Node.js **22.12+ pada jalur 22, 24.x, atau 26+** (sesuai engine Vitest 5) dan npm. Node 18/20 tidak didukung oleh tooling pengujian saat ini.
 
-| Input | Action |
+```powershell
+npm.cmd ci
+npm.cmd run dev
+```
+
+Buka [http://localhost:3000](http://localhost:3000). Pada shell non-Windows, gunakan `npm` sebagai pengganti `npm.cmd`.
+
+```powershell
+npm.cmd test
+npm.cmd run build
+npm.cmd run preview
+```
+
+Build menjalankan TypeScript strict sebelum bundling. Peringatan ukuran chunk Three.js dicatat sebagai baseline; optimasi bundle/profiling tetap milik milestone berikutnya.
+
+## Browser smoke test
+
+```powershell
+npx.cmd playwright install chromium
+npm.cmd run test:e2e
+```
+
+Alternatif jika Chrome lokal sudah tersedia:
+
+```powershell
+$env:PLAYWRIGHT_CHANNEL = 'chrome'
+npm.cmd run test:e2e
+npm.cmd run test:e2e:production
+```
+
+Playwright membuat profil browser terpisah, menjalankan dev server mode `test` pada port 3100, dan memakai software WebGL untuk smoke test. Tes production membangun bundle lalu menjalankan preview port 3101 untuk memastikan canvas tampil tanpa test hook. Port yang digunakan harus kosong. Screenshot tersimpan di `test-results/m1-foundation.png`; trace kegagalan disimpan di `test-results/`.
+
+Mode `test` saja mengekspos `window.__CIV_TOWN_TEST__`: snapshot, command terrain, manual stepping, konversi grid ke layar, dan inspeksi kamera. `/?manual=1` mematikan scheduler hanya pada mode ini. Development biasa dan production tidak mengekspos hook; parameter manual diabaikan pada keduanya.
+
+## Kontrol saat ini
+
+| Input | Aksi |
 |---|---|
-| **Left Click** | Place selected building / Demolish target |
-| **Right Mouse / Middle Mouse / Touch Drag** | Pan camera across the city |
-| **Shift / Alt + Left Mouse Drag** | Alternative camera pan |
-| **Mouse Wheel** | Zoom In / Zoom Out |
-| **Q / E Keys** | Rotate view 90° counter-clockwise / clockwise |
-| **R Key** | Rotate building orientation 90° during placement |
-| **Number Keys (1–4)** | Quick-select primary buildings |
-| **B Key** | Toggle Bulldoze mode |
-| **Escape Key** | Cancel active tool (Idle mode) |
-| **HUD Buttons (↺ / ↻ / + / −)** | On-screen camera rotation and zoom controls |
-| **Mouse Move** | Interactive hover tile raycasting and ghost preview |
+| Klik kiri | Pasang bangunan / demolisi sesuai tool aktif |
+| Drag kanan atau tengah | Pan kamera |
+| Shift/Alt + drag kiri | Alternatif pan |
+| Scroll / tombol + dan − | Zoom |
+| R | Putar footprint bangunan |
+| 1–4 | Pilih house, road, shop, park |
+| B | Toggle demolisi |
+| Escape | Batalkan tool |
 
----
+Penanganan drag/cancel dan touch yang lengkap dijadwalkan pada Task 9. Kontrol pause/speed final dijadwalkan pada M7; engine waktunya sudah tersedia.
 
-## 🏗️ Architecture & Project Structure
+## Batas modul
 
-```text
-src/
-├── assets/
-│   ├── MaterialLibrary.ts         # Shared palette cache & singleton material manager
-│   └── procedural/
-│       ├── houses.ts              # Procedural residential structure assembler & cleanup
-│       ├── roofs.ts               # Gable & flat roof mesh generators
-│       ├── walls.ts               # Foundation & wall block generators
-│       └── windows.ts             # Doors, windows, chimneys, and planter boxes
-├── game/
-│   ├── Game.ts                    # Main orchestrator & game loop
-│   ├── Lighting.ts                # Directional sunlight with shadows & hemisphere bounce
-│   ├── Renderer.ts                # WebGLRenderer with ACESFilmic tone mapping
-│   └── SceneManager.ts            # Three.js scene hierarchy & layer grouping
-├── styles/
-│   └── global.css                 # Glassmorphic HUD styling & responsive layout
-├── ui/
-│   └── HUD.ts                     # HUD presentation, button triggers, and keyboard bindings
-├── state/
-│   └── GameStore.ts               # Vanilla Zustand store for treasury, active tool & placed buildings
-├── utils/
-│   └── coordinates.ts             # Grid ↔ World conversion, footprints, and bounds
-├── world/
-│   ├── CameraController.ts        # Isometric orthographic camera controller
-│   ├── GridRenderer.ts            # Diorama island slab, grass surface & hover tile
-│   ├── GridSystem.ts              # Core grid data model & cell state management
-│   ├── PlacementSystem.ts         # Ghost preview cursor, placement validation & bulldoze tool
-│   └── RaycastSystem.ts           # Ground plane pointer raycaster
-└── main.ts                        # Application bootstrap & lifecycle handling
-tests/
-├── buildingRegistry.test.ts       # Building catalog schemas, costs & categories
-├── camera.test.ts                 # Camera isometric params, zoom clamping & rotation tests
-├── coordinates.test.ts            # Math roundtrip, footprint centering, bounds tests
-├── demolition.test.ts             # Bulldozer refund, cell freeing & cleanup tests
-├── grid.test.ts                   # Cell availability, neighbor queries, corrupt save tests
-├── houses.test.ts                 # Procedural building hierarchy, upgrades & disposal tests
-├── materials.test.ts              # Material registration, singleton lifecycle & reset tests
-├── placement.test.ts              # Footprint bounds, cost deduction & treasury tests
-└── raycast.test.ts                # Raycast screen-to-grid mapping & zero-allocation tests
-```
+| Lokasi | Tanggung jawab |
+|---|---|
+| `src/config/` | Konfigurasi dan nilai awal |
+| `src/simulation/` | PRNG, clock, session, command dan plain state; tanpa Three.js/DOM/Zustand |
+| `src/world/GridMath.ts`, `GridSystem.ts`, `WorldGenerator.ts` | Grid logis dan generation |
+| `src/utils/coordinates.ts` | Adapter plain position ke Three.js Vector3 |
+| `src/game/` | Scheduler, rendering, pencahayaan, dan rekonsiliasi snapshot |
+| `src/world/CameraController.ts`, `GridRenderer.ts`, `RaycastSystem.ts`, `PlacementSystem.ts` | Kamera, presentasi grid dan adapter interaksi lama |
+| `src/assets/` | Factory procedural dan material cache |
+| `src/state/`, `src/ui/` | Snapshot presentasi, state UI dan adapter construction transisi |
+| `src/citizens/types.ts`, `src/economy/types.ts` | Kontrak data untuk milestone selanjutnya |
+| `src/testing/`, `tests/` | Hook khusus mode test, unit/integration test dan Playwright |
 
----
-
-## 🚀 Getting Started
-
-### Prerequisites
-- [Node.js](https://nodejs.org/) (v18.0.0 or higher recommended)
-- `npm` or `pnpm`
-
-### Installation
-
-```bash
-# Clone or navigate to the repository
-cd LittleCityStories
-
-# Install dependencies
-npm install
-```
-
-### Running Locally
-
-```bash
-# Start the local development server (with hot module replacement)
-npm run dev
-```
-
-Open [http://localhost:3000](http://localhost:3000) in your browser.
-
-### Running Tests
-
-```bash
-# Run Vitest test suite once
-npm test
-
-# Run Vitest in watch mode
-npm run test:watch
-```
-
-### Production Build
-
-```bash
-# Type-check with tsc and compile optimized bundle with Vite
-npm run build
-
-# Preview production build locally
-npm run preview
-```
-
----
-
-## 🗺️ Roadmap
-
-- [x] **Phase A: Playable 3D Foundation** — Isometric rendering, 20×20 diorama slab, orthographic camera controls, grid math, procedural house meshes, and unit test suite.
-- [x] **Phase B: Construction & Core Gameplay** — Building placement system, 12-building procedural catalog across 5 categories, interactive ghost cursor preview, multi-cell validation, bulldozer tool with 50% refund, Zustand state store, and glassmorphic HUD toolbar.
-- [ ] **Phase C: Simulation Loop & People** — Citizen agents, pathfinding on road networks, work/shop schedules, and service synergy bonuses.
-- [ ] **Phase D: Economy, Progression, Save/Load & Polish** — City finances, taxes, operating costs, city rank unlocks, LocalStorage save/load, and full game HUD.
-- [ ] **Phase E: Juice, Audio, Effects & Release** — Day/night transitions, construction dust particles, bouncy placement juice, and sound effects.
-
----
+Pengembangan berhenti setelah verifikasi M1 sampai pengguna meminta melanjutkan. M2 adalah pipeline aset lokal; M3 konstruksi/resource; M4 ekonomi; M5 warga dan navigasi; M6 riset; M7 persistence/HUD; M8 playtest dan polish.

@@ -4,6 +4,7 @@ import { GridSystem } from '../src/world/GridSystem';
 import { BuildingRegistry } from '../src/buildings/BuildingRegistry';
 import { useGameStore } from '../src/state/GameStore';
 import { PlacementSystem } from '../src/world/PlacementSystem';
+import { SceneManager } from '../src/game/SceneManager';
 import { isFootprintWithinBounds, getOccupiedCells } from '../src/utils/coordinates';
 
 describe('Placement & Validation Logic', () => {
@@ -125,10 +126,8 @@ describe('Placement & Validation Logic', () => {
 
   it('preserves placementRotation across consecutive placements and applies rotation to created mesh', () => {
     const mockElement = { addEventListener: () => {}, removeEventListener: () => {} } as any;
-    const scene = new THREE.Scene();
-    const buildingsGroup = new THREE.Group();
-    scene.add(buildingsGroup);
-    const sceneManager = { scene, buildingsGroup } as any;
+    const sceneManager = new SceneManager();
+    const roadsGroup = sceneManager.roadsGroup;
     const gridRenderer = { setHoverCell: () => {}, group: new THREE.Group() } as any;
     const raycastSystem = { currentCell: null, castFromScreen: () => null } as any;
 
@@ -149,8 +148,8 @@ describe('Placement & Validation Logic', () => {
     // Verify rotation was preserved on the system and not wiped to 0
     expect(system.placementRotation).toBe(1);
 
-    // Verify placed mesh in buildingsGroup has rotation.y = Math.PI / 2
-    const mesh1 = buildingsGroup.children[0] as THREE.Group;
+    // Roads use their own scene layer and preserve building rotation.
+    const mesh1 = roadsGroup.children[0] as THREE.Group;
     expect(mesh1.rotation.y).toBeCloseTo(Math.PI / 2);
 
     // Place second building at (3, 2)
@@ -158,9 +157,27 @@ describe('Placement & Validation Logic', () => {
     expect(placed2).toBe(true);
     expect(system.placementRotation).toBe(1);
 
-    const mesh2 = buildingsGroup.children[1] as THREE.Group;
+    const mesh2 = roadsGroup.children[1] as THREE.Group;
     expect(mesh2.rotation.y).toBeCloseTo(Math.PI / 2);
 
+    system.dispose();
+  });
+
+  it.each([1, 3])('scales road and ghost meshes to cell size %s', cellSize => {
+    const scene = new SceneManager();
+    const system = new PlacementSystem({ addEventListener: () => {}, removeEventListener: () => {} } as any,
+      scene, grid, { setHoverCell: () => {} } as any, { currentCell: null } as any,
+      { size: 20, cellSize });
+    useGameStore.getState().setPlacementTool('road');
+    const road = registry.get('road')!;
+    expect(system.executePlacement({ x: 10, z: 10 }, road)).toBe(true);
+    expect(system.executePlacement({ x: 10, z: 11 }, road)).toBe(true);
+    scene.scene.updateMatrixWorld(true);
+    const first = new THREE.Box3().setFromObject(scene.roadsGroup.children[0]);
+    const second = new THREE.Box3().setFromObject(scene.roadsGroup.children[1]);
+    expect(first.max.z - first.min.z).toBeCloseTo(cellSize);
+    expect(first.max.z).toBeCloseTo(second.min.z);
+    expect(scene.selectionGroup.children[0].scale.x).toBeCloseTo(cellSize / 2);
     system.dispose();
   });
 });

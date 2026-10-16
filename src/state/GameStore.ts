@@ -1,6 +1,7 @@
 import { createStore } from 'zustand/vanilla';
 import { PlacedBuilding } from '@/buildings/types';
 import { BuildingRegistry } from '@/buildings/BuildingRegistry';
+import type { SimulationState } from '@/simulation/types';
 
 export type ToolMode = 'idle' | 'place' | 'demolish';
 
@@ -10,6 +11,8 @@ export interface ActiveTool {
 }
 
 export interface GameState {
+  simulationSnapshot: Readonly<SimulationState> | null;
+  publishSnapshot: (snapshot: Readonly<SimulationState>) => void;
   treasury: number;
   activeTool: ActiveTool;
   placedBuildings: Record<string, PlacedBuilding>;
@@ -31,6 +34,8 @@ export interface GameState {
 const INITIAL_TREASURY = 10000;
 
 export const gameStore = createStore<GameState>((set, get) => ({
+  simulationSnapshot: null,
+  publishSnapshot: (simulationSnapshot) => set({ simulationSnapshot }),
   treasury: INITIAL_TREASURY,
   activeTool: { mode: 'idle' },
   placedBuildings: {},
@@ -109,6 +114,7 @@ export const gameStore = createStore<GameState>((set, get) => ({
 
   resetGame: () => {
     set({
+      simulationSnapshot: null,
       treasury: INITIAL_TREASURY,
       activeTool: { mode: 'idle' },
       placedBuildings: {},

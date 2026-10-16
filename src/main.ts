@@ -9,7 +9,16 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   // Initialize Game Engine
-  const game = new Game(canvasContainer);
+  const game = new Game(canvasContainer, {
+    manualSimulation: import.meta.env.MODE === 'test' && new URLSearchParams(location.search).get('manual') === '1',
+  });
+  let removeTestHooks: (() => void) | undefined;
+  let disposed = false;
+  if (import.meta.env.MODE === 'test') {
+    void import('./testing/TestHooks').then(({ installTestHooks }) => {
+      if (!disposed) removeTestHooks = installTestHooks(game);
+    });
+  }
 
   // Setup HUD
   const uiRoot = document.getElementById('ui-root');
@@ -20,10 +29,13 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // Handle page lifecycle cleanup
   const cleanup = () => {
+    if (disposed) return;
+    disposed = true;
+    removeTestHooks?.();
     hud?.dispose();
     game.dispose();
   };
 
-  window.addEventListener('beforeunload', cleanup);
-  window.addEventListener('pagehide', cleanup);
+  window.addEventListener('pagehide', event => { if (event.persisted) game.stop(); else cleanup(); });
+  window.addEventListener('pageshow', event => { if (event.persisted) game.start(); });
 });

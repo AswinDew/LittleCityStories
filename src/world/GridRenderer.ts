@@ -1,8 +1,7 @@
 import * as THREE from 'three';
 import {
-  GRID_SIZE,
-  CELL_SIZE,
-  GRID_WORLD_WIDTH,
+  DEFAULT_GRID_METRICS,
+  GridMetrics,
   gridToWorld,
 } from '@/utils/coordinates';
 import { MaterialLibrary } from '@/assets/MaterialLibrary';
@@ -13,7 +12,9 @@ export class GridRenderer {
   private gridHelperGroup: THREE.Group;
   private hoverTile: THREE.Mesh;
 
-  constructor() {
+  constructor(private readonly metrics: GridMetrics = DEFAULT_GRID_METRICS) {
+    const GRID_WORLD_WIDTH = metrics.size * metrics.cellSize;
+    const CELL_SIZE = metrics.cellSize;
     this.group = new THREE.Group();
     this.group.name = 'GridRendererGroup';
 
@@ -60,6 +61,9 @@ export class GridRenderer {
   }
 
   private createGridLines(): void {
+    const GRID_WORLD_WIDTH = this.metrics.size * this.metrics.cellSize;
+    const GRID_SIZE = this.metrics.size;
+    const CELL_SIZE = this.metrics.cellSize;
     const halfWidth = GRID_WORLD_WIDTH / 2;
     const lineMat = new THREE.LineBasicMaterial({
       color: 0x82b968, // Subtle darker green for grid borders
@@ -97,7 +101,7 @@ export class GridRenderer {
     }
 
     this.hoverTile.visible = true;
-    const worldPos = gridToWorld(gx, gz, { width, depth });
+    const worldPos = gridToWorld(gx, gz, { width, depth }, this.metrics);
     this.hoverTile.position.x = worldPos.x;
     this.hoverTile.position.z = worldPos.z;
 

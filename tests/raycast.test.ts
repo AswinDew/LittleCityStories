@@ -29,7 +29,7 @@ describe('RaycastSystem', () => {
   });
 
   it('casts from center screen to middle grid cell', () => {
-    const raycast = new RaycastSystem(mockElement, camera, groundMesh);
+    const raycast = new RaycastSystem(mockElement, camera, groundMesh, { size: 20, cellSize: 2 });
     // Screen center: clientX = 400, clientY = 300
     const hit = raycast.castFromScreen(400, 300);
 

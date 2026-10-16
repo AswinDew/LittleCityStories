@@ -1,5 +1,5 @@
 import * as THREE from 'three';
-import { GridCoord, worldToGrid, isWithinBounds } from '@/utils/coordinates';
+import { GridCoord, GridMetrics, DEFAULT_GRID_METRICS, worldToGrid, isWithinBounds } from '@/utils/coordinates';
 
 export interface RaycastHitResult {
   cell: GridCoord;
@@ -30,7 +30,8 @@ export class RaycastSystem {
     return this._currentHitPoint;
   }
 
-  constructor(domElement: HTMLElement, camera: THREE.Camera, groundMesh: THREE.Mesh) {
+  constructor(domElement: HTMLElement, camera: THREE.Camera, groundMesh: THREE.Mesh,
+    private readonly metrics: GridMetrics = DEFAULT_GRID_METRICS) {
     this.domElement = domElement;
     this.camera = camera;
     this.groundMesh = groundMesh;
@@ -71,9 +72,9 @@ export class RaycastSystem {
 
     if (intersects.length > 0) {
       const hit = intersects[0];
-      const cell = worldToGrid(hit.point);
+      const cell = worldToGrid(hit.point, this.metrics);
 
-      if (isWithinBounds(cell.x, cell.z)) {
+      if (isWithinBounds(cell.x, cell.z, this.metrics.size)) {
         this._scratchCell.x = cell.x;
         this._scratchCell.z = cell.z;
         this._scratchHitPoint.copy(hit.point);

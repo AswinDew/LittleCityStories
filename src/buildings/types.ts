@@ -1,4 +1,4 @@
-import { Footprint } from '@/utils/coordinates';
+import type { Footprint } from '@/world/GridMath';
 
 export type BuildingCategory =
   | 'residential'

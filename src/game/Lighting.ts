@@ -1,5 +1,5 @@
 import * as THREE from 'three';
-import { GRID_WORLD_WIDTH } from '@/utils/coordinates';
+import { DEFAULT_GRID_METRICS, GridMetrics } from '@/world/GridMath';
 
 export class GameLighting {
   public readonly group: THREE.Group;
@@ -7,7 +7,8 @@ export class GameLighting {
   public readonly hemiLight: THREE.HemisphereLight;
   public readonly ambientLight: THREE.AmbientLight;
 
-  constructor() {
+  constructor(metrics: GridMetrics = DEFAULT_GRID_METRICS) {
+    const GRID_WORLD_WIDTH = metrics.size * metrics.cellSize;
     this.group = new THREE.Group();
     this.group.name = 'LightingGroup';
 
@@ -21,14 +22,15 @@ export class GameLighting {
 
     // Main directional sunlight with soft pastel warmth
     this.sunLight = new THREE.DirectionalLight(0xfff5e6, 1.35);
-    this.sunLight.position.set(45, 65, 35);
+    const scale = GRID_WORLD_WIDTH / 40;
+    this.sunLight.position.set(45 * scale, 65 * scale, 35 * scale);
     this.sunLight.castShadow = true;
 
-    // Configure shadow map parameters optimized for 20x20 isometric view
+    // Scale shadow depth and coverage with the configured world.
     this.sunLight.shadow.mapSize.width = 2048;
     this.sunLight.shadow.mapSize.height = 2048;
-    this.sunLight.shadow.camera.near = 10;
-    this.sunLight.shadow.camera.far = 160;
+    this.sunLight.shadow.camera.near = 10 * scale;
+    this.sunLight.shadow.camera.far = 160 * scale;
     this.sunLight.shadow.bias = -0.0003;
     this.sunLight.shadow.normalBias = 0.02;
 

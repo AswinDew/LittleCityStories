@@ -1,5 +1,5 @@
 import * as THREE from 'three';
-import { GRID_WORLD_WIDTH } from '@/utils/coordinates';
+import { DEFAULT_GRID_METRICS, GridMetrics } from '@/world/GridMath';
 
 export class CameraController {
   public readonly camera: THREE.OrthographicCamera;
@@ -30,7 +30,7 @@ export class CameraController {
   private dragDistance = 0;
 
   // Bounds for target panning
-  private panLimit = GRID_WORLD_WIDTH * 0.75;
+  private panLimit: number;
 
   // Scratch vectors for zero-allocation camera math during drag
   private readonly _right = new THREE.Vector3();
@@ -39,8 +39,12 @@ export class CameraController {
   private readonly _scratch = new THREE.Vector3();
   private readonly _panVector = new THREE.Vector3();
 
-  constructor(domElement: HTMLElement) {
+  constructor(domElement: HTMLElement, metrics: GridMetrics = DEFAULT_GRID_METRICS) {
     this.domElement = domElement;
+    const width = metrics.size * metrics.cellSize;
+    this.frustumSize = width * 1.2;
+    this.cameraDistance = Math.max(80, width * 2);
+    this.panLimit = width * 0.75;
 
     const aspect = (domElement.clientWidth || window.innerWidth) / (domElement.clientHeight || window.innerHeight);
     const halfWidth = (this.frustumSize * aspect) / 2;
@@ -52,7 +56,7 @@ export class CameraController {
       halfHeight,
       -halfHeight,
       1,
-      500
+      Math.max(500, this.cameraDistance * 4)
     );
     this.camera.zoom = 1.0;
 
@@ -146,7 +150,7 @@ export class CameraController {
     window.addEventListener('pointermove', this.onPointerMove);
     window.addEventListener('pointerup', this.onPointerUp);
     this.domElement.addEventListener('wheel', this.onWheel, { passive: false });
-    this.domElement.addEventListener('contextmenu', (e) => e.preventDefault());
+    this.domElement.addEventListener('contextmenu', this.onContextMenu);
   }
 
   private onPointerDown = (event: PointerEvent): void => {
@@ -222,6 +226,8 @@ export class CameraController {
     this.setZoom(this.camera.zoom * zoomFactor);
   };
 
+  private onContextMenu = (event: Event): void => { event.preventDefault(); };
+
   public getRotationAngle(): number {
     return this.rotationAngle;
   }
@@ -235,5 +241,6 @@ export class CameraController {
     window.removeEventListener('pointermove', this.onPointerMove);
     window.removeEventListener('pointerup', this.onPointerUp);
     this.domElement.removeEventListener('wheel', this.onWheel);
+    this.domElement.removeEventListener('contextmenu', this.onContextMenu);
   }
 }

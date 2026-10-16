@@ -1,14 +1,20 @@
 import { GameRenderer } from './Renderer';
 import { SceneManager } from './SceneManager';
 import { GameLighting } from './Lighting';
+import { WorldView } from './WorldView';
 import { CameraController } from '@/world/CameraController';
 import { GridSystem } from '@/world/GridSystem';
 import { GridRenderer } from '@/world/GridRenderer';
 import { RaycastSystem } from '@/world/RaycastSystem';
 import { PlacementSystem } from '@/world/PlacementSystem';
-import { createSmallHouse } from '@/assets/procedural/houses';
-import { gridToWorld } from '@/utils/coordinates';
 import { useGameStore } from '@/state/GameStore';
+import { MaterialLibrary } from '@/assets/MaterialLibrary';
+import { SimulationSession } from '@/simulation/SimulationSession';
+import { SimulationClock, SimulationSpeed } from '@/simulation/SimulationClock';
+import type { GameCommand, CommandResult } from '@/simulation/commands';
+import type { WorldOverrides } from '@/config/WorldConfig';
+
+export interface GameOptions { world?: WorldOverrides; manualSimulation?: boolean }
 
 export class Game {
   public readonly renderer: GameRenderer;
@@ -19,119 +25,117 @@ export class Game {
   public readonly gridRenderer: GridRenderer;
   public readonly raycastSystem: RaycastSystem;
   public readonly placementSystem: PlacementSystem;
-
+  public readonly session: SimulationSession;
+  private readonly clock = new SimulationClock();
+  private readonly worldView: WorldView;
+  private readonly manualSimulation: boolean;
+  private readonly unsubscribeStore: () => void;
   private isRunning = false;
+  private disposed = false;
   private animationFrameId: number | null = null;
-  private lastTime = 0;
+  private simulationTimer: ReturnType<typeof setInterval> | null = null;
+  private lastFrameTime = 0;
+  private lastSimulationTime = 0;
 
-  constructor(container: HTMLElement) {
-    // 1. Core Three.js Renderer
+  constructor(container: HTMLElement, options: GameOptions = {}) {
+    this.session = new SimulationSession(options.world);
+    this.manualSimulation = options.manualSimulation ?? false;
+    const metrics = this.session.getSnapshot().config.metrics;
+    useGameStore.getState().resetGame();
     this.renderer = new GameRenderer(container);
-
-    // 2. Scene Graph
-    this.sceneManager = new SceneManager();
-
-    // 3. Lighting
-    this.lighting = new GameLighting();
+    this.sceneManager = new SceneManager(metrics);
+    this.lighting = new GameLighting(metrics);
     this.sceneManager.scene.add(this.lighting.group);
-
-    // 4. Isometric Camera Controller
-    this.cameraController = new CameraController(container);
-
-    // 5. Grid Logic & Visuals
-    this.gridSystem = new GridSystem(20);
-    this.gridRenderer = new GridRenderer();
-    this.sceneManager.scene.add(this.gridRenderer.group);
-
-    // 6. Raycast Interaction
-    this.raycastSystem = new RaycastSystem(
-      container,
-      this.cameraController.camera,
-      this.gridRenderer.groundPlane
-    );
-
-    // 7. Interactive Placement & Construction System
-    this.placementSystem = new PlacementSystem(
-      container,
-      this.sceneManager,
-      this.gridSystem,
-      this.gridRenderer,
-      this.raycastSystem
-    );
-
-    // 8. Place initial starter houses registered into both grid and store
-    this.spawnSampleHouse(9, 9, 1, 42);
-    this.spawnSampleHouse(11, 9, 2, 88);
-    this.spawnSampleHouse(10, 11, 3, 105);
-
-    // 9. Event listeners
+    this.cameraController = new CameraController(container, metrics);
+    this.gridSystem = this.session.gridSystem;
+    this.gridRenderer = new GridRenderer(metrics);
+    this.sceneManager.terrainGroup.add(this.gridRenderer.group);
+    this.raycastSystem = new RaycastSystem(container, this.cameraController.camera,
+      this.gridRenderer.groundPlane, metrics);
+    this.placementSystem = new PlacementSystem(container, this.sceneManager, this.gridSystem,
+      this.gridRenderer, this.raycastSystem, metrics, () => this.session.allocateIdentity('building'));
+    this.worldView = new WorldView(this.sceneManager, metrics);
+    this.publishSnapshot();
+    // Publish after the transitional placement adapter finishes updating occupancy.
+    this.unsubscribeStore = useGameStore.subscribe((state, previous) => {
+      if (state.placedBuildings !== previous.placedBuildings) queueMicrotask(() => {
+        if (!this.disposed) this.publishSnapshot();
+      });
+    });
     window.addEventListener('resize', this.onWindowResize);
-
-    // 10. Start Game Loop
+    document.addEventListener('visibilitychange', this.onVisibilityChange);
     this.start();
   }
 
-  /**
-   * Spawns sample houses and registers them into the placement system so they can be inspected/demolished.
-   */
-  private spawnSampleHouse(gx: number, gz: number, level = 1, seed = 0): void {
-    const instanceId = `sample-house-${gx}-${gz}`;
-    const houseMesh = createSmallHouse(level, seed);
-    const worldPos = gridToWorld(gx, gz);
-    houseMesh.position.copy(worldPos);
-    houseMesh.name = instanceId;
+  private publishSnapshot(): void {
+    const snapshot = this.session.getSnapshot();
+    this.worldView.sync(snapshot);
+    useGameStore.getState().publishSnapshot(snapshot);
+  }
 
-    this.sceneManager.buildingsGroup.add(houseMesh);
-    this.gridSystem.setBuilding(gx, gz, instanceId);
-    this.placementSystem.registerBuildingMesh(instanceId, houseMesh);
+  public dispatch(command: GameCommand): CommandResult {
+    const result = this.session.dispatch(command);
+    if (result.ok) this.publishSnapshot();
+    return result;
+  }
 
-    useGameStore.setState((state) => ({
-      placedBuildings: {
-        ...state.placedBuildings,
-        [instanceId]: {
-          instanceId,
-          defId: 'small_house',
-          gridX: gx,
-          gridZ: gz,
-          level,
-          seed,
-          placedAt: Date.now(),
-        },
-      },
-    }));
+  public advanceTicks(ticks: number): void {
+    if (!this.manualSimulation) throw new Error('Manual stepping requires a manual session');
+    this.session.step(ticks);
+    this.publishSnapshot();
+  }
+
+  public setSpeed(speed: SimulationSpeed): void {
+    if (this.isRunning && !this.manualSimulation) this.pumpSimulation();
+    this.clock.setSpeed(speed);
   }
 
   public start(): void {
-    if (this.isRunning) return;
+    if (this.isRunning || this.disposed) return;
     this.isRunning = true;
-    this.lastTime = performance.now();
-    this.loop(this.lastTime);
+    this.lastFrameTime = this.lastSimulationTime = performance.now();
+    if (document.hidden) this.clock.suspend(); else this.clock.resume();
+    if (!this.manualSimulation) this.simulationTimer = setInterval(this.pumpSimulation, 25);
+    this.loop(this.lastFrameTime);
   }
 
   public stop(): void {
+    if (this.isRunning && !this.manualSimulation) this.pumpSimulation();
     this.isRunning = false;
-    if (this.animationFrameId !== null) {
-      cancelAnimationFrame(this.animationFrameId);
-      this.animationFrameId = null;
-    }
+    if (this.animationFrameId !== null) cancelAnimationFrame(this.animationFrameId);
+    if (this.simulationTimer !== null) clearInterval(this.simulationTimer);
+    this.animationFrameId = null;
+    this.simulationTimer = null;
   }
+
+  private pumpSimulation = (): void => {
+    if (!this.isRunning) return;
+    const now = performance.now();
+    const ticks = this.clock.advance(Math.max(0, now - this.lastSimulationTime));
+    this.lastSimulationTime = now;
+    if (ticks > 0) {
+      this.session.step(ticks);
+      this.publishSnapshot();
+    }
+  };
+
+  private onVisibilityChange = (): void => {
+    // Hidden time never becomes offline progression; manual pause stays intact.
+    if (document.hidden) {
+      if (!this.manualSimulation) this.pumpSimulation();
+      this.clock.suspend();
+    } else this.clock.resume();
+    this.lastSimulationTime = performance.now();
+  };
 
   private loop = (time: number): void => {
     if (!this.isRunning) return;
-
-    const deltaTime = Math.min((time - this.lastTime) / 1000, 0.1);
-    this.lastTime = time;
-
-    // Update Camera
+    const deltaTime = Math.min((time - this.lastFrameTime) / 1000, 0.1);
+    this.lastFrameTime = time;
     this.cameraController.update(deltaTime);
-
-    // Update Raycast and Placement preview
     this.raycastSystem.update();
     this.placementSystem.update();
-
-    // Render Scene
     this.renderer.render(this.sceneManager.scene, this.cameraController.camera);
-
     this.animationFrameId = requestAnimationFrame(this.loop);
   };
 
@@ -141,14 +145,21 @@ export class Game {
   };
 
   public dispose(): void {
+    if (this.disposed) return;
     this.stop();
+    this.disposed = true;
     window.removeEventListener('resize', this.onWindowResize);
+    document.removeEventListener('visibilitychange', this.onVisibilityChange);
+    this.unsubscribeStore();
     this.placementSystem.dispose();
     this.raycastSystem.dispose();
     this.cameraController.dispose();
+    this.worldView.dispose();
+    this.gridRenderer.group.removeFromParent();
     this.gridRenderer.dispose();
     this.lighting.dispose();
     this.sceneManager.dispose();
     this.renderer.dispose();
+    MaterialLibrary.getInstance().dispose();
   }
 }

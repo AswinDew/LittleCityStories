@@ -12,8 +12,11 @@ import {
   isFootprintWithinBounds,
   getOccupiedCells,
   GridCoord,
+  GridMetrics,
+  CELL_SIZE,
 } from '@/utils/coordinates';
 import { useGameStore, ActiveTool } from '@/state/GameStore';
+import { SeededRandom } from '@/simulation/Random';
 
 export class PlacementSystem {
   private domElement: HTMLElement;
@@ -34,13 +37,17 @@ export class PlacementSystem {
   public placementRotation = 0;
 
   private unsubscribeStore: () => void;
+  private nextId = 1;
+  private readonly random = new SeededRandom(42);
 
   constructor(
     domElement: HTMLElement,
     sceneManager: SceneManager,
     gridSystem: GridSystem,
     gridRenderer: GridRenderer,
-    raycastSystem: RaycastSystem
+    raycastSystem: RaycastSystem,
+    private readonly metrics: GridMetrics = { size: gridSystem.size, cellSize: 2 },
+    private readonly allocateIdentity?: () => { id: string; seed: number; placedAt: number }
   ) {
     this.domElement = domElement;
     this.sceneManager = sceneManager;
@@ -91,8 +98,9 @@ export class PlacementSystem {
       this.activeDef = def || null;
       if (this.activeDef) {
         this.ghostMesh = BuildingFactory.createGhostPreviewMesh(this.activeDef.id);
+        this.ghostMesh.scale.setScalar(this.metrics.cellSize / CELL_SIZE);
         this.ghostMesh.rotation.y = this.placementRotation * (Math.PI / 2);
-        this.sceneManager.scene.add(this.ghostMesh);
+        this.sceneManager.selectionGroup.add(this.ghostMesh);
         this.ghostMesh.visible = false;
       }
     } else {
@@ -102,7 +110,7 @@ export class PlacementSystem {
 
   private removeGhostPreview(): void {
     if (this.ghostMesh) {
-      this.sceneManager.scene.remove(this.ghostMesh);
+      this.ghostMesh.removeFromParent();
       this.ghostMesh.traverse((child) => {
         if (child instanceof THREE.Mesh) {
           child.geometry.dispose();
@@ -143,7 +151,7 @@ export class PlacementSystem {
 
       // Position ghost preview
       if (this.ghostMesh) {
-        const worldPos = gridToWorld(hit.x, hit.z, footprint);
+        const worldPos = gridToWorld(hit.x, hit.z, footprint, this.metrics);
         this.ghostMesh.position.copy(worldPos);
         this.ghostMesh.rotation.y = this.placementRotation * (Math.PI / 2);
         this.ghostMesh.visible = true;
@@ -222,8 +230,11 @@ export class PlacementSystem {
     }
 
     const footprint = this.getEffectiveFootprint(def, currentRotation);
-    const instanceId = `bldg_${def.id}_${Date.now()}_${Math.floor(Math.random() * 1000)}`;
-    const seed = Math.floor(Math.random() * 1000);
+    const identity = this.allocateIdentity?.() ?? {
+      id: `building-${this.nextId++}`, seed: Math.floor(this.random.next() * 1000), placedAt: 0,
+    };
+    const instanceId = identity.id;
+    const seed = identity.seed;
 
     const placedData: PlacedBuilding = {
       instanceId,
@@ -233,7 +244,7 @@ export class PlacementSystem {
       rotation: currentRotation,
       level: 1,
       seed,
-      placedAt: Date.now(),
+      placedAt: identity.placedAt,
     };
 
     // Deduct cost and add to Zustand store
@@ -251,12 +262,13 @@ export class PlacementSystem {
 
     // Create 3D world mesh with matching rotation
     const mesh = BuildingFactory.createBuildingMesh(def.id, 1, seed);
+    mesh.scale.setScalar(this.metrics.cellSize / CELL_SIZE);
     mesh.name = instanceId;
     mesh.rotation.y = currentRotation * (Math.PI / 2);
-    const worldPos = gridToWorld(cell.x, cell.z, footprint);
+    const worldPos = gridToWorld(cell.x, cell.z, footprint, this.metrics);
     mesh.position.copy(worldPos);
 
-    this.sceneManager.buildingsGroup.add(mesh);
+    (def.id === 'road' ? this.sceneManager.roadsGroup : this.sceneManager.buildingsGroup).add(mesh);
     this.buildingMeshes.set(instanceId, mesh);
 
     return true;
@@ -293,7 +305,7 @@ export class PlacementSystem {
     // Remove 3D mesh and dispose GPU geometries
     const mesh = this.buildingMeshes.get(instanceId);
     if (mesh) {
-      this.sceneManager.buildingsGroup.remove(mesh);
+      mesh.removeFromParent();
       disposeBuilding(mesh);
       this.buildingMeshes.delete(instanceId);
     }
@@ -308,7 +320,7 @@ export class PlacementSystem {
 
     // Dispose all tracked building meshes
     this.buildingMeshes.forEach((mesh) => {
-      this.sceneManager.buildingsGroup.remove(mesh);
+      mesh.removeFromParent();
       disposeBuilding(mesh);
     });
     this.buildingMeshes.clear();

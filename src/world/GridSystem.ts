@@ -1,4 +1,4 @@
-import { GRID_SIZE, isWithinBounds } from '@/utils/coordinates';
+import { GRID_SIZE, isWithinBounds } from './GridMath';
 
 export type TerrainType = 'grass' | 'dirt' | 'concrete' | 'water';
 
@@ -16,6 +16,7 @@ export class GridSystem {
   private cells: CellState[][];
 
   constructor(size: number = GRID_SIZE) {
+    if (!Number.isInteger(size) || size < 1 || size > 128) throw new RangeError('Invalid grid size');
     this.size = size;
     this.cells = [];
     this.init();
@@ -122,15 +123,15 @@ export class GridSystem {
       !Array.isArray(savedCells) ||
       savedCells.length !== this.size ||
       !savedCells.every(
-        (row) =>
+        (row, x) =>
           Array.isArray(row) &&
           row.length === this.size &&
           row.every(
-            (cell) =>
+            (cell, z) =>
               cell &&
-              typeof cell.x === 'number' &&
-              typeof cell.z === 'number' &&
-              typeof cell.terrain === 'string' &&
+              cell.x === x &&
+              cell.z === z &&
+              ['grass', 'dirt', 'concrete', 'water'].includes(cell.terrain) &&
               typeof cell.isRoad === 'boolean' &&
               typeof cell.canBuild === 'boolean' &&
               (cell.buildingId === null || typeof cell.buildingId === 'string')
@@ -140,6 +141,6 @@ export class GridSystem {
       console.warn('[GridSystem] Corrupt save data — keeping fresh grid.');
       return;
     }
-    this.cells = savedCells;
+    this.cells = JSON.parse(JSON.stringify(savedCells));
   }
 }

@@ -58,6 +58,16 @@ describe('CameraController', () => {
     controller.dispose();
   });
 
+  it.each([{ size: 20, cellSize: 2 }, { size: 32, cellSize: 3 }])('sizes the view from %o metrics', metrics => {
+    const controller = new CameraController(mockElement, metrics);
+    const width = metrics.size * metrics.cellSize;
+    expect(controller.camera.top).toBeCloseTo(width * 0.6);
+    expect(controller.camera.far).toBeGreaterThanOrEqual(width * 4);
+    controller.resize(1920, 1080);
+    expect(controller.camera.right / controller.camera.top).toBeCloseTo(1920 / 1080);
+    controller.dispose();
+  });
+
   it('resets view without unwinding multiple revolutions', () => {
     const controller = new CameraController(mockElement);
     // Rotate 8 full turns (32 quarter-turns)
