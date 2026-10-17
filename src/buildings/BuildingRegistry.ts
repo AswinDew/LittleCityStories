@@ -14,6 +14,10 @@ export class BuildingRegistry {
         RESOURCE_IDS.some(key => input.cost[key] === undefined) ||
         ![input.footprint.width, input.footprint.depth].every(n => Number.isInteger(n) && n > 0 && n <= 128) ||
         ![input.requiredWorkTicks, input.workerSlots, input.housing, input.storage].every(n => Number.isSafeInteger(n) && n >= 0) ||
+        (input.production && (!RESOURCE_IDS.includes(input.production.resource) ||
+          !Number.isSafeInteger(input.production.amount) || input.production.amount <= 0 ||
+          !Number.isSafeInteger(input.production.intervalTicks) ||
+          !Number.isSafeInteger(input.production.intervalTicks * 200) || input.production.intervalTicks <= 0)) ||
         (input.entrance && ![input.entrance.x, input.entrance.z].every(Number.isInteger))) {
       throw new RangeError('Invalid building definition');
     }

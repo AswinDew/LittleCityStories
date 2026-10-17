@@ -22,3 +22,10 @@ it('renders all active ancient models and preview clones without changing shared
     disposeBuilding(model); disposeBuilding(ghost);
   }
 });
+it.each([
+  { amount: -1 }, { amount: 0 }, { amount: 1.5 }, { intervalTicks: 0 }, { intervalTicks: 0.5 }, { intervalTicks: Infinity }, { resource: 'gold' },
+])('rejects invalid production rules before a session can use them: %o', invalid => {
+  const farm = structuredClone(new BuildingRegistry().get('farm')!);
+  Object.assign(farm.production!, invalid);
+  expect(() => new BuildingRegistry([farm])).toThrow(RangeError);
+});

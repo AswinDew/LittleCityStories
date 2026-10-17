@@ -50,7 +50,7 @@ describe('session demolition and refunds', () => {
     const grid = new GridSystem(); grid.deserialize(state.world.grid);
     const system = new ConstructionSystem(grid, BuildingRegistry.getInstance(), () => ({ id: '', seed: 0, placedAt: 0 }));
     state.citizens.builder = { id: 'builder', name: 'Raka', occupation: 'builder', homeId: null, workplaceId: site.instanceId,
-      activity: 'work', position: { x: 1, z: 1 }, destination: null, animationState: 'build', pathProgress: 0, hungry: false, activityTicks: 0 };
+      activity: 'work', position: { x: 1, z: 1 }, destination: null, animationState: 'build', pathProgress: 0, hungry: false, activityTicks: 0, workplaceAccess: 'unknown' };
     system.step(state); expect(site.workTicks).toBe(0);
     state.citizens.builder.position = { ...site.entrance! };
     system.step(state); expect(site.status).toBe('under_construction');

@@ -5,6 +5,7 @@ import type { BuildingCategory } from '@/buildings/types';
 import { RESOURCE_IDS } from '@/economy/ResourceLedger';
 import type { ResourceBundle } from '@/economy/types';
 import type { CommandFailure } from '@/simulation/commands';
+import { ProductionSystem, type OperatingStatus } from '@/economy/ProductionSystem';
 
 const messages: Record<CommandFailure, string> = {
   invalid_command: 'Perintah tidak valid.', invalid_cell: 'Pilih tile pada peta.', invalid_terrain: 'Terrain tidak valid.',
@@ -15,14 +16,19 @@ const messages: Record<CommandFailure, string> = {
 };
 const icon = (key: string, label = '') => `<img src="${import.meta.env.BASE_URL}generated/icons/${key}.png" alt="${label}" width="24" height="24">`;
 const costText = (cost: ResourceBundle) => RESOURCE_IDS.filter(key => cost[key] > 0).map(key => `${cost[key]} ${key}`).join(' · ') || 'Starter';
+const operatingMessages: Record<OperatingStatus, string> = {
+  under_construction: 'Menunggu konstruksi', no_workers: 'Menunggu pekerja', unreachable: 'Pekerja belum tiba atau akses tidak valid',
+  no_source: 'Tidak ada sumber dalam radius', storage_full: 'Storage penuh', working: 'Bekerja',
+};
 
 export class HUD {
   private category: BuildingCategory = 'housing';
   private readonly abort = new AbortController();
   private readonly unsubscribe: () => void;
+  private readonly production = new ProductionSystem();
   constructor(private readonly container: HTMLElement, private readonly game: Game) {
     container.innerHTML = `<header class="settlement-header">
-      <div class="glass-panel settlement-title"><h1>Civilization Town</h1><p>M3 · Ancient Settlement</p></div>
+      <div class="glass-panel settlement-title"><h1>Civilization Town</h1><p>M4 · Ancient Settlement</p></div>
       <div class="glass-panel resource-bar" aria-label="Settlement resources">${RESOURCE_IDS.map(key => `<div data-resource="${key}">${icon(key)}<span>${key}</span><strong>0</strong><small>/ 300</small></div>`).join('')}</div>
       </header><aside class="glass-panel construction-inspector" aria-label="Building inspector" hidden></aside>
       <div class="glass-panel construction-hints">Klik: bangun / pilih · drag kanan/tengah: pan · scroll: zoom · R: rotasi · Esc: batal</div>
@@ -74,7 +80,9 @@ export class HUD {
     const def = BuildingRegistry.getInstance().get(building.defId)!;
     const status = building.status === 'planned' ? 'Menunggu builder' : building.status === 'under_construction' ?
       `Dalam konstruksi · ${building.workTicks}/${def.requiredWorkTicks} tick kerja` : 'Selesai';
+    const operating = def.production ? this.production.getOperatingStatus(building.instanceId, snapshot) : null;
     const markup = `${icon(building.defId)}<h2>${def.name}</h2><p data-building-status="${building.status}">${status}</p>
+      ${operating ? `<p data-operating-status="${operating}">Operasional: ${operatingMessages[operating]}</p>` : ''}
       <p>Biaya dibayar: ${costText(building.paidResources)}</p><p>${def.description}</p>${building.defId === 'town_center' ? '<p>Bangunan awal dilindungi.</p>' :
       `<button type="button" data-action="${building.status === 'completed' ? 'demolishBuilding' : 'cancelConstruction'}" data-instance="${building.instanceId}">${building.status === 'completed' ? 'Demolish building' : 'Cancel construction'}</button>`}`;
     // Keep focused inspector actions stable when an unrelated clock snapshot is published.

@@ -10,7 +10,7 @@
 
 **Spec:** Dokumen pengguna “CIVILIZATION TOWN — MASTER DEVELOPMENT PROMPT V2”, sumber: `C:/Users/ROG/.codex/attachments/3cee12ae-5ee0-4225-9ecd-37cb8c69b672/Pasted text.txt`.
 
-**Status (2026-10-17):** M1–M3 / Task 1–9 telah diimplementasikan, diverifikasi, dan direview. M4–M8 belum dijalankan. Berhenti sampai pengguna meminta lanjut. Bukti pemeriksaan dan keputusan transisi dicatat di `docs/progress/m1-foundation.md`, `docs/progress/m2-assets.md`, dan `docs/progress/m3-construction.md`.
+**Status (2026-10-17):** M1–M4 / Task 1–11 telah diimplementasikan, diverifikasi, dan direview. M5–M8 belum dijalankan. Berhenti sampai pengguna meminta lanjut. Bukti pemeriksaan dan keputusan transisi dicatat di `docs/progress/m1-foundation.md`, `docs/progress/m2-assets.md`, `docs/progress/m3-construction.md`, dan `docs/progress/m4-economy.md`.
 
 ## Global Constraints
 
@@ -270,10 +270,10 @@ Migrasi state dilakukan bertahap: Task 3 memperkenalkan kontrak session/bridge d
 
 **Interfaces:** `ProductionSystem.step(state: SimulationState): void`; `getOperatingStatus(buildingId, state): OperatingStatus` dengan alasan `under_construction`, `no_workers`, `unreachable`, `no_source`, `storage_full`, atau `working`. Assignment dan arrival yang diperlukan ditetapkan pada tipe warga, lalu dihubungkan ke warga nyata di M5.
 
-- [ ] Tulis tes pada state domain dengan warga/assignment lengkap: 100 tick kerja satu farmer menghasilkan tepat 3 food; `expect(outputWithoutWorker).toBe(0)`; dua pekerja menghasilkan 6; bangunan belum selesai, warga belum tiba, sumber hilang, atau rute invalid menghasilkan 0.
-- [ ] Implementasikan interval integer, kapasitas pekerja, radius sumber, modifier dan remainder; validasi workerId bukan sekadar angka workerCount. Worker yang sama tidak dihitung dua kali.
-- [ ] Hubungkan hasil produksi ke ledger, tanpa increment resource di frame render atau subscription UI. Fixture pekerja hanya untuk tes domain, bukan injection warga palsu ke game.
-- [ ] Jalankan `npm.cmd test -- tests/production.test.ts`; bandingkan snapshot setelah jumlah tick sama pada simulasi yang dipompa 30/60/144 FPS.
+- [x] Tulis tes pada state domain dengan warga/assignment lengkap: 100 tick kerja satu farmer menghasilkan tepat 3 food; `expect(outputWithoutWorker).toBe(0)`; dua pekerja menghasilkan 6; bangunan belum selesai, warga belum tiba, sumber hilang, atau rute invalid menghasilkan 0.
+- [x] Implementasikan interval integer, kapasitas pekerja, radius sumber, modifier dan remainder; validasi workerId bukan sekadar angka workerCount. Worker yang sama tidak dihitung dua kali.
+- [x] Hubungkan hasil produksi ke ledger, tanpa increment resource di frame render atau subscription UI. Fixture pekerja hanya untuk tes domain, bukan injection warga palsu ke game.
+- [x] Jalankan `npm.cmd test -- tests/production.test.ts`; bandingkan snapshot setelah jumlah tick sama pada simulasi yang dipompa 30/60/144 FPS.
 
 ### Task 11 — Konsumsi, pajak, dan kapasitas storage
 
@@ -281,10 +281,10 @@ Migrasi state dilakukan bertahap: Task 3 memperkenalkan kontrak session/bridge d
 
 **Interfaces:** Kedua system memiliki `step(state): void`; storage menghitung ulang capacity ketika lifecycle bangunan berubah. Hunger tersimpan per warga dan menjadi input produktivitas/happiness.
 
-- [ ] Tulis tes 3 warga/600 tick mengonsumsi 3 food, tidak pernah negatif; jika hanya 2 food, tepat dua warga mendapat makan menurut urutan ID. Pajak hanya untuk warga fed dan housed.
-- [ ] Tulis tes storage dihancurkan ketika wood 500: `expect(woodAfterDemolition).toBeGreaterThanOrEqual(500)` termasuk refund; capacity turun ke 300; produksi wood terblokir sampai ada ruang. Satu batch tidak dideposit parsial atau digandakan setelah unblock.
-- [ ] Terapkan kebijakan shortage, overflow dan no offline progression; tes pause/2× berdasarkan elapsed berbeda tetapi tick domain setara memberi state sama.
-- [ ] Jalankan `npm.cmd test -- tests/economy.test.ts tests/production.test.ts tests/simulationClock.test.ts` dan typecheck.
+- [x] Tulis tes 3 warga/600 tick mengonsumsi 3 food, tidak pernah negatif; jika hanya 2 food, tepat dua warga mendapat makan menurut urutan ID. Pajak hanya untuk warga fed dan housed.
+- [x] Tulis tes storage dihancurkan ketika wood 500: `expect(woodAfterDemolition).toBeGreaterThanOrEqual(500)` termasuk refund; capacity turun ke 300; produksi wood terblokir sampai ada ruang. Satu batch tidak dideposit parsial atau digandakan setelah unblock.
+- [x] Terapkan kebijakan shortage, overflow dan no offline progression; tes pause/2× berdasarkan elapsed berbeda tetapi tick domain setara memberi state sama.
+- [x] Jalankan `npm.cmd test -- tests/economy.test.ts tests/production.test.ts tests/simulationClock.test.ts` dan typecheck.
 
 ## M5 — Population
 

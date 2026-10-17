@@ -2,7 +2,15 @@
 
 Pengembangan bertahap dari Little City Stories menjadi Ancient Settlement dengan TypeScript, Vite, vanilla Three.js, dan Zustand vanilla.
 
-## Status: M3 — Construction
+## Status: M4 — Economy
+
+- Produksi Farm/Lumber Camp/Quarry berjalan pada fixed tick dan memerlukan ID warga, assignment, kedatangan, aktivitas/animasi kerja, serta akses kerja yang valid. Batas dua slot, sumber tree/rock dalam radius 3 dari footprint, dan modifier produktivitas dihitung di domain.
+- Kredit kerja integer tersimpan per warga; lapar mengurangi produktivitas menjadi 50%. Batch hasil atomik menunggu jika storage penuh, dibatasi satu batch per pekerja tanpa penumpukan hasil selama terblokir.
+- Setiap 600 tick, warga makan 1 food menurut urutan ID stabil. Warga yang mendapat makan dan slot rumah completed menghasilkan 1 coin; coin storage penuh melewatkan pajak tersebut tanpa utang pajak. Inventory tidak pernah dipotong menjadi negatif.
+- Kapasitas dihitung dari Town Center dan storage completed. Demolisi/refund mempertahankan inventory berlebih; produksi resource terkait menunggu ruang yang cukup. Konsumsi dan biaya pembangunan tetap dapat mengurangi inventory berlebih.
+- Inspector menampilkan alasan operasional: menunggu konstruksi/pekerja, akses belum valid, sumber hilang, storage penuh, atau bekerja. Game belum membuat warga sampai M5, sehingga site tetap menunggu builder dan belum menghasilkan resource otomatis.
+
+Konstruksi M3 tetap tersedia:
 
 - Katalog kuno aktif dengan kategori Housing, Production, Infrastructure, dan Community. Satu Town Center selesai muncul saat awal.
 - Session menjadi pemilik tunggal resources, capacity, grid, dan building instances. Store hanya menyimpan snapshot presentasi, tool, selection, dan feedback; treasury lama sudah dilepas.
@@ -29,9 +37,9 @@ Fondasi M1 tetap tersedia:
 - Kamera mengikuti ukuran dunia, mempertahankan pan/zoom. Rotasi view dinonaktifkan selama MVP.
 - Unit test dan smoke test browser mencakup determinisme, clock, lifecycle, snapshot, rendering, kamera, placement, dan demolisi.
 
-Katalog modern sudah tidak aktif. Generator model lama dipertahankan sebagai kode aset terpisah beserta tesnya. Produksi/konsumsi otomatis mengikuti M4; warga/navigasi/assignment builder mengikuti M5; riset M6 dan save/load M7. Nilai populasi awal 3 masih merupakan konfigurasi sampai bootstrap warga M5.
+Katalog modern sudah tidak aktif. Generator model lama dipertahankan sebagai kode aset terpisah beserta tesnya. Aturan produksi/konsumsi M4 sudah terhubung ke session; warga/navigasi/assignment builder mengikuti M5; riset M6 dan save/load M7. Nilai populasi awal 3 masih merupakan konfigurasi sampai bootstrap warga M5. Fixture pekerja hanya digunakan dalam tes headless.
 
-Rencana lengkap: [Implementation plan](docs/superpowers/plans/2026-10-15-civilization-town-mvp.md). Catatan verifikasi: [M1](docs/progress/m1-foundation.md), [M2](docs/progress/m2-assets.md), [M3](docs/progress/m3-construction.md).
+Rencana lengkap: [Implementation plan](docs/superpowers/plans/2026-10-15-civilization-town-mvp.md). Catatan verifikasi: [M1](docs/progress/m1-foundation.md), [M2](docs/progress/m2-assets.md), [M3](docs/progress/m3-construction.md), [M4](docs/progress/m4-economy.md).
 
 ## Menjalankan proyek
 
@@ -100,7 +108,7 @@ PNG dan manifest di `public/generated/` disertakan dalam repository sehingga men
 | C | Toggle clear vegetation (tanpa resource gain) |
 | Escape | Batalkan tool |
 
-Gesture placement memiliki ambang travel 4 CSS px dan hanya menerima primary pointer yang dimulai/diakhiri di playfield. Kontrol pause/speed final serta polish layout/accessibility lebih lanjut mengikuti M7; engine waktunya sudah tersedia. Tidak ada save/load pada M3.
+Gesture placement memiliki ambang travel 4 CSS px dan hanya menerima primary pointer yang dimulai/diakhiri di playfield. Kontrol pause/speed final serta polish layout/accessibility lebih lanjut mengikuti M7; engine waktunya sudah tersedia. Tidak ada save/load pada M4.
 
 ## Batas modul
 
@@ -115,8 +123,8 @@ Gesture placement memiliki ambang travel 4 CSS px dan hanya menerima primary poi
 | `src/construction/` | Layout/entrance, validasi domain, transaksi konstruksi dan view scaffold |
 | `src/assets/` | Factory procedural dan material cache |
 | `src/state/`, `src/ui/` | Snapshot presentasi dan state UI tanpa inventory/bangunan mutable kedua |
-| `src/economy/ResourceLedger.ts`, `src/config/BalanceConfig.ts` | Transaksi resource atomik dan definisi balancing |
+| `src/economy/`, `src/config/BalanceConfig.ts` | Ledger atomik, produksi/operating status, konsumsi/pajak, kapasitas dan balancing |
 | `src/citizens/` | Schema dan presentasi sprite; domain populasi mengikuti M5 |
 | `src/testing/`, `tests/` | Hook khusus mode test, unit/integration test dan Playwright |
 
-Pengembangan berhenti setelah verifikasi M3 sampai pengguna meminta melanjutkan. Berikutnya M4 ekonomi; M5 warga dan navigasi; M6 riset; M7 persistence/HUD; M8 playtest dan polish.
+Pengembangan berhenti setelah verifikasi M4 sampai pengguna meminta melanjutkan. Berikutnya M5 warga dan navigasi; M6 riset; M7 persistence/HUD; M8 playtest dan polish.

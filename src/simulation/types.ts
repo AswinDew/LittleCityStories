@@ -16,4 +16,9 @@ export interface SimulationState {
   resources: ResourceBundle;
   capacity: ResourceBundle;
   unlockedTechnologyIds: string[];
+  economy: {
+    consumptionTicks: number;
+    /** Integer percentages, initially 100; hunger applies another 50%. */
+    productionModifiers: ResourceBundle;
+  };
 }

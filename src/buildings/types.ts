@@ -32,4 +32,6 @@ export interface PlacedBuilding {
   level: number;
   seed: number;
   placedAt: number;
+  /** Integer work credit by actual citizen ID, bounded to one pending batch each. */
+  productionWork: Record<string, number>;
 }

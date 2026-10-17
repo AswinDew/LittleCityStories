@@ -9,6 +9,8 @@ import { BuildingRegistry } from '@/buildings/BuildingRegistry';
 import { ConstructionSystem } from '@/construction/ConstructionSystem';
 import { buildingLayout } from '@/construction/BuildingLayout';
 import { emptyResources } from '@/economy/ResourceLedger';
+import { ProductionSystem } from '@/economy/ProductionSystem';
+import { ConsumptionSystem } from '@/economy/ConsumptionSystem';
 
 function freezeData<T>(value: T): T {
   if (value && typeof value === 'object') {
@@ -24,6 +26,8 @@ export class SimulationSession {
   private readonly state: SimulationState;
   private readonly random: SeededRandom;
   private readonly construction: ConstructionSystem;
+  private readonly production: ProductionSystem;
+  private readonly consumption: ConsumptionSystem;
 
   constructor(overrides: WorldOverrides = {}, registry = BuildingRegistry.getInstance()) {
     const config = createWorldConfig(overrides);
@@ -34,15 +38,18 @@ export class SimulationSession {
     // Live grid is owned by GridSystem. Snapshots capture it; don't retain another mutable copy.
     this.state = { config, world: { ...world, grid: [] }, tick: 0,
       randomState: this.random.state, nextId: 1, citizens: {}, buildings: {},
-      resources: { ...config.startingResources }, capacity: emptyResources(), unlockedTechnologyIds: [] };
+      resources: { ...config.startingResources }, capacity: emptyResources(), unlockedTechnologyIds: [],
+      economy: { consumptionTicks: 0, productionModifiers: { wood: 100, stone: 100, food: 100, coins: 100 } } };
     this.construction = new ConstructionSystem(this.gridSystem, registry, () => this.allocateIdentity('building'));
+    this.production = new ProductionSystem(registry, (x, z) => this.gridSystem.getCell(x, z));
+    this.consumption = new ConsumptionSystem(registry);
     const town = registry.get('town_center')!;
     const layout = buildingLayout(town, world.townCenter, 0);
     const identity = this.allocateIdentity('building');
     this.state.buildings[identity.id] = { instanceId: identity.id, defId: town.id,
       gridX: world.townCenter.x, gridZ: world.townCenter.z, rotation: 0, footprint: layout.footprint,
       entrance: layout.entrance, status: 'completed', workTicks: town.requiredWorkTicks,
-      paidResources: emptyResources(), level: 1, seed: identity.seed, placedAt: 0 };
+      paidResources: emptyResources(), level: 1, seed: identity.seed, placedAt: 0, productionWork: {} };
     for (const cell of layout.cells) this.gridSystem.setBuilding(cell.x, cell.z, identity.id);
     this.construction.recalculateCapacity(this.state);
   }
@@ -51,7 +58,12 @@ export class SimulationSession {
     if (!Number.isSafeInteger(ticks) || ticks < 0 || !Number.isSafeInteger(this.state.tick + ticks)) {
       throw new RangeError('Invalid simulation tick count');
     }
-    for (let index = 0; index < ticks; index++) { this.construction.step(this.state); this.state.tick++; }
+    for (let index = 0; index < ticks; index++) {
+      this.construction.step(this.state);
+      this.production.step(this.state);
+      this.consumption.step(this.state);
+      this.state.tick++;
+    }
   }
 
   allocateIdentity(prefix: string): { id: string; seed: number; placedAt: number } {

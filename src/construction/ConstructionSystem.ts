@@ -5,6 +5,7 @@ import { GridSystem, CellState } from '@/world/GridSystem';
 import { isFootprintWithinBounds, isWithinBounds, GridCoord } from '@/world/GridMath';
 import { ResourceLedger, emptyResources, RESOURCE_IDS } from '@/economy/ResourceLedger';
 import { buildingLayout } from './BuildingLayout';
+import { StorageSystem } from '@/economy/StorageSystem';
 
 const sameCell = (a: GridCoord, b: GridCoord) => a.x === b.x && a.z === b.z;
 export function checkPlacement(command: PlaceBuildingCommand, state: Readonly<SimulationState>,
@@ -51,7 +52,7 @@ export class ConstructionSystem {
     state.buildings[identity.id] = { instanceId: identity.id, defId: def.id,
       gridX: command.cell.x, gridZ: command.cell.z, rotation: command.rotation,
       footprint: layout.footprint, entrance: layout.entrance, status: def.requiredWorkTicks ? 'planned' : 'completed',
-      workTicks: 0, paidResources: { ...def.cost }, level: 1, seed: identity.seed, placedAt: identity.placedAt };
+      workTicks: 0, paidResources: { ...def.cost }, level: 1, seed: identity.seed, placedAt: identity.placedAt, productionWork: {} };
     for (const cell of layout.cells) {
       this.grid.setBuilding(cell.x, cell.z, identity.id);
       if (def.id === 'dirt_road') this.grid.setRoad(cell.x, cell.z, true);
@@ -83,6 +84,7 @@ export class ConstructionSystem {
       if (citizen.workplaceId === instanceId) {
         citizen.workplaceId = null; citizen.occupation = 'villager'; citizen.activity = 'idle';
         citizen.animationState = 'idle'; citizen.destination = null; citizen.pathProgress = 0; citizen.activityTicks = 0;
+        citizen.workplaceAccess = 'unknown';
       }
     }
     this.recalculateCapacity(state);
@@ -103,8 +105,6 @@ export class ConstructionSystem {
     }
   }
   recalculateCapacity(state: SimulationState): void {
-    const amount = Object.values(state.buildings).reduce((total, building) =>
-      total + (building.status === 'completed' ? this.registry.get(building.defId)!.storage : 0), 0);
-    for (const key of RESOURCE_IDS) state.capacity[key] = amount;
+    new StorageSystem(this.registry).step(state);
   }
 }
