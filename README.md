@@ -2,7 +2,16 @@
 
 Pengembangan bertahap dari Little City Stories menjadi Ancient Settlement dengan TypeScript, Vite, vanilla Three.js, dan Zustand vanilla.
 
-## Status: M2 — Asset Pipeline
+## Status: M3 — Construction
+
+- Katalog kuno aktif dengan kategori Housing, Production, Infrastructure, dan Community. Satu Town Center selesai muncul saat awal.
+- Session menjadi pemilik tunggal resources, capacity, grid, dan building instances. Store hanya menyimpan snapshot presentasi, tool, selection, dan feedback; treasury lama sudah dilepas.
+- Resource awal: wood 160, stone 100, food 90, coins 50. Biaya dipotong atomik setelah validasi footprint, terrain/environment, tile warga, entrance, rotasi, unlock, dan kemampuan membayar.
+- House/Farm/Camp/Quarry/Storage/Research menjadi site planned dengan scaffold. Progres memerlukan builder yang benar-benar ditugaskan, berada di entrance, dan aktif bekerja. M3 belum membuat warga; site akan menunggu builder sampai M5. Tidak ada progres konstruksi dari timer palsu.
+- Dirt Road selesai instan dengan biaya 1 stone. Cancel/demolish planned mengembalikan seluruh biaya; under construction/completed mengembalikan setengah biaya yang dibayar, dibulatkan ke bawah. Town Center dilindungi. Resource berlebih tetap disimpan saat capacity berkurang atau menerima refund.
+- Ghost/footprint hijau-merah, rotasi, resource bar, alasan penolakan, clear vegetation tanpa hasil gratis, selection dan inspector sudah terhubung ke command nyata. Pointer intent menolak drag, modified/right click, pointercancel, orphan pointerup dan klik HUD.
+
+Aset M2 tetap tersedia:
 
 - Pipeline Pillow lokal dengan palet warm earth 28 warna: 3 tekstur seamless, 19 ikon resource/UI/katalog/teknologi, dan atlas warga 224 frame.
 - Delapan factory model kuno: Town Center, Primitive House, Farm, Lumber Camp, Stone Quarry, Storage Hut, Research Hut, dan Dirt Road; lima jenis environment: tree, bush, rock, grass decoration, crop.
@@ -20,9 +29,9 @@ Fondasi M1 tetap tersedia:
 - Kamera mengikuti ukuran dunia, mempertahankan pan/zoom. Rotasi view dinonaktifkan selama MVP.
 - Unit test dan smoke test browser mencakup determinisme, clock, lifecycle, snapshot, rendering, kamera, placement, dan demolisi.
 
-Game utama masih menggunakan katalog modern 12 bangunan dan treasury $10,000 sebagai adapter transisi. Sumber data bangunan/treasury tetap di store lama; grid dimiliki oleh session. Cutover inventory, katalog kuno aktif, dan bootstrap Town Center dilakukan pada M3. Model Town Center sudah ada di galeri M2. Nilai awal 3 warga dan resource 160 wood / 100 stone / 90 food / 50 coins masih berupa konfigurasi. Warga domain, ekonomi, riset, dan save/load mengikuti milestone berikutnya. Tiga rumah contoh tidak lagi muncul.
+Katalog modern sudah tidak aktif. Generator model lama dipertahankan sebagai kode aset terpisah beserta tesnya. Produksi/konsumsi otomatis mengikuti M4; warga/navigasi/assignment builder mengikuti M5; riset M6 dan save/load M7. Nilai populasi awal 3 masih merupakan konfigurasi sampai bootstrap warga M5.
 
-Rencana lengkap: [Implementation plan](docs/superpowers/plans/2026-10-15-civilization-town-mvp.md). Catatan verifikasi: [M1](docs/progress/m1-foundation.md), [M2](docs/progress/m2-assets.md).
+Rencana lengkap: [Implementation plan](docs/superpowers/plans/2026-10-15-civilization-town-mvp.md). Catatan verifikasi: [M1](docs/progress/m1-foundation.md), [M2](docs/progress/m2-assets.md), [M3](docs/progress/m3-construction.md).
 
 ## Menjalankan proyek
 
@@ -81,16 +90,17 @@ PNG dan manifest di `public/generated/` disertakan dalam repository sehingga men
 
 | Input | Aksi |
 |---|---|
-| Klik kiri | Pasang bangunan / demolisi sesuai tool aktif |
+| Klik kiri | Pasang bangunan / demolisi / clear sesuai tool; idle memilih bangunan |
 | Drag kanan atau tengah | Pan kamera |
 | Shift/Alt + drag kiri | Alternatif pan |
 | Scroll / tombol + dan − | Zoom |
 | R | Putar footprint bangunan |
-| 1–4 | Pilih house, road, shop, park |
+| 1–4 | Pilih Primitive House, Dirt Road, Farm, Lumber Camp |
 | B | Toggle demolisi |
+| C | Toggle clear vegetation (tanpa resource gain) |
 | Escape | Batalkan tool |
 
-Penanganan drag/cancel dan touch yang lengkap dijadwalkan pada Task 9. Kontrol pause/speed final dijadwalkan pada M7; engine waktunya sudah tersedia.
+Gesture placement memiliki ambang travel 4 CSS px dan hanya menerima primary pointer yang dimulai/diakhiri di playfield. Kontrol pause/speed final serta polish layout/accessibility lebih lanjut mengikuti M7; engine waktunya sudah tersedia. Tidak ada save/load pada M3.
 
 ## Batas modul
 
@@ -101,10 +111,12 @@ Penanganan drag/cancel dan touch yang lengkap dijadwalkan pada Task 9. Kontrol p
 | `src/world/GridMath.ts`, `GridSystem.ts`, `WorldGenerator.ts` | Grid logis dan generation |
 | `src/utils/coordinates.ts` | Adapter plain position ke Three.js Vector3 |
 | `src/game/` | Scheduler, rendering, pencahayaan, dan rekonsiliasi snapshot |
-| `src/world/CameraController.ts`, `GridRenderer.ts`, `RaycastSystem.ts`, `PlacementSystem.ts` | Kamera, presentasi grid dan adapter interaksi lama |
+| `src/world/CameraController.ts`, `GridRenderer.ts`, `RaycastSystem.ts`, `PlacementSystem.ts`, `PointerIntent.ts` | Kamera, presentasi grid, pointer gesture, command placement dan selection |
+| `src/construction/` | Layout/entrance, validasi domain, transaksi konstruksi dan view scaffold |
 | `src/assets/` | Factory procedural dan material cache |
-| `src/state/`, `src/ui/` | Snapshot presentasi, state UI dan adapter construction transisi |
-| `src/citizens/types.ts`, `src/economy/types.ts` | Kontrak data untuk milestone selanjutnya |
+| `src/state/`, `src/ui/` | Snapshot presentasi dan state UI tanpa inventory/bangunan mutable kedua |
+| `src/economy/ResourceLedger.ts`, `src/config/BalanceConfig.ts` | Transaksi resource atomik dan definisi balancing |
+| `src/citizens/` | Schema dan presentasi sprite; domain populasi mengikuti M5 |
 | `src/testing/`, `tests/` | Hook khusus mode test, unit/integration test dan Playwright |
 
-Pengembangan berhenti setelah verifikasi M2 sampai pengguna meminta melanjutkan. Berikutnya M3 konstruksi/resource; M4 ekonomi; M5 warga dan navigasi; M6 riset; M7 persistence/HUD; M8 playtest dan polish.
+Pengembangan berhenti setelah verifikasi M3 sampai pengguna meminta melanjutkan. Berikutnya M4 ekonomi; M5 warga dan navigasi; M6 riset; M7 persistence/HUD; M8 playtest dan polish.

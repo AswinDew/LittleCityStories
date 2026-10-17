@@ -12,7 +12,7 @@ test('all generated assets load and ancient models/sprites render in the inspect
     images.every(image => (image as HTMLImageElement).complete && (image as HTMLImageElement).naturalWidth === 24))).toBe(true);
   const state = await page.evaluate(() => window.__CIV_TOWN_TEST__!.getSnapshot());
   expect(state.citizens).toEqual({});
-  expect(await page.evaluate(() => window.__CIV_TOWN_TEST__!.getLegacyState().placedBuildings)).toEqual({});
+  expect(Object.values(state.buildings).map(building => building.defId)).toEqual(['town_center']);
   const before = await page.locator('[data-gallery-ready]').getAttribute('data-frame');
   await page.evaluate(() => window.__CIV_TOWN_TEST__!.advanceTicks(2));
   await expect.poll(() => page.locator('[data-gallery-ready]').getAttribute('data-frame')).not.toBe(before);

@@ -14,6 +14,8 @@ export function createAssetGallery(game: Game, root: HTMLElement, loader: Genera
   const group = new THREE.Group(); group.name = 'asset-gallery';
   game.sceneManager.scene.add(group);
   game.sceneManager.vegetationGroup.visible = false;
+  game.sceneManager.buildingsGroup.visible = false;
+  game.sceneManager.roadsGroup.visible = false;
   game.cameraController.setZoom(1.4);
   game.cameraController.target.z = -6;
   game.cameraController.update(1);

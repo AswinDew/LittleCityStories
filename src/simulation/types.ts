@@ -1,8 +1,10 @@
 import type { WorldConfig } from '@/config/WorldConfig';
 import type { WorldData } from '@/world/WorldGenerator';
 import type { Citizen } from '@/citizens/types';
+import type { PlacedBuilding } from '@/buildings/types';
+import type { ResourceBundle } from '@/economy/types';
 
-/** M1 intentionally has no second building inventory; legacy store owns it until M3. */
+/** Plain authoritative domain state; rendering and UI receive frozen snapshots. */
 export interface SimulationState {
   config: WorldConfig;
   world: WorldData;
@@ -10,4 +12,8 @@ export interface SimulationState {
   randomState: number;
   nextId: number;
   citizens: Record<string, Citizen>;
+  buildings: Record<string, PlacedBuilding>;
+  resources: ResourceBundle;
+  capacity: ResourceBundle;
+  unlockedTechnologyIds: string[];
 }

@@ -5,6 +5,10 @@ import { generateWorld } from '@/world/WorldGenerator';
 import { SeededRandom } from './Random';
 import type { SimulationState } from './types';
 import type { GameCommand, CommandResult } from './commands';
+import { BuildingRegistry } from '@/buildings/BuildingRegistry';
+import { ConstructionSystem } from '@/construction/ConstructionSystem';
+import { buildingLayout } from '@/construction/BuildingLayout';
+import { emptyResources } from '@/economy/ResourceLedger';
 
 function freezeData<T>(value: T): T {
   if (value && typeof value === 'object') {
@@ -15,12 +19,13 @@ function freezeData<T>(value: T): T {
 }
 
 export class SimulationSession {
-  /** Transitional mutable facade over the one grid owned by this session. */
+  /** The session's single live grid; gameplay mutations enter through dispatch. */
   public readonly gridSystem: GridSystem;
   private readonly state: SimulationState;
   private readonly random: SeededRandom;
+  private readonly construction: ConstructionSystem;
 
-  constructor(overrides: WorldOverrides = {}) {
+  constructor(overrides: WorldOverrides = {}, registry = BuildingRegistry.getInstance()) {
     const config = createWorldConfig(overrides);
     const world = generateWorld(config);
     this.random = new SeededRandom(world.randomState);
@@ -28,14 +33,25 @@ export class SimulationSession {
     this.gridSystem.deserialize(world.grid);
     // Live grid is owned by GridSystem. Snapshots capture it; don't retain another mutable copy.
     this.state = { config, world: { ...world, grid: [] }, tick: 0,
-      randomState: this.random.state, nextId: 1, citizens: {} };
+      randomState: this.random.state, nextId: 1, citizens: {}, buildings: {},
+      resources: { ...config.startingResources }, capacity: emptyResources(), unlockedTechnologyIds: [] };
+    this.construction = new ConstructionSystem(this.gridSystem, registry, () => this.allocateIdentity('building'));
+    const town = registry.get('town_center')!;
+    const layout = buildingLayout(town, world.townCenter, 0);
+    const identity = this.allocateIdentity('building');
+    this.state.buildings[identity.id] = { instanceId: identity.id, defId: town.id,
+      gridX: world.townCenter.x, gridZ: world.townCenter.z, rotation: 0, footprint: layout.footprint,
+      entrance: layout.entrance, status: 'completed', workTicks: town.requiredWorkTicks,
+      paidResources: emptyResources(), level: 1, seed: identity.seed, placedAt: 0 };
+    for (const cell of layout.cells) this.gridSystem.setBuilding(cell.x, cell.z, identity.id);
+    this.construction.recalculateCapacity(this.state);
   }
 
   step(ticks: number): void {
     if (!Number.isSafeInteger(ticks) || ticks < 0 || !Number.isSafeInteger(this.state.tick + ticks)) {
       throw new RangeError('Invalid simulation tick count');
     }
-    this.state.tick += ticks;
+    for (let index = 0; index < ticks; index++) { this.construction.step(this.state); this.state.tick++; }
   }
 
   allocateIdentity(prefix: string): { id: string; seed: number; placedAt: number } {
@@ -47,12 +63,32 @@ export class SimulationSession {
   }
 
   dispatch(command: GameCommand): CommandResult {
-    if (!command || command.type !== 'setTerrain') return { ok: false, reason: 'invalid_command' };
+    if (!command || typeof command !== 'object') return { ok: false, reason: 'invalid_command' };
+    if (command.type === 'placeBuilding') return this.construction.place(command, this.state);
+    if (command.type === 'placeRoad') return this.construction.place({ ...command, type: 'placeBuilding', defId: 'dirt_road', rotation: 0 }, this.state);
+    if (command.type === 'cancelConstruction' || command.type === 'demolishBuilding') {
+      if (typeof command.instanceId !== 'string' || !Object.hasOwn(this.state.buildings, command.instanceId)) return { ok: false, reason: 'not_found' };
+      return command.type === 'cancelConstruction' ? this.construction.cancel(command.instanceId, this.state) : this.construction.demolish(command.instanceId, this.state);
+    }
+    if (command.type === 'clearEnvironment') {
+      const object = this.state.world.environment.find(entry => entry.id === command.environmentId);
+      if (!object) return { ok: false, reason: 'not_found' };
+      this.state.world.environment = this.state.world.environment.filter(entry => entry.id !== object.id);
+      this.gridSystem.getCell(object.x, object.z)!.canBuild = !this.state.world.environment.some(entry =>
+        entry.x === object.x && entry.z === object.z && entry.kind !== 'bush');
+      return { ok: true };
+    }
+    if (command.type !== 'setTerrain') return { ok: false, reason: 'invalid_command' };
     if (!command.cell || !this.gridSystem.getCell(command.cell.x, command.cell.z)) {
       return { ok: false, reason: 'invalid_cell' };
     }
     if (!['grass', 'dirt', 'concrete', 'water'].includes(command.terrain)) {
       return { ok: false, reason: 'invalid_terrain' };
+    }
+    if (command.terrain === 'water' && (this.gridSystem.getCell(command.cell.x, command.cell.z)!.buildingId ||
+        Object.values(this.state.buildings).some(building => building.entrance?.x === command.cell.x && building.entrance.z === command.cell.z) ||
+        Object.values(this.state.citizens).some(citizen => Math.floor(citizen.position.x) === command.cell.x && Math.floor(citizen.position.z) === command.cell.z))) {
+      return { ok: false, reason: 'occupied' };
     }
     this.gridSystem.setTerrain(command.cell.x, command.cell.z, command.terrain);
     return { ok: true };

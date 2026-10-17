@@ -23,10 +23,11 @@ describe('headless simulation session', () => {
     expect(JSON.parse(JSON.stringify(snapshot))).toEqual(snapshot);
     expect(Object.getPrototypeOf(snapshot)).toBe(Object.prototype);
   });
-  it('shares its grid owner with the legacy construction adapter', () => {
+  it('exposes the same Town Center occupancy through its grid and snapshot', () => {
     const session = new SimulationSession();
-    session.gridSystem.setBuilding(2, 2, 'legacy-house');
-    expect(session.getSnapshot().world.grid[2][2].buildingId).toBe('legacy-house');
+    const town = Object.values(session.getSnapshot().buildings)[0];
+    expect(session.gridSystem.getCell(town.gridX, town.gridZ)?.buildingId).toBe(town.instanceId);
+    expect(session.getSnapshot().world.grid[town.gridX][town.gridZ].buildingId).toBe(town.instanceId);
   });
   it('rejects invalid commands and ticks without mutating state', () => {
     const session = new SimulationSession();

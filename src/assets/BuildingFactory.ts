@@ -11,7 +11,7 @@ import { ANCIENT_FOOTPRINTS, AncientBuildingId, createAncientBuilding } from './
 
 export class BuildingFactory {
   /**
-   * Instantiates the complete 3D procedural mesh for any of the 12 building definitions.
+   * Builds ancient catalog models; older factories remain outside the active registry.
    */
   public static createBuildingMesh(defId: string, level = 1, seed = 0): THREE.Group {
     if (Object.hasOwn(ANCIENT_FOOTPRINTS, defId)) return createAncientBuilding(defId as AncientBuildingId, seed);

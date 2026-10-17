@@ -1,73 +1,24 @@
-import { describe, it, expect } from 'vitest';
+import { it, expect } from 'vitest';
+import * as THREE from 'three';
 import { BuildingRegistry } from '../src/buildings/BuildingRegistry';
 import { BuildingFactory } from '../src/assets/BuildingFactory';
-import * as THREE from 'three';
+import { disposeBuilding } from '../src/assets/procedural/houses';
 
-describe('BuildingRegistry & 12 Procedural Building Models', () => {
-  const registry = BuildingRegistry.getInstance();
-
-  const expectedIds = [
-    'road',
-    'streetlight',
-    'small_house',
-    'family_house',
-    'apartment',
-    'shop',
-    'bakery',
-    'restaurant',
-    'school',
-    'clinic',
-    'park',
-    'tree',
-  ];
-
-  it('contains exactly all 12 complete building definitions', () => {
-    const all = registry.getAll();
-    expect(all.length).toBe(12);
-
-    for (const id of expectedIds) {
-      const def = registry.get(id);
-      expect(def).toBeDefined();
-      expect(def?.id).toBe(id);
-      expect(def?.cost).toBeGreaterThan(0);
-      expect(def?.footprint.width).toBeGreaterThanOrEqual(1);
-      expect(def?.footprint.depth).toBeGreaterThanOrEqual(1);
-    }
-  });
-
-  it('filters by each of the 5 categories accurately', () => {
-    expect(registry.getByCategory('residential').length).toBe(3);
-    expect(registry.getByCategory('commercial').length).toBe(3);
-    expect(registry.getByCategory('municipal').length).toBe(2);
-    expect(registry.getByCategory('nature').length).toBe(2);
-    expect(registry.getByCategory('transport').length).toBe(2);
-  });
-
-  it('generates valid 3D procedural meshes for all 12 building types via BuildingFactory', () => {
-    for (const id of expectedIds) {
-      const mesh = BuildingFactory.createBuildingMesh(id, 1, 42);
-      expect(mesh).toBeInstanceOf(THREE.Group);
-      expect(mesh.children.length).toBeGreaterThan(0);
-    }
-  });
-
-  it('generates semi-transparent ghost preview meshes for placement hovering', () => {
-    for (const id of expectedIds) {
-      const ghost = BuildingFactory.createGhostPreviewMesh(id);
-      expect(ghost).toBeInstanceOf(THREE.Group);
-      expect(ghost.name).toBe(`GhostPreview_${id}`);
-
-      // Verify at least one child mesh has cloned semi-transparent material
-      let foundTransparent = false;
-      ghost.traverse((child) => {
-        if (child instanceof THREE.Mesh) {
-          const mat = child.material as THREE.Material;
-          if (mat && mat.transparent && mat.opacity === 0.55) {
-            foundTransparent = true;
-          }
-        }
-      });
-      expect(foundTransparent).toBe(true);
-    }
-  });
+it('exposes only the eight ancient definitions, exact costs and four categories', () => {
+  const registry = new BuildingRegistry();
+  expect(registry.getAll().map(def => def.id)).toEqual(['town_center', 'primitive_house', 'farm', 'lumber_camp', 'stone_quarry', 'storage_hut', 'research_hut', 'dirt_road']);
+  expect(registry.get('primitive_house')!.cost).toEqual({ wood: 30, stone: 10, food: 0, coins: 0 });
+  expect(registry.get('research_hut')!.requiredWorkTicks).toBe(300);
+  expect(registry.get('town_center')!.purchasable).toBe(false);
+  for (const category of ['housing', 'production', 'infrastructure', 'community'] as const) expect(registry.getByCategory(category).length).toBeGreaterThan(0);
+  expect(registry.get('small_house')).toBeUndefined();
+  expect(Object.isFrozen(registry.get('farm')!.cost)).toBe(true);
+});
+it('renders all active ancient models and preview clones without changing shared materials', () => {
+  for (const def of new BuildingRegistry().getAll()) {
+    const model = BuildingFactory.createBuildingMesh(def.id), ghost = BuildingFactory.createGhostPreviewMesh(def.id);
+    expect(model.children.length).toBeGreaterThan(0);
+    ghost.traverse(child => { if (child instanceof THREE.Mesh) expect((child.material as THREE.Material).opacity).toBe(0.55); });
+    disposeBuilding(model); disposeBuilding(ghost);
+  }
 });

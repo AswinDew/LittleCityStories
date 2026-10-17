@@ -10,7 +10,7 @@
 
 **Spec:** Dokumen pengguna “CIVILIZATION TOWN — MASTER DEVELOPMENT PROMPT V2”, sumber: `C:/Users/ROG/.codex/attachments/3cee12ae-5ee0-4225-9ecd-37cb8c69b672/Pasted text.txt`.
 
-**Status (2026-10-16):** M1 / Task 1–3 dan M2 / Task 4–6 telah diimplementasikan, diverifikasi, dan direview. M3–M8 belum dijalankan. Berhenti sampai pengguna meminta lanjut. Bukti pemeriksaan dan keputusan transisi dicatat di `docs/progress/m1-foundation.md` dan `docs/progress/m2-assets.md`.
+**Status (2026-10-17):** M1–M3 / Task 1–9 telah diimplementasikan, diverifikasi, dan direview. M4–M8 belum dijalankan. Berhenti sampai pengguna meminta lanjut. Bukti pemeriksaan dan keputusan transisi dicatat di `docs/progress/m1-foundation.md`, `docs/progress/m2-assets.md`, dan `docs/progress/m3-construction.md`.
 
 ## Global Constraints
 
@@ -235,10 +235,10 @@ Migrasi state dilakukan bertahap: Task 3 memperkenalkan kontrak session/bridge d
 
 **Interfaces:** `ResourceLedger.canAfford(cost: Partial<ResourceBundle>): boolean`, `trySpend(cost): boolean`, `tryDeposit(bundle): boolean`, `refund(bundle): void`. Definisi bangunan memuat cost vector, footprint, entrance, requiredWorkTicks, workerSlots, fungsi housing/storage/production, dan unlock requirement.
 
-- [ ] Tulis tes biaya house `30 wood + 10 stone`: setelah sukses `expect(resources.wood).toBe(130)` dan `expect(resources.stone).toBe(90)`; kekurangan salah satu resource meninggalkan **seluruh** bundle semula.
-- [ ] Tambah tes cost negatif, pecahan, NaN/Infinity dan resource asing ditolak; batch deposit penuh tidak parsial; refund di atas capacity tidak hilang.
-- [ ] Terapkan katalog pada §2.3; bootstrap completed Town Center, inventory awal, dan counter ID seeded. Hapus ketergantungan gameplay pada treasury/maintenanceCost katalog modern, tanpa menambah upkeep yang belum direncanakan.
-- [ ] Jalankan tes ledger/katalog/session. Migrasikan tes legacy cost/refund ke vector resource dengan mempertahankan maksud perilakunya.
+- [x] Tulis tes biaya house `30 wood + 10 stone`: setelah sukses `expect(resources.wood).toBe(130)` dan `expect(resources.stone).toBe(90)`; kekurangan salah satu resource meninggalkan **seluruh** bundle semula.
+- [x] Tambah tes cost negatif, pecahan, NaN/Infinity dan resource asing ditolak; batch deposit penuh tidak parsial; refund di atas capacity tidak hilang.
+- [x] Terapkan katalog pada §2.3; bootstrap completed Town Center, inventory awal, dan counter ID seeded. Hapus ketergantungan gameplay pada treasury/maintenanceCost katalog modern, tanpa menambah upkeep yang belum direncanakan.
+- [x] Jalankan tes ledger/katalog/session. Migrasikan tes legacy cost/refund ke vector resource dengan mempertahankan maksud perilakunya.
 
 ### Task 8 — Command konstruksi dan pembongkaran atomik
 
@@ -246,10 +246,10 @@ Migrasi state dilakukan bertahap: Task 3 memperkenalkan kontrak session/bridge d
 
 **Interfaces:** `ConstructionSystem.place(command, state): CommandResult`, `cancel(instanceId, state): CommandResult`, `demolish(instanceId, state): CommandResult`, dan `step(state): void`. Building state memuat `planned | under_construction | completed`, paidResources, workTicks, entrance, serta rotation. Seluruh mutasi dijalankan oleh session.
 
-- [ ] Tulis tes command sebenarnya untuk batas grid, overlap, environment block, tile warga yang sedang ditempati, resource shortage, entrance tertutup, rotasi footprint 2×1→1×2, serta repeat demolition: `expect(secondDemolition.ok).toBe(false)` dan inventory tidak berubah.
-- [ ] Tempatkan validasi sebelum commit seluruh inventory/occupancy/entity; planned langsung mereservasi footprint. Jalan selesai instan. Building biasa menunggu kontribusi builder M5; model staged/scaffold mengikuti progres, tanpa timer konstruksi palsu.
-- [ ] Implementasikan cancel/refund, release seluruh footprint, proteksi Town Center, dan penghapusan environment tanpa hasil resource gratis. Storage capacity dihitung dari bangunan completed; barang berlebih tetap tersimpan.
-- [ ] Jalankan tes construction/placement/demolition melalui dispatcher. Tes kegagalan memastikan `expect(after.resources).toEqual(before.resources)` dan occupancy/entity count tidak berubah.
+- [x] Tulis tes command sebenarnya untuk batas grid, overlap, environment block, tile warga yang sedang ditempati, resource shortage, entrance tertutup, rotasi footprint 2×1→1×2, serta repeat demolition: `expect(secondDemolition.ok).toBe(false)` dan inventory tidak berubah.
+- [x] Tempatkan validasi sebelum commit seluruh inventory/occupancy/entity; planned langsung mereservasi footprint. Jalan selesai instan. Building biasa menunggu kontribusi builder M5; model staged/scaffold mengikuti progres, tanpa timer konstruksi palsu.
+- [x] Implementasikan cancel/refund, release seluruh footprint, proteksi Town Center, dan penghapusan environment tanpa hasil resource gratis. Storage capacity dihitung dari bangunan completed; barang berlebih tetap tersimpan.
+- [x] Jalankan tes construction/placement/demolition melalui dispatcher. Tes kegagalan memastikan `expect(after.resources).toEqual(before.resources)` dan occupancy/entity count tidak berubah.
 
 ### Task 9 — Placement UI dan selection minimal
 
@@ -257,10 +257,10 @@ Migrasi state dilakukan bertahap: Task 3 memperkenalkan kontrak session/bridge d
 
 **Interfaces:** Placement mengonsumsi snapshot getter dan `(command: GameCommand) => CommandResult`. Idle click memilih instance ID; UI state selection tidak menjadi sumber kebenaran bangunan. Helper pointer intent membedakan click dan drag dengan ambang 4 CSS px.
 
-- [ ] Tulis tes bahwa pointerup tanpa pointerdown yang valid, drag >4 px, right/middle/modified click, pointercancel, dan click HUD tidak mengeksekusi placement/demolition.
-- [ ] Hubungkan ghost, footprint hijau/merah, alasan resource/occupancy/entrance invalid, R rotate building, Escape cancel, serta kategori Housing/Production/Infrastructure/Community. Resource bar minimal menggantikan treasury lama.
-- [ ] Tambahkan inspector minimal status planned/under construction/completed, biaya dan aksi cancel/demolish. Tampilkan “menunggu builder” secara nyata sampai warga M5 tersedia; pilihan bangunan tidak berpura-pura sudah selesai.
-- [ ] Jalankan `npm.cmd test -- tests/pointerIntent.test.ts` dan E2E construction: valid place memotong tepat satu biaya, invalid place tidak memotong apa pun, select/demolish memperbarui snapshot dan mesh.
+- [x] Tulis tes bahwa pointerup tanpa pointerdown yang valid, drag >4 px, right/middle/modified click, pointercancel, dan click HUD tidak mengeksekusi placement/demolition.
+- [x] Hubungkan ghost, footprint hijau/merah, alasan resource/occupancy/entrance invalid, R rotate building, Escape cancel, serta kategori Housing/Production/Infrastructure/Community. Resource bar minimal menggantikan treasury lama.
+- [x] Tambahkan inspector minimal status planned/under construction/completed, biaya dan aksi cancel/demolish. Tampilkan “menunggu builder” secara nyata sampai warga M5 tersedia; pilihan bangunan tidak berpura-pura sudah selesai.
+- [x] Jalankan `npm.cmd test -- tests/pointerIntent.test.ts` dan E2E construction: valid place memotong tepat satu biaya, invalid place tidak memotong apa pun, select/demolish memperbarui snapshot dan mesh.
 
 ## M4 — Economy
 

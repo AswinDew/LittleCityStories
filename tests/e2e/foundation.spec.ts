@@ -17,7 +17,7 @@ test('32×32 world renders, has layers and deterministic test controls', async (
     expect.arrayContaining(['terrain', 'roads', 'BuildingsGroup', 'vegetation', 'citizens', 'EffectsGroup', 'selection']));
   await page.evaluate(() => window.__CIV_TOWN_TEST__!.advanceTicks(10));
   expect(await page.evaluate(() => window.__CIV_TOWN_TEST__!.getSnapshot().tick)).toBe(10);
-  expect(await page.evaluate(() => window.__CIV_TOWN_TEST__!.getLegacyState().placedBuildings)).toEqual({});
+  expect(Object.values(initial.buildings).map(building => building.defId)).toEqual(['town_center']);
   await expect.poll(() => page.evaluate(() => window.__CIV_TOWN_TEST__!.getRenderCalls())).toBeGreaterThan(0);
   expect(errors).toEqual([]);
   await page.screenshot({ path: 'test-results/m1-foundation.png' });
@@ -41,7 +41,7 @@ test('camera pans, zooms and resizes without changing the logical map', async ({
   expect(await page.evaluate(() => window.__CIV_TOWN_TEST__!.getSnapshot().world.grid.length)).toBe(32);
 });
 
-test('legacy placement still uses the session grid and does not overlap environment', async ({ page }) => {
+test('road placement uses session resources and cannot overlap environment', async ({ page }) => {
   await page.goto('/?manual=1');
   await page.waitForFunction(() => !!window.__CIV_TOWN_TEST__);
   await page.keyboard.press('2');
@@ -51,18 +51,18 @@ test('legacy placement still uses the session grid and does not overlap environm
     return hooks.gridToScreen(source);
   });
   await page.mouse.click(tree.x, tree.y);
-  expect(await page.evaluate(() => window.__CIV_TOWN_TEST__!.getLegacyState().treasury)).toBe(10000);
-  expect(await page.evaluate(() => window.__CIV_TOWN_TEST__!.getLegacyState().placedBuildings)).toEqual({});
-  const point = await page.evaluate(() => window.__CIV_TOWN_TEST__!.gridToScreen({ x: 16, z: 16 }));
+  expect(await page.evaluate(() => window.__CIV_TOWN_TEST__!.getSnapshot().resources.stone)).toBe(100);
+  expect(Object.keys(await page.evaluate(() => window.__CIV_TOWN_TEST__!.getSnapshot().buildings))).toHaveLength(1);
+  const point = await page.evaluate(() => window.__CIV_TOWN_TEST__!.gridToScreen({ x: 12, z: 12 }));
   await page.mouse.click(point.x, point.y);
-  const state = await page.evaluate(() => window.__CIV_TOWN_TEST__!.getLegacyState());
-  expect(Object.keys(state.placedBuildings)).toHaveLength(1);
-  expect(state.treasury).toBe(9980);
-  expect(await page.evaluate(() => window.__CIV_TOWN_TEST__!.getSnapshot().world.grid[16][16].isRoad)).toBe(true);
+  const state = await page.evaluate(() => window.__CIV_TOWN_TEST__!.getSnapshot());
+  expect(Object.keys(state.buildings)).toHaveLength(2);
+  expect(state.resources.stone).toBe(99);
+  expect(state.world.grid[12][12].isRoad).toBe(true);
   await page.keyboard.press('b');
   await page.mouse.click(point.x, point.y);
-  expect(await page.evaluate(() => window.__CIV_TOWN_TEST__!.getLegacyState().treasury)).toBe(9990);
-  expect(await page.evaluate(() => window.__CIV_TOWN_TEST__!.getSnapshot().world.grid[16][16].isRoad)).toBe(false);
+  expect(await page.evaluate(() => window.__CIV_TOWN_TEST__!.getSnapshot().resources.stone)).toBe(99);
+  expect(await page.evaluate(() => window.__CIV_TOWN_TEST__!.getSnapshot().world.grid[12][12].isRoad)).toBe(false);
 });
 
 test('live scheduler advances independently and respects pause and speed', async ({ page }) => {

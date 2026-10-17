@@ -1,285 +1,114 @@
-import { Game } from '@/game/Game';
-import { useGameStore, ActiveTool } from '@/state/GameStore';
+import type { Game } from '@/game/Game';
+import { useGameStore } from '@/state/GameStore';
 import { BuildingRegistry } from '@/buildings/BuildingRegistry';
-import { BuildingDefinition, BuildingCategory } from '@/buildings/types';
+import type { BuildingCategory } from '@/buildings/types';
+import { RESOURCE_IDS } from '@/economy/ResourceLedger';
+import type { ResourceBundle } from '@/economy/types';
+import type { CommandFailure } from '@/simulation/commands';
 
-type TabCategory = 'featured' | BuildingCategory;
+const messages: Record<CommandFailure, string> = {
+  invalid_command: 'Perintah tidak valid.', invalid_cell: 'Pilih tile pada peta.', invalid_terrain: 'Terrain tidak valid.',
+  unknown_building: 'Bangunan tidak tersedia.', invalid_rotation: 'Rotasi tidak valid.', out_of_bounds: 'Footprint keluar dari peta.',
+  occupied: 'Tile sudah ditempati.', environment_blocked: 'Tanah terhalang pohon, batu, atau air.', citizen_occupied: 'Ada warga pada tile ini.',
+  insufficient_resources: 'Resource tidak cukup.', entrance_blocked: 'Pintu masuk harus tetap terbuka.', protected_building: 'Town Center dilindungi.',
+  not_found: 'Objek sudah tidak ada.', invalid_state: 'Aksi tidak tersedia pada status ini.', locked: 'Teknologi belum dibuka.',
+};
+const icon = (key: string, label = '') => `<img src="${import.meta.env.BASE_URL}generated/icons/${key}.png" alt="${label}" width="24" height="24">`;
+const costText = (cost: ResourceBundle) => RESOURCE_IDS.filter(key => cost[key] > 0).map(key => `${cost[key]} ${key}`).join(' · ') || 'Starter';
 
 export class HUD {
-  private container: HTMLElement;
-  private game: Game;
-  private abortController: AbortController;
-  private unsubscribeStore: () => void;
-  private currentTab: TabCategory = 'featured';
-
-  constructor(container: HTMLElement, game: Game) {
-    this.container = container;
-    this.game = game;
-    this.abortController = new AbortController();
-
-    this.initLayout();
-    this.attachEventListeners();
-    this.renderBuildingCards();
-
-    // Subscribe to Zustand store for Treasury and Active Tool updates
-    this.unsubscribeStore = useGameStore.subscribe((state, previous) => {
-      if (state.treasury !== previous.treasury) this.updateTreasury(state.treasury);
-      if (state.activeTool !== previous.activeTool) this.updateActiveTool(state.activeTool);
+  private category: BuildingCategory = 'housing';
+  private readonly abort = new AbortController();
+  private readonly unsubscribe: () => void;
+  constructor(private readonly container: HTMLElement, private readonly game: Game) {
+    container.innerHTML = `<header class="settlement-header">
+      <div class="glass-panel settlement-title"><h1>Civilization Town</h1><p>M3 · Ancient Settlement</p></div>
+      <div class="glass-panel resource-bar" aria-label="Settlement resources">${RESOURCE_IDS.map(key => `<div data-resource="${key}">${icon(key)}<span>${key}</span><strong>0</strong><small>/ 300</small></div>`).join('')}</div>
+      </header><aside class="glass-panel construction-inspector" aria-label="Building inspector" hidden></aside>
+      <div class="glass-panel construction-hints">Klik: bangun / pilih · drag kanan/tengah: pan · scroll: zoom · R: rotasi · Esc: batal</div>
+      <nav class="glass-panel construction-dock" aria-label="Construction menu"><div class="construction-tabs">${(['housing', 'production', 'infrastructure', 'community'] as const).map(category => `<button type="button" data-category="${category}">${category[0].toUpperCase() + category.slice(1)}</button>`).join('')}</div>
+      <div class="construction-cards"></div><div class="construction-tools"><button type="button" data-tool="demolish">Demolish [B]</button><button type="button" data-tool="clear">Clear vegetation [C]</button><button type="button" data-tool="idle">Cancel tool [Esc]</button></div>
+      <p class="construction-feedback" role="status" aria-live="polite"></p></nav>
+      <div class="camera-zoom"><button type="button" data-camera="in" title="Zoom In (+)" aria-label="Zoom in">+</button><button type="button" data-camera="out" title="Zoom Out (−)" aria-label="Zoom out">−</button></div>`;
+    this.renderCards(); this.render();
+    this.unsubscribe = useGameStore.subscribe((state, previous) => {
+      if (state.simulationSnapshot !== previous.simulationSnapshot || state.activeTool !== previous.activeTool ||
+          state.selectedBuildingId !== previous.selectedBuildingId || state.feedback !== previous.feedback) this.render();
     });
-
-    // Initial sync
-    const state = useGameStore.getState();
-    this.updateTreasury(state.treasury);
-    this.updateActiveTool(state.activeTool);
+    container.addEventListener('click', this.onClick, { signal: this.abort.signal });
+    window.addEventListener('keydown', this.onKey, { signal: this.abort.signal });
   }
-
-  private getBuildingsForCurrentTab(): BuildingDefinition[] {
-    const registry = BuildingRegistry.getInstance();
-    if (this.currentTab === 'featured') {
-      return registry.getAll();
+  private renderCards(): void {
+    const cards = this.container.querySelector('.construction-cards')!;
+    cards.innerHTML = BuildingRegistry.getInstance().getByCategory(this.category).filter(def => def.purchasable).map(def =>
+      `<button type="button" class="construction-card" data-def-id="${def.id}" title="${def.description}">${icon(def.id)}<strong>${def.name}</strong><small>${costText(def.cost)}</small><small>${def.footprint.width}×${def.footprint.depth} · ${def.requiredWorkTicks ? `${def.requiredWorkTicks / 10}s kerja` : 'Instan'}</small></button>`).join('');
+  }
+  private render(): void {
+    const state = useGameStore.getState(), snapshot = state.simulationSnapshot;
+    if (!snapshot) return;
+    for (const key of RESOURCE_IDS) {
+      const badge = this.container.querySelector<HTMLElement>(`[data-resource="${key}"]`)!;
+      badge.querySelector('strong')!.textContent = String(snapshot.resources[key]);
+      badge.querySelector('small')!.textContent = `/ ${snapshot.capacity[key]}`;
+      badge.classList.toggle('over-capacity', snapshot.resources[key] > snapshot.capacity[key]);
+      badge.title = snapshot.resources[key] > snapshot.capacity[key] ? 'Over capacity: resource tetap tersimpan.' : key;
     }
-    return registry.getByCategory(this.currentTab);
+    this.container.querySelectorAll<HTMLButtonElement>('[data-category]').forEach(button => {
+      button.setAttribute('aria-pressed', String(button.dataset.category === this.category));
+    });
+    this.container.querySelectorAll<HTMLButtonElement>('[data-def-id]').forEach(button => {
+      button.setAttribute('aria-pressed', String(state.activeTool.mode === 'place' && state.activeTool.defId === button.dataset.defId));
+    });
+    this.container.querySelectorAll<HTMLButtonElement>('[data-tool]').forEach(button => {
+      button.setAttribute('aria-pressed', String(state.activeTool.mode === button.dataset.tool));
+    });
+    const feedback = this.container.querySelector('.construction-feedback')!;
+    feedback.textContent = state.feedback ? messages[state.feedback] : state.activeTool.mode === 'place' ?
+      'Pilih tile kosong. Site menunggu builder; R memutar footprint dan entrance.' : state.activeTool.mode === 'clear' ?
+      'Bersihkan pohon/batu tanpa hasil resource gratis.' : state.activeTool.mode === 'demolish' ?
+      'Klik site untuk batal; bangunan selesai mengembalikan 50% biaya, dibulatkan ke bawah.' : 'Pilih bangunan untuk melihat status dan tindakan.';
+    const panel = this.container.querySelector<HTMLElement>('.construction-inspector')!;
+    const building = state.selectedBuildingId ? snapshot.buildings[state.selectedBuildingId] : null;
+    panel.hidden = !building;
+    if (!building) { panel.innerHTML = ''; return; }
+    const def = BuildingRegistry.getInstance().get(building.defId)!;
+    const status = building.status === 'planned' ? 'Menunggu builder' : building.status === 'under_construction' ?
+      `Dalam konstruksi · ${building.workTicks}/${def.requiredWorkTicks} tick kerja` : 'Selesai';
+    const markup = `${icon(building.defId)}<h2>${def.name}</h2><p data-building-status="${building.status}">${status}</p>
+      <p>Biaya dibayar: ${costText(building.paidResources)}</p><p>${def.description}</p>${building.defId === 'town_center' ? '<p>Bangunan awal dilindungi.</p>' :
+      `<button type="button" data-action="${building.status === 'completed' ? 'demolishBuilding' : 'cancelConstruction'}" data-instance="${building.instanceId}">${building.status === 'completed' ? 'Demolish building' : 'Cancel construction'}</button>`}`;
+    // Keep focused inspector actions stable when an unrelated clock snapshot is published.
+    if (panel.innerHTML !== markup) panel.innerHTML = markup;
   }
-
-  private initLayout(): void {
-    this.container.innerHTML = `
-      <!-- Top Left: Title & Controls Hint -->
-      <div style="position: absolute; top: 16px; left: 16px; display: flex; flex-direction: column; gap: 8px; pointer-events: none;">
-        <div class="glass-panel" style="padding: 12px 18px; display: flex; align-items: center; gap: 12px; pointer-events: auto;">
-          <div style="width: 14px; height: 14px; border-radius: 50%; background: #10b981; box-shadow: 0 0 10px #10b981;"></div>
-          <div>
-            <h1 style="font-size: 1.1rem; font-weight: 700; margin: 0; color: #0f172a; letter-spacing: -0.02em;">Civilization Town</h1>
-            <p style="font-size: 0.8rem; color: #64748b; margin: 2px 0 0 0;">M2 Asset Pipeline · ${this.game.gridSystem.size}×${this.game.gridSystem.size} · Legacy Catalog</p>
-          </div>
-        </div>
-
-        <div class="glass-panel" style="padding: 10px 14px; font-size: 0.78rem; color: #475569; display: flex; flex-direction: column; gap: 4px; pointer-events: auto;">
-          <div>🖱️ <b>Left Click:</b> Place / Demolish</div>
-          <div>🖱️ <b>Right/Middle Drag:</b> Pan Camera</div>
-          <div>🔄 <b>R:</b> Rotate Building</div>
-          <div>⌨️ <b>1–4:</b> Quick Build · <b>B:</b> Demolish · <b>Esc:</b> Cancel</div>
-        </div>
-      </div>
-
-      <!-- Top Right: Treasury Display -->
-      <div style="position: absolute; top: 16px; right: 16px;">
-        <div class="glass-panel treasury-panel" id="treasury-badge">
-          <span>💰</span>
-          <span id="treasury-val">$10,000</span>
-        </div>
-      </div>
-
-      <!-- Bottom Center: Construction Toolbar Dock -->
-      <div style="position: absolute; bottom: 20px; left: 50%; transform: translateX(-50%); display: flex; flex-direction: column; align-items: center; max-width: 90vw;">
-        <!-- Category Filter Tabs -->
-        <div class="category-tabs glass-panel" id="category-tabs-bar" style="padding: 4px 8px;">
-          <button class="category-tab active" data-cat="featured">All (12)</button>
-          <button class="category-tab" data-cat="residential">🏠 Residential</button>
-          <button class="category-tab" data-cat="commercial">🏪 Commercial</button>
-          <button class="category-tab" data-cat="municipal">🏛️ Civic</button>
-          <button class="category-tab" data-cat="nature">🌳 Nature</button>
-          <button class="category-tab" data-cat="transport">🛣️ Roads</button>
-        </div>
-
-        <!-- Buttons Dock -->
-        <div class="glass-panel toolbar-dock" style="max-width: 100%; overflow-x: auto; display: flex; align-items: center; gap: 8px;">
-          <div id="dock-building-list" style="display: flex; gap: 8px;"></div>
-
-          <div class="tool-divider"></div>
-
-          <button id="btn-tool-demolish" class="tool-btn" title="Demolish Building (+50% refund) [Key: B]">
-            <span class="btn-icon">🚜</span>
-            <span class="btn-label">Bulldoze</span>
-            <span class="btn-cost" style="color: #dc2626;">Refund</span>
-          </button>
-
-          <button id="btn-tool-cancel" class="tool-btn" title="Cancel Tool (Idle mode) [Key: Esc]">
-            <span class="btn-icon">✖</span>
-            <span class="btn-label">Cancel</span>
-            <span class="btn-cost" style="color: #64748b;">Esc</span>
-          </button>
-        </div>
-      </div>
-
-      <!-- Bottom Right: Camera Controls -->
-      <div style="position: absolute; top: 50%; right: 20px; transform: translateY(-50%); display: flex; flex-direction: column; gap: 10px;">
-        <button id="btn-zoom-in" class="glass-panel" style="width: 44px; height: 44px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.2rem; font-weight: bold; background: white;" title="Zoom In (+)">+</button>
-        <button id="btn-zoom-out" class="glass-panel" style="width: 44px; height: 44px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.2rem; font-weight: bold; background: white;" title="Zoom Out (−)">−</button>
-      </div>
-    `;
-  }
-
-  private renderBuildingCards(): void {
-    const listEl = this.container.querySelector('#dock-building-list');
-    if (!listEl) return;
-
-    const buildings = this.getBuildingsForCurrentTab();
-    listEl.innerHTML = buildings
-      .map(
-        (b) => `
-        <button id="btn-tool-${b.id}" class="tool-btn" data-def-id="${b.id}" title="${b.name} ($${b.cost}) · ${b.footprint.width}×${b.footprint.depth}">
-          <span class="btn-icon">${b.icon}</span>
-          <span class="btn-label">${b.name}</span>
-          <span class="btn-cost">$${b.cost}</span>
-        </button>
-      `
-      )
-      .join('');
-
-    this.updateActiveTool(useGameStore.getState().activeTool);
-  }
-
-  private attachEventListeners(): void {
-    const { signal } = this.abortController;
-
-    // Camera buttons
-    this.container.querySelector('#btn-zoom-in')?.addEventListener(
-      'click',
-      () => {
-        this.game.cameraController.zoomIn();
-      },
-      { signal }
-    );
-
-    this.container.querySelector('#btn-zoom-out')?.addEventListener(
-      'click',
-      () => {
-        this.game.cameraController.zoomOut();
-      },
-      { signal }
-    );
-
-    // Category Tabs via Event Delegation on Tabs Bar
-    const tabsBar = this.container.querySelector('#category-tabs-bar');
-    tabsBar?.addEventListener(
-      'click',
-      (e) => {
-        const tabBtn = (e.target as HTMLElement).closest('.category-tab');
-        if (!tabBtn) return;
-
-        const cat = tabBtn.getAttribute('data-cat') as TabCategory;
-        if (cat && cat !== this.currentTab) {
-          this.currentTab = cat;
-          // Update active class on tab buttons
-          tabsBar.querySelectorAll('.category-tab').forEach((t) => t.classList.remove('active'));
-          tabBtn.classList.add('active');
-
-          // Only update the building list without re-rendering the whole HUD
-          this.renderBuildingCards();
-        }
-      },
-      { signal }
-    );
-
-    // Building buttons via Event Delegation on dock
-    const dockBuildingList = this.container.querySelector('#dock-building-list');
-    dockBuildingList?.addEventListener(
-      'click',
-      (e) => {
-        const btn = (e.target as HTMLElement).closest('.tool-btn[data-def-id]');
-        if (!btn) return;
-
-        const defId = btn.getAttribute('data-def-id');
-        if (defId) {
-          const store = useGameStore.getState();
-          const current = store.activeTool;
-          if (current.mode === 'place' && current.defId === defId) {
-            store.clearTool();
-          } else {
-            store.setPlacementTool(defId);
-          }
-        }
-      },
-      { signal }
-    );
-
-    // Demolish and Cancel buttons
-    this.container.querySelector('#btn-tool-demolish')?.addEventListener(
-      'click',
-      () => {
-        const store = useGameStore.getState();
-        const current = store.activeTool;
-        if (current.mode === 'demolish') store.clearTool();
-        else store.setDemolishTool();
-      },
-      { signal }
-    );
-
-    this.container.querySelector('#btn-tool-cancel')?.addEventListener(
-      'click',
-      () => {
-        useGameStore.getState().clearTool();
-      },
-      { signal }
-    );
-
-    // Keyboard shortcuts (Registered ONCE on window, guarded against repeat)
-    window.addEventListener(
-      'keydown',
-      (e) => {
-        // Ignore key repeat and form inputs
-        if (e.repeat) return;
-        if (e.target instanceof HTMLInputElement || e.target instanceof HTMLTextAreaElement) return;
-
-        const store = useGameStore.getState();
-
-        switch (e.key) {
-          case '1':
-            store.setPlacementTool('small_house');
-            break;
-          case '2':
-            store.setPlacementTool('road');
-            break;
-          case '3':
-            store.setPlacementTool('shop');
-            break;
-          case '4':
-            store.setPlacementTool('park');
-            break;
-          case 'b':
-          case 'B':
-            if (store.activeTool.mode === 'demolish') {
-              store.clearTool();
-            } else {
-              store.setDemolishTool();
-            }
-            break;
-          case 'r':
-          case 'R':
-            // Rotate building during placement mode
-            this.game.placementSystem.rotatePlacement();
-            break;
-          case 'Escape':
-            store.clearTool();
-            break;
-        }
-      },
-      { signal }
-    );
-  }
-
-  private updateTreasury(amount: number): void {
-    const el = this.container.querySelector('#treasury-val');
-    if (el) {
-      el.textContent = `$${amount.toLocaleString()}`;
+  private onClick = (event: MouseEvent): void => {
+    const button = (event.target as HTMLElement).closest<HTMLButtonElement>('button'); if (!button) return;
+    const store = useGameStore.getState();
+    if (button.dataset.category) { this.category = button.dataset.category as BuildingCategory; this.renderCards(); this.render(); }
+    if (button.dataset.defId) store.setPlacementTool(button.dataset.defId);
+    if (button.dataset.tool === 'demolish') store.setDemolishTool();
+    if (button.dataset.tool === 'clear') store.setClearTool();
+    if (button.dataset.tool === 'idle') store.clearTool();
+    if (button.dataset.camera === 'in') this.game.cameraController.zoomIn();
+    if (button.dataset.camera === 'out') this.game.cameraController.zoomOut();
+    if (button.dataset.action && button.dataset.instance) {
+      const result = this.game.dispatch({ type: button.dataset.action as 'demolishBuilding' | 'cancelConstruction', instanceId: button.dataset.instance });
+      store.setFeedback(result.ok ? null : result.reason);
     }
-  }
-
-  private updateActiveTool(tool: ActiveTool): void {
-    const buttons = this.container.querySelectorAll('.tool-btn');
-    buttons.forEach((b) => b.classList.remove('active', 'demolish-active'));
-
-    if (tool.mode === 'place' && tool.defId) {
-      const activeBtn = this.container.querySelector(`.tool-btn[data-def-id="${tool.defId}"]`);
-      activeBtn?.classList.add('active');
-    } else if (tool.mode === 'demolish') {
-      this.container.querySelector('#btn-tool-demolish')?.classList.add('demolish-active');
+  };
+  private onKey = (event: KeyboardEvent): void => {
+    if (event.repeat || event.ctrlKey || event.metaKey || event.altKey || event.target instanceof HTMLInputElement || event.target instanceof HTMLTextAreaElement ||
+        event.target instanceof HTMLSelectElement || (event.target as HTMLElement)?.isContentEditable) return;
+    const store = useGameStore.getState();
+    switch (event.key.toLowerCase()) {
+      case '1': store.setPlacementTool('primitive_house'); break;
+      case '2': store.setPlacementTool('dirt_road'); break;
+      case '3': store.setPlacementTool('farm'); break;
+      case '4': store.setPlacementTool('lumber_camp'); break;
+      case 'b': store.activeTool.mode === 'demolish' ? store.clearTool() : store.setDemolishTool(); break;
+      case 'c': store.activeTool.mode === 'clear' ? store.clearTool() : store.setClearTool(); break;
+      case 'r': this.game.placementSystem.rotatePlacement(); break;
+      case 'escape': store.clearTool(); break;
     }
-  }
-
-  public dispose(): void {
-    this.unsubscribeStore();
-    this.abortController.abort();
-    this.container.innerHTML = '';
-  }
+  };
+  dispose(): void { this.unsubscribe(); this.abort.abort(); this.container.replaceChildren(); }
 }

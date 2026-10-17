@@ -11,10 +11,9 @@ function createHooks(game: Game) {
     setSpeed: game.setSpeed.bind(game),
     getSceneGroups: () => game.sceneManager.scene.children.map(child => child.name),
     getRenderCalls: () => game.renderer.renderer.info.render.calls,
-    getLegacyState: () => {
-      const { treasury, placedBuildings } = useGameStore.getState();
-      return { treasury, placedBuildings };
-    },
+    getBuildingViews: () => [...game.sceneManager.buildingsGroup.children, ...game.sceneManager.roadsGroup.children]
+      .map(mesh => ({ id: mesh.name, stage: mesh.userData.stage as string })),
+    getSelection: () => useGameStore.getState().selectedBuildingId,
     getCameraState: () => ({ zoom: game.cameraController.camera.zoom,
       rotation: game.cameraController.getRotationAngle(),
       target: { x: game.cameraController.target.x, z: game.cameraController.target.z } }),

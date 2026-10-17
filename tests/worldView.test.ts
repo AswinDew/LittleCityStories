@@ -14,13 +14,13 @@ it('reuses environment meshes, reconciles terrain and releases owned geometry', 
   expect(first).toHaveLength(2);
   view.sync(snapshot);
   expect(scene.vegetationGroup.children).toEqual(first);
-  session.dispatch({ type: 'setTerrain', cell: { x: 16, z: 16 }, terrain: 'water' });
+  session.dispatch({ type: 'setTerrain', cell: { x: 12, z: 12 }, terrain: 'water' });
   view.sync(session.getSnapshot());
   const tile = scene.terrainGroup.children[0] as THREE.Mesh;
-  expect(tile.position.x).toBe(1);
-  expect(tile.position.z).toBe(1);
+  expect(tile.position.x).toBe(-7);
+  expect(tile.position.z).toBe(-7);
   const dispose = vi.spyOn(tile.geometry, 'dispose');
-  session.dispatch({ type: 'setTerrain', cell: { x: 16, z: 16 }, terrain: 'grass' });
+  session.dispatch({ type: 'setTerrain', cell: { x: 12, z: 12 }, terrain: 'grass' });
   view.sync(session.getSnapshot());
   expect(dispose).toHaveBeenCalledTimes(1);
   expect(scene.terrainGroup.children).toHaveLength(0);

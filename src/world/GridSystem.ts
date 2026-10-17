@@ -54,7 +54,7 @@ export class GridSystem {
   public isCellAvailable(x: number, z: number): boolean {
     const cell = this.getCell(x, z);
     if (!cell) return false;
-    return cell.canBuild && cell.buildingId === null && !cell.isRoad;
+    return cell.canBuild && cell.terrain !== 'water' && cell.buildingId === null && !cell.isRoad;
   }
 
   public setBuilding(x: number, z: number, buildingId: string): boolean {

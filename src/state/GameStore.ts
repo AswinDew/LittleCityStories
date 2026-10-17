@@ -1,126 +1,34 @@
 import { createStore } from 'zustand/vanilla';
-import { PlacedBuilding } from '@/buildings/types';
-import { BuildingRegistry } from '@/buildings/BuildingRegistry';
 import type { SimulationState } from '@/simulation/types';
+import type { CommandFailure } from '@/simulation/commands';
 
-export type ToolMode = 'idle' | 'place' | 'demolish';
-
-export interface ActiveTool {
-  mode: ToolMode;
-  defId?: string;
-}
-
+export type ToolMode = 'idle' | 'place' | 'demolish' | 'clear';
+export interface ActiveTool { mode: ToolMode; defId?: string }
 export interface GameState {
   simulationSnapshot: Readonly<SimulationState> | null;
-  publishSnapshot: (snapshot: Readonly<SimulationState>) => void;
-  treasury: number;
   activeTool: ActiveTool;
-  placedBuildings: Record<string, PlacedBuilding>;
   selectedBuildingId: string | null;
-
-  // Actions
+  feedback: CommandFailure | null;
+  publishSnapshot: (snapshot: Readonly<SimulationState>) => void;
   setPlacementTool: (defId: string) => void;
   setDemolishTool: () => void;
+  setClearTool: () => void;
   clearTool: () => void;
   selectBuilding: (id: string | null) => void;
-
-  canAfford: (amount: number) => boolean;
-  addBuilding: (building: PlacedBuilding, cost: number) => boolean;
-  removeBuilding: (instanceId: string, refundPercent?: number) => number;
-  addFunds: (amount: number) => void;
+  setFeedback: (reason: CommandFailure | null) => void;
   resetGame: () => void;
 }
-
-const INITIAL_TREASURY = 10000;
-
+/** Presentation and UI state only. Resources/buildings have no writable store actions. */
 export const gameStore = createStore<GameState>((set, get) => ({
-  simulationSnapshot: null,
-  publishSnapshot: (simulationSnapshot) => set({ simulationSnapshot }),
-  treasury: INITIAL_TREASURY,
-  activeTool: { mode: 'idle' },
-  placedBuildings: {},
-  selectedBuildingId: null,
-
-  setPlacementTool: (defId: string) => {
-    set({
-      activeTool: { mode: 'place', defId },
-      selectedBuildingId: null,
-    });
-  },
-
-  setDemolishTool: () => {
-    set({
-      activeTool: { mode: 'demolish' },
-      selectedBuildingId: null,
-    });
-  },
-
-  clearTool: () => {
-    set({
-      activeTool: { mode: 'idle' },
-    });
-  },
-
-  selectBuilding: (id: string | null) => {
-    set({
-      selectedBuildingId: id,
-    });
-  },
-
-  canAfford: (amount: number) => {
-    return get().treasury >= amount;
-  },
-
-  addBuilding: (building: PlacedBuilding, cost: number) => {
-    const { treasury } = get();
-    if (treasury < cost) return false;
-
-    set((state) => ({
-      treasury: state.treasury - cost,
-      placedBuildings: {
-        ...state.placedBuildings,
-        [building.instanceId]: building,
-      },
-    }));
-    return true;
-  },
-
-  removeBuilding: (instanceId: string, refundPercent = 0.5) => {
-    const { placedBuildings } = get();
-    const building = placedBuildings[instanceId];
-    if (!building) return 0;
-
-    const registry = BuildingRegistry.getInstance();
-    const def = registry.get(building.defId);
-    const refund = def ? Math.round(def.cost * refundPercent) : 0;
-
-    set((state) => {
-      const nextBuildings = { ...state.placedBuildings };
-      delete nextBuildings[instanceId];
-      return {
-        treasury: state.treasury + refund,
-        placedBuildings: nextBuildings,
-        selectedBuildingId:
-          state.selectedBuildingId === instanceId ? null : state.selectedBuildingId,
-      };
-    });
-
-    return refund;
-  },
-
-  addFunds: (amount: number) => {
-    set((state) => ({ treasury: state.treasury + amount }));
-  },
-
-  resetGame: () => {
-    set({
-      simulationSnapshot: null,
-      treasury: INITIAL_TREASURY,
-      activeTool: { mode: 'idle' },
-      placedBuildings: {},
-      selectedBuildingId: null,
-    });
-  },
+  simulationSnapshot: null, activeTool: { mode: 'idle' }, selectedBuildingId: null, feedback: null,
+  publishSnapshot: simulationSnapshot => set(state => ({ simulationSnapshot,
+    selectedBuildingId: state.selectedBuildingId && Object.hasOwn(simulationSnapshot.buildings, state.selectedBuildingId) ? state.selectedBuildingId : null })),
+  setPlacementTool: defId => set({ activeTool: { mode: 'place', defId }, selectedBuildingId: null, feedback: null }),
+  setDemolishTool: () => set({ activeTool: { mode: 'demolish' }, selectedBuildingId: null, feedback: null }),
+  setClearTool: () => set({ activeTool: { mode: 'clear' }, selectedBuildingId: null, feedback: null }),
+  clearTool: () => set({ activeTool: { mode: 'idle' }, feedback: null }),
+  selectBuilding: selectedBuildingId => set({ selectedBuildingId, feedback: null }),
+  setFeedback: feedback => { if (get().feedback !== feedback) set({ feedback }); },
+  resetGame: () => set({ simulationSnapshot: null, activeTool: { mode: 'idle' }, selectedBuildingId: null, feedback: null }),
 }));
-
 export const useGameStore = gameStore;

@@ -149,6 +149,9 @@ export class CameraController {
     this.domElement.addEventListener('pointerdown', this.onPointerDown);
     window.addEventListener('pointermove', this.onPointerMove);
     window.addEventListener('pointerup', this.onPointerUp);
+    window.addEventListener('pointercancel', this.onPointerCancel);
+    window.addEventListener('blur', this.onPointerCancel);
+    this.domElement.addEventListener('lostpointercapture', this.onPointerCancel);
     this.domElement.addEventListener('wheel', this.onWheel, { passive: false });
     this.domElement.addEventListener('contextmenu', this.onContextMenu);
   }
@@ -227,6 +230,7 @@ export class CameraController {
   };
 
   private onContextMenu = (event: Event): void => { event.preventDefault(); };
+  private onPointerCancel = (): void => { this.isDragging = false; this.dragButton = -1; };
 
   public getRotationAngle(): number {
     return this.rotationAngle;
@@ -240,6 +244,9 @@ export class CameraController {
     this.domElement.removeEventListener('pointerdown', this.onPointerDown);
     window.removeEventListener('pointermove', this.onPointerMove);
     window.removeEventListener('pointerup', this.onPointerUp);
+    window.removeEventListener('pointercancel', this.onPointerCancel);
+    window.removeEventListener('blur', this.onPointerCancel);
+    this.domElement.removeEventListener('lostpointercapture', this.onPointerCancel);
     this.domElement.removeEventListener('wheel', this.onWheel);
     this.domElement.removeEventListener('contextmenu', this.onContextMenu);
   }

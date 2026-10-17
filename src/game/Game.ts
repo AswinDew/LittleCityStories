@@ -13,6 +13,7 @@ import { SimulationSession } from '@/simulation/SimulationSession';
 import { SimulationClock, SimulationSpeed } from '@/simulation/SimulationClock';
 import type { GameCommand, CommandResult } from '@/simulation/commands';
 import type { WorldOverrides } from '@/config/WorldConfig';
+import { ConstructionView } from '@/construction/ConstructionView';
 
 export interface GameOptions { world?: WorldOverrides; manualSimulation?: boolean }
 
@@ -28,8 +29,8 @@ export class Game {
   public readonly session: SimulationSession;
   private readonly clock = new SimulationClock();
   private readonly worldView: WorldView;
+  private readonly constructionView: ConstructionView;
   private readonly manualSimulation: boolean;
-  private readonly unsubscribeStore: () => void;
   private isRunning = false;
   private disposed = false;
   private animationFrameId: number | null = null;
@@ -52,16 +53,11 @@ export class Game {
     this.sceneManager.terrainGroup.add(this.gridRenderer.group);
     this.raycastSystem = new RaycastSystem(container, this.cameraController.camera,
       this.gridRenderer.groundPlane, metrics);
-    this.placementSystem = new PlacementSystem(container, this.sceneManager, this.gridSystem,
-      this.gridRenderer, this.raycastSystem, metrics, () => this.session.allocateIdentity('building'));
+    this.placementSystem = new PlacementSystem(container, this.sceneManager,
+      this.gridRenderer, this.raycastSystem, metrics, () => useGameStore.getState().simulationSnapshot!, this.dispatch.bind(this));
     this.worldView = new WorldView(this.sceneManager, metrics);
+    this.constructionView = new ConstructionView(this.sceneManager, metrics);
     this.publishSnapshot();
-    // Publish after the transitional placement adapter finishes updating occupancy.
-    this.unsubscribeStore = useGameStore.subscribe((state, previous) => {
-      if (state.placedBuildings !== previous.placedBuildings) queueMicrotask(() => {
-        if (!this.disposed) this.publishSnapshot();
-      });
-    });
     window.addEventListener('resize', this.onWindowResize);
     document.addEventListener('visibilitychange', this.onVisibilityChange);
     this.start();
@@ -70,6 +66,7 @@ export class Game {
   private publishSnapshot(): void {
     const snapshot = this.session.getSnapshot();
     this.worldView.sync(snapshot);
+    this.constructionView.sync(snapshot);
     useGameStore.getState().publishSnapshot(snapshot);
   }
 
@@ -150,11 +147,11 @@ export class Game {
     this.disposed = true;
     window.removeEventListener('resize', this.onWindowResize);
     document.removeEventListener('visibilitychange', this.onVisibilityChange);
-    this.unsubscribeStore();
     this.placementSystem.dispose();
     this.raycastSystem.dispose();
     this.cameraController.dispose();
     this.worldView.dispose();
+    this.constructionView.dispose();
     this.gridRenderer.group.removeFromParent();
     this.gridRenderer.dispose();
     this.lighting.dispose();
