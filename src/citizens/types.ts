@@ -15,4 +15,14 @@ export interface Citizen {
   pathProgress: number;
   hungry: boolean;
   activityTicks: number;
+  path: GridCoord[];
+  pathRevision: number;
+  moveFrom: GridCoord | null;
+  direction: 'NE' | 'NW' | 'SE' | 'SW';
+  waitingReason: 'unreachable' | 'no_source' | 'storage_full' | 'no_home' | null;
+}
+/** A moving citizen occupies its whole active segment, not just floor(position). */
+export function occupiesCell(citizen: Citizen, cell: GridCoord): boolean {
+  return (Math.floor(citizen.position.x) === cell.x && Math.floor(citizen.position.z) === cell.z) ||
+    (citizen.pathProgress > 0 && [citizen.moveFrom, citizen.path?.[0]].some(point => point?.x === cell.x && point.z === cell.z));
 }

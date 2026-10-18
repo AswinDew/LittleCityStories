@@ -271,3 +271,13 @@ button:active {
 }
 
 
+.worker-panel { margin-top: 12px; border-top: 1px solid #d4d5c4; padding-top: 10px; }
+.worker-panel h3 { font-size: 13px; margin: 0 0 6px; }
+.worker-panel ul { padding-left: 16px; margin: 6px 0; }
+.worker-panel li { margin: 6px 0; }
+.worker-panel label { display: block; margin-top: 8px; }
+.worker-panel select { max-width: 100%; padding: 5px; margin: 4px 4px 4px 0; }
+.construction-inspector { max-height: calc(100vh - 360px); overflow-y: auto; }
+.construction-hints { top: 144px; }
+.camera-zoom { right: 292px; }
+@media (max-width: 760px) { .camera-zoom { right: 252px; } }

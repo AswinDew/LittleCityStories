@@ -28,7 +28,7 @@ test('places one paid scaffold, rejects overlap, selects and cancels through the
   await expect(page.getByRole('status')).toContainText('Tile sudah ditempati');
   await page.keyboard.press('Escape'); await page.mouse.click(tile.x, tile.y);
   await expect(page.locator('[data-building-status=planned]')).toContainText('Menunggu builder');
-  await page.evaluate(() => window.__CIV_TOWN_TEST__!.advanceTicks(1000));
+  await page.evaluate(() => window.__CIV_TOWN_TEST__!.advanceTicks(40));
   expect((await state(page)).buildings[site.instanceId].workTicks).toBe(0);
   await page.screenshot({ path: 'test-results/m3-construction.png' });
   await page.getByRole('button', { name: 'Cancel construction', exact: true }).click();

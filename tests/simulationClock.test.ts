@@ -2,6 +2,12 @@ import { describe, it, expect } from 'vitest';
 import { SimulationClock } from '../src/simulation/SimulationClock';
 
 describe('fixed simulation clock', () => {
+  it('exposes a bounded presentation fraction that freezes while paused', () => {
+    const clock = new SimulationClock(); clock.advance(150);
+    expect(clock.interpolationAlpha).toBe(0.5);
+    clock.setSpeed(0); clock.advance(5000); expect(clock.interpolationAlpha).toBe(0.5);
+    clock.setSpeed(1); clock.advance(5000); expect(clock.interpolationAlpha).toBe(1);
+  });
   it('runs 10 Hz at normal speed, 20 Hz at fast speed and none while paused', () => {
     const clock = new SimulationClock();
     expect(clock.advance(1000)).toBe(10);

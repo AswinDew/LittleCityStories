@@ -13,6 +13,7 @@ const messages: Record<CommandFailure, string> = {
   occupied: 'Tile sudah ditempati.', environment_blocked: 'Tanah terhalang pohon, batu, atau air.', citizen_occupied: 'Ada warga pada tile ini.',
   insufficient_resources: 'Resource tidak cukup.', entrance_blocked: 'Pintu masuk harus tetap terbuka.', protected_building: 'Town Center dilindungi.',
   not_found: 'Objek sudah tidak ada.', invalid_state: 'Aksi tidak tersedia pada status ini.', locked: 'Teknologi belum dibuka.',
+  already_assigned: 'Warga sudah memiliki pekerjaan. Unassign terlebih dahulu.', no_worker_slot: 'Slot pekerja sudah penuh.',
 };
 const icon = (key: string, label = '') => `<img src="${import.meta.env.BASE_URL}generated/icons/${key}.png" alt="${label}" width="24" height="24">`;
 const costText = (cost: ResourceBundle) => RESOURCE_IDS.filter(key => cost[key] > 0).map(key => `${cost[key]} ${key}`).join(' · ') || 'Starter';
@@ -26,9 +27,11 @@ export class HUD {
   private readonly abort = new AbortController();
   private readonly unsubscribe: () => void;
   private readonly production = new ProductionSystem();
+  private inspectorMarkup = '';
   constructor(private readonly container: HTMLElement, private readonly game: Game) {
     container.innerHTML = `<header class="settlement-header">
-      <div class="glass-panel settlement-title"><h1>Civilization Town</h1><p>M4 · Ancient Settlement</p></div>
+      <div class="glass-panel settlement-title"><h1>Civilization Town</h1><p>M5 · Ancient Settlement</p>
+      <p data-population></p><p data-happiness></p></div>
       <div class="glass-panel resource-bar" aria-label="Settlement resources">${RESOURCE_IDS.map(key => `<div data-resource="${key}">${icon(key)}<span>${key}</span><strong>0</strong><small>/ 300</small></div>`).join('')}</div>
       </header><aside class="glass-panel construction-inspector" aria-label="Building inspector" hidden></aside>
       <div class="glass-panel construction-hints">Klik: bangun / pilih · drag kanan/tengah: pan · scroll: zoom · R: rotasi · Esc: batal</div>
@@ -52,6 +55,9 @@ export class HUD {
   private render(): void {
     const state = useGameStore.getState(), snapshot = state.simulationSnapshot;
     if (!snapshot) return;
+    const citizens = Object.values(snapshot.citizens).sort((a, b) => a.id.localeCompare(b.id));
+    this.container.querySelector('[data-population]')!.textContent = `${citizens.length} warga / ${snapshot.population.housingCapacity} tempat`;
+    this.container.querySelector('[data-happiness]')!.textContent = `Happiness ${Math.round(snapshot.population.happiness)}%`;
     for (const key of RESOURCE_IDS) {
       const badge = this.container.querySelector<HTMLElement>(`[data-resource="${key}"]`)!;
       badge.querySelector('strong')!.textContent = String(snapshot.resources[key]);
@@ -70,27 +76,53 @@ export class HUD {
     });
     const feedback = this.container.querySelector('.construction-feedback')!;
     feedback.textContent = state.feedback ? messages[state.feedback] : state.activeTool.mode === 'place' ?
-      'Pilih tile kosong. Site menunggu builder; R memutar footprint dan entrance.' : state.activeTool.mode === 'clear' ?
+      'Pilih tile kosong. Builder tersedia akan berjalan ke site; R memutar footprint dan entrance.' : state.activeTool.mode === 'clear' ?
       'Bersihkan pohon/batu tanpa hasil resource gratis.' : state.activeTool.mode === 'demolish' ?
       'Klik site untuk batal; bangunan selesai mengembalikan 50% biaya, dibulatkan ke bawah.' : 'Pilih bangunan untuk melihat status dan tindakan.';
     const panel = this.container.querySelector<HTMLElement>('.construction-inspector')!;
     const building = state.selectedBuildingId ? snapshot.buildings[state.selectedBuildingId] : null;
     panel.hidden = !building;
-    if (!building) { panel.innerHTML = ''; return; }
+    if (!building) { panel.innerHTML = ''; this.inspectorMarkup = ''; return; }
     const def = BuildingRegistry.getInstance().get(building.defId)!;
     const status = building.status === 'planned' ? 'Menunggu builder' : building.status === 'under_construction' ?
-      `Dalam konstruksi · ${building.workTicks}/${def.requiredWorkTicks} tick kerja` : 'Selesai';
+      'Dalam konstruksi · <span data-work-progress></span> tick kerja' : 'Selesai';
     const operating = def.production ? this.production.getOperatingStatus(building.instanceId, snapshot) : null;
+    const workers = citizens.filter(c => c.workplaceId === building.instanceId), available = citizens.filter(c => !c.workplaceId);
+    const workerMarkup = building.status !== 'completed' || def.workerSlots > 0 ? `<section class="worker-panel" aria-label="Building workers"><h3>Pekerja ${workers.length}/${building.status === 'completed' ? def.workerSlots : 1}</h3>
+      <ul>${workers.map(c => `<li>${c.name} · ${c.waitingReason ? operatingMessages[c.waitingReason === 'no_home' ? 'unreachable' : c.waitingReason] : c.activity}
+      <button type="button" data-unassign="${c.id}">Unassign ${c.name}</button></li>`).join('') || '<li>Belum ada pekerja.</li>'}</ul>
+      ${building.status === 'completed' ? `<label for="worker-choice">Tambah pekerja</label><select id="worker-choice" aria-label="Available worker" ${!available.length || workers.length >= def.workerSlots ? 'disabled' : ''}>
+      ${available.map(c => `<option value="${c.id}">${c.name}</option>`).join('') || '<option>Tidak ada warga tersedia</option>'}</select>
+      <button type="button" data-assign="${building.instanceId}" ${!available.length || workers.length >= def.workerSlots ? 'disabled' : ''}>Assign worker</button>` : '<p>Builder dipilih otomatis dari warga tanpa pekerjaan.</p>'}</section>` : '';
     const markup = `${icon(building.defId)}<h2>${def.name}</h2><p data-building-status="${building.status}">${status}</p>
       ${operating ? `<p data-operating-status="${operating}">Operasional: ${operatingMessages[operating]}</p>` : ''}
       <p>Biaya dibayar: ${costText(building.paidResources)}</p><p>${def.description}</p>${building.defId === 'town_center' ? '<p>Bangunan awal dilindungi.</p>' :
-      `<button type="button" data-action="${building.status === 'completed' ? 'demolishBuilding' : 'cancelConstruction'}" data-instance="${building.instanceId}">${building.status === 'completed' ? 'Demolish building' : 'Cancel construction'}</button>`}`;
-    // Keep focused inspector actions stable when an unrelated clock snapshot is published.
-    if (panel.innerHTML !== markup) panel.innerHTML = markup;
+      `<button type="button" data-action="${building.status === 'completed' ? 'demolishBuilding' : 'cancelConstruction'}" data-instance="${building.instanceId}">${building.status === 'completed' ? 'Demolish building' : 'Cancel construction'}</button>`}${workerMarkup}`;
+    // Compare source templates: browser serialization normalizes attributes/whitespace.
+    if (this.inspectorMarkup !== markup) {
+      const previousSelect = panel.querySelector<HTMLSelectElement>('#worker-choice');
+      const choice = previousSelect?.value, focused = previousSelect !== null && document.activeElement === previousSelect;
+      panel.innerHTML = markup; this.inspectorMarkup = markup;
+      const nextSelect = panel.querySelector<HTMLSelectElement>('#worker-choice');
+      if (nextSelect && choice && [...nextSelect.options].some(option => option.value === choice)) {
+        nextSelect.value = choice;
+        if (focused) nextSelect.focus({ preventScroll: true });
+      }
+    }
+    const progress = panel.querySelector('[data-work-progress]');
+    if (progress) progress.textContent = `${building.workTicks}/${def.requiredWorkTicks}`;
   }
   private onClick = (event: MouseEvent): void => {
     const button = (event.target as HTMLElement).closest<HTMLButtonElement>('button'); if (!button) return;
     const store = useGameStore.getState();
+    if (button.dataset.assign || button.dataset.unassign) {
+      const citizenId = button.dataset.unassign ?? this.container.querySelector<HTMLSelectElement>('#worker-choice')?.value;
+      if (citizenId) {
+        const result = button.dataset.assign ? this.game.dispatch({ type: 'assignWorker', citizenId, buildingId: button.dataset.assign }) :
+          this.game.dispatch({ type: 'unassignWorker', citizenId });
+        store.setFeedback(result.ok ? null : result.reason);
+      }
+    }
     if (button.dataset.category) { this.category = button.dataset.category as BuildingCategory; this.renderCards(); this.render(); }
     if (button.dataset.defId) store.setPlacementTool(button.dataset.defId);
     if (button.dataset.tool === 'demolish') store.setDemolishTool();

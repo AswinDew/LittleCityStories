@@ -10,7 +10,7 @@
 
 **Spec:** Dokumen pengguna “CIVILIZATION TOWN — MASTER DEVELOPMENT PROMPT V2”, sumber: `C:/Users/ROG/.codex/attachments/3cee12ae-5ee0-4225-9ecd-37cb8c69b672/Pasted text.txt`.
 
-**Status (2026-10-17):** M1–M4 / Task 1–11 telah diimplementasikan, diverifikasi, dan direview. M5–M8 belum dijalankan. Berhenti sampai pengguna meminta lanjut. Bukti pemeriksaan dan keputusan transisi dicatat di `docs/progress/m1-foundation.md`, `docs/progress/m2-assets.md`, `docs/progress/m3-construction.md`, dan `docs/progress/m4-economy.md`.
+**Status (2026-10-18):** M1–M5 / Task 1–15 telah diimplementasikan, diverifikasi, dan direview; temuan review M5 telah diperbaiki dan diverifikasi ulang. M6–M8 belum dijalankan. Berhenti sampai pengguna meminta lanjut. Bukti pemeriksaan dan keputusan transisi dicatat di `docs/progress/m1-foundation.md`, `docs/progress/m2-assets.md`, `docs/progress/m3-construction.md`, `docs/progress/m4-economy.md`, dan `docs/progress/m5-population.md`.
 
 ## Global Constraints
 
@@ -294,10 +294,10 @@ Migrasi state dilakukan bertahap: Task 3 memperkenalkan kontrak session/bridge d
 
 **Interfaces:** Citizen menyimpan id/name/occupation/homeId/workplaceId/activity/position/destination/animationState, termasuk pathProgress, hunger dan timer yang memengaruhi lanjutan simulasi. `assignWorker`/`unassignWorker` melalui dispatcher; builder site menggunakan assignment eksklusif yang sama.
 
-- [ ] Tulis tes bootstrap `expect(citizens).toHaveLength(3)`, ID unik/nama seeded, home awal Town Center, posisi awal walkable. Satu citizen tidak dapat menghuni dua slot kerja atau sekaligus bekerja dan menjadi builder.
-- [ ] Implementasikan alokasi housing stabil, assignment manual, slot capacity, unassign, dan auto-builder dari unemployed. Rumah/site/place kerja yang dihancurkan melepaskan seluruh referensi terkait.
-- [ ] Hubungkan inspector pekerja dan pekerjaan yang tersedia ke warga sebenarnya; progress construction M3 memperoleh kontribusi hanya setelah arrival/working yang ditetapkan Task 14.
-- [ ] Jalankan `npm.cmd test -- tests/citizens.test.ts tests/construction.test.ts`; tidak ada citizen ID yatim setelah lifecycle bangunan.
+- [x] Tulis tes bootstrap `expect(citizens).toHaveLength(3)`, ID unik/nama seeded, home awal Town Center, posisi awal walkable. Satu citizen tidak dapat menghuni dua slot kerja atau sekaligus bekerja dan menjadi builder.
+- [x] Implementasikan alokasi housing stabil, assignment manual, slot capacity, unassign, dan auto-builder dari unemployed. Rumah/site/place kerja yang dihancurkan melepaskan seluruh referensi terkait.
+- [x] Hubungkan inspector pekerja dan pekerjaan yang tersedia ke warga sebenarnya; progress construction M3 memperoleh kontribusi hanya setelah arrival/working yang ditetapkan Task 14.
+- [x] Jalankan `npm.cmd test -- tests/citizens.test.ts tests/construction.test.ts`; tidak ada citizen ID yatim setelah lifecycle bangunan.
 
 ### Task 13 — A* dan invalidasi navigasi
 
@@ -305,10 +305,10 @@ Migrasi state dilakukan bertahap: Task 3 memperkenalkan kontrak session/bridge d
 
 **Interfaces:** `NavigationGrid` menyediakan walkability/cost/revision dari state domain; `findPath(...)` mengikuti kontrak §2.1. Occupancy bangunan/environment memblokir; entrance eksternal dan jalan dapat dilalui.
 
-- [ ] Tulis tes rute empat arah, cost road 1 versus grass 2, tie-break stabil, start=goal, no route, bounds, serta entrance yang berpindah akibat rotation.
-- [ ] Implementasikan A* dengan Manhattan heuristic minimum cost 1. Cache berdasarkan start/goal/revision; tidak menghitung ulang tiap frame. Revisi hanya ketika walkability/cost berubah.
-- [ ] Uji jalan/gedung berubah saat perjalanan: rute tidak valid dihentikan/dihitung ulang sebelum memasuki tile terblokir; tidak ada lintasan menembus bangunan atau teleport ketika gagal menemukan rute.
-- [ ] Jalankan `npm.cmd test -- tests/pathfinding.test.ts`; pastikan hasil deterministik untuk query yang sama.
+- [x] Tulis tes rute empat arah, cost road 1 versus grass 2, tie-break stabil, start=goal, no route, bounds, serta entrance yang berpindah akibat rotation.
+- [x] Implementasikan A* dengan Manhattan heuristic minimum cost 1. Cache berdasarkan start/goal/revision; tidak menghitung ulang tiap frame. Revisi hanya ketika walkability/cost berubah.
+- [x] Uji jalan/gedung berubah saat perjalanan: rute tidak valid dihentikan/dihitung ulang sebelum memasuki tile terblokir; tidak ada lintasan menembus bangunan atau teleport ketika gagal menemukan rute.
+- [x] Jalankan `npm.cmd test -- tests/pathfinding.test.ts`; pastikan hasil deterministik untuk query yang sama.
 
 ### Task 14 — Activity state machine dan kontribusi kerja
 
@@ -316,10 +316,10 @@ Migrasi state dilakukan bertahap: Task 3 memperkenalkan kontrak session/bridge d
 
 **Interfaces:** `ActivitySystem.step(state): void` mengelola Idle → Navigate → Work → Return → Idle. Durasi kerja sebelum return: usulan 60 detik, lalu idle di home 10 detik; konfigurabel. Builder menyelesaikan site lalu pulang; researcher memakai mekanisme work presence yang sama.
 
-- [ ] Tulis tes warga berjalan ke entrance, baru menghasilkan work contribution setelah tiba, kembali setelah jadwal kerja, dan menunggu jika unemployed. `expect(workTicksBeforeArrival).toBe(0)`.
-- [ ] Implementasikan movement pada fixed tick dengan kecepatan usulan 1 tile/detik, path progress tersimpan, arah berasal dari gerak terakhir, dan indikator work presence untuk produksi/konstruksi/riset.
-- [ ] Tambah tes workplace/home/source hilang di tengah Work/Navigate, assignment dibatalkan, serta jalur terblokir: output/progress berhenti dan warga mendapat state waiting/idle dengan alasan yang terbaca.
-- [ ] Jalankan suite activities/construction/production/citizens; browser smoke satu builder menyelesaikan house dan satu farmer berjalan ke farm, bekerja, lalu pulang.
+- [x] Tulis tes warga berjalan ke entrance, baru menghasilkan work contribution setelah tiba, kembali setelah jadwal kerja, dan menunggu jika unemployed. `expect(workTicksBeforeArrival).toBe(0)`.
+- [x] Implementasikan movement pada fixed tick dengan kecepatan usulan 1 tile/detik, path progress tersimpan, arah berasal dari gerak terakhir, dan indikator work presence untuk produksi/konstruksi/riset.
+- [x] Tambah tes workplace/home/source hilang di tengah Work/Navigate, assignment dibatalkan, serta jalur terblokir: output/progress berhenti dan warga mendapat state waiting/idle dengan alasan yang terbaca.
+- [x] Jalankan suite activities/construction/production/citizens; browser smoke satu builder menyelesaikan house dan satu farmer berjalan ke farm, bekerja, lalu pulang.
 
 ### Task 15 — Warga terlihat hidup dan pertumbuhan populasi
 
@@ -327,10 +327,10 @@ Migrasi state dilakukan bertahap: Task 3 memperkenalkan kontrak session/bridge d
 
 **Interfaces:** `CitizenRenderer.sync(previous, current, interpolationAlpha): void` memetakan ID warga ke plane vertikal yang menghadap kamera tetap. `PopulationSystem.step(state): void` menghitung hunger/housing/happiness/growth berdasarkan aturan §2.3.
 
-- [ ] Tulis tes growth setelah 1200 tick dengan syarat cukup menghasilkan tepat satu warga; `expect(growthWithNoFood).toBe(0)` dan kapasitas tidak dilampaui. Demolisi house mengubah housing/happiness tanpa menghapus warga.
-- [ ] Render sprite dengan anchor kaki di tanah, nearest filtering, `depthTest=true`, `depthWrite=true`, dan alphaTest untuk alpha biner; hindari renderOrder global yang membuat warga selalu berada di depan bangunan. Animasi memakai activity nyata.
-- [ ] Integrasikan pertumbuhan, role/wardrobe assignment dan indikator kebahagiaan. Tidak memutar harvest/chop/build pada warga yang belum tiba, unemployed, atau production blocked.
-- [ ] Jalankan unit population dan E2E citizens; ambil screenshot depan/belakang bangunan, empat arah, zoom minimum/normal/maksimum, dan transparansi. Verifikasi skala kaki/sprite tidak flicker atau terpotong atlas.
+- [x] Tulis tes growth setelah 1200 tick dengan syarat cukup menghasilkan tepat satu warga; `expect(growthWithNoFood).toBe(0)` dan kapasitas tidak dilampaui. Demolisi house mengubah housing/happiness tanpa menghapus warga.
+- [x] Render sprite dengan anchor kaki di tanah, nearest filtering, `depthTest=true`, `depthWrite=true`, dan alphaTest untuk alpha biner; hindari renderOrder global yang membuat warga selalu berada di depan bangunan. Animasi memakai activity nyata.
+- [x] Integrasikan pertumbuhan, role/wardrobe assignment dan indikator kebahagiaan. Tidak memutar harvest/chop/build pada warga yang belum tiba, unemployed, atau production blocked.
+- [x] Jalankan unit population dan E2E citizens; ambil screenshot depan/belakang bangunan, empat arah, zoom minimum/normal/maksimum, dan transparansi. Verifikasi skala kaki/sprite tidak flicker atau terpotong atlas.
 
 ## M6 — Technology
 

@@ -8,6 +8,7 @@ export class SimulationClock {
   private suspended = false;
 
   get currentSpeed(): SimulationSpeed { return this.speed; }
+  get interpolationAlpha(): number { return Math.min(1, this.accumulator / TICK_MS); }
   setSpeed(speed: SimulationSpeed): void {
     if (speed !== 0 && speed !== 1 && speed !== 2) throw new RangeError('Unsupported simulation speed');
     this.speed = speed;

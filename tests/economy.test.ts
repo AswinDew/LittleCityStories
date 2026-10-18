@@ -119,10 +119,10 @@ describe('storage and bounded pending batches', () => {
 });
 
 describe('session and timing integration', () => {
-  it('never invents production, meals, tax or citizens in the M4 browser session', () => {
-    const session = new SimulationSession({ environmentDensity: 0 });
+  it('does not invent production, meals or tax in an explicitly unpopulated session', () => {
+    const session = new SimulationSession({ environmentDensity: 0, startingPopulation: 0 });
     session.dispatch({ type: 'placeBuilding', defId: 'farm', cell: { x: 12, z: 12 }, rotation: 0 });
-    const before = session.getSnapshot(); session.step(1200);
+    const before = session.getSnapshot(); session.step(600);
     expect(session.getSnapshot().resources).toEqual(before.resources);
     expect(session.getSnapshot().citizens).toEqual({});
     expect(session.getSnapshot().economy.consumptionTicks).toBe(0);

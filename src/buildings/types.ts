@@ -28,6 +28,7 @@ export interface PlacedBuilding {
   entrance: GridCoord | null;
   status: 'planned' | 'under_construction' | 'completed';
   workTicks: number;
+  constructionRemainder: number;
   paidResources: ResourceBundle;
   level: number;
   seed: number;

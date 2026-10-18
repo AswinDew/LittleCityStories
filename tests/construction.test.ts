@@ -6,7 +6,7 @@ import type { SimulationState } from '../src/simulation/types';
 import { GridSystem } from '../src/world/GridSystem';
 import type { GameCommand } from '../src/simulation/commands';
 
-const create = () => new SimulationSession({ environmentDensity: 0 });
+const create = () => new SimulationSession({ environmentDensity: 0, startingPopulation: 0 });
 const place = (session: SimulationSession, x = 12, z = 12, defId = 'primitive_house', rotation = 0) =>
   session.dispatch({ type: 'placeBuilding', defId, cell: { x, z }, rotation });
 
@@ -20,7 +20,7 @@ describe('authoritative construction commands', () => {
     expect(state.world.grid[town.gridX][town.gridZ].buildingId).toBe(town.instanceId);
   });
   it('spends atomically, reserves a planned footprint, and never invents builder work', () => {
-    const session = create();
+    const session = new SimulationSession({ environmentDensity: 0, startingPopulation: 0, startingResources: { food: 0 } });
     expect(place(session).ok).toBe(true);
     const snapshot = session.getSnapshot();
     expect(snapshot.resources.wood).toBe(130); expect(snapshot.resources.stone).toBe(90);
@@ -80,7 +80,7 @@ describe('authoritative construction commands', () => {
     const state = structuredClone(create().getSnapshot()) as SimulationState;
     state.citizens.c1 = { id: 'c1', name: 'Ari', occupation: 'villager', homeId: null, workplaceId: null,
       activity: 'idle', position: { x: 12, z: 12 }, destination: null, animationState: 'idle',
-      pathProgress: 0, hungry: false, activityTicks: 0, workplaceAccess: 'unknown' };
+      pathProgress: 0, hungry: false, activityTicks: 0, workplaceAccess: 'unknown', path: [], pathRevision: -1, moveFrom: null, direction: 'SE', waitingReason: null };
     const grid = new GridSystem(32); grid.deserialize(state.world.grid);
     const system = new ConstructionSystem(grid, BuildingRegistry.getInstance(), () => ({ id: 'b-test', seed: 1, placedAt: 0 }));
     const before = structuredClone(state);

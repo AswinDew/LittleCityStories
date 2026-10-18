@@ -2,20 +2,29 @@
 
 Pengembangan bertahap dari Little City Stories menjadi Ancient Settlement dengan TypeScript, Vite, vanilla Three.js, dan Zustand vanilla.
 
-## Status: M4 — Economy
+## Status: M5 — Population
+
+- Tiga warga nyata dengan nama/ID seeded, home awal Town Center dan spawn pada tile walkable. Housing dialokasikan stabil; kehilangan rumah tidak menghapus warga.
+- Warga tanpa pekerjaan menjadi satu builder per site. Inspector menyediakan assignment/unassign pekerja nyata dengan batas slot dan pekerjaan eksklusif; farmer, lumberjack dan pekerja quarry berjalan sebelum menghasilkan resource.
+- A* empat arah memilih road cost 1 versus grass/dirt 2, memakai tie-break deterministik dan cache berdasarkan revision dunia. Jalan, bangunan, clearing dan terrain menginvalidasi rute ketika walkability/cost berubah; warga tidak teleport saat unassign, jalur gagal atau tujuan berubah.
+- Aktivitas navigate → work → return → idle berjalan pada fixed tick: 1 tile/detik, shift kerja 60 detik, istirahat home 10 detik. Builder pulang setelah site selesai. Source/storage/access blocker menghentikan animasi kerja dan output, lalu pulih saat syarat kembali valid. Warga lapar memiliki produktivitas 50%, termasuk builder.
+- Sprite atlas kini menjadi plane vertikal dengan anchor kaki, nearest filtering, alpha test dan depth test/write; tidak selalu tampil di depan bangunan. Posisi diinterpolasi dari snapshot; pause menghentikan waktu animasi. Resource/geometry/texture clone milik sprite dilepas saat view dihapus.
+- Happiness mengikuti hunger/housing/employment. Satu pendatang muncul setelah 1200 tick berturut-turut dengan housing kosong, happiness ≥60 dan food untuk dua kali makan populasi setelah pendatang masuk. Counter reset saat syarat gagal; tanpa tile spawn, growth menunggu tanpa crash.
+
+Ekonomi M4 tetap tersedia:
 
 - Produksi Farm/Lumber Camp/Quarry berjalan pada fixed tick dan memerlukan ID warga, assignment, kedatangan, aktivitas/animasi kerja, serta akses kerja yang valid. Batas dua slot, sumber tree/rock dalam radius 3 dari footprint, dan modifier produktivitas dihitung di domain.
 - Kredit kerja integer tersimpan per warga; lapar mengurangi produktivitas menjadi 50%. Batch hasil atomik menunggu jika storage penuh, dibatasi satu batch per pekerja tanpa penumpukan hasil selama terblokir.
 - Setiap 600 tick, warga makan 1 food menurut urutan ID stabil. Warga yang mendapat makan dan slot rumah completed menghasilkan 1 coin; coin storage penuh melewatkan pajak tersebut tanpa utang pajak. Inventory tidak pernah dipotong menjadi negatif.
 - Kapasitas dihitung dari Town Center dan storage completed. Demolisi/refund mempertahankan inventory berlebih; produksi resource terkait menunggu ruang yang cukup. Konsumsi dan biaya pembangunan tetap dapat mengurangi inventory berlebih.
-- Inspector menampilkan alasan operasional: menunggu konstruksi/pekerja, akses belum valid, sumber hilang, storage penuh, atau bekerja. Game belum membuat warga sampai M5, sehingga site tetap menunggu builder dan belum menghasilkan resource otomatis.
+- Inspector menampilkan alasan operasional: menunggu konstruksi/pekerja, akses belum valid, sumber hilang, storage penuh, atau bekerja. Produksi kini dihubungkan ke warga M5 yang benar-benar sudah tiba dan bekerja.
 
 Konstruksi M3 tetap tersedia:
 
 - Katalog kuno aktif dengan kategori Housing, Production, Infrastructure, dan Community. Satu Town Center selesai muncul saat awal.
 - Session menjadi pemilik tunggal resources, capacity, grid, dan building instances. Store hanya menyimpan snapshot presentasi, tool, selection, dan feedback; treasury lama sudah dilepas.
 - Resource awal: wood 160, stone 100, food 90, coins 50. Biaya dipotong atomik setelah validasi footprint, terrain/environment, tile warga, entrance, rotasi, unlock, dan kemampuan membayar.
-- House/Farm/Camp/Quarry/Storage/Research menjadi site planned dengan scaffold. Progres memerlukan builder yang benar-benar ditugaskan, berada di entrance, dan aktif bekerja. M3 belum membuat warga; site akan menunggu builder sampai M5. Tidak ada progres konstruksi dari timer palsu.
+- House/Farm/Camp/Quarry/Storage/Research menjadi site planned dengan scaffold. Progres memerlukan builder yang benar-benar ditugaskan, berada di entrance, dan aktif bekerja. M5 menghubungkan warga nyata; tidak ada progres konstruksi dari timer palsu.
 - Dirt Road selesai instan dengan biaya 1 stone. Cancel/demolish planned mengembalikan seluruh biaya; under construction/completed mengembalikan setengah biaya yang dibayar, dibulatkan ke bawah. Town Center dilindungi. Resource berlebih tetap disimpan saat capacity berkurang atau menerima refund.
 - Ghost/footprint hijau-merah, rotasi, resource bar, alasan penolakan, clear vegetation tanpa hasil gratis, selection dan inspector sudah terhubung ke command nyata. Pointer intent menolak drag, modified/right click, pointercancel, orphan pointerup dan klik HUD.
 
@@ -37,9 +46,9 @@ Fondasi M1 tetap tersedia:
 - Kamera mengikuti ukuran dunia, mempertahankan pan/zoom. Rotasi view dinonaktifkan selama MVP.
 - Unit test dan smoke test browser mencakup determinisme, clock, lifecycle, snapshot, rendering, kamera, placement, dan demolisi.
 
-Katalog modern sudah tidak aktif. Generator model lama dipertahankan sebagai kode aset terpisah beserta tesnya. Aturan produksi/konsumsi M4 sudah terhubung ke session; warga/navigasi/assignment builder mengikuti M5; riset M6 dan save/load M7. Nilai populasi awal 3 masih merupakan konfigurasi sampai bootstrap warga M5. Fixture pekerja hanya digunakan dalam tes headless.
+Katalog modern sudah tidak aktif. Generator model lama dipertahankan sebagai kode aset terpisah beserta tesnya. Aturan konstruksi/ekonomi/warga sudah terhubung ke session. Riset mengikuti M6 dan save/load M7. Fixture pekerja tetap hanya digunakan dalam tes headless; browser playtest memakai warga yang di-bootstrap dan ditugaskan melalui gameplay.
 
-Rencana lengkap: [Implementation plan](docs/superpowers/plans/2026-10-15-civilization-town-mvp.md). Catatan verifikasi: [M1](docs/progress/m1-foundation.md), [M2](docs/progress/m2-assets.md), [M3](docs/progress/m3-construction.md), [M4](docs/progress/m4-economy.md).
+Rencana lengkap: [Implementation plan](docs/superpowers/plans/2026-10-15-civilization-town-mvp.md). Catatan verifikasi: [M1](docs/progress/m1-foundation.md), [M2](docs/progress/m2-assets.md), [M3](docs/progress/m3-construction.md), [M4](docs/progress/m4-economy.md), [M5](docs/progress/m5-population.md).
 
 ## Menjalankan proyek
 
@@ -107,8 +116,9 @@ PNG dan manifest di `public/generated/` disertakan dalam repository sehingga men
 | B | Toggle demolisi |
 | C | Toggle clear vegetation (tanpa resource gain) |
 | Escape | Batalkan tool |
+| Inspector workplace | Pilih warga tersedia → Assign worker; Unassign untuk melepas pekerjaan |
 
-Gesture placement memiliki ambang travel 4 CSS px dan hanya menerima primary pointer yang dimulai/diakhiri di playfield. Kontrol pause/speed final serta polish layout/accessibility lebih lanjut mengikuti M7; engine waktunya sudah tersedia. Tidak ada save/load pada M4.
+Gesture placement memiliki ambang travel 4 CSS px dan hanya menerima primary pointer yang dimulai/diakhiri di playfield. Kontrol pause/speed final serta polish layout/accessibility lebih lanjut mengikuti M7; engine waktunya sudah tersedia. Tidak ada save/load pada M5.
 
 ## Batas modul
 
@@ -124,7 +134,7 @@ Gesture placement memiliki ambang travel 4 CSS px dan hanya menerima primary poi
 | `src/assets/` | Factory procedural dan material cache |
 | `src/state/`, `src/ui/` | Snapshot presentasi dan state UI tanpa inventory/bangunan mutable kedua |
 | `src/economy/`, `src/config/BalanceConfig.ts` | Ledger atomik, produksi/operating status, konsumsi/pajak, kapasitas dan balancing |
-| `src/citizens/` | Schema dan presentasi sprite; domain populasi mengikuti M5 |
+| `src/citizens/` | Identitas, housing, assignment, aktivitas, growth dan renderer warga |
 | `src/testing/`, `tests/` | Hook khusus mode test, unit/integration test dan Playwright |
 
-Pengembangan berhenti setelah verifikasi M4 sampai pengguna meminta melanjutkan. Berikutnya M5 warga dan navigasi; M6 riset; M7 persistence/HUD; M8 playtest dan polish.
+Pengembangan berhenti setelah verifikasi M5 sampai pengguna meminta melanjutkan. Berikutnya M6 riset; M7 persistence/HUD; M8 playtest dan polish.

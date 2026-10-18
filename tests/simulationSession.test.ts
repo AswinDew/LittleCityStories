@@ -13,7 +13,7 @@ describe('headless simulation session', () => {
     expect(first.getSnapshot()).toEqual(second.getSnapshot());
     expect(first.getSnapshot().tick).toBe(100);
     expect(first.getSnapshot().world.grid[1][1].terrain).toBe('dirt');
-    expect(first.getSnapshot().citizens).toEqual({});
+    expect(Object.values(first.getSnapshot().citizens)).toHaveLength(3);
   });
   it('returns immutable isolated plain-data snapshots', () => {
     const session = new SimulationSession();

@@ -14,6 +14,11 @@ function createHooks(game: Game) {
     getBuildingViews: () => [...game.sceneManager.buildingsGroup.children, ...game.sceneManager.roadsGroup.children]
       .map(mesh => ({ id: mesh.name, stage: mesh.userData.stage as string })),
     getSelection: () => useGameStore.getState().selectedBuildingId,
+    getCitizenViews: () => game.sceneManager.citizensGroup.children.map(mesh => ({ id: mesh.name,
+      activity: mesh.userData.activity as string, direction: mesh.userData.direction as string,
+      frame: mesh.userData.frame as { x: number; y: number; width: number; height: number },
+      position: { x: mesh.position.x, y: mesh.position.y, z: mesh.position.z } })),
+    setCameraZoom: (zoom: number) => game.cameraController.setZoom(zoom),
     getCameraState: () => ({ zoom: game.cameraController.camera.zoom,
       rotation: game.cameraController.getRotationAngle(),
       target: { x: game.cameraController.target.x, z: game.cameraController.target.z } }),

@@ -14,6 +14,10 @@ import { SimulationClock, SimulationSpeed } from '@/simulation/SimulationClock';
 import type { GameCommand, CommandResult } from '@/simulation/commands';
 import type { WorldOverrides } from '@/config/WorldConfig';
 import { ConstructionView } from '@/construction/ConstructionView';
+import { CitizenRenderer } from '@/citizens/CitizenRenderer';
+import type { SimulationState } from '@/simulation/types';
+import { SpriteAtlas } from '@/assets/SpriteAtlas';
+import type { Texture } from 'three';
 
 export interface GameOptions { world?: WorldOverrides; manualSimulation?: boolean }
 
@@ -30,6 +34,9 @@ export class Game {
   private readonly clock = new SimulationClock();
   private readonly worldView: WorldView;
   private readonly constructionView: ConstructionView;
+  private citizenRenderer: CitizenRenderer | null = null;
+  private previousSnapshot: Readonly<SimulationState> | null = null;
+  private currentSnapshot: Readonly<SimulationState> | null = null;
   private readonly manualSimulation: boolean;
   private isRunning = false;
   private disposed = false;
@@ -65,9 +72,23 @@ export class Game {
 
   private publishSnapshot(): void {
     const snapshot = this.session.getSnapshot();
+    this.previousSnapshot = this.currentSnapshot ?? snapshot;
+    this.currentSnapshot = snapshot;
     this.worldView.sync(snapshot);
     this.constructionView.sync(snapshot);
     useGameStore.getState().publishSnapshot(snapshot);
+    this.renderCitizens();
+  }
+  public setCitizenAssets(atlas: SpriteAtlas, texture: Texture): void {
+    if (this.disposed) return;
+    this.citizenRenderer?.dispose();
+    this.citizenRenderer = new CitizenRenderer(this.sceneManager.citizensGroup, this.session.getSnapshot().config.metrics,
+      atlas, texture, this.cameraController.camera);
+    this.renderCitizens();
+  }
+  private renderCitizens(): void {
+    if (this.previousSnapshot && this.currentSnapshot) this.citizenRenderer?.sync(this.previousSnapshot, this.currentSnapshot,
+      this.manualSimulation ? 1 : this.clock.interpolationAlpha);
   }
 
   public dispatch(command: GameCommand): CommandResult {
@@ -132,6 +153,7 @@ export class Game {
     this.cameraController.update(deltaTime);
     this.raycastSystem.update();
     this.placementSystem.update();
+    this.renderCitizens();
     this.renderer.render(this.sceneManager.scene, this.cameraController.camera);
     this.animationFrameId = requestAnimationFrame(this.loop);
   };
@@ -152,6 +174,7 @@ export class Game {
     this.cameraController.dispose();
     this.worldView.dispose();
     this.constructionView.dispose();
+    this.citizenRenderer?.dispose();
     this.gridRenderer.group.removeFromParent();
     this.gridRenderer.dispose();
     this.lighting.dispose();

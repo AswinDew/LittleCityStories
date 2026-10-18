@@ -18,9 +18,9 @@ export class ProductionSystem {
       .map(([, citizen]) => citizen).sort((a, b) => a.id.localeCompare(b.id))
       .slice(0, this.registry.get(building.defId)!.workerSlots);
   }
-  private present(citizen: Citizen, building: PlacedBuilding): boolean {
+  private present(citizen: Citizen, building: PlacedBuilding, requireAnimation = true): boolean {
     const animation = building.defId === 'farm' ? 'harvest' : building.defId === 'lumber_camp' ? 'chop' : 'work';
-    return citizen.workplaceAccess === 'reachable' && citizen.activity === 'work' && citizen.animationState === animation &&
+    return citizen.workplaceAccess === 'reachable' && citizen.activity === 'work' && (!requireAnimation || citizen.animationState === animation) &&
       citizen.destination === null && citizen.pathProgress === 0 && !!building.entrance &&
       citizen.position.x === building.entrance.x && citizen.position.z === building.entrance.z;
   }
@@ -46,10 +46,18 @@ export class ProductionSystem {
     const production = this.registry.get(building.defId)?.production;
     const workers = this.assigned(building, state);
     if (!production || !workers.length) return 'no_workers';
-    if (!this.entranceOpen(building, state) || !workers.some(worker => this.present(worker, building))) return 'unreachable';
-    if (!this.sourceAvailable(building, state)) return 'no_source';
-    if (state.resources[production.resource] + production.amount > state.capacity[production.resource]) return 'storage_full';
+    if (!this.entranceOpen(building, state) || !workers.some(worker => this.present(worker, building, false))) return 'unreachable';
+    const blocked = this.getWorkBlocker(buildingId, state);
+    if (blocked) return blocked;
+    if (!workers.some(worker => this.present(worker, building))) return 'unreachable';
     return 'working';
+  }
+  /** Evaluated before choosing the work animation, so blocked citizens can resume. */
+  getWorkBlocker(buildingId: string, state: Readonly<SimulationState>): 'no_source' | 'storage_full' | null {
+    const building = state.buildings[buildingId], production = this.registry.get(building.defId)?.production;
+    if (!production) return null;
+    if (!this.sourceAvailable(building, state)) return 'no_source';
+    return state.resources[production.resource] + production.amount > state.capacity[production.resource] ? 'storage_full' : null;
   }
   step(state: SimulationState): void {
     const ledger = new ResourceLedger(state.resources, state.capacity);

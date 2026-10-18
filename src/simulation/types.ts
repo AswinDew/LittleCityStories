@@ -11,6 +11,8 @@ export interface SimulationState {
   tick: number;
   randomState: number;
   nextId: number;
+  navigationRevision: number;
+  population: { happiness: number; housingCapacity: number; growthTicks: number };
   citizens: Record<string, Citizen>;
   buildings: Record<string, PlacedBuilding>;
   resources: ResourceBundle;

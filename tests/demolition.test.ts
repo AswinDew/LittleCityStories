@@ -5,7 +5,8 @@ import { GridSystem } from '../src/world/GridSystem';
 import { BuildingRegistry } from '../src/buildings/BuildingRegistry';
 
 describe('session demolition and refunds', () => {
-  it.each([{ occupation: 'villager' }, { workplaceId: null }, { activity: 'navigate' }, { animationState: 'idle' }])(
+  it.each([{ occupation: 'villager' }, { workplaceId: null }, { activity: 'navigate' }, { animationState: 'idle' },
+    { workplaceAccess: 'unreachable' }, { pathProgress: 1 }, { destination: { x: 12, z: 14 } }])(
     'does not advance construction for an ineligible worker %o', invalid => {
       const session = new SimulationSession({ environmentDensity: 0 });
       const result = session.dispatch({ type: 'placeBuilding', defId: 'primitive_house', cell: { x: 12, z: 12 }, rotation: 0 });
@@ -13,7 +14,7 @@ describe('session demolition and refunds', () => {
       const state = structuredClone(session.getSnapshot()), site = state.buildings[result.instanceId!];
       state.citizens.worker = { id: 'worker', name: 'Ari', occupation: 'builder', homeId: null, workplaceId: site.instanceId,
         activity: 'work', position: { ...site.entrance! }, destination: null, animationState: 'build', pathProgress: 0,
-        hungry: false, activityTicks: 0, ...invalid } as typeof state.citizens[string];
+        hungry: false, activityTicks: 0, workplaceAccess: 'reachable', path: [], pathRevision: 0, moveFrom: null, direction: 'SE', waitingReason: null, ...invalid } as typeof state.citizens[string];
       const grid = new GridSystem(); grid.deserialize(state.world.grid);
       const system = new ConstructionSystem(grid, BuildingRegistry.getInstance(), () => ({ id: '', seed: 0, placedAt: 0 }));
       system.step(state);
@@ -50,7 +51,7 @@ describe('session demolition and refunds', () => {
     const grid = new GridSystem(); grid.deserialize(state.world.grid);
     const system = new ConstructionSystem(grid, BuildingRegistry.getInstance(), () => ({ id: '', seed: 0, placedAt: 0 }));
     state.citizens.builder = { id: 'builder', name: 'Raka', occupation: 'builder', homeId: null, workplaceId: site.instanceId,
-      activity: 'work', position: { x: 1, z: 1 }, destination: null, animationState: 'build', pathProgress: 0, hungry: false, activityTicks: 0, workplaceAccess: 'unknown' };
+      activity: 'work', position: { x: 1, z: 1 }, destination: null, animationState: 'build', pathProgress: 0, hungry: false, activityTicks: 0, workplaceAccess: 'reachable', path: [], pathRevision: -1, moveFrom: null, direction: 'SE', waitingReason: null };
     system.step(state); expect(site.workTicks).toBe(0);
     state.citizens.builder.position = { ...site.entrance! };
     system.step(state); expect(site.status).toBe('under_construction');

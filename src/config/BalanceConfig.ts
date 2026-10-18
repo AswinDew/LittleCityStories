@@ -2,7 +2,8 @@ import type { BuildingCategory, BuildingDefinition } from '@/buildings/types';
 import type { ResourceBundle } from '@/economy/types';
 
 export const BALANCE = Object.freeze({ storagePerBuilding: 300, ticksPerSecond: 10,
-  sourceRadius: 3, mealIntervalTicks: 600, foodPerMeal: 1, taxPerFedHousedCitizen: 1 });
+  sourceRadius: 3, mealIntervalTicks: 600, foodPerMeal: 1, taxPerFedHousedCitizen: 1,
+  movementTicksPerTile: 10, workShiftTicks: 600, homeRestTicks: 100, growthIntervalTicks: 1200 });
 const cost = (wood = 0, stone = 0, food = 0, coins = 0): ResourceBundle => ({ wood, stone, food, coins });
 function def(id: string, name: string, category: BuildingCategory, size: number,
   price: ResourceBundle, seconds: number, description: string, extra: Partial<BuildingDefinition> = {}): BuildingDefinition {

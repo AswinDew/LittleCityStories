@@ -6,6 +6,8 @@ import { isFootprintWithinBounds, isWithinBounds, GridCoord } from '@/world/Grid
 import { ResourceLedger, emptyResources, RESOURCE_IDS } from '@/economy/ResourceLedger';
 import { buildingLayout } from './BuildingLayout';
 import { StorageSystem } from '@/economy/StorageSystem';
+import { releaseWorker } from '@/citizens/AssignmentSystem';
+import { occupiesCell } from '@/citizens/types';
 
 const sameCell = (a: GridCoord, b: GridCoord) => a.x === b.x && a.z === b.z;
 export function checkPlacement(command: PlaceBuildingCommand, state: Readonly<SimulationState>,
@@ -22,7 +24,7 @@ export function checkPlacement(command: PlaceBuildingCommand, state: Readonly<Si
     const cell = readCell(coord.x, coord.z);
     if (!cell || cell.terrain === 'water' || !cell.canBuild) return { ok: false, reason: 'environment_blocked' };
     if (cell.buildingId || cell.isRoad) return { ok: false, reason: 'occupied' };
-    if (Object.values(state.citizens).some(citizen => Math.floor(citizen.position.x) === coord.x && Math.floor(citizen.position.z) === coord.z)) {
+    if (Object.values(state.citizens).some(citizen => occupiesCell(citizen, coord))) {
       return { ok: false, reason: 'citizen_occupied' };
     }
     if (def.id !== 'dirt_road' && Object.values(state.buildings).some(building => building.entrance && sameCell(building.entrance, coord))) {
@@ -52,7 +54,7 @@ export class ConstructionSystem {
     state.buildings[identity.id] = { instanceId: identity.id, defId: def.id,
       gridX: command.cell.x, gridZ: command.cell.z, rotation: command.rotation,
       footprint: layout.footprint, entrance: layout.entrance, status: def.requiredWorkTicks ? 'planned' : 'completed',
-      workTicks: 0, paidResources: { ...def.cost }, level: 1, seed: identity.seed, placedAt: identity.placedAt, productionWork: {} };
+      workTicks: 0, constructionRemainder: 0, paidResources: { ...def.cost }, level: 1, seed: identity.seed, placedAt: identity.placedAt, productionWork: {} };
     for (const cell of layout.cells) {
       this.grid.setBuilding(cell.x, cell.z, identity.id);
       if (def.id === 'dirt_road') this.grid.setRoad(cell.x, cell.z, true);
@@ -82,9 +84,7 @@ export class ConstructionSystem {
     for (const citizen of Object.values(state.citizens)) {
       if (citizen.homeId === instanceId) citizen.homeId = null;
       if (citizen.workplaceId === instanceId) {
-        citizen.workplaceId = null; citizen.occupation = 'villager'; citizen.activity = 'idle';
-        citizen.animationState = 'idle'; citizen.destination = null; citizen.pathProgress = 0; citizen.activityTicks = 0;
-        citizen.workplaceAccess = 'unknown';
+        releaseWorker(citizen);
       }
     }
     this.recalculateCapacity(state);
@@ -93,12 +93,15 @@ export class ConstructionSystem {
   step(state: SimulationState): void {
     for (const building of Object.values(state.buildings).sort((a, b) => a.instanceId.localeCompare(b.instanceId))) {
       if (building.status === 'completed' || !building.entrance) continue;
-      const builder = Object.values(state.citizens).some(citizen => citizen.occupation === 'builder' &&
+      const builder = Object.values(state.citizens).sort((a, b) => a.id.localeCompare(b.id)).find(citizen => citizen.occupation === 'builder' &&
         citizen.workplaceId === building.instanceId && citizen.activity === 'work' && citizen.animationState === 'build' &&
+        citizen.workplaceAccess === 'reachable' && citizen.pathProgress === 0 && citizen.destination === null &&
         sameCell(citizen.position, building.entrance!));
       if (!builder) continue;
       building.status = 'under_construction';
-      building.workTicks++;
+      building.constructionRemainder += builder.hungry ? 1 : 2;
+      building.workTicks += Math.floor(building.constructionRemainder / 2);
+      building.constructionRemainder %= 2;
       if (building.workTicks >= this.registry.get(building.defId)!.requiredWorkTicks) {
         building.status = 'completed'; this.recalculateCapacity(state);
       }

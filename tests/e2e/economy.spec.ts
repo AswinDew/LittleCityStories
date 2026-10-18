@@ -1,6 +1,6 @@
 import { test, expect } from '@playwright/test';
 
-test('shows honest farm operating status and leaves resources unchanged without M5 workers', async ({ page }) => {
+test('shows farm operating status and real meals/tax without assigning production workers', async ({ page }) => {
   const errors: string[] = [];
   page.on('pageerror', error => errors.push(error.message));
   page.on('console', message => { if (['error', 'warning'].includes(message.type())) errors.push(message.text()); });
@@ -14,10 +14,12 @@ test('shows honest farm operating status and leaves resources unchanged without 
   const before = await page.evaluate(() => window.__CIV_TOWN_TEST__!.getSnapshot());
   await page.evaluate(() => window.__CIV_TOWN_TEST__!.advanceTicks(1200));
   const after = await page.evaluate(() => window.__CIV_TOWN_TEST__!.getSnapshot());
-  expect(after.resources).toEqual(before.resources); expect(after.citizens).toEqual({});
+  expect(after.resources).toEqual({ ...before.resources, food: 84, coins: 56 });
+  expect(Object.keys(after.citizens)).toHaveLength(3);
+  await expect(page.locator('[data-operating-status=no_workers]')).toContainText('Menunggu pekerja');
   expect(after.economy.consumptionTicks).toBe(0);
-  await expect(page.locator('[data-resource=food] strong')).toHaveText('90');
-  await expect(page.locator('[data-resource=coins] strong')).toHaveText('50');
+  await expect(page.locator('[data-resource=food] strong')).toHaveText('84');
+  await expect(page.locator('[data-resource=coins] strong')).toHaveText('56');
   await page.screenshot({ path: 'test-results/m4-economy.png' });
   expect(errors).toEqual([]);
 });
