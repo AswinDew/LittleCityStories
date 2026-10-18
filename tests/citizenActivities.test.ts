@@ -7,6 +7,7 @@ import { economyFixture, addWorker } from './helpers/economyFixture';
 import { ConstructionSystem } from '../src/construction/ConstructionSystem';
 import { GridSystem } from '../src/world/GridSystem';
 import { BuildingRegistry } from '../src/buildings/BuildingRegistry';
+import { roomLayout } from '../src/citizens/BuildingPresence';
 
 describe('actual navigation and work activity', () => {
   it('clears a demolished workplace during fractional travel and returns continuously to a real home', () => {
@@ -14,14 +15,15 @@ describe('actual navigation and work activity', () => {
     const placed = session.dispatch({ type: 'placeBuilding', defId: 'farm', cell: { x: 12, z: 12 }, rotation: 0 });
     if (!placed.ok) throw new Error(placed.reason);
     session.step(400); const id = Object.keys(session.getSnapshot().citizens)[0];
-    session.dispatch({ type: 'assignWorker', citizenId: id, buildingId: placed.instanceId! }); session.step(3);
+    session.dispatch({ type: 'assignWorker', citizenId: id, buildingId: placed.instanceId! });
+    for (let ticks = 0; ticks < 100 && !(session.getSnapshot().citizens[id].pathProgress > 0); ticks++) session.step(1);
     const before = session.getSnapshot().citizens[id]; expect(before.pathProgress).toBeGreaterThan(0);
     expect(session.dispatch({ type: 'demolishBuilding', instanceId: placed.instanceId! }).ok).toBe(true);
     expect(session.getSnapshot().citizens[id].position).toEqual(before.position);
     expect(session.getSnapshot().citizens[id].workplaceId).toBeNull();
     session.step(1); const next = session.getSnapshot().citizens[id].position;
     expect(Math.abs(next.x - before.position.x) + Math.abs(next.z - before.position.z)).toBeLessThanOrEqual(0.101);
-    session.step(200); expect(session.getSnapshot().citizens[id].position).toEqual(session.getSnapshot().world.entrance);
+    session.step(200); expect(session.getSnapshot().citizens[id].room).toMatchObject({ purpose: 'home', phase: 'inside', hidden: true });
   });
   it('loses a demolished home during the return trip without teleporting or deleting the citizen', () => {
     const session = new SimulationSession({ environmentDensity: 0, startingPopulation: 4 });
@@ -47,8 +49,10 @@ describe('actual navigation and work activity', () => {
     expect(worker.position).toEqual(building.entrance); expect(worker.workplaceAccess).toBe('unreachable');
     expect(worker.animationState).toBe('idle'); expect(state.resources.food).toBe(90);
     state.world.grid[12][15].terrain = 'grass'; state.navigationRevision++; // (11,16) contains the guaranteed starter tree
+    for (let tick = 0; tick < 100 && worker.activity !== 'work'; tick++) { activity.step(state); production.step(state); }
+    const food = state.resources.food;
     for (let tick = 0; tick < 100; tick++) { activity.step(state); production.step(state); }
-    expect(worker.workplaceAccess).toBe('reachable'); expect(worker.animationState).toBe('harvest'); expect(state.resources.food).toBe(93);
+    expect(worker.workplaceAccess).toBe('reachable'); expect(worker.animationState).toBe('harvest'); expect(state.resources.food).toBe(food + 3);
   });
   it('invalidates an arrived worker access when a world change closes the home/work route', () => {
     const { state, building } = economyFixture(); const worker = addWorker(state, building.instanceId, 'c1');
@@ -112,7 +116,8 @@ describe('actual navigation and work activity', () => {
     const after = session.getSnapshot();
     expect(after.buildings[result.instanceId!].status).toBe('completed');
     expect(after.citizens[worker.id].workplaceId).toBeNull();
-    expect(after.citizens[worker.id].position).toEqual(after.buildings['building-1'].entrance);
+    expect(after.citizens[worker.id].position).toEqual(roomLayout(after.buildings['building-1'], 'home').station);
+    expect(after.citizens[worker.id].room).toMatchObject({ phase: 'inside', hidden: true });
   });
   it('a farmer produces only after arriving, returns after the work shift and rests at home', () => {
     const session = new SimulationSession({ environmentDensity: 0, startingPopulation: 1 });
@@ -131,7 +136,8 @@ describe('actual navigation and work activity', () => {
     for (let ticks = 0; ticks < 600 && session.getSnapshot().citizens[id].activity !== 'return'; ticks++) session.step(1);
     expect(session.getSnapshot().citizens[id].activity).toBe('return');
     for (let ticks = 0; ticks < 200 && session.getSnapshot().citizens[id].activity !== 'idle'; ticks++) session.step(1);
-    expect(session.getSnapshot().citizens[id].position).toEqual(session.getSnapshot().buildings['building-1'].entrance);
+    expect(session.getSnapshot().citizens[id].position).toEqual(roomLayout(session.getSnapshot().buildings['building-1'], 'home').station);
+    expect(session.getSnapshot().citizens[id].room).toMatchObject({ purpose: 'home', phase: 'inside', hidden: true });
     session.step(99); expect(session.getSnapshot().citizens[id].activity).toBe('idle');
     session.step(1); expect(session.getSnapshot().citizens[id].activity).toBe('navigate');
   });

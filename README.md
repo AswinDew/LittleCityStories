@@ -9,6 +9,9 @@ Pengembangan bertahap dari Little City Stories menjadi Ancient Settlement dengan
 - A* empat arah memilih road cost 1 versus grass/dirt 2, memakai tie-break deterministik dan cache berdasarkan revision dunia. Jalan, bangunan, clearing dan terrain menginvalidasi rute ketika walkability/cost berubah; warga tidak teleport saat unassign, jalur gagal atau tujuan berubah.
 - Aktivitas navigate → work → return → idle berjalan pada fixed tick: 1 tile/detik, shift kerja 60 detik, istirahat home 10 detik. Builder pulang setelah site selesai. Source/storage/access blocker menghentikan animasi kerja dan output, lalu pulih saat syarat kembali valid. Warga lapar memiliki produktivitas 50%, termasuk builder.
 - Sprite atlas kini menjadi plane vertikal dengan anchor kaki, nearest filtering, alpha test dan depth test/write; tidak selalu tampil di depan bangunan. Posisi diinterpolasi dari snapshot; pause menghentikan waktu animasi. Resource/geometry/texture clone milik sprite dilepas saat view dihapus.
+- Bangunan terbentuk bertahap dari fondasi, rangka, dinding hingga atap berdasarkan kredit kerja nyata. Komponen tumbuh terus tanpa mengganti seluruh model saat selesai; scaffold dilepas setelah konstruksi selesai.
+- Warga melewati pintu menuju posisi kerja di dalam footprint: petani mencangkul/menyiram, penebang mengayun kapak, penambang memakai beliung, peneliti membaca/menulis, dan builder memukul palu. Dua slot produksi memakai posisi berbeda. Research Hut membuka dinding yang menghadap kamera saat digunakan agar interior terlihat, termasuk saat bangunan diputar.
+- Setelah bekerja, warga berjalan masuk melalui pintu rumah/Town Center, tersembunyi selama beristirahat, lalu keluar sebelum berangkat lagi. Pergantian pekerjaan dan demolisi mempertahankan gerak yang kontinu; jalur evakuasi tetap direservasi sampai warga keluar.
 - Happiness mengikuti hunger/housing/employment. Satu pendatang muncul setelah 1200 tick berturut-turut dengan housing kosong, happiness ≥60 dan food untuk dua kali makan populasi setelah pendatang masuk. Counter reset saat syarat gagal; tanpa tile spawn, growth menunggu tanpa crash.
 
 Ekonomi M4 tetap tersedia:
@@ -24,15 +27,15 @@ Konstruksi M3 tetap tersedia:
 - Katalog kuno aktif dengan kategori Housing, Production, Infrastructure, dan Community. Satu Town Center selesai muncul saat awal.
 - Session menjadi pemilik tunggal resources, capacity, grid, dan building instances. Store hanya menyimpan snapshot presentasi, tool, selection, dan feedback; treasury lama sudah dilepas.
 - Resource awal: wood 160, stone 100, food 90, coins 50. Biaya dipotong atomik setelah validasi footprint, terrain/environment, tile warga, entrance, rotasi, unlock, dan kemampuan membayar.
-- House/Farm/Camp/Quarry/Storage/Research menjadi site planned dengan scaffold. Progres memerlukan builder yang benar-benar ditugaskan, berada di entrance, dan aktif bekerja. M5 menghubungkan warga nyata; tidak ada progres konstruksi dari timer palsu.
+- House/Farm/Camp/Quarry/Storage/Research menjadi site planned dengan scaffold. Progres memerlukan builder yang benar-benar ditugaskan, berada di posisi kerja dalam site, dan aktif bekerja. M5 menghubungkan warga nyata; tidak ada progres konstruksi dari timer palsu.
 - Dirt Road selesai instan dengan biaya 1 stone. Cancel/demolish planned mengembalikan seluruh biaya; under construction/completed mengembalikan setengah biaya yang dibayar, dibulatkan ke bawah. Town Center dilindungi. Resource berlebih tetap disimpan saat capacity berkurang atau menerima refund.
 - Ghost/footprint hijau-merah, rotasi, resource bar, alasan penolakan, clear vegetation tanpa hasil gratis, selection dan inspector sudah terhubung ke command nyata. Pointer intent menolak drag, modified/right click, pointercancel, orphan pointerup dan klik HUD.
 
 Aset M2 tetap tersedia:
 
-- Pipeline Pillow lokal dengan palet warm earth 28 warna: 3 tekstur seamless, 19 ikon resource/UI/katalog/teknologi, dan atlas warga 224 frame.
+- Pipeline Pillow lokal dengan palet warm earth 28 warna: 3 tekstur seamless, 19 ikon resource/UI/katalog/teknologi, dan atlas warga 312 frame.
 - Delapan factory model kuno: Town Center, Primitive House, Farm, Lumber Camp, Stone Quarry, Storage Hut, Research Hut, dan Dirt Road; lima jenis environment: tree, bush, rock, grass decoration, crop.
-- Empat profesi, empat arah NE/NW/SE/SW, idle 2 frame, walk 6 frame, serta 6 frame harvest/chop/build/work. Target 32×32 dengan anchor kaki (16,30), alpha biner dan nearest filtering.
+- Empat profesi, empat arah NE/NW/SE/SW, idle 2 frame, walk 6 frame, harvest/chop/build/work/water 6 frame, serta mine/research 8 frame dengan tempo berbeda. Target 32×32 dengan anchor kaki (16,30), alpha biner dan nearest filtering.
 - Loader texture cache, geometri model dengan reference counting, material bersama dan clone material milik ghost preview. Animator menerima waktu simulasi; tidak menentukan pekerjaan warga.
 - Galeri pemeriksaan khusus development: [http://localhost:3000/?assets=1](http://localhost:3000/?assets=1). Tombol pose/pause hanya memeriksa animasi aset; tidak membuat warga domain.
 - Empat skill lokal di `.agents/skills/` memandu engine, ekonomi, aset procedural, dan playtesting sesuai batas milestone.
@@ -137,4 +140,4 @@ Gesture placement memiliki ambang travel 4 CSS px dan hanya menerima primary poi
 | `src/citizens/` | Identitas, housing, assignment, aktivitas, growth dan renderer warga |
 | `src/testing/`, `tests/` | Hook khusus mode test, unit/integration test dan Playwright |
 
-Pengembangan berhenti setelah verifikasi M5 sampai pengguna meminta melanjutkan. Berikutnya M6 riset; M7 persistence/HUD; M8 playtest dan polish.
+Perbaikan animasi dan kehadiran warga setelah M5 dicatat di [Living settlement](docs/progress/2026-10-18-living-settlement.md). Pengembangan berhenti setelah verifikasi sampai pengguna meminta melanjutkan. Berikutnya M6 riset; M7 persistence/HUD; M8 playtest dan polish.

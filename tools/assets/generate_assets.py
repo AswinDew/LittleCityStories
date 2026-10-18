@@ -10,7 +10,7 @@ from PIL import Image
 from primitives import palette, palette_hash, icon
 from atlas import citizen_atlas
 
-VERSION = 1
+VERSION = 2
 ICONS = ('wood stone food coins population happiness construction technology town_center primitive_house '
          'farm lumber_camp stone_quarry storage_hut research_hut dirt_road agriculture masonry toolmaking').split()
 

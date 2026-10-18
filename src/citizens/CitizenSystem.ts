@@ -4,7 +4,7 @@ import type { GridCoord } from '@/world/GridMath';
 import { BuildingRegistry } from '@/buildings/BuildingRegistry';
 
 export const travelState = () => ({ path: [] as GridCoord[], pathRevision: -1, moveFrom: null as GridCoord | null,
-  direction: 'SE' as Citizen['direction'], waitingReason: null as Citizen['waitingReason'] });
+  direction: 'SE' as Citizen['direction'], waitingReason: null as Citizen['waitingReason'], room: null as Citizen['room'] });
 export class CitizenSystem {
   constructor(private readonly allocate: () => { id: string; seed: number },
     private readonly walkable: (cell: GridCoord) => boolean, private readonly registry = BuildingRegistry.getInstance()) {}

@@ -5,6 +5,7 @@ import type { CellState } from '@/world/GridSystem';
 import { BuildingRegistry } from '@/buildings/BuildingRegistry';
 import { BALANCE } from '@/config/BalanceConfig';
 import { ResourceLedger } from './ResourceLedger';
+import { atWorkstation, jobAnimation } from '@/citizens/BuildingPresence';
 
 export type OperatingStatus = 'under_construction' | 'no_workers' | 'unreachable' | 'no_source' | 'storage_full' | 'working';
 type CellReader = (x: number, z: number) => CellState | null;
@@ -19,10 +20,11 @@ export class ProductionSystem {
       .slice(0, this.registry.get(building.defId)!.workerSlots);
   }
   private present(citizen: Citizen, building: PlacedBuilding, requireAnimation = true): boolean {
-    const animation = building.defId === 'farm' ? 'harvest' : building.defId === 'lumber_camp' ? 'chop' : 'work';
-    return citizen.workplaceAccess === 'reachable' && citizen.activity === 'work' && (!requireAnimation || citizen.animationState === animation) &&
+    const animation = jobAnimation(building.defId, citizen.activityTicks);
+    const animated = citizen.animationState === animation || (building.defId === 'farm' && ['harvest', 'water'].includes(citizen.animationState));
+    return citizen.workplaceAccess === 'reachable' && citizen.activity === 'work' && (!requireAnimation || animated) &&
       citizen.destination === null && citizen.pathProgress === 0 && !!building.entrance &&
-      citizen.position.x === building.entrance.x && citizen.position.z === building.entrance.z;
+      atWorkstation(citizen, building);
   }
   private entranceOpen(building: PlacedBuilding, state: Readonly<SimulationState>): boolean {
     if (!building.entrance) return false;

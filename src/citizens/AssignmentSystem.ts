@@ -2,6 +2,7 @@ import type { SimulationState } from '@/simulation/types';
 import type { Citizen } from './types';
 import type { CommandResult } from '@/simulation/commands';
 import { BuildingRegistry } from '@/buildings/BuildingRegistry';
+import { leaveRoom } from './BuildingPresence';
 
 export function releaseWorker(citizen: Citizen): void {
   citizen.workplaceId = null; citizen.occupation = 'villager'; citizen.workplaceAccess = 'unknown';
@@ -26,6 +27,7 @@ export class AssignmentSystem {
     this.bind(citizen, buildingId, building.defId); return { ok: true };
   }
   private bind(citizen: Citizen, buildingId: string, defId: string, builder = false): void {
+    if (citizen.room?.purpose === 'work') leaveRoom(citizen);
     citizen.workplaceId = buildingId;
     citizen.occupation = builder ? 'builder' : defId === 'farm' ? 'farmer' : defId === 'lumber_camp' ? 'lumberjack' : 'villager';
     citizen.activity = 'navigate'; citizen.animationState = 'idle'; citizen.workplaceAccess = 'unknown';

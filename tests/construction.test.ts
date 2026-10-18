@@ -80,7 +80,7 @@ describe('authoritative construction commands', () => {
     const state = structuredClone(create().getSnapshot()) as SimulationState;
     state.citizens.c1 = { id: 'c1', name: 'Ari', occupation: 'villager', homeId: null, workplaceId: null,
       activity: 'idle', position: { x: 12, z: 12 }, destination: null, animationState: 'idle',
-      pathProgress: 0, hungry: false, activityTicks: 0, workplaceAccess: 'unknown', path: [], pathRevision: -1, moveFrom: null, direction: 'SE', waitingReason: null };
+      pathProgress: 0, hungry: false, activityTicks: 0, workplaceAccess: 'unknown', path: [], pathRevision: -1, moveFrom: null, direction: 'SE', waitingReason: null, room: null };
     const grid = new GridSystem(32); grid.deserialize(state.world.grid);
     const system = new ConstructionSystem(grid, BuildingRegistry.getInstance(), () => ({ id: 'b-test', seed: 1, placedAt: 0 }));
     const before = structuredClone(state);

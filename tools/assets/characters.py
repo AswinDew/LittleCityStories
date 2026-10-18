@@ -7,6 +7,12 @@ from primitives import palette, canvas, tool
 ROLES = {'villager': ('blue', 'work'), 'farmer': ('green', 'harvest'),
          'lumberjack': ('clay', 'chop'), 'builder': ('purple', 'build')}
 DIRECTIONS = ('NE', 'NW', 'SE', 'SW')
+CLIPS = {
+    role: [('idle', 2, 500), ('walk', 6, 100), (work, 6, 120)]
+    for role, (_, work) in ROLES.items()
+}
+CLIPS['villager'] += [('mine', 8, 140), ('research', 8, 180)]
+CLIPS['farmer'] += [('water', 6, 160)]
 
 
 def character(role, direction, state, frame):
@@ -18,7 +24,10 @@ def character(role, direction, state, frame):
     working = state not in ('idle', 'walk')
     stride = [0, 1, 2, 0, -1, -2][frame] if state == 'walk' else 0
     bob = [0, 0, -1, 0, 0, -1][frame] if state == 'walk' else -(frame % 2)
-    bend = [0, 1, 3, 4, 2, 0][frame] if working and role == 'farmer' else 0
+    bend = [0, 2, 4, 3, 1, 0][frame] if state == 'harvest' else 0
+    if state == 'chop': bend = [0, -1, -2, 1, 2, 0][frame]
+    if state == 'mine': bend = [0, 0, -1, -1, 2, 3, 1, 0][frame]
+    if state == 'research': bob = [0, 0, 1, 1, 0, 0, 1, 0][frame]
     cx, head_y = 16 + facing * bend, 5 + bob + bend
     shirt = c[ROLES[role][0]]
     # Grounded boots and separate legs retain the (16,30) foot anchor.
@@ -59,15 +68,44 @@ def character(role, direction, state, frame):
     # Tools remain in the character's right hand, projected separately for north/south.
     hand_side = facing if not north else -facing
     hand_x = 16 + hand_side * 5
-    hand_y = 22 + stride if not working else [19, 15, 12, 23, 24, 21][frame]
-    if working and role == 'farmer': hand_y = 22 + bend
+    hand_y = 22 + stride if not working else [19, 15, 12, 23, 24, 21][frame % 6]
+    if state == 'harvest': hand_y = 22 + bend
+    if state == 'build': hand_y = [21, 18, 15, 14, 22, 21][frame]
+    if state == 'chop':
+        hand_y = [19, 14, 10, 19, 24, 21][frame]
+        hand_x += hand_side * [0, -1, -2, 2, 4, 2][frame]
+    if state == 'mine':
+        hand_y = [20, 16, 12, 10, 18, 25, 24, 21][frame]
+        hand_x += hand_side * [0, -1, -2, -2, 1, 2, 1, 0][frame]
+    if state == 'research': hand_y = 21 + (frame % 3 == 0)
+    if state == 'water': hand_y = [21, 21, 22, 22, 21, 20][frame]
     d.line((16 + hand_side * 4, 17 + bob + bend, hand_x, hand_y), fill=c['ink'], width=4)
     d.line((16 + hand_side * 4, 17 + bob + bend, hand_x, hand_y), fill=c['skin_light'], width=2)
     if role in ('builder', 'lumberjack'):
         tool(d, c, hand_x - hand_side, hand_y - 3, 'axe' if role == 'lumberjack' else 'hammer', hand_side)
+    elif state == 'water':
+        can_x = hand_x - 2
+        d.rectangle((can_x, hand_y, can_x + 5, hand_y + 4), fill=c['blue'], outline=c['ink'])
+        d.arc((can_x + 1, hand_y - 3, can_x + 5, hand_y + 2), 180, 360, fill=c['stone_light'])
+        tip = min(30, max(1, hand_x + hand_side * 7))
+        d.line((hand_x + hand_side * 2, hand_y + 1, tip, hand_y + 3), fill=c['blue_light'], width=2)
+        if frame in (2, 3, 4): d.line((tip, hand_y + 3, tip, min(29, hand_y + 6)), fill=c['blue_light'])
     elif role == 'farmer':
         d.line((hand_x, hand_y + 3, hand_x + hand_side * 3, hand_y - 5), fill=c['wood_dark'], width=2)
         d.line((hand_x + hand_side * 3, hand_y - 5, hand_x + hand_side * 6, hand_y - 4), fill=c['stone_light'], width=2)
+    elif state == 'mine':
+        top_x = max(2, min(29, hand_x + hand_side * 4))
+        top_y = max(2, hand_y - 7)
+        d.line((hand_x - hand_side, hand_y + 3, top_x, top_y), fill=c['wood_dark'], width=2)
+        d.line((max(1, top_x - 4), top_y + 1, min(30, top_x + 4), top_y - 1), fill=c['stone_light'], width=2)
+        d.line((16 - hand_side * 3, 19 + bob, hand_x - hand_side, hand_y + 1), fill=c['skin_shadow'], width=2)
+    elif state == 'research':
+        d.polygon([(11, 21), (16, 19), (21, 21), (21, 26), (16, 24), (11, 26)], fill=c['linen'], outline=c['wood_dark'])
+        d.line((16, 20, 16, 24), fill=c['wood'])
+        d.line((12, 23, 14, 22), fill=c['purple'])
+        pen_x = 19 + [0, 1, 2, 1, 0, -1, 0, 1][frame]
+        d.line((pen_x, 22, pen_x + 2, 17 + frame % 2), fill=c['purple'], width=1)
+        d.line((20, 18, pen_x, 22), fill=c['skin_light'], width=2)
     elif working:
         d.polygon([(hand_x - 2, hand_y), (hand_x + 2, hand_y - 2), (hand_x + 4, hand_y + 2),
                    (hand_x, hand_y + 4)], fill=c['stone'], outline=c['ink'])

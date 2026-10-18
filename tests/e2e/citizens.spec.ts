@@ -57,11 +57,13 @@ test('real builder sprites render behind and in front of buildings at maximum zo
   await page.evaluate(() => window.__CIV_TOWN_TEST__!.setCameraZoom(2.8));
   await page.screenshot({ path: 'test-results/m5-occlusion-behind.png' });
   const state = await snapshot(page), builder = Object.values(state.citizens).find(c => c.occupation === 'builder')!;
-  expect(builder.position).toEqual({ x: 14, z: 14 });
+  expect(builder.room).toMatchObject({ purpose: 'work', phase: 'inside' });
+  expect(builder.position).toEqual({ x: 14, z: 13.35 });
   await page.evaluate(() => window.__CIV_TOWN_TEST__!.advanceTicks(500));
   await page.screenshot({ path: 'test-results/m5-occlusion-front.png' });
   const after = await snapshot(page);
-  expect(after.citizens[builder.id].position).toEqual({ x: 16, z: 18 });
+  expect(after.citizens[builder.id].room).toMatchObject({ purpose: 'home', phase: 'inside', hidden: true });
+  expect(await page.evaluate(id => window.__CIV_TOWN_TEST__!.getCitizenViews().find(c => c.id === id)!.visible, builder.id)).toBe(false);
 });
 
 test('real citizens build, walk in all four directions, work at a farm and return home', async ({ page }) => {
@@ -101,8 +103,67 @@ test('real citizens build, walk in all four directions, work at a farm and retur
   expect(await advanceUntil(page, { citizenId, activity: 'return' })).toBe(true);
   expect(await advanceUntil(page, { citizenId, activity: 'idle' })).toBe(true);
   const rested = await snapshot(page);
-  expect(rested.citizens[citizenId].position).toEqual(rested.buildings[rested.citizens[citizenId].homeId!].entrance);
+  expect(rested.citizens[citizenId].room).toMatchObject({ purpose: 'home', phase: 'inside', hidden: true });
+  expect(await page.evaluate(id => window.__CIV_TOWN_TEST__!.getCitizenViews().find(c => c.id === id)!.visible, citizenId)).toBe(false);
   await page.getByRole('button', { name: `Unassign ${rested.citizens[citizenId].name}`, exact: true }).click();
   expect((await snapshot(page)).citizens[citizenId].workplaceId).toBeNull();
+  expect(errors).toEqual([]);
+});
+
+test('construction shows growing final walls and roof before completion', async ({ page }) => {
+  await page.goto('/?manual=1'); await page.waitForFunction(() => !!window.__CIV_TOWN_TEST__);
+  await place(page, '1', 12, 12);
+  await page.evaluate(() => window.__CIV_TOWN_TEST__!.setCameraZoom(2));
+  const id = Object.values((await snapshot(page)).buildings).find(b => b.defId === 'primitive_house')!.instanceId;
+  const stages: { stage: string; parts: { stage: string; height: number }[] }[] = [];
+  for (const fraction of [0.2, 0.4, 0.6, 0.8, 1]) {
+    const view = await page.evaluate(({ id, fraction }) => {
+      const h = window.__CIV_TOWN_TEST__!;
+      for (let tick = 0; tick < 500 && h.getBuildingViews().find(v => v.id === id)!.progress < fraction; tick++) h.advanceTicks(1);
+      return h.getBuildingViews().find(v => v.id === id)!;
+    }, { id, fraction });
+    expect(view.progress).toBeGreaterThanOrEqual(fraction);
+    stages.push(view);
+    await page.screenshot({ path: `test-results/assembly-${fraction}.png` });
+  }
+  expect(stages[0].parts.some(p => p.stage === 'frame')).toBe(true);
+  expect(stages[0].parts.some(p => p.stage === 'wall')).toBe(false);
+  const wall = (i: number) => stages[i].parts.find(p => p.stage === 'wall')!.height;
+  expect(wall(2)).toBeGreaterThan(wall(1));
+  expect(stages[3].parts.some(p => p.stage === 'roof')).toBe(true);
+  expect(stages[4].stage).toBe('completed');
+});
+
+for (const [defId, x, z, animation] of [
+  ['farm', 18, 12, 'harvest'], ['lumber_camp', 12, 14, 'chop'],
+  ['stone_quarry', 19, 14, 'mine'], ['research_hut', 18, 12, 'research'],
+] as const) test(`${defId} has an indoor work station and a distinct moving clip, then the citizen enters home`, async ({ page }) => {
+  const errors: string[] = [];
+  page.on('pageerror', e => errors.push(e.message));
+  page.on('console', e => { if (['warning', 'error'].includes(e.type())) errors.push(e.text()); });
+  await page.goto('/?manual=1'); await page.waitForFunction(() => !!window.__CIV_TOWN_TEST__);
+  const result = await page.evaluate(({ defId, x, z }) => window.__CIV_TOWN_TEST__!.dispatch({ type: 'placeBuilding', defId, cell: { x, z }, rotation: 0 }), { defId, x, z });
+  expect(result.ok).toBe(true);
+  if (!result.ok) throw new Error(result.reason);
+  expect(await advanceUntil(page, { buildingId: result.instanceId! })).toBe(true);
+  await page.evaluate(() => window.__CIV_TOWN_TEST__!.advanceTicks(1)); // completed builders release their job on the next tick
+  const id = Object.keys((await snapshot(page)).citizens)[0];
+  expect((await page.evaluate(({ id, buildingId }) => window.__CIV_TOWN_TEST__!.dispatch({ type: 'assignWorker', citizenId: id, buildingId }), { id, buildingId: result.instanceId! })).ok).toBe(true);
+  expect(await advanceUntil(page, { citizenId: id, activity: 'work' })).toBe(true);
+  const citizen = (await snapshot(page)).citizens[id];
+  expect(citizen.room).toMatchObject({ purpose: 'work', phase: 'inside', buildingId: result.instanceId });
+  expect(citizen.animationState).toBe(animation);
+  const frames = await page.evaluate(id => {
+    const h = window.__CIV_TOWN_TEST__!, frames = new Set<string>();
+    for (let tick = 0; tick < 15; tick++) { h.advanceTicks(1); const c = h.getCitizenViews().find(c => c.id === id)!; frames.add(JSON.stringify(c.frame)); }
+    return [...frames];
+  }, id);
+  expect(frames.length).toBeGreaterThanOrEqual(4);
+  await page.evaluate(() => window.__CIV_TOWN_TEST__!.setCameraZoom(2.8));
+  await page.screenshot({ path: `test-results/work-${defId}.png` });
+  await page.evaluate(id => window.__CIV_TOWN_TEST__!.dispatch({ type: 'unassignWorker', citizenId: id }), id);
+  expect(await advanceUntil(page, { citizenId: id, activity: 'idle' })).toBe(true);
+  expect((await snapshot(page)).citizens[id].room).toMatchObject({ purpose: 'home', phase: 'inside', hidden: true });
+  expect(await page.evaluate(id => window.__CIV_TOWN_TEST__!.getCitizenViews().find(c => c.id === id)!.visible, id)).toBe(false);
   expect(errors).toEqual([]);
 });

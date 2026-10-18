@@ -7,6 +7,7 @@ import sys
 from PIL import Image
 from primitives import palette, palette_hash
 from generate_assets import ICONS, VERSION
+from characters import CLIPS, DIRECTIONS
 
 
 def validate(folder):
@@ -19,6 +20,7 @@ def validate(folder):
     if not expected.issubset(manifest['assets']):
         raise ValueError('Required assets missing')
     allowed = {tuple(bytes.fromhex(value[1:])) for value in palette().values()}
+    frames = sum(sum(clip[1] for clip in clips) for clips in CLIPS.values()) * len(DIRECTIONS)
     for key, asset in manifest['assets'].items():
         relative = Path(asset['file'])
         if relative.is_absolute() or '..' in relative.parts or '\\' in asset['file'] or ':' in asset['file']:
@@ -29,21 +31,21 @@ def validate(folder):
         with Image.open(path) as source:
             if source.format != 'PNG' or source.size != (asset['width'], asset['height']):
                 raise ValueError(f'{key}: invalid dimensions/format')
-            required_size = (512, 448) if key == 'citizens' else ((32, 32) if key.startswith('terrain_') else (24, 24))
+            required_size = (512, ((frames + 15) // 16) * 32) if key == 'citizens' else ((32, 32) if key.startswith('terrain_') else (24, 24))
             if source.size != required_size:
                 raise ValueError(f'{key}: unexpected asset size')
             for pixel in source.convert('RGBA').get_flattened_data():
                 if pixel[3] not in (0, 255) or (pixel[3] and pixel[:3] not in allowed):
                     raise ValueError(f'{key}: palette or alpha violation')
     atlas = manifest['atlases']['citizens']
-    if atlas['asset'] != 'citizens' or (atlas['width'], atlas['height']) != (512, 448):
+    if atlas['asset'] != 'citizens' or (atlas['width'], atlas['height']) != (512, ((frames + 15) // 16) * 32):
         raise ValueError('Invalid citizen atlas dimensions')
     if atlas['frameSize'] != {'width': 32, 'height': 32}:
         raise ValueError('Invalid sprite frame size')
     occupied = set()
-    for role, work in {'villager': 'work', 'farmer': 'harvest', 'lumberjack': 'chop', 'builder': 'build'}.items():
+    for role, clips in CLIPS.items():
         for direction in ('NE', 'NW', 'SE', 'SW'):
-            for state, count in [('idle', 2), ('walk', 6), (work, 6)]:
+            for state, count, _ in clips:
                 clip = atlas['animations'][role][direction][state]
                 if (clip['anchor'] != {'x': 16, 'y': 30} or len(clip['frames']) != count or
                         type(clip['loop']) is not bool or not isinstance(clip['frameDurationMs'], (int, float)) or
@@ -52,7 +54,7 @@ def validate(folder):
                 for frame in clip['frames']:
                     x, y, w, h = (frame[key] for key in ('x', 'y', 'width', 'height'))
                     if (any(type(value) is not int for value in (x, y, w, h)) or (w, h) != (32, 32) or
-                            x % 32 or y % 32 or x < 0 or y < 0 or x + w > 512 or y + h > 448 or (x, y) in occupied):
+                            x % 32 or y % 32 or x < 0 or y < 0 or x + w > atlas['width'] or y + h > atlas['height'] or (x, y) in occupied):
                         raise ValueError('Invalid/overlapping frame rectangle')
                     occupied.add((x, y))
     return manifest

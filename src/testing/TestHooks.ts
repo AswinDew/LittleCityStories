@@ -12,9 +12,13 @@ function createHooks(game: Game) {
     getSceneGroups: () => game.sceneManager.scene.children.map(child => child.name),
     getRenderCalls: () => game.renderer.renderer.info.render.calls,
     getBuildingViews: () => [...game.sceneManager.buildingsGroup.children, ...game.sceneManager.roadsGroup.children]
-      .map(mesh => ({ id: mesh.name, stage: mesh.userData.stage as string })),
+      .map(mesh => {
+        const parts: { stage: string; height: number }[] = [];
+        mesh.traverse(part => { if (part.userData.assembly && part.visible) parts.push({ stage: part.userData.assembly, height: part.scale.y }); });
+        return { id: mesh.name, stage: mesh.userData.stage as string, progress: mesh.userData.progress as number, parts };
+      }),
     getSelection: () => useGameStore.getState().selectedBuildingId,
-    getCitizenViews: () => game.sceneManager.citizensGroup.children.map(mesh => ({ id: mesh.name,
+    getCitizenViews: () => game.sceneManager.citizensGroup.children.map(mesh => ({ id: mesh.name, visible: mesh.visible,
       activity: mesh.userData.activity as string, direction: mesh.userData.direction as string,
       frame: mesh.userData.frame as { x: number; y: number; width: number; height: number },
       position: { x: mesh.position.x, y: mesh.position.y, z: mesh.position.z } })),

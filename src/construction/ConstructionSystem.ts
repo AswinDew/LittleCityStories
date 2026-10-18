@@ -8,6 +8,7 @@ import { buildingLayout } from './BuildingLayout';
 import { StorageSystem } from '@/economy/StorageSystem';
 import { releaseWorker } from '@/citizens/AssignmentSystem';
 import { occupiesCell } from '@/citizens/types';
+import { atWorkstation } from '@/citizens/BuildingPresence';
 
 const sameCell = (a: GridCoord, b: GridCoord) => a.x === b.x && a.z === b.z;
 export function checkPlacement(command: PlaceBuildingCommand, state: Readonly<SimulationState>,
@@ -96,7 +97,7 @@ export class ConstructionSystem {
       const builder = Object.values(state.citizens).sort((a, b) => a.id.localeCompare(b.id)).find(citizen => citizen.occupation === 'builder' &&
         citizen.workplaceId === building.instanceId && citizen.activity === 'work' && citizen.animationState === 'build' &&
         citizen.workplaceAccess === 'reachable' && citizen.pathProgress === 0 && citizen.destination === null &&
-        sameCell(citizen.position, building.entrance!));
+        atWorkstation(citizen, building));
       if (!builder) continue;
       building.status = 'under_construction';
       building.constructionRemainder += builder.hungry ? 1 : 2;

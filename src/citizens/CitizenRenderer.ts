@@ -26,6 +26,7 @@ export class CitizenRenderer {
         (z + 0.5 - this.metrics.size / 2) * this.metrics.cellSize);
       view.sprite.rotation.y = Math.atan2(-facing.x, -facing.z);
       const frame = view.update(citizen.animationState, time, citizen.occupation, citizen.direction);
+      view.sprite.visible = !(citizen.room?.hidden && current.buildings[citizen.room.buildingId]);
       view.sprite.userData = { activity: citizen.animationState, direction: citizen.direction, frame: { ...frame } };
     }
   }

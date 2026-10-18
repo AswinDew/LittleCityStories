@@ -10,6 +10,27 @@ ROOT = Path(__file__).resolve().parents[2]
 
 
 class CharacterAtlasTests(unittest.TestCase):
+    def test_building_specific_work_clips_have_distinct_tools_poses_and_timing(self):
+        with tempfile.TemporaryDirectory() as temp:
+            output = Path(temp)
+            result = subprocess.run([sys.executable, str(ROOT / 'tools/assets/generate_assets.py'), '--output', str(output)], capture_output=True, text=True)
+            self.assertEqual(result.returncode, 0, result.stderr)
+            manifest = json.loads((output / 'manifest.json').read_text())
+            atlas = manifest['atlases']['citizens']
+            image = Image.open(output / manifest['assets']['citizens']['file']).convert('RGBA')
+            clips = [('villager', 'mine', 8), ('villager', 'research', 8), ('farmer', 'water', 6)]
+            signatures = []
+            for role, state, count in clips:
+                for direction in ['NE', 'NW', 'SE', 'SW']:
+                    clip = atlas['animations'][role][direction][state]
+                    self.assertEqual(len(clip['frames']), count)
+                    pixels = [image.crop((r['x'], r['y'], r['x'] + 32, r['y'] + 32)).tobytes() for r in clip['frames']]
+                    self.assertGreaterEqual(len(set(pixels)), 4)
+                    if direction == 'SE': signatures.append(b''.join(pixels))
+            self.assertEqual(len(set(signatures)), 3)
+            self.assertNotEqual(atlas['animations']['villager']['SE']['mine']['frameDurationMs'],
+                                atlas['animations']['villager']['SE']['research']['frameDurationMs'])
+
     def test_required_animations_frames_anchor_and_directional_art(self):
         with tempfile.TemporaryDirectory() as temp:
             output = Path(temp)

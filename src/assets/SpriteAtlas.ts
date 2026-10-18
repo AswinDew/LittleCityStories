@@ -16,6 +16,9 @@ interface AtlasData {
   animations: Record<Occupation, Record<SpriteDirection, Record<string, AnimationClip>>>;
 }
 const work = { villager: 'work', farmer: 'harvest', lumberjack: 'chop', builder: 'build' } as const;
+const clips = (role: Occupation): [SpriteActivity, number][] => [ ['idle', 2], ['walk', 6], [work[role], 6],
+  ...(role === 'villager' ? [['mine', 8], ['research', 8]] as [SpriteActivity, number][] : []),
+  ...(role === 'farmer' ? [['water', 6]] as [SpriteActivity, number][] : []) ];
 
 export class SpriteAtlas {
   readonly width: number;
@@ -30,9 +33,9 @@ export class SpriteAtlas {
     this.width = data.width; this.height = data.height;
     const used = new Set<string>();
     for (const role of OCCUPATIONS) for (const direction of DIRECTIONS) {
-      for (const activity of ['idle', 'walk', work[role]]) {
+      for (const [activity, count] of clips(role)) {
         const clip = data.animations?.[role]?.[direction]?.[activity];
-        if (!clip || !Array.isArray(clip.frames) || clip.frames.length !== (activity === 'idle' ? 2 : 6) ||
+        if (!clip || !Array.isArray(clip.frames) || clip.frames.length !== count ||
             !Number.isFinite(clip.frameDurationMs) || clip.frameDurationMs <= 0 ||
             typeof clip.loop !== 'boolean' || clip.anchor?.x !== 16 || clip.anchor.y !== 30) {
           throw new Error(`Invalid animation ${role}/${direction}/${activity}`);

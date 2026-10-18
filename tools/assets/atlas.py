@@ -1,17 +1,18 @@
 """Pack complete fixed-size frames; rectangles never overlap or trim foot anchors."""
 from PIL import Image
-from characters import ROLES, DIRECTIONS, character
+from characters import ROLES, DIRECTIONS, CLIPS, character
 
 
 def citizen_atlas():
-    image = Image.new('RGBA', (512, 448), (0, 0, 0, 0))
+    count = sum(sum(clip[1] for clip in clips) for clips in CLIPS.values()) * len(DIRECTIONS)
+    image = Image.new('RGBA', (512, ((count + 15) // 16) * 32), (0, 0, 0, 0))
     animations = {}
     index = 0
     for role, (_, work) in ROLES.items():
         animations[role] = {}
         for direction in DIRECTIONS:
             animations[role][direction] = {}
-            for state, count, duration in [('idle', 2, 500), ('walk', 6, 100), (work, 6, 120)]:
+            for state, count, duration in CLIPS[role]:
                 frames = []
                 for number in range(count):
                     frame = character(role, direction, state, number)

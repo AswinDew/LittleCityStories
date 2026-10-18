@@ -7,6 +7,18 @@ import { SimulationSession } from '../src/simulation/SimulationSession';
 import { gridToWorld } from '../src/utils/coordinates';
 
 describe('snapshot-driven citizen planes', () => {
+  it('hides residents indoors and reveals them at the doorway or when the home is demolished', () => {
+    const session = new SimulationSession({ environmentDensity: 0, startingPopulation: 1 }); session.step(100);
+    const state = structuredClone(session.getSnapshot()), id = Object.keys(state.citizens)[0];
+    const group = new THREE.Group(), texture = new THREE.Texture(), camera = new THREE.PerspectiveCamera();
+    const renderer = new CitizenRenderer(group, state.config.metrics, new SpriteAtlas(manifest.atlases.citizens), texture, camera);
+    renderer.sync(state, state, 1); expect(group.getObjectByName(id)!.visible).toBe(false);
+    state.citizens[id].room!.phase = 'leaving'; state.citizens[id].room!.hidden = false;
+    renderer.sync(state, state, 1); expect(group.getObjectByName(id)!.visible).toBe(true);
+    state.citizens[id].room!.hidden = true; delete state.buildings[state.citizens[id].room!.buildingId];
+    renderer.sync(state, state, 1); expect(group.getObjectByName(id)!.visible).toBe(true);
+    renderer.dispose();
+  });
   it.each([1, 2, 3])('anchors vertical depth-tested planes and interpolates at cell size %s', cellSize => {
     const session = new SimulationSession({ environmentDensity: 0, metrics: { cellSize } });
     const before = session.getSnapshot(), current = structuredClone(before), id = Object.keys(before.citizens)[0];
