@@ -10,7 +10,7 @@
 
 **Spec:** Brief visual dan spesifikasi usulan pada bagian 1–3 dokumen ini. Sumber: gambar pengguna `C:/Users/ROG/AppData/Local/Temp/codex-clipboard-37859064-eee1-4bfe-bf22-be4927276f91.png`. Semua keputusan visual di sini merupakan usulan untuk ditinjau, bukan desain yang sudah disetujui.
 
-**Status 2026-10-19:** Pengguna meminta menjalankan art upgrade. Tahap 1 telah menghasilkan delapan pose villager/idle 64px, preview dan style guide; verifikasi teknis lulus, menunggu review visual pengguna. Tahap 2–5 belum dijalankan. Catatan: `docs/progress/2026-10-19-sprite-art-stage-1.md`.
+**Status 2026-10-19:** Tahap 1 menghasilkan delapan pose villager/idle 64px, lalu kepala SE/SW direvisi sesuai feedback. Pengguna meminta tahap berikutnya setelah revisi tersebut. Tahap 2 selesai: dukungan metadata 32/64px, 269 tes unit, build, 10 tes browser dan review kode lulus tanpa mengganti aset aktif. Tahap 3–5 belum dijalankan. Catatan: `docs/progress/2026-10-19-sprite-art-stage-1.md` dan `docs/progress/2026-10-19-sprite-art-stage-2.md`.
 
 ## 1. Brief visual
 
@@ -71,7 +71,7 @@ Hasil historis giliran implementasi sebelumnya: 238 tes unit, 9 tes Python, 19 b
 
 ### Global constraints
 
-- Giliran awal 2026-10-18 hanya perencanaan. Implementasi 2026-10-19 dibatasi tahap 1 sesuai permintaan lanjut dan checkpoint visual; tahap berikutnya menunggu pengguna.
+- Giliran awal 2026-10-18 hanya perencanaan. Tahap 1 dan revisi contoh telah dikerjakan. Permintaan lanjut terbaru mengizinkan tahap 2 saja; tahap 3–5 menunggu pengguna.
 - Tahap yang sudah berjalan baik—progres konstruksi, workstation, rumah tersembunyi, produksi, navigasi dan penugasan—menjadi syarat regresi.
 - Waktu animasi mengikuti simulasi; tidak menambah timer gameplay atau gerak kosmetik yang mengubah posisi domain.
 - Semua aset esensial tetap dihasilkan melalui kode lokal. Tidak menggambar langsung di PNG generated atau mengandalkan sprite sheet hasil generasi tanpa sumber yang dapat direproduksi.
@@ -115,10 +115,10 @@ Hasil historis giliran implementasi sebelumnya: 238 tes unit, 9 tes Python, 19 b
 
 **Interface:** tambahkan `readonly frameWidth: number` dan `readonly frameHeight: number` ke `SpriteAtlas`; gunakan nilai tersebut pada perhitungan anchor. `getClip(...)` dan `SpriteAnimator.sample(...)` tetap sama. Transisi hanya mendukung frame square 32 atau 64; bukan penerimaan ukuran bebas tanpa validasi.
 
-- [ ] Tambahkan fixture metadata 64 dari struktur clip valid: seluruh koordinat/dimensi/anchor disesuaikan; tes frame campuran, overlap, anchor di luar frame, nilai non-finite dan rectangle di luar batas memakai `atlas.width/height` aktual.
-- [ ] Amati tes dukungan 64 gagal pada validator lama, lalu implementasikan validasi metadata serta normalisasi anchor yang sesuai frame.
-- [ ] Uji plane 32 dan 64 dengan anchor relatif setara mempunyai tapak/skala dunia setara; UV memilih frame benar pada baris terakhir.
-- [ ] Jalankan tes fokus dan `npm.cmd run build`; atlas aktif 32px tetap berjalan selama tahap ini.
+- [x] Tambahkan fixture metadata 64 dari struktur clip valid: seluruh koordinat/dimensi/anchor disesuaikan; tes frame campuran, overlap, anchor di luar frame, nilai non-finite dan rectangle di luar batas memakai `atlas.width/height` aktual.
+- [x] Amati tes dukungan 64 gagal pada validator lama, lalu implementasikan validasi metadata serta normalisasi anchor yang sesuai frame.
+- [x] Uji plane 32 dan 64 dengan anchor relatif setara mempunyai tapak/skala dunia setara; UV memilih frame benar pada baris terakhir.
+- [x] Jalankan tes fokus dan `npm.cmd run build`; atlas aktif 32px tetap berjalan selama tahap ini.
 
 **Checkpoint:** Tidak ada perubahan perilaku warga atau PNG aktif; kedua fixture ukuran lulus. Berhenti untuk review tahap.
 
@@ -201,10 +201,10 @@ Untuk audit kualitas gunakan `C:/Users/ROG/.codex/skills/pixel-art/scripts/quali
 
 ## Kriteria selesai keseluruhan
 
-- [ ] Pengguna sudah melihat contoh style sebelum produksi seluruh frame.
+- [x] Pengguna sudah melihat contoh style sebelum produksi seluruh frame.
 - [ ] Siluet, wajah, kontur pakaian dan alat terlihat digambar ulang; perubahan bukan sekadar upscaling, blur atau penggantian warna.
 - [ ] Empat arah, empat role dan seluruh clip kerja tersedia, anchor konsisten, tidak ada frame terpotong atau semi-transparan.
 - [ ] Warga proporsional dengan bangunan serta tetap bekerja/masuk rumah sesuai sistem yang sudah berjalan.
 - [ ] Generator dapat direproduksi; validasi dan seluruh pemeriksaan relevan lulus dengan bukti aktual.
 
-**Status dokumen:** tahap 1 sudah dibuat sebagai preview terpisah; persetujuan visual pengguna masih pending. Aset aktif, konfigurasi runtime dan perilaku game belum diubah.
+**Status dokumen:** tahap 2 menyiapkan dukungan metadata ukuran frame; aset aktif tetap 32px. Tidak ada perubahan perilaku simulasi atau produksi seluruh sprite. Berhenti setelah verifikasi/review tahap 2; tahap 3–5 menunggu pengguna.

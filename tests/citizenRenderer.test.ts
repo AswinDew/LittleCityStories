@@ -5,6 +5,30 @@ import { SpriteAtlas } from '../src/assets/SpriteAtlas';
 import { CitizenRenderer } from '../src/citizens/CitizenRenderer';
 import { SimulationSession } from '../src/simulation/SimulationSession';
 import { gridToWorld } from '../src/utils/coordinates';
+import { CitizenSpriteView } from '../src/citizens/CitizenSpriteView';
+import { citizenAtlasFixture } from './fixtures/citizenAtlas';
+
+describe.each([32, 64] as const)('%spx citizen plane', size => {
+  it('keeps the same world size and foot origin and samples the bottom atlas row', () => {
+    const atlas = new SpriteAtlas(citizenAtlasFixture(size)), texture = new THREE.Texture();
+    const view = new CitizenSpriteView(atlas, texture, 'builder', 'SW');
+    try {
+      view.sprite.geometry.computeBoundingBox();
+      const bounds = view.sprite.geometry.boundingBox!;
+      expect(bounds.min.toArray()).toEqual([-0.5, -1 / 16, 0]);
+      expect(bounds.max.toArray()).toEqual([0.5, 15 / 16, 0]);
+      expect(view.sprite.scale.toArray()).toEqual([2.2, 2.2, 1]);
+      const clip = atlas.getClip('builder', 'SW', 'build');
+      view.update('build', 0);
+      const frame = view.update('build', clip.frameDurationMs * 5);
+      expect(frame.y + frame.height).toBe(atlas.height);
+      const map = view.sprite.material.map!;
+      expect(map.repeat.toArray()).toEqual([1 / 16, 1 / 20]);
+      expect(map.offset.toArray()).toEqual([frame.x / atlas.width, 0]);
+      expect(map.magFilter).toBe(THREE.NearestFilter); expect(map.generateMipmaps).toBe(false);
+    } finally { view.dispose(); texture.dispose(); }
+  });
+});
 
 describe('snapshot-driven citizen planes', () => {
   it('hides residents indoors and reveals them at the doorway or when the home is demolished', () => {
@@ -19,13 +43,14 @@ describe('snapshot-driven citizen planes', () => {
     renderer.sync(state, state, 1); expect(group.getObjectByName(id)!.visible).toBe(true);
     renderer.dispose();
   });
-  it.each([1, 2, 3])('anchors vertical depth-tested planes and interpolates at cell size %s', cellSize => {
+  it.each([32, 64].flatMap(size => [1, 2, 3].map(cellSize => ({ size: size as 32 | 64, cellSize }))))(
+    'anchors vertical depth-tested planes at frame $size and cell size $cellSize', ({ size, cellSize }) => {
     const session = new SimulationSession({ environmentDensity: 0, metrics: { cellSize } });
     const before = session.getSnapshot(), current = structuredClone(before), id = Object.keys(before.citizens)[0];
     current.citizens[id].position.x += 1; current.citizens[id].direction = 'NW';
     const group = new THREE.Group(), texture = new THREE.Texture(), camera = new THREE.PerspectiveCamera(); camera.position.set(10, 10, 10); camera.lookAt(0, 0, 0);
     const sourceDispose = vi.spyOn(texture, 'dispose');
-    const renderer = new CitizenRenderer(group, before.config.metrics, new SpriteAtlas(manifest.atlases.citizens), texture, camera);
+    const renderer = new CitizenRenderer(group, before.config.metrics, new SpriteAtlas(citizenAtlasFixture(size)), texture, camera);
     renderer.sync(before, current, 0.5);
     expect(group.children).toHaveLength(3);
     const plane = group.getObjectByName(id) as THREE.Mesh<THREE.PlaneGeometry, THREE.MeshBasicMaterial>;

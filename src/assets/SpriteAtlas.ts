@@ -23,28 +23,32 @@ const clips = (role: Occupation): [SpriteActivity, number][] => [ ['idle', 2], [
 export class SpriteAtlas {
   readonly width: number;
   readonly height: number;
+  readonly frameWidth: number;
+  readonly frameHeight: number;
   private readonly clips = new Map<string, AnimationClip>();
   constructor(input: unknown) {
     const data = structuredClone(input) as AtlasData;
+    const size = data?.frameSize?.width;
     if (!data || data.asset !== 'citizens' || !Number.isInteger(data.width) || !Number.isInteger(data.height) ||
-        data.width < 32 || data.height < 32 || data.frameSize?.width !== 32 || data.frameSize.height !== 32) {
+        (size !== 32 && size !== 64) || data.frameSize.height !== size || data.width < size || data.height < size) {
       throw new Error('Invalid citizen atlas');
     }
     this.width = data.width; this.height = data.height;
+    this.frameWidth = size; this.frameHeight = size;
     const used = new Set<string>();
     for (const role of OCCUPATIONS) for (const direction of DIRECTIONS) {
       for (const [activity, count] of clips(role)) {
         const clip = data.animations?.[role]?.[direction]?.[activity];
         if (!clip || !Array.isArray(clip.frames) || clip.frames.length !== count ||
             !Number.isFinite(clip.frameDurationMs) || clip.frameDurationMs <= 0 ||
-            typeof clip.loop !== 'boolean' || clip.anchor?.x !== 16 || clip.anchor.y !== 30) {
+            typeof clip.loop !== 'boolean' || clip.anchor?.x !== size / 2 || clip.anchor.y !== size * 15 / 16) {
           throw new Error(`Invalid animation ${role}/${direction}/${activity}`);
         }
         for (const frame of clip.frames) {
           const key = `${frame.x},${frame.y}`;
           if (![frame.x, frame.y, frame.width, frame.height].every(Number.isInteger) ||
-              frame.width !== 32 || frame.height !== 32 || frame.x < 0 || frame.y < 0 ||
-              frame.x % 32 || frame.y % 32 || frame.x + 32 > data.width || frame.y + 32 > data.height || used.has(key)) {
+              frame.width !== size || frame.height !== size || frame.x < 0 || frame.y < 0 ||
+              frame.x % size || frame.y % size || frame.x + size > data.width || frame.y + size > data.height || used.has(key)) {
             throw new Error('Invalid or overlapping sprite frame');
           }
           used.add(key); Object.freeze(frame);

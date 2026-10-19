@@ -19,7 +19,7 @@ export class CitizenSpriteView {
     const material = new THREE.MeshBasicMaterial({ map: this.texture, alphaTest: 0.5,
       depthTest: true, depthWrite: true, toneMapped: false });
     const geometry = new THREE.PlaneGeometry(1, 1);
-    geometry.translate(0.5 - clip.anchor.x / 32, clip.anchor.y / 32 - 0.5, 0);
+    geometry.translate(0.5 - clip.anchor.x / atlas.frameWidth, clip.anchor.y / atlas.frameHeight - 0.5, 0);
     this.sprite = new THREE.Mesh(geometry, material);
     this.sprite.rotation.y = Math.PI / 4;
     this.sprite.scale.set(2.2, 2.2, 1);
