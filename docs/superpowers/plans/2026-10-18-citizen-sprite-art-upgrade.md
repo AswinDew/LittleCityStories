@@ -10,7 +10,7 @@
 
 **Spec:** Brief visual dan spesifikasi usulan pada bagian 1–3 dokumen ini. Sumber: gambar pengguna `C:/Users/ROG/AppData/Local/Temp/codex-clipboard-37859064-eee1-4bfe-bf22-be4927276f91.png`. Semua keputusan visual di sini merupakan usulan untuk ditinjau, bukan desain yang sudah disetujui.
 
-**Status 2026-10-19:** Tahap 1 menghasilkan delapan pose villager/idle 64px, lalu kepala SE/SW direvisi sesuai feedback. Pengguna meminta tahap berikutnya setelah revisi tersebut. Tahap 2 selesai: dukungan metadata 32/64px, 269 tes unit, build, 10 tes browser dan review kode lulus tanpa mengganti aset aktif. Tahap 3–5 belum dijalankan. Catatan: `docs/progress/2026-10-19-sprite-art-stage-1.md` dan `docs/progress/2026-10-19-sprite-art-stage-2.md`.
+**Status 2026-10-19:** Tahap 1–2 selesai, termasuk revisi kepala dan dukungan metadata 32/64px. Tahap 3 selesai: 312 pose empat profesi, contact sheets, animasi normal/slow dan galeri preview; badan, sambungan bahu, kedua tangan kerja, pose siku, panjang alat dan tekukan lutut farmer direvisi sesuai feedback dan review. Seluruh 27 tes aset dan audit frame lulus; hasil visual menunggu tinjauan pengguna. Tahap 4–5 belum dijalankan, aset aktif tetap 32px. Catatan: `docs/progress/2026-10-19-sprite-art-stage-3.md`.
 
 ## 1. Brief visual
 
@@ -71,7 +71,7 @@ Hasil historis giliran implementasi sebelumnya: 238 tes unit, 9 tes Python, 19 b
 
 ### Global constraints
 
-- Giliran awal 2026-10-18 hanya perencanaan. Tahap 1 dan revisi contoh telah dikerjakan. Permintaan lanjut terbaru mengizinkan tahap 2 saja; tahap 3–5 menunggu pengguna.
+- Giliran awal 2026-10-18 hanya perencanaan. Tahap 1–2 dan revisi contoh telah dikerjakan. Permintaan lanjut terbaru mengizinkan tahap 3 saja; tahap 4–5 menunggu pengguna.
 - Tahap yang sudah berjalan baik—progres konstruksi, workstation, rumah tersembunyi, produksi, navigasi dan penugasan—menjadi syarat regresi.
 - Waktu animasi mengikuti simulasi; tidak menambah timer gameplay atau gerak kosmetik yang mengubah posisi domain.
 - Semua aset esensial tetap dihasilkan melalui kode lokal. Tidak menggambar langsung di PNG generated atau mengandalkan sprite sheet hasil generasi tanpa sumber yang dapat direproduksi.
@@ -130,18 +130,18 @@ Hasil historis giliran implementasi sebelumnya: 238 tes unit, 9 tes Python, 19 b
 
 **Files:** perluas `tools/assets/citizen_style.py`, `tools/assets/preview_citizens.py`, `tests/assets/test_citizen_style.py`; perbarui style guide.
 
-- [ ] Tulis tes ketersediaan empat role × empat arah × idle 2/walk 6, palette/alpha/padding serta anchor yang konsisten.
-- [ ] Gambar key pose tiap profesi, lalu isi pose walk: contact, passing dan recovery. Gunakan tubuh/rambut/pakaian yang mengikuti gerakan, bukan hanya menggeser alat atau mewarnai ulang badan yang sama.
-- [ ] Ekspor contact sheet/preview animasi terpisah; review bentuk pada ukuran asli dan pergerakan kaki. Perbaiki foot sliding dan perubahan volume yang tidak disengaja.
+- [x] Tulis tes ketersediaan empat role × empat arah × idle 2/walk 6, palette/alpha/padding serta anchor yang konsisten.
+- [x] Gambar key pose tiap profesi, lalu isi pose walk: contact, passing dan recovery. Gunakan tubuh/rambut/pakaian yang mengikuti gerakan, bukan hanya menggeser alat atau mewarnai ulang badan yang sama.
+- [x] Ekspor contact sheet/preview animasi terpisah; review bentuk pada ukuran asli dan pergerakan kaki. Perbaiki foot sliding dan perubahan volume yang tidak disengaja.
 
 ### Task 4: Semua clip kerja mempunyai bobot dan siluet yang berbeda
 
 **Dependency:** Task 3. **Scope:** medium; files sama dengan Task 3.
 
-- [ ] Tulis tes untuk work/harvest/chop/build/mine/research/water: jumlah frame/durasi sesuai kontrak; seluruh clip berisi pose berbeda, tetap di dalam bounds dan memakai palet sah.
-- [ ] Gambar gerakan dengan key pose: farmer membungkuk/mencangkul dan memiringkan penyiram; lumberjack mengangkat–mengayun–memulihkan kapak; miner mengangkat–menghantam–menarik beliung; builder menahan benda dan memukul palu; researcher memegang buku, membaca/menulis dengan gerak tangan kecil.
-- [ ] Periksa setiap arah secara terpisah: tangan, cahaya dan alat konsisten. Buat preview slow motion serta kecepatan normal; jangan menyimpulkan kualitas animasi hanya dari tes byte gambar berbeda.
-- [ ] Pastikan total tetap 312 frame; audit semua frame sebelum ekspor final.
+- [x] Tulis tes untuk work/harvest/chop/build/mine/research/water: jumlah frame/durasi sesuai kontrak; seluruh clip berisi pose berbeda, tetap di dalam bounds dan memakai palet sah.
+- [x] Gambar gerakan dengan key pose: farmer membungkuk/mencangkul dan memiringkan penyiram; lumberjack mengangkat–mengayun–memulihkan kapak; miner mengangkat–menghantam–menarik beliung; builder menahan benda dan memukul palu; researcher memegang buku, membaca/menulis dengan gerak tangan kecil.
+- [x] Periksa setiap arah secara terpisah: tangan, cahaya dan alat konsisten. Buat preview slow motion serta kecepatan normal; jangan menyimpulkan kualitas animasi hanya dari tes byte gambar berbeda.
+- [x] Pastikan total tetap 312 frame; audit semua frame sebelum ekspor final.
 
 **Checkpoint tahap 3:** Tinjau contact sheet dan loop animasi seluruh profesi. Sprite baru masih berupa preview, game tetap memakai aset lama. Berhenti untuk review tahap.
 
@@ -207,4 +207,4 @@ Untuk audit kualitas gunakan `C:/Users/ROG/.codex/skills/pixel-art/scripts/quali
 - [ ] Warga proporsional dengan bangunan serta tetap bekerja/masuk rumah sesuai sistem yang sudah berjalan.
 - [ ] Generator dapat direproduksi; validasi dan seluruh pemeriksaan relevan lulus dengan bukti aktual.
 
-**Status dokumen:** tahap 2 menyiapkan dukungan metadata ukuran frame; aset aktif tetap 32px. Tidak ada perubahan perilaku simulasi atau produksi seluruh sprite. Berhenti setelah verifikasi/review tahap 2; tahap 3–5 menunggu pengguna.
+**Status dokumen:** tahap 3 menghasilkan seluruh sprite sebagai preview; aset aktif tetap 32px dan perilaku simulasi tidak diubah. Berhenti setelah verifikasi/review tahap 3; integrasi atlas pada tahap 4 dan playtest tahap 5 menunggu pengguna.
