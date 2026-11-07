@@ -1,4 +1,5 @@
 import type { Game } from '@/game/Game';
+import { Mesh } from 'three';
 import type { GridCoord } from '@/world/GridMath';
 import { gridToWorld } from '@/utils/coordinates';
 import { useGameStore } from '@/state/GameStore';
@@ -14,7 +15,12 @@ function createHooks(game: Game) {
     getBuildingViews: () => [...game.sceneManager.buildingsGroup.children, ...game.sceneManager.roadsGroup.children]
       .map(mesh => {
         const parts: { stage: string; height: number }[] = [];
-        mesh.traverse(part => { if (part.userData.assembly && part.visible) parts.push({ stage: part.userData.assembly, height: part.scale.y }); });
+        mesh.traverse(part => {
+          if (!(part instanceof Mesh) || !part.userData.assembly || !part.visible) return;
+          let ancestor = part.parent;
+          while (ancestor && ancestor !== mesh) { if (!ancestor.visible) return; ancestor = ancestor.parent; }
+          parts.push({ stage: part.userData.assembly, height: part.scale.y });
+        });
         return { id: mesh.name, stage: mesh.userData.stage as string, progress: mesh.userData.progress as number, parts };
       }),
     getSelection: () => useGameStore.getState().selectedBuildingId,

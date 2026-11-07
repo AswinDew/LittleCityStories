@@ -27,7 +27,9 @@ test('population header and worker inspector stay clear of hints and zoom contro
     return { title: box('.settlement-title'), hints: box('.construction-hints'), inspector: box('.construction-inspector'), zoom: box('.camera-zoom') };
   });
   expect(boxes.hints.top).toBeGreaterThanOrEqual(boxes.title.bottom + 8);
-  expect(boxes.zoom.right).toBeLessThanOrEqual(boxes.inspector.left - 8);
+  // Stitch places zoom above the inspector; require an actual 8px clear gap.
+  expect(boxes.zoom.right <= boxes.inspector.left - 8 || boxes.zoom.left >= boxes.inspector.right + 8 ||
+    boxes.zoom.bottom <= boxes.inspector.top - 8 || boxes.zoom.top >= boxes.inspector.bottom + 8).toBe(true);
 });
 
 test('keeps the chosen available worker and focus through unrelated simulation ticks', async ({ page }) => {

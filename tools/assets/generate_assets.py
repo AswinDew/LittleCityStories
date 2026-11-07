@@ -51,20 +51,35 @@ def write_asset(output, assets, key, image, filename):
                    'sha256': hashlib.sha256(path.read_bytes()).hexdigest()}
 
 
-def generate(seed, output):
+def generate(seed, output, stitch_source=None):
     if not 0 <= seed <= 0xffffffff:
         raise ValueError('Seed must be uint32')
+    # External art is frozen, hash checked and palette checked before runtime writes.
+    from publish_stitch_assets import load_stitch_images
+    stitch = load_stitch_images(stitch_source) if stitch_source else {}
+    if stitch_source:
+        required = {'terrain_' + kind for kind in ('grass', 'dirt', 'path')} | {'icon_' + name for name in ICONS}
+        missing = required - stitch.keys()
+        if missing:
+            raise ValueError('Missing required Stitch assets: ' + ', '.join(sorted(missing)))
     output.mkdir(parents=True, exist_ok=True)
     assets = {}
     for index, kind in enumerate(('grass', 'dirt', 'path')):
-        write_asset(output, assets, 'terrain_' + kind, terrain(kind, seed + index), f'terrain/{kind}.png')
+        key = 'terrain_' + kind
+        image = stitch[key][0] if key in stitch else terrain(kind, seed + index)
+        write_asset(output, assets, key, image, f'terrain/{kind}.png')
     for name in ICONS:
-        write_asset(output, assets, 'icon_' + name, icon(name), f'icons/{name}.png')
+        key = 'icon_' + name
+        image = stitch[key][0] if key in stitch else icon(name)
+        write_asset(output, assets, key, image, f'icons/{name}.png')
     sheet, atlas = citizen_atlas()
     write_asset(output, assets, 'citizens', sheet, 'characters/citizens.png')
     manifest = {'generatorVersion': VERSION, 'seed': seed,
                 'paletteHash': palette_hash(), 'assets': assets,
                 'atlases': {'citizens': atlas}}
+    if stitch_source:
+        manifest['artSource'] = {'provider': 'Stitch', 'staticOnly': True,
+            'sourceManifestSha256': hashlib.sha256((Path(stitch_source) / 'static-manifest.json').read_bytes()).hexdigest()}
     (output / 'manifest.json').write_text(json.dumps(manifest, indent=2, sort_keys=True) + '\n', encoding='utf-8')
     return manifest
 
@@ -73,6 +88,7 @@ if __name__ == '__main__':
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--seed', type=int, default=42)
     parser.add_argument('--output', type=Path, default=Path('public/generated'))
+    parser.add_argument('--stitch-source', type=Path, help='Verified static export pack; citizen animation atlas is retained')
     args = parser.parse_args()
-    generate(args.seed, args.output)
+    generate(args.seed, args.output, args.stitch_source)
     print('Generated assets:', args.output)

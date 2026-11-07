@@ -11,9 +11,9 @@ export class WorldView {
   private readonly objects = new Map<string, THREE.Object3D>();
   private readonly terrainOverlays = new Map<string, THREE.Mesh>();
   private readonly terrainMaterials = {
-    dirt: new THREE.MeshLambertMaterial({ color: 0xb99a70 }),
-    concrete: new THREE.MeshLambertMaterial({ color: 0xbac0ba }),
-    water: new THREE.MeshLambertMaterial({ color: 0x65b9d7 }),
+    dirt: new THREE.MeshLambertMaterial({ color: 0xb28e65 }),
+    concrete: new THREE.MeshLambertMaterial({ color: 0x919b8b }),
+    water: new THREE.MeshLambertMaterial({ color: 0x527b8c }),
   };
   constructor(private readonly scene: SceneManager, private readonly metrics: GridMetrics) {}
 

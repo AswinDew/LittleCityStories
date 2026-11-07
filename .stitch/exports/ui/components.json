@@ -1,0 +1,21 @@
+{
+  "source": "Stitch UI-02",
+  "sourceScreen": "projects/9572784485551125903/screens/640d6134625444939d7c427d252c08da",
+  "sourceHtmlSha256": "3a276be134413bece4947a79ef185eb137c3d454caf9ce9ea9f2d0aa2e01c59c",
+  "format": "HTML/CSS, not raster sprites",
+  "status": "static_source_exported_pending_runtime_adaptation",
+  "components": {
+    "resource_strip": "hud-chip",
+    "construction_card": "bldg-card",
+    "construction_tab": "hud-btn",
+    "building_inspector": "hud-panel",
+    "tool_button": "hud-btn",
+    "zoom_button": "hud-btn",
+    "selection_indicator": "isometric footprint specimen in source HTML",
+    "placement_indicator": "valid/invalid tile specimens in source HTML"
+  },
+  "limitations": [
+    "Reference layout uses Tailwind CDN and Google Fonts",
+    "Sample economic values are illustrative; must bind real game state during integration"
+  ]
+}

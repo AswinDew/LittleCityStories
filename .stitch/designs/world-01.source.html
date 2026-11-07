@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=1440, initial-scale=1.0">
+  <title>WORLD-01: Living Settlement / World Composition</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans:wght@400;500;600;700&family=Noto+Serif:wght@600;700&display=swap" rel="stylesheet">
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            parchment: '#E7DABC',
+            'parchment-dim': '#DFD1B1',
+            'parchment-light': '#F3EAD3',
+            'plum-charcoal': '#302C36',
+            'deep-timber': '#65483C',
+            'aged-wood': '#96704D',
+            'warm-timber': '#C19B68',
+            'clay-red': '#AD644D',
+            'sunlit-clay': '#D28B64',
+            'moss-green': '#385C46',
+            'foliage-green': '#59845A',
+            'muted-blue': '#527B8C',
+            'sky-blue': '#8DB9BE',
+            'straw-gold': '#C2A05B',
+            'straw-light': '#E3C882',
+            'stone-gray': '#919B8B',
+            'soil-brown': '#B28E65',
+            'harvest-gold': '#E8BA55',
+          },
+          fontFamily: {
+            serif: ['"Noto Serif"', 'serif'],
+            sans: ['"Noto Sans"', 'sans-serif'],
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    /* Strictly static review document - no transitions or animations */
+    *, *::before, *::after {
+      transition: none !important;
+      animation: none !important;
+    }
+    body {
+      background-color: #D9CEB0;
+      color: #302C36;
+      font-family: 'Noto Sans', sans-serif;
+    }
+    .pixelated {
+      image-rendering: pixelated;
+      image-rendering: -moz-crisp-edges;
+      image-rendering: crisp-edges;
+    }
+  </style>
+</head>
+<body class="w-[1440px] min-h-screen mx-auto p-4 flex flex-col gap-3 selection:bg-moss-green selection:text-white">
+
+  <!-- 1. COMPACT TITLE STRIP -->
+  <header class="bg-parchment border-2 border-deep-timber rounded-[4px] px-4 py-2 flex items-center justify-between shadow-sm">
+    <div class="flex items-center gap-3">
+      <div class="flex items-center gap-2">
+        <span class="bg-deep-timber text-parchment font-mono text-xs font-bold px-2 py-0.5 rounded-[2px] tracking-wider">WORLD-01</span>
+        <h1 class="font-serif font-bold text-lg text-plum-charcoal tracking-wide">Living Settlement / World Composition</h1>
+      </div>
+      <span class="text-xs text-aged-wood font-medium border-l border-aged-wood/40 pl-3">Static Art Direction Master Board</span>
+    </div>
+    <div class="flex items-center gap-3">
+      <div class="flex items-center gap-1.5 px-2.5 py-0.5 rounded-[2px] bg-parchment-dim border border-deep-timber/30 text-xs font-medium text-plum-charcoal">
+        <span class="w-2 h-2 rounded-full bg-foliage-green"></span>
+        <span>Static art concept (Approved master baseline)</span>
+      </div>
+      <div class="text-[11px] text-aged-wood font-mono">1440px REVIEW CANVAS</div>
+    </div>
+  </header>
+
+  <!-- 2. MAIN SCENE: ILLUSTRATED ISOMETRIC PIXEL-ART ANCIENT VILLAGE (>70% visual prominence) -->
+  <main class="relative bg-parchment border-2 border-deep-timber rounded-[4px] p-2 flex flex-col shadow-sm">
+    
+    <!-- Scene Viewport Area -->
+    <div class="relative w-full h-[620px] rounded-[2px] overflow-hidden border border-deep-timber/60 bg-[#CBB892]">
+      <!-- Main Master Scene Image -->
+      <img 
+        src="https://lh3.googleusercontent.com/aida-public/AB6AXuAPR30nvNnNVwBTjMW5z9kodhz7TNo6oASX2GikLtOrXZmAZiMCjXqAyKuQ6h0W7Y_q6GLMBk9GAUrpfTtOxhqgTQt7rMQdEKwh2JEPiaVJGQPlrjqXhk2YlvA9jxeAcTpzhTAFn95nyK3Hu45vBXt6NRTXPC3n8RSfDQbiOy3HNqAwkepGgspthZ8Uv0I5NwV0Zu2J7ornyGCJ-tfPEfGQ2DCYihm9qJhn50yBDbpqbw9cmS_YfeK-C73H8dP04Pv0n8k5bMa7EqU" 
+        alt="Civilization Town: Living Settlement Master Isometric Pixel-Art Scene" 
+        class="w-full h-full object-cover object-center pixelated"
+      />
+
+      <!-- Scene In-Canvas Annotation Badges (Non-obscuring, pinpoint footprint keys) -->
+      <div class="absolute top-3 left-3 flex flex-wrap gap-1.5 pointer-events-none max-w-lg">
+        <span class="bg-plum-charcoal/85 text-parchment text-[10px] font-mono px-2 py-0.5 rounded-[2px] border border-deep-timber backdrop-blur-none">
+          3×3 Town Center Hall
+        </span>
+        <span class="bg-plum-charcoal/85 text-parchment text-[10px] font-mono px-2 py-0.5 rounded-[2px] border border-deep-timber">
+          1×1 Primitive Thatch Huts
+        </span>
+        <span class="bg-plum-charcoal/85 text-parchment text-[10px] font-mono px-2 py-0.5 rounded-[2px] border border-deep-timber">
+          2×2 Cultivated Farm (Wheat/Turnip)
+        </span>
+        <span class="bg-plum-charcoal/85 text-parchment text-[10px] font-mono px-2 py-0.5 rounded-[2px] border border-deep-timber">
+          2×2 Lumber Camp &amp; Stump
+        </span>
+        <span class="bg-plum-charcoal/85 text-parchment text-[10px] font-mono px-2 py-0.5 rounded-[2px] border border-deep-timber">
+          2×2 Quarry Face
+        </span>
+        <span class="bg-plum-charcoal/85 text-parchment text-[10px] font-mono px-2 py-0.5 rounded-[2px] border border-deep-timber">
+          2×2 Storage Pottery Hut
+        </span>
+      </div>
+
+      <!-- 5. COMPACT RESOURCE STRIP (Top right corner, perimeter overlay) -->
+      <div class="absolute top-3 right-3 bg-parchment/95 border-2 border-deep-timber rounded-[4px] px-3 py-1.5 flex items-center gap-4 text-xs font-semibold text-plum-charcoal shadow-sm">
+        <div class="flex items-center gap-1.5" title="Grain / Food">
+          <div class="w-3.5 h-3.5 rounded-[2px] bg-harvest-gold border border-deep-timber flex items-center justify-center text-[9px] text-plum-charcoal font-bold">🌾</div>
+          <span class="font-mono text-[11px]">284</span>
+        </div>
+        <div class="flex items-center gap-1.5" title="Timber / Wood">
+          <div class="w-3.5 h-3.5 rounded-[2px] bg-warm-timber border border-deep-timber flex items-center justify-center text-[9px] text-plum-charcoal font-bold">🪵</div>
+          <span class="font-mono text-[11px]">195</span>
+        </div>
+        <div class="flex items-center gap-1.5" title="Stone / Quarry">
+          <div class="w-3.5 h-3.5 rounded-[2px] bg-stone-gray border border-deep-timber flex items-center justify-center text-[9px] text-parchment font-bold">🪨</div>
+          <span class="font-mono text-[11px]">120</span>
+        </div>
+        <div class="flex items-center gap-1.5" title="Clay / Brick">
+          <div class="w-3.5 h-3.5 rounded-[2px] bg-clay-red border border-deep-timber flex items-center justify-center text-[9px] text-parchment font-bold">🏺</div>
+          <span class="font-mono text-[11px]">88</span>
+        </div>
+        <div class="flex items-center gap-1.5 border-l border-deep-timber/30 pl-3" title="Settlers / Pop">
+          <div class="w-3.5 h-3.5 rounded-[2px] bg-muted-blue border border-deep-timber flex items-center justify-center text-[9px] text-parchment font-bold">👤</div>
+          <span class="font-mono text-[11px]">12 / 16</span>
+        </div>
+      </div>
+
+      <!-- 5. COMPACT CONSTRUCTION SELECTION SAMPLE (Bottom right corner, perimeter overlay) -->
+      <div class="absolute bottom-3 right-3 bg-parchment/95 border-2 border-deep-timber rounded-[4px] p-2 flex flex-col gap-1.5 shadow-sm max-w-[280px]">
+        <div class="flex items-center justify-between text-[11px] font-bold text-plum-charcoal uppercase tracking-wider">
+          <span>Placement Sample</span>
+          <span class="font-mono text-[10px] text-aged-wood">Grid: 1×1</span>
+        </div>
+        <div class="flex gap-1.5">
+          <div class="p-1 rounded-[2px] border-2 border-moss-green bg-parchment-light flex flex-col items-center justify-center w-14 h-13 text-center" title="1x1 Thatched Cottage">
+            <span class="text-xs">🛖</span>
+            <span class="text-[9px] font-medium leading-tight mt-0.5">Hut</span>
+          </div>
+          <div class="p-1 rounded-[2px] border border-deep-timber/40 bg-parchment-dim flex flex-col items-center justify-center w-14 h-13 text-center opacity-85" title="2x2 Farm Field">
+            <span class="text-xs">🌾</span>
+            <span class="text-[9px] font-medium leading-tight mt-0.5">Farm</span>
+          </div>
+          <div class="p-1 rounded-[2px] border border-deep-timber/40 bg-parchment-dim flex flex-col items-center justify-center w-14 h-13 text-center opacity-85" title="2x2 Lumber Camp">
+            <span class="text-xs">🪓</span>
+            <span class="text-[9px] font-medium leading-tight mt-0.5">Lumber</span>
+          </div>
+          <div class="p-1 rounded-[2px] border border-deep-timber/40 bg-parchment-dim flex flex-col items-center justify-center w-14 h-13 text-center opacity-85" title="1x1 Loam Path">
+            <span class="text-xs">🟫</span>
+            <span class="text-[9px] font-medium leading-tight mt-0.5">Path</span>
+          </div>
+        </div>
+        <div class="text-[9px] text-aged-wood leading-tight">
+          HUD overlay preview: preserved playfield; zero intrusion into settlement viewport.
+        </div>
+      </div>
+
+      <!-- Footprint & Scale Guide Legend (Bottom left) -->
+      <div class="absolute bottom-3 left-3 bg-parchment/95 border-2 border-deep-timber rounded-[4px] px-2.5 py-1.5 text-[10px] text-plum-charcoal flex items-center gap-3">
+        <span class="font-bold uppercase tracking-wider text-[9px] text-deep-timber">Footprint Guide:</span>
+        <span>Town Center: <strong class="font-mono">3×3</strong></span>
+        <span>Workshops / Sites: <strong class="font-mono">2×2</strong></span>
+        <span>Homes / Roads: <strong class="font-mono">1×1</strong></span>
+        <span class="text-aged-wood border-l border-aged-wood/30 pl-2">Scale Target: 64×64 Sprite @ anchor (32,60)</span>
+      </div>
+
+    </div>
+
+    <!-- Metadata footer for the master scene -->
+    <div class="flex items-center justify-between mt-1.5 px-2 text-[11px] text-aged-wood">
+      <div>Asset: <span class="font-mono text-plum-charcoal font-semibold">WORLD-01-COMP-MASTER</span> &bull; Isometric View (16-bit Pixel Clustered, Upper-Right Light)</div>
+      <div class="flex items-center gap-3">
+        <span>Static Art Master</span>
+        <span>Original Pixel Cluster Craftsmanship</span>
+        <span class="font-mono">Palette: Living Settlement 28-Color</span>
+      </div>
+    </div>
+  </main>
+
+  <!-- BOTTOM GRID: 3. CITIZEN SCALE LINEUP & 4. MATERIAL DETAIL CROPS -->
+  <div class="grid grid-cols-12 gap-3 flex-1">
+
+    <!-- 3. CITIZEN REFERENCE STRIP & SCALE LINEUP (7 cols) -->
+    <section class="col-span-7 bg-parchment border-2 border-deep-timber rounded-[4px] p-2.5 flex flex-col justify-between shadow-sm">
+      <div class="flex items-center justify-between pb-1.5 border-b border-deep-timber/20">
+        <div class="flex items-center gap-2">
+          <span class="bg-aged-wood text-parchment text-[10px] font-mono font-bold px-1.5 py-0.5 rounded-[2px]">CHAR-REF-01</span>
+          <h2 class="font-serif font-bold text-sm text-plum-charcoal">Citizen Scale Lineup &amp; Neutral Idle Masters</h2>
+        </div>
+        <span class="text-[10px] text-aged-wood font-mono">4 PROFESSIONS + 1×1 DOORWAY SCALE</span>
+      </div>
+
+      <!-- Character Image Lineup -->
+      <div class="relative w-full h-[180px] bg-parchment-dim rounded-[2px] overflow-hidden border border-deep-timber/40 my-1.5 flex items-center justify-center">
+        <img 
+          src="https://lh3.googleusercontent.com/aida-public/AB6AXuAwCijaF0EstJVKLnQGqLwTyS3c4AuMY99Pq68ufWdym8_vbj84II9zxb2YVpmlLak2RplmSrvJD27W5OlOA23-Nha69JbRjaOm-kefeybc6354wWwxwh118RVmuQay-L5nLHkx6N1Yd_VVCQQQNb5tfygX5jCEwrVOyJ0rVyqlO531pPvdsCAr8IPUgsyVTf1lsl699mHfLV9Beu4zPGXFIk0NL46JzvKNLleLRMNr9j88TeoWbPVpuTDDlI8yZjgWH0Sd9qJyM9A" 
+          alt="Ancient citizen scale lineup: Villager, Farmer, Lumberjack, Builder, Doorway" 
+          class="w-full h-full object-contain pixelated"
+        />
+      </div>
+
+      <!-- Character Spec & Anatomy Verification Guide -->
+      <div class="grid grid-cols-5 gap-1.5 text-[10px] pt-1 border-t border-deep-timber/20">
+        <div class="bg-parchment-light p-1 rounded-[2px] border border-deep-timber/30">
+          <div class="font-bold text-plum-charcoal">1. Villager</div>
+          <div class="text-[9px] text-aged-wood">Muted blue tunic, waist pouch. Neutral idle.</div>
+        </div>
+        <div class="bg-parchment-light p-1 rounded-[2px] border border-deep-timber/30">
+          <div class="font-bold text-plum-charcoal">2. Farmer</div>
+          <div class="text-[9px] text-aged-wood">Straw hat, tied apron, pitchfork resting.</div>
+        </div>
+        <div class="bg-parchment-light p-1 rounded-[2px] border border-deep-timber/30">
+          <div class="font-bold text-plum-charcoal">3. Lumberjack</div>
+          <div class="text-[9px] text-aged-wood">Robust build, leather vest, axe at feet.</div>
+        </div>
+        <div class="bg-parchment-light p-1 rounded-[2px] border border-deep-timber/30">
+          <div class="font-bold text-plum-charcoal">4. Builder</div>
+          <div class="text-[9px] text-aged-wood">Headband, rolled linen shirt, tool apron.</div>
+        </div>
+        <div class="bg-parchment-dim p-1 rounded-[2px] border border-deep-timber/40">
+          <div class="font-bold text-plum-charcoal">5. 1×1 Doorway</div>
+          <div class="text-[9px] text-aged-wood">Clearance verify: 2.2m eaves, unobstructed entry.</div>
+        </div>
+      </div>
+      <div class="text-[9px] text-aged-wood mt-1 flex items-center justify-between">
+        <span>&check; Full intact anatomy: continuous arm chains, distinct wrists, intact pelvis &amp; legs.</span>
+        <span class="font-mono text-[9px]">NO MOTION / NO WALK CYCLES</span>
+      </div>
+    </section>
+
+    <!-- 4. MATERIAL DETAIL CROPS (5 cols) -->
+    <section class="col-span-5 bg-parchment border-2 border-deep-timber rounded-[4px] p-2.5 flex flex-col justify-between shadow-sm">
+      <div class="flex items-center justify-between pb-1.5 border-b border-deep-timber/20">
+        <div class="flex items-center gap-2">
+          <span class="bg-aged-wood text-parchment text-[10px] font-mono font-bold px-1.5 py-0.5 rounded-[2px]">MAT-SWATCH-01</span>
+          <h2 class="font-serif font-bold text-sm text-plum-charcoal">Material Detail References</h2>
+        </div>
+        <span class="text-[10px] text-aged-wood font-mono">5 CORE SETTLEMENT SHADERS</span>
+      </div>
+
+      <!-- Material Swatches Image -->
+      <div class="relative w-full h-[180px] bg-parchment-dim rounded-[2px] overflow-hidden border border-deep-timber/40 my-1.5 flex items-center justify-center">
+        <img 
+          src="https://lh3.googleusercontent.com/aida-public/AB6AXuBU-89S3Vu-1MDNKtC28yUJflM98HU9_F8JPw27j-wIJvs4DM3D4AHWhHGTgRbvix4nb23D-QlZg0_xFgNT0yx4_YDqswoFs8GtlpSRm9R6lYH31sQYv-1h4X8oQHvM4WhABTbLo9w21-FPO3vJlIFORUYUhb6NF2Fde9F2qHsDgRq4APSSgSyufrrNNePHv1Ecv8FTe26NetUDd_J0tSsUqVH0cI-KTvQc46BhIia88t0O6lZUj1Iulb8zuhz-sTcCL0sEH478h9w" 
+          alt="Material detail crops: Thatch, Oak Timber, Clay Plaster, Foliage, Loam Path" 
+          class="w-full h-full object-contain pixelated"
+        />
+      </div>
+
+      <!-- Material Specs -->
+      <div class="grid grid-cols-5 gap-1 text-[9px] text-center pt-1 border-t border-deep-timber/20">
+        <div class="p-0.5 rounded-[2px] bg-parchment-light border border-deep-timber/20">
+          <span class="font-semibold block text-deep-timber">Thatch</span>
+          <span class="font-mono text-[8px] text-aged-wood">#C2A05B</span>
+        </div>
+        <div class="p-0.5 rounded-[2px] bg-parchment-light border border-deep-timber/20">
+          <span class="font-semibold block text-deep-timber">Timber</span>
+          <span class="font-mono text-[8px] text-aged-wood">#65483C</span>
+        </div>
+        <div class="p-0.5 rounded-[2px] bg-parchment-light border border-deep-timber/20">
+          <span class="font-semibold block text-deep-timber">Clay</span>
+          <span class="font-mono text-[8px] text-aged-wood">#AD644D</span>
+        </div>
+        <div class="p-0.5 rounded-[2px] bg-parchment-light border border-deep-timber/20">
+          <span class="font-semibold block text-deep-timber">Foliage</span>
+          <span class="font-mono text-[8px] text-aged-wood">#59845A</span>
+        </div>
+        <div class="p-0.5 rounded-[2px] bg-parchment-light border border-deep-timber/20">
+          <span class="font-semibold block text-deep-timber">Loam</span>
+          <span class="font-mono text-[8px] text-aged-wood">#B28E65</span>
+        </div>
+      </div>
+      <div class="text-[9px] text-aged-wood mt-1 text-right">
+        Restrained 2–3 shade steps &bull; Upper-right illumination &bull; No blur/procedural noise
+      </div>
+    </section>
+
+  </div>
+
+  <!-- COMPLIANCE & EXPORT STATUS BANNER -->
+  <footer class="bg-parchment-dim border border-deep-timber/40 rounded-[2px] px-3 py-1.5 flex items-center justify-between text-[10px] text-aged-wood">
+    <div>
+      <span class="font-semibold text-plum-charcoal">Design Spec Compliance:</span> Static masters established. Zero animations/procedural motion. Individual image assets inspectable &amp; downloadable.
+    </div>
+    <div class="font-mono text-[10px]">
+      CIVILIZATION-TOWN // PHASE 1: STATIC ART PRODUCTION // 2026-11-07
+    </div>
+  </footer>
+
+</body>
+</html>

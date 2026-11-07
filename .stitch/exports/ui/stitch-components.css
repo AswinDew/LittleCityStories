@@ -1,0 +1,53 @@
+/* Verbatim static component CSS exported from Stitch UI-02. */
+body {
+      background-color: #E7DABC;
+      color: #302C36;
+      font-family: 'Noto Sans', sans-serif;
+      margin: 0;
+      padding: 0;
+      -webkit-font-smoothing: antialiased;
+    }
+    .pixelated {
+      image-rendering: pixelated;
+    }
+    .hud-panel {
+      background-color: #F4EBD9;
+      border: 1px solid #65483C;
+      box-shadow: 0 2px 0 #65483C;
+    }
+    .hud-chip {
+      background-color: #E7DABC;
+      border: 1px solid #65483C;
+    }
+    .hud-btn {
+      background-color: #E7DABC;
+      border: 1px solid #65483C;
+      box-shadow: 0 1px 0 #65483C;
+      font-family: 'Noto Sans', sans-serif;
+      font-weight: 600;
+      color: #302C36;
+    }
+    .hud-btn-active {
+      background-color: #59845A;
+      border: 1px solid #302C36;
+      color: #FFFFFF;
+    }
+    .hud-btn-danger {
+      background-color: #AD644D;
+      border: 1px solid #302C36;
+      color: #FFFFFF;
+    }
+    .bldg-card {
+      background-color: #F4EBD9;
+      border: 1px solid #65483C;
+      width: 110px;
+    }
+    .bldg-card-active {
+      background-color: #EFE4CA;
+      border: 2px solid #59845A;
+    }
+    .bldg-card-disabled {
+      opacity: 0.55;
+      background-color: #D8C7A3;
+      border: 1px dashed #65483C;
+    }

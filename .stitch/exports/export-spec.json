@@ -1,0 +1,2011 @@
+{
+  "version": 1,
+  "source": "Stitch masters - technical extraction only",
+  "sources": {
+    "ancient-sites-master.jpg": "881955e71e14ee71c3eb59ae8163b6521d77b18e39e5e81b63113a60f25a0aff",
+    "architecture-components.jpg": "be0090eb5e219c578df14889e307ccfffd8330f32cc6c5939dd5115379c7d4ef",
+    "char-master.jpg": "9d688ea8f1d058bd601b72a70b4d7de31a0b3136945493c5b6a5bc509a71b8e0",
+    "icons-master.jpg": "116384f18c215d16e60f576c796c49ad66a59dba32ad0021997c26cefe379eb0",
+    "interior-cutaways.jpg": "eb71fd86fa341de12c02eb14797eb348e297c38ac6a788d3b85f1f8ffd404bfc",
+    "legacy-master.jpg": "7d96bf665e3d64e58d01d42bec09535fa67cf6b10346ce0341cf210ab9746b03",
+    "nature-master.jpg": "81531a5620da0769349862ae4faf7e815c934a9194eb9a540171cbd167a003ed",
+    "props-master.jpg": "4d0553665d4a261ef3d209c088536796e23c915ffb25bac9f150b84644cb730f",
+    "terrain-dirt-master.jpg": "8c13ce18334d5aecd8d72c4c414a709b5e1fd1cff62a97d4e4030c6dad79e6f1",
+    "terrain-grass-master.jpg": "99155bca93830a75a780e7bf94ae4c7dcf7ecbc5b0e1386622b3a895659d0109",
+    "terrain-path-master.jpg": "f734e9cf306e087d8183736bb890b396662bc8ed21f6afd8fc32b639013a0bd0",
+    "terrain-reference-initial.jpg": "36ce9d60517a7c076cccc285bc26df073a2807d14a684516be835695ffe4be3d"
+  },
+  "assets": [
+    {
+      "group": "characters",
+      "id": "villager_NE",
+      "source": "char-master.jpg",
+      "crop": [
+        82,
+        25,
+        185,
+        264
+      ],
+      "size": [
+        64,
+        64
+      ],
+      "anchor": [
+        32,
+        60
+      ],
+      "height": 54,
+      "palette": [
+        "ink",
+        "wood_dark",
+        "wood",
+        "wood_light",
+        "skin_shadow",
+        "skin",
+        "skin_light",
+        "linen",
+        "stone_light",
+        "stone_dark",
+        "blue",
+        "blue_light",
+        "soil_dark",
+        "soil"
+      ],
+      "largest": true
+    },
+    {
+      "group": "characters",
+      "id": "villager_NW",
+      "source": "char-master.jpg",
+      "crop": [
+        332,
+        25,
+        435,
+        264
+      ],
+      "size": [
+        64,
+        64
+      ],
+      "anchor": [
+        32,
+        60
+      ],
+      "height": 54,
+      "palette": [
+        "ink",
+        "wood_dark",
+        "wood",
+        "wood_light",
+        "skin_shadow",
+        "skin",
+        "skin_light",
+        "linen",
+        "stone_light",
+        "stone_dark",
+        "blue",
+        "blue_light",
+        "soil_dark",
+        "soil"
+      ],
+      "largest": true
+    },
+    {
+      "group": "characters",
+      "id": "villager_SE",
+      "source": "char-master.jpg",
+      "crop": [
+        589,
+        25,
+        690,
+        265
+      ],
+      "size": [
+        64,
+        64
+      ],
+      "anchor": [
+        32,
+        60
+      ],
+      "height": 54,
+      "palette": [
+        "ink",
+        "wood_dark",
+        "wood",
+        "wood_light",
+        "skin_shadow",
+        "skin",
+        "skin_light",
+        "linen",
+        "stone_light",
+        "stone_dark",
+        "blue",
+        "blue_light",
+        "soil_dark",
+        "soil"
+      ],
+      "largest": true
+    },
+    {
+      "group": "characters",
+      "id": "villager_SW",
+      "source": "char-master.jpg",
+      "crop": [
+        845,
+        25,
+        947,
+        265
+      ],
+      "size": [
+        64,
+        64
+      ],
+      "anchor": [
+        32,
+        60
+      ],
+      "height": 54,
+      "palette": [
+        "ink",
+        "wood_dark",
+        "wood",
+        "wood_light",
+        "skin_shadow",
+        "skin",
+        "skin_light",
+        "linen",
+        "stone_light",
+        "stone_dark",
+        "blue",
+        "blue_light",
+        "soil_dark",
+        "soil"
+      ],
+      "largest": true
+    },
+    {
+      "group": "characters",
+      "id": "farmer_NE",
+      "source": "char-master.jpg",
+      "crop": [
+        79,
+        274,
+        185,
+        513
+      ],
+      "size": [
+        64,
+        64
+      ],
+      "anchor": [
+        32,
+        60
+      ],
+      "height": 54,
+      "palette": [
+        "ink",
+        "wood_dark",
+        "wood",
+        "wood_light",
+        "skin_shadow",
+        "skin",
+        "skin_light",
+        "linen",
+        "stone_light",
+        "stone_dark",
+        "green_dark",
+        "green",
+        "green_light",
+        "straw",
+        "straw_light"
+      ],
+      "largest": true
+    },
+    {
+      "group": "characters",
+      "id": "farmer_NW",
+      "source": "char-master.jpg",
+      "crop": [
+        333,
+        274,
+        439,
+        513
+      ],
+      "size": [
+        64,
+        64
+      ],
+      "anchor": [
+        32,
+        60
+      ],
+      "height": 54,
+      "palette": [
+        "ink",
+        "wood_dark",
+        "wood",
+        "wood_light",
+        "skin_shadow",
+        "skin",
+        "skin_light",
+        "linen",
+        "stone_light",
+        "stone_dark",
+        "green_dark",
+        "green",
+        "green_light",
+        "straw",
+        "straw_light"
+      ],
+      "largest": true
+    },
+    {
+      "group": "characters",
+      "id": "farmer_SE",
+      "source": "char-master.jpg",
+      "crop": [
+        585,
+        273,
+        691,
+        515
+      ],
+      "size": [
+        64,
+        64
+      ],
+      "anchor": [
+        32,
+        60
+      ],
+      "height": 54,
+      "palette": [
+        "ink",
+        "wood_dark",
+        "wood",
+        "wood_light",
+        "skin_shadow",
+        "skin",
+        "skin_light",
+        "linen",
+        "stone_light",
+        "stone_dark",
+        "green_dark",
+        "green",
+        "green_light",
+        "straw",
+        "straw_light"
+      ],
+      "largest": true
+    },
+    {
+      "group": "characters",
+      "id": "farmer_SW",
+      "source": "char-master.jpg",
+      "crop": [
+        844,
+        273,
+        951,
+        515
+      ],
+      "size": [
+        64,
+        64
+      ],
+      "anchor": [
+        32,
+        60
+      ],
+      "height": 54,
+      "palette": [
+        "ink",
+        "wood_dark",
+        "wood",
+        "wood_light",
+        "skin_shadow",
+        "skin",
+        "skin_light",
+        "linen",
+        "stone_light",
+        "stone_dark",
+        "green_dark",
+        "green",
+        "green_light",
+        "straw",
+        "straw_light"
+      ],
+      "largest": true
+    },
+    {
+      "group": "characters",
+      "id": "lumberjack_NE",
+      "source": "char-master.jpg",
+      "crop": [
+        76,
+        522,
+        185,
+        763
+      ],
+      "size": [
+        64,
+        64
+      ],
+      "anchor": [
+        32,
+        60
+      ],
+      "height": 54,
+      "palette": [
+        "ink",
+        "wood_dark",
+        "wood",
+        "wood_light",
+        "skin_shadow",
+        "skin",
+        "skin_light",
+        "linen",
+        "stone_light",
+        "stone_dark",
+        "soil_dark",
+        "soil",
+        "soil_light"
+      ],
+      "largest": true
+    },
+    {
+      "group": "characters",
+      "id": "lumberjack_NW",
+      "source": "char-master.jpg",
+      "crop": [
+        335,
+        522,
+        443,
+        764
+      ],
+      "size": [
+        64,
+        64
+      ],
+      "anchor": [
+        32,
+        60
+      ],
+      "height": 54,
+      "palette": [
+        "ink",
+        "wood_dark",
+        "wood",
+        "wood_light",
+        "skin_shadow",
+        "skin",
+        "skin_light",
+        "linen",
+        "stone_light",
+        "stone_dark",
+        "soil_dark",
+        "soil",
+        "soil_light"
+      ],
+      "largest": true
+    },
+    {
+      "group": "characters",
+      "id": "lumberjack_SE",
+      "source": "char-master.jpg",
+      "crop": [
+        582,
+        522,
+        694,
+        764
+      ],
+      "size": [
+        64,
+        64
+      ],
+      "anchor": [
+        32,
+        60
+      ],
+      "height": 54,
+      "palette": [
+        "ink",
+        "wood_dark",
+        "wood",
+        "wood_light",
+        "skin_shadow",
+        "skin",
+        "skin_light",
+        "linen",
+        "stone_light",
+        "stone_dark",
+        "soil_dark",
+        "soil",
+        "soil_light"
+      ],
+      "largest": true
+    },
+    {
+      "group": "characters",
+      "id": "lumberjack_SW",
+      "source": "char-master.jpg",
+      "crop": [
+        841,
+        522,
+        953,
+        764
+      ],
+      "size": [
+        64,
+        64
+      ],
+      "anchor": [
+        32,
+        60
+      ],
+      "height": 54,
+      "palette": [
+        "ink",
+        "wood_dark",
+        "wood",
+        "wood_light",
+        "skin_shadow",
+        "skin",
+        "skin_light",
+        "linen",
+        "stone_light",
+        "stone_dark",
+        "soil_dark",
+        "soil",
+        "soil_light"
+      ],
+      "largest": true
+    },
+    {
+      "group": "characters",
+      "id": "builder_NE",
+      "source": "char-master.jpg",
+      "crop": [
+        73,
+        773,
+        185,
+        1014
+      ],
+      "size": [
+        64,
+        64
+      ],
+      "anchor": [
+        32,
+        60
+      ],
+      "height": 54,
+      "palette": [
+        "ink",
+        "wood_dark",
+        "wood",
+        "wood_light",
+        "skin_shadow",
+        "skin",
+        "skin_light",
+        "linen",
+        "stone_light",
+        "stone_dark",
+        "soil_dark",
+        "soil",
+        "soil_light"
+      ],
+      "largest": true
+    },
+    {
+      "group": "characters",
+      "id": "builder_NW",
+      "source": "char-master.jpg",
+      "crop": [
+        335,
+        773,
+        446,
+        1014
+      ],
+      "size": [
+        64,
+        64
+      ],
+      "anchor": [
+        32,
+        60
+      ],
+      "height": 54,
+      "palette": [
+        "ink",
+        "wood_dark",
+        "wood",
+        "wood_light",
+        "skin_shadow",
+        "skin",
+        "skin_light",
+        "linen",
+        "stone_light",
+        "stone_dark",
+        "soil_dark",
+        "soil",
+        "soil_light"
+      ],
+      "largest": true
+    },
+    {
+      "group": "characters",
+      "id": "builder_SE",
+      "source": "char-master.jpg",
+      "crop": [
+        582,
+        773,
+        691,
+        1014
+      ],
+      "size": [
+        64,
+        64
+      ],
+      "anchor": [
+        32,
+        60
+      ],
+      "height": 54,
+      "palette": [
+        "ink",
+        "wood_dark",
+        "wood",
+        "wood_light",
+        "skin_shadow",
+        "skin",
+        "skin_light",
+        "linen",
+        "stone_light",
+        "stone_dark",
+        "soil_dark",
+        "soil",
+        "soil_light"
+      ],
+      "largest": true
+    },
+    {
+      "group": "characters",
+      "id": "builder_SW",
+      "source": "char-master.jpg",
+      "crop": [
+        845,
+        773,
+        953,
+        1015
+      ],
+      "size": [
+        64,
+        64
+      ],
+      "anchor": [
+        32,
+        60
+      ],
+      "height": 54,
+      "palette": [
+        "ink",
+        "wood_dark",
+        "wood",
+        "wood_light",
+        "skin_shadow",
+        "skin",
+        "skin_light",
+        "linen",
+        "stone_light",
+        "stone_dark",
+        "soil_dark",
+        "soil",
+        "soil_light"
+      ],
+      "largest": true
+    },
+    {
+      "group": "icons",
+      "id": "wood",
+      "source": "icons-master.jpg",
+      "crop": [
+        57,
+        42,
+        217,
+        166
+      ],
+      "size": [
+        24,
+        24
+      ],
+      "height": 18,
+      "largest": false
+    },
+    {
+      "group": "icons",
+      "id": "stone",
+      "source": "icons-master.jpg",
+      "crop": [
+        335,
+        39,
+        483,
+        168
+      ],
+      "size": [
+        24,
+        24
+      ],
+      "height": 18,
+      "largest": false
+    },
+    {
+      "group": "icons",
+      "id": "food",
+      "source": "icons-master.jpg",
+      "crop": [
+        603,
+        30,
+        763,
+        168
+      ],
+      "size": [
+        24,
+        24
+      ],
+      "height": 18,
+      "largest": false
+    },
+    {
+      "group": "icons",
+      "id": "coins",
+      "source": "icons-master.jpg",
+      "crop": [
+        903,
+        49,
+        1026,
+        166
+      ],
+      "size": [
+        24,
+        24
+      ],
+      "height": 18,
+      "largest": false
+    },
+    {
+      "group": "icons",
+      "id": "population",
+      "source": "icons-master.jpg",
+      "crop": [
+        1162,
+        39,
+        1313,
+        168
+      ],
+      "size": [
+        24,
+        24
+      ],
+      "height": 18,
+      "largest": false
+    },
+    {
+      "group": "icons",
+      "id": "happiness",
+      "source": "icons-master.jpg",
+      "crop": [
+        70,
+        234,
+        204,
+        367
+      ],
+      "size": [
+        24,
+        24
+      ],
+      "height": 18,
+      "largest": false
+    },
+    {
+      "group": "icons",
+      "id": "construction",
+      "source": "icons-master.jpg",
+      "crop": [
+        336,
+        227,
+        482,
+        370
+      ],
+      "size": [
+        24,
+        24
+      ],
+      "height": 18,
+      "largest": false
+    },
+    {
+      "group": "icons",
+      "id": "technology",
+      "source": "icons-master.jpg",
+      "crop": [
+        611,
+        232,
+        763,
+        367
+      ],
+      "size": [
+        24,
+        24
+      ],
+      "height": 18,
+      "largest": false
+    },
+    {
+      "group": "icons",
+      "id": "town_center",
+      "source": "icons-master.jpg",
+      "crop": [
+        878,
+        219,
+        1038,
+        372
+      ],
+      "size": [
+        24,
+        24
+      ],
+      "height": 18,
+      "largest": false
+    },
+    {
+      "group": "icons",
+      "id": "primitive_house",
+      "source": "icons-master.jpg",
+      "crop": [
+        1157,
+        221,
+        1321,
+        372
+      ],
+      "size": [
+        24,
+        24
+      ],
+      "height": 18,
+      "largest": false
+    },
+    {
+      "group": "icons",
+      "id": "farm",
+      "source": "icons-master.jpg",
+      "crop": [
+        31,
+        432,
+        245,
+        573
+      ],
+      "size": [
+        24,
+        24
+      ],
+      "height": 18,
+      "largest": true
+    },
+    {
+      "group": "icons",
+      "id": "lumber_camp",
+      "source": "icons-master.jpg",
+      "crop": [
+        335,
+        426,
+        491,
+        568
+      ],
+      "size": [
+        24,
+        24
+      ],
+      "height": 18,
+      "largest": false
+    },
+    {
+      "group": "icons",
+      "id": "stone_quarry",
+      "source": "icons-master.jpg",
+      "crop": [
+        599,
+        435,
+        777,
+        566
+      ],
+      "size": [
+        24,
+        24
+      ],
+      "height": 18,
+      "largest": false
+    },
+    {
+      "group": "icons",
+      "id": "storage_hut",
+      "source": "icons-master.jpg",
+      "crop": [
+        889,
+        415,
+        1061,
+        573
+      ],
+      "size": [
+        24,
+        24
+      ],
+      "height": 18,
+      "largest": true
+    },
+    {
+      "group": "icons",
+      "id": "research_hut",
+      "source": "icons-master.jpg",
+      "crop": [
+        1145,
+        409,
+        1333,
+        574
+      ],
+      "size": [
+        24,
+        24
+      ],
+      "height": 18,
+      "largest": true
+    },
+    {
+      "group": "icons",
+      "id": "dirt_road",
+      "source": "icons-master.jpg",
+      "crop": [
+        19,
+        604,
+        256,
+        734
+      ],
+      "size": [
+        24,
+        24
+      ],
+      "height": 18,
+      "largest": false
+    },
+    {
+      "group": "icons",
+      "id": "agriculture",
+      "source": "icons-master.jpg",
+      "crop": [
+        340,
+        599,
+        483,
+        739
+      ],
+      "size": [
+        24,
+        24
+      ],
+      "height": 18,
+      "largest": true
+    },
+    {
+      "group": "icons",
+      "id": "masonry",
+      "source": "icons-master.jpg",
+      "crop": [
+        611,
+        604,
+        772,
+        741
+      ],
+      "size": [
+        24,
+        24
+      ],
+      "height": 18,
+      "largest": false
+    },
+    {
+      "group": "icons",
+      "id": "toolmaking",
+      "source": "icons-master.jpg",
+      "crop": [
+        910,
+        607,
+        1056,
+        740
+      ],
+      "size": [
+        24,
+        24
+      ],
+      "height": 18,
+      "largest": true
+    },
+    {
+      "group": "props",
+      "id": "hoe",
+      "source": "props-master.jpg",
+      "crop": [
+        84,
+        103,
+        327,
+        295
+      ],
+      "size": [
+        32,
+        32
+      ],
+      "height": 26
+    },
+    {
+      "group": "props",
+      "id": "watering_can",
+      "source": "props-master.jpg",
+      "crop": [
+        422,
+        100,
+        639,
+        295
+      ],
+      "size": [
+        32,
+        32
+      ],
+      "height": 26
+    },
+    {
+      "group": "props",
+      "id": "axe",
+      "source": "props-master.jpg",
+      "crop": [
+        731,
+        112,
+        983,
+        270
+      ],
+      "size": [
+        32,
+        32
+      ],
+      "height": 26
+    },
+    {
+      "group": "props",
+      "id": "hammer",
+      "source": "props-master.jpg",
+      "crop": [
+        1066,
+        106,
+        1295,
+        275
+      ],
+      "size": [
+        32,
+        32
+      ],
+      "height": 26
+    },
+    {
+      "group": "props",
+      "id": "pickaxe",
+      "source": "props-master.jpg",
+      "crop": [
+        87,
+        320,
+        327,
+        501
+      ],
+      "size": [
+        32,
+        32
+      ],
+      "height": 26
+    },
+    {
+      "group": "props",
+      "id": "book",
+      "source": "props-master.jpg",
+      "crop": [
+        420,
+        326,
+        651,
+        496
+      ],
+      "size": [
+        32,
+        32
+      ],
+      "height": 26
+    },
+    {
+      "group": "props",
+      "id": "writing_tool",
+      "source": "props-master.jpg",
+      "crop": [
+        746,
+        347,
+        974,
+        487
+      ],
+      "size": [
+        32,
+        32
+      ],
+      "height": 26
+    },
+    {
+      "group": "props",
+      "id": "carried_stone",
+      "source": "props-master.jpg",
+      "crop": [
+        1076,
+        327,
+        1288,
+        496
+      ],
+      "size": [
+        32,
+        32
+      ],
+      "height": 26
+    },
+    {
+      "group": "props",
+      "id": "timber",
+      "source": "props-master.jpg",
+      "crop": [
+        86,
+        525,
+        326,
+        723
+      ],
+      "size": [
+        32,
+        32
+      ],
+      "height": 26
+    },
+    {
+      "group": "props",
+      "id": "log_stack",
+      "source": "props-master.jpg",
+      "crop": [
+        415,
+        522,
+        659,
+        728
+      ],
+      "size": [
+        32,
+        32
+      ],
+      "height": 26
+    },
+    {
+      "group": "props",
+      "id": "crate",
+      "source": "props-master.jpg",
+      "crop": [
+        759,
+        518,
+        969,
+        739
+      ],
+      "size": [
+        32,
+        32
+      ],
+      "height": 26
+    },
+    {
+      "group": "terrain",
+      "id": "grass",
+      "source": "terrain-grass-master.jpg",
+      "crop": [
+        0,
+        0,
+        1024,
+        1024
+      ],
+      "size": [
+        32,
+        32
+      ]
+    },
+    {
+      "group": "terrain",
+      "id": "dirt",
+      "source": "terrain-dirt-master.jpg",
+      "crop": [
+        0,
+        0,
+        1024,
+        1024
+      ],
+      "size": [
+        32,
+        32
+      ]
+    },
+    {
+      "group": "terrain",
+      "id": "path",
+      "source": "terrain-path-master.jpg",
+      "crop": [
+        0,
+        0,
+        512,
+        512
+      ],
+      "size": [
+        32,
+        32
+      ]
+    },
+    {
+      "group": "terrain",
+      "id": "water",
+      "source": "terrain-reference-initial.jpg",
+      "crop": [
+        465,
+        463,
+        655,
+        514
+      ],
+      "size": [
+        32,
+        32
+      ],
+      "usage": "static_grid_extension_candidate"
+    },
+    {
+      "group": "terrain",
+      "id": "concrete",
+      "source": "terrain-reference-initial.jpg",
+      "crop": [
+        930,
+        447,
+        1120,
+        657
+      ],
+      "size": [
+        32,
+        32
+      ],
+      "usage": "static_grid_extension_candidate"
+    },
+    {
+      "group": "building_references",
+      "id": "town_center",
+      "source": "ancient-sites-master.jpg",
+      "crop": [
+        25,
+        5,
+        374,
+        365
+      ],
+      "size": [
+        256,
+        256
+      ],
+      "usage": "reference_only_not_a_3d_mesh"
+    },
+    {
+      "group": "building_references",
+      "id": "primitive_house",
+      "source": "ancient-sites-master.jpg",
+      "crop": [
+        410,
+        65,
+        683,
+        320
+      ],
+      "size": [
+        256,
+        256
+      ],
+      "usage": "reference_only_not_a_3d_mesh"
+    },
+    {
+      "group": "building_references",
+      "id": "farm",
+      "source": "ancient-sites-master.jpg",
+      "crop": [
+        680,
+        90,
+        1028,
+        357
+      ],
+      "size": [
+        256,
+        256
+      ],
+      "usage": "reference_only_not_a_3d_mesh"
+    },
+    {
+      "group": "building_references",
+      "id": "lumber_camp",
+      "source": "ancient-sites-master.jpg",
+      "crop": [
+        1030,
+        50,
+        1355,
+        332
+      ],
+      "size": [
+        256,
+        256
+      ],
+      "usage": "reference_only_not_a_3d_mesh"
+    },
+    {
+      "group": "building_references",
+      "id": "stone_quarry",
+      "source": "ancient-sites-master.jpg",
+      "crop": [
+        35,
+        405,
+        365,
+        704
+      ],
+      "size": [
+        256,
+        256
+      ],
+      "usage": "reference_only_not_a_3d_mesh"
+    },
+    {
+      "group": "building_references",
+      "id": "storage_hut",
+      "source": "ancient-sites-master.jpg",
+      "crop": [
+        375,
+        405,
+        700,
+        707
+      ],
+      "size": [
+        256,
+        256
+      ],
+      "usage": "reference_only_not_a_3d_mesh"
+    },
+    {
+      "group": "building_references",
+      "id": "research_hut",
+      "source": "ancient-sites-master.jpg",
+      "crop": [
+        710,
+        405,
+        1020,
+        710
+      ],
+      "size": [
+        256,
+        256
+      ],
+      "usage": "reference_only_not_a_3d_mesh"
+    },
+    {
+      "group": "building_references",
+      "id": "dirt_road",
+      "source": "ancient-sites-master.jpg",
+      "crop": [
+        1049,
+        546,
+        1338,
+        700
+      ],
+      "size": [
+        256,
+        256
+      ],
+      "usage": "reference_only_not_a_3d_mesh",
+      "largest": true
+    },
+    {
+      "group": "nature_references",
+      "id": "tree_1",
+      "source": "nature-master.jpg",
+      "crop": [
+        37,
+        152,
+        298,
+        441
+      ],
+      "size": [
+        128,
+        128
+      ],
+      "usage": "reference_only_pending_3d_adaptation",
+      "clearEnclosed": true,
+      "largest": true
+    },
+    {
+      "group": "nature_references",
+      "id": "tree_2",
+      "source": "nature-master.jpg",
+      "crop": [
+        315,
+        106,
+        470,
+        441
+      ],
+      "size": [
+        128,
+        128
+      ],
+      "usage": "reference_only_pending_3d_adaptation",
+      "clearEnclosed": true,
+      "largest": true
+    },
+    {
+      "group": "nature_references",
+      "id": "tree_3",
+      "source": "nature-master.jpg",
+      "crop": [
+        496,
+        149,
+        749,
+        435
+      ],
+      "size": [
+        128,
+        128
+      ],
+      "usage": "reference_only_pending_3d_adaptation",
+      "clearEnclosed": true,
+      "largest": true
+    },
+    {
+      "group": "nature_references",
+      "id": "bush_1",
+      "source": "nature-master.jpg",
+      "crop": [
+        796,
+        161,
+        965,
+        281
+      ],
+      "size": [
+        128,
+        128
+      ],
+      "usage": "reference_only_pending_3d_adaptation",
+      "clearEnclosed": true,
+      "largest": true
+    },
+    {
+      "group": "nature_references",
+      "id": "bush_2",
+      "source": "nature-master.jpg",
+      "crop": [
+        984,
+        140,
+        1176,
+        281
+      ],
+      "size": [
+        128,
+        128
+      ],
+      "usage": "reference_only_pending_3d_adaptation",
+      "clearEnclosed": true,
+      "largest": true
+    },
+    {
+      "group": "nature_references",
+      "id": "bush_3",
+      "source": "nature-master.jpg",
+      "crop": [
+        1189,
+        149,
+        1331,
+        278
+      ],
+      "size": [
+        128,
+        128
+      ],
+      "usage": "reference_only_pending_3d_adaptation",
+      "clearEnclosed": true,
+      "largest": true
+    },
+    {
+      "group": "nature_references",
+      "id": "rock_1",
+      "source": "nature-master.jpg",
+      "crop": [
+        788,
+        343,
+        966,
+        501
+      ],
+      "size": [
+        128,
+        128
+      ],
+      "usage": "reference_only_pending_3d_adaptation",
+      "clearEnclosed": true
+    },
+    {
+      "group": "nature_references",
+      "id": "rock_2",
+      "source": "nature-master.jpg",
+      "crop": [
+        983,
+        367,
+        1182,
+        487
+      ],
+      "size": [
+        128,
+        128
+      ],
+      "usage": "reference_only_pending_3d_adaptation",
+      "clearEnclosed": true
+    },
+    {
+      "group": "nature_references",
+      "id": "rock_3",
+      "source": "nature-master.jpg",
+      "crop": [
+        1203,
+        316,
+        1316,
+        498
+      ],
+      "size": [
+        128,
+        128
+      ],
+      "usage": "reference_only_pending_3d_adaptation",
+      "clearEnclosed": true
+    },
+    {
+      "group": "nature_references",
+      "id": "rock_4",
+      "source": "nature-master.jpg",
+      "crop": [
+        48,
+        536,
+        255,
+        716
+      ],
+      "size": [
+        128,
+        128
+      ],
+      "usage": "reference_only_pending_3d_adaptation",
+      "clearEnclosed": true
+    },
+    {
+      "group": "nature_references",
+      "id": "grass_1",
+      "source": "nature-master.jpg",
+      "crop": [
+        278,
+        533,
+        421,
+        708
+      ],
+      "size": [
+        128,
+        128
+      ],
+      "usage": "reference_only_pending_3d_adaptation",
+      "clearEnclosed": true,
+      "largest": true
+    },
+    {
+      "group": "nature_references",
+      "id": "grass_2",
+      "source": "nature-master.jpg",
+      "crop": [
+        494,
+        608,
+        619,
+        705
+      ],
+      "size": [
+        128,
+        128
+      ],
+      "usage": "reference_only_pending_3d_adaptation",
+      "clearEnclosed": true,
+      "largest": true
+    },
+    {
+      "group": "nature_references",
+      "id": "grass_3",
+      "source": "nature-master.jpg",
+      "crop": [
+        634,
+        530,
+        762,
+        708
+      ],
+      "size": [
+        128,
+        128
+      ],
+      "usage": "reference_only_pending_3d_adaptation",
+      "clearEnclosed": true,
+      "largest": true
+    },
+    {
+      "group": "nature_references",
+      "id": "crop_1",
+      "source": "nature-master.jpg",
+      "crop": [
+        820,
+        550,
+        1068,
+        731
+      ],
+      "size": [
+        128,
+        128
+      ],
+      "usage": "reference_only_pending_3d_adaptation",
+      "clearEnclosed": true,
+      "largest": true
+    },
+    {
+      "group": "nature_references",
+      "id": "crop_2",
+      "source": "nature-master.jpg",
+      "crop": [
+        1090,
+        562,
+        1339,
+        731
+      ],
+      "size": [
+        128,
+        128
+      ],
+      "usage": "reference_only_pending_3d_adaptation",
+      "clearEnclosed": true,
+      "largest": true
+    },
+    {
+      "group": "architecture_references",
+      "id": "foundation",
+      "source": "architecture-components.jpg",
+      "crop": [
+        35,
+        110,
+        345,
+        320
+      ],
+      "size": [
+        128,
+        128
+      ],
+      "usage": "reference_only_not_a_3d_mesh"
+    },
+    {
+      "group": "architecture_references",
+      "id": "post",
+      "source": "architecture-components.jpg",
+      "crop": [
+        405,
+        35,
+        505,
+        360
+      ],
+      "size": [
+        128,
+        128
+      ],
+      "usage": "reference_only_not_a_3d_mesh"
+    },
+    {
+      "group": "architecture_references",
+      "id": "wall",
+      "source": "architecture-components.jpg",
+      "crop": [
+        570,
+        40,
+        790,
+        360
+      ],
+      "size": [
+        128,
+        128
+      ],
+      "usage": "reference_only_not_a_3d_mesh"
+    },
+    {
+      "group": "architecture_references",
+      "id": "door",
+      "source": "architecture-components.jpg",
+      "crop": [
+        857,
+        46,
+        1043,
+        349
+      ],
+      "size": [
+        128,
+        128
+      ],
+      "usage": "reference_only_not_a_3d_mesh"
+    },
+    {
+      "group": "architecture_references",
+      "id": "window",
+      "source": "architecture-components.jpg",
+      "crop": [
+        1110,
+        35,
+        1340,
+        360
+      ],
+      "size": [
+        128,
+        128
+      ],
+      "usage": "reference_only_not_a_3d_mesh"
+    },
+    {
+      "group": "architecture_references",
+      "id": "thatch_roof",
+      "source": "architecture-components.jpg",
+      "crop": [
+        15,
+        395,
+        380,
+        715
+      ],
+      "size": [
+        128,
+        128
+      ],
+      "usage": "reference_only_not_a_3d_mesh"
+    },
+    {
+      "group": "architecture_references",
+      "id": "fence",
+      "source": "architecture-components.jpg",
+      "crop": [
+        383,
+        453,
+        587,
+        688
+      ],
+      "size": [
+        128,
+        128
+      ],
+      "usage": "reference_only_not_a_3d_mesh"
+    },
+    {
+      "group": "architecture_references",
+      "id": "flag",
+      "source": "architecture-components.jpg",
+      "crop": [
+        622,
+        424,
+        788,
+        688
+      ],
+      "size": [
+        128,
+        128
+      ],
+      "usage": "reference_only_not_a_3d_mesh"
+    },
+    {
+      "group": "architecture_references",
+      "id": "research_table",
+      "source": "architecture-components.jpg",
+      "crop": [
+        820,
+        430,
+        1080,
+        715
+      ],
+      "size": [
+        128,
+        128
+      ],
+      "usage": "reference_only_not_a_3d_mesh"
+    },
+    {
+      "group": "architecture_references",
+      "id": "work_area",
+      "source": "architecture-components.jpg",
+      "crop": [
+        1080,
+        380,
+        1360,
+        720
+      ],
+      "size": [
+        128,
+        128
+      ],
+      "usage": "reference_only_not_a_3d_mesh"
+    },
+    {
+      "group": "interior_references",
+      "id": "town_center",
+      "source": "interior-cutaways.jpg",
+      "crop": [
+        30,
+        150,
+        450,
+        640
+      ],
+      "size": [
+        256,
+        256
+      ],
+      "largest": true,
+      "usage": "reference_only_not_a_3d_mesh"
+    },
+    {
+      "group": "interior_references",
+      "id": "primitive_house",
+      "source": "interior-cutaways.jpg",
+      "crop": [
+        450,
+        345,
+        685,
+        610
+      ],
+      "size": [
+        256,
+        256
+      ],
+      "largest": true,
+      "usage": "reference_only_not_a_3d_mesh"
+    },
+    {
+      "group": "interior_references",
+      "id": "storage_hut",
+      "source": "interior-cutaways.jpg",
+      "crop": [
+        695,
+        230,
+        1055,
+        635
+      ],
+      "size": [
+        256,
+        256
+      ],
+      "largest": true,
+      "usage": "reference_only_not_a_3d_mesh"
+    },
+    {
+      "group": "interior_references",
+      "id": "research_hut",
+      "source": "interior-cutaways.jpg",
+      "crop": [
+        1022,
+        232,
+        1337,
+        625
+      ],
+      "size": [
+        256,
+        256
+      ],
+      "largest": true,
+      "usage": "reference_only_not_a_3d_mesh"
+    },
+    {
+      "group": "legacy_references",
+      "id": "road",
+      "source": "legacy-master.jpg",
+      "crop": [
+        24,
+        49,
+        358,
+        239
+      ],
+      "size": [
+        256,
+        256
+      ],
+      "usage": "inactive_catalog_reference_only",
+      "largest": true
+    },
+    {
+      "group": "legacy_references",
+      "id": "streetlight",
+      "source": "legacy-master.jpg",
+      "crop": [
+        485,
+        17,
+        555,
+        236
+      ],
+      "size": [
+        256,
+        256
+      ],
+      "usage": "inactive_catalog_reference_only",
+      "largest": true
+    },
+    {
+      "group": "legacy_references",
+      "id": "small_house",
+      "source": "legacy-master.jpg",
+      "crop": [
+        752,
+        34,
+        967,
+        227
+      ],
+      "size": [
+        256,
+        256
+      ],
+      "usage": "inactive_catalog_reference_only",
+      "largest": true
+    },
+    {
+      "group": "legacy_references",
+      "id": "family_house",
+      "source": "legacy-master.jpg",
+      "crop": [
+        1075,
+        11,
+        1317,
+        243
+      ],
+      "size": [
+        256,
+        256
+      ],
+      "usage": "inactive_catalog_reference_only",
+      "largest": true
+    },
+    {
+      "group": "legacy_references",
+      "id": "apartment",
+      "source": "legacy-master.jpg",
+      "crop": [
+        108,
+        259,
+        267,
+        492
+      ],
+      "size": [
+        256,
+        256
+      ],
+      "usage": "inactive_catalog_reference_only",
+      "largest": true
+    },
+    {
+      "group": "legacy_references",
+      "id": "shop",
+      "source": "legacy-master.jpg",
+      "crop": [
+        417,
+        277,
+        622,
+        474
+      ],
+      "size": [
+        256,
+        256
+      ],
+      "usage": "inactive_catalog_reference_only",
+      "largest": true
+    },
+    {
+      "group": "legacy_references",
+      "id": "bakery",
+      "source": "legacy-master.jpg",
+      "crop": [
+        758,
+        273,
+        992,
+        482
+      ],
+      "size": [
+        256,
+        256
+      ],
+      "usage": "inactive_catalog_reference_only",
+      "largest": true
+    },
+    {
+      "group": "legacy_references",
+      "id": "restaurant",
+      "source": "legacy-master.jpg",
+      "crop": [
+        1073,
+        265,
+        1325,
+        492
+      ],
+      "size": [
+        256,
+        256
+      ],
+      "usage": "inactive_catalog_reference_only",
+      "largest": true
+    },
+    {
+      "group": "legacy_references",
+      "id": "school",
+      "source": "legacy-master.jpg",
+      "crop": [
+        71,
+        510,
+        306,
+        737
+      ],
+      "size": [
+        256,
+        256
+      ],
+      "usage": "inactive_catalog_reference_only",
+      "largest": true
+    },
+    {
+      "group": "legacy_references",
+      "id": "clinic",
+      "source": "legacy-master.jpg",
+      "crop": [
+        409,
+        520,
+        647,
+        726
+      ],
+      "size": [
+        256,
+        256
+      ],
+      "usage": "inactive_catalog_reference_only",
+      "largest": true
+    },
+    {
+      "group": "legacy_references",
+      "id": "park",
+      "source": "legacy-master.jpg",
+      "crop": [
+        710,
+        564,
+        1009,
+        732
+      ],
+      "size": [
+        256,
+        256
+      ],
+      "usage": "inactive_catalog_reference_only",
+      "largest": true
+    },
+    {
+      "group": "legacy_references",
+      "id": "tree",
+      "source": "legacy-master.jpg",
+      "crop": [
+        1104,
+        518,
+        1292,
+        738
+      ],
+      "size": [
+        256,
+        256
+      ],
+      "usage": "inactive_catalog_reference_only",
+      "largest": true
+    }
+  ]
+}

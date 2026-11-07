@@ -3,7 +3,7 @@ import palette from '../../tools/assets/palette.json';
 
 /**
  * Shared palette and material library to reuse materials, prevent memory leaks,
- * and enforce a cohesive Kairosoft-style warm pastel aesthetic.
+ * and keep the Stitch settlement and legacy extension in one material family.
  */
 export class MaterialLibrary {
   private static instance: MaterialLibrary | null = null;
@@ -21,6 +21,7 @@ export class MaterialLibrary {
   }
 
   private initDefaultMaterials(): void {
+    this.register('stitch_civic_illustrated', new THREE.MeshBasicMaterial({ vertexColors: true, toneMapped: false }));
     for (const [key, color] of Object.entries(palette.colors)) {
       this.register(`ancient_${key}`, new THREE.MeshLambertMaterial({ color }));
     }
@@ -79,6 +80,22 @@ export class MaterialLibrary {
     this.register('cross_red', new THREE.MeshBasicMaterial({ color: 0xef4444 }));
     this.register('umbrella_yellow', new THREE.MeshLambertMaterial({ color: 0xfbbf24 }));
     this.register('cupola_copper', new THREE.MeshLambertMaterial({ color: 0x4d7c67 }));
+
+    // Stitch LEGACY-01 preserves the existing inactive meshes and harmonizes their materials.
+    const stitch: Record<string, keyof typeof palette.colors> = {
+      wall_cream: 'linen', wall_white: 'stone_light', wall_terracotta: 'clay_light', wall_pastel_blue: 'blue_light',
+      wall_mint: 'green_light', wall_brick: 'clay', wall_wood: 'wood_light', roof_red_tile: 'clay',
+      roof_slate_blue: 'stone_dark', roof_cedar: 'wood', roof_dark_slate: 'stone_dark', roof_moss: 'green_dark',
+      trim_white: 'linen', trim_wood: 'wood_dark', door_wood: 'wood', window_glass: 'blue_light', window_frame: 'wood_dark',
+      chimney_brick: 'clay', road_asphalt: 'stone_dark', sidewalk_concrete: 'stone', tree_trunk: 'wood_dark',
+      tree_canopy_round: 'green', tree_canopy_dark: 'green_dark', tree_canopy_light: 'green_light',
+      ground_slab: 'wood_dark', ground_grass: 'grass', metal_black: 'ink', awning_red: 'clay', awning_blue: 'blue',
+      park_path: 'soil_light', park_bench_wood: 'wood', cross_red: 'clay', umbrella_yellow: 'straw_light', cupola_copper: 'green_dark',
+    };
+    for (const [key, color] of Object.entries(stitch)) {
+      const material = this.materials.get(key);
+      if (material instanceof THREE.MeshLambertMaterial || material instanceof THREE.MeshBasicMaterial) material.color.set(palette.colors[color]);
+    }
 
     // Fallback material for missing keys
     this.register('__fallback_default__', new THREE.MeshLambertMaterial({ color: 0xff00ff }));

@@ -3,7 +3,7 @@ import { MaterialLibrary } from '../MaterialLibrary';
 import { cachedMesh } from '../GeometryCache';
 
 /** Unit prism has UVs for future roof textures and uses shared cached geometry. */
-export function createThatchRoof(width: number, depth: number, height: number): THREE.Group {
+export function createThatchRoof(width: number, depth: number, height: number, color = 'straw'): THREE.Group {
   const group = new THREE.Group();
   const mesh = cachedMesh('ancient/thatch-roof', () => {
     const shape = new THREE.Shape();
@@ -11,7 +11,7 @@ export function createThatchRoof(width: number, depth: number, height: number): 
     const geometry = new THREE.ExtrudeGeometry(shape, { depth: 1, bevelEnabled: false, steps: 1 });
     geometry.translate(0, 0, -0.5);
     return geometry;
-  }, MaterialLibrary.getInstance().get('ancient_straw'));
+  }, MaterialLibrary.getInstance().get(`ancient_${color}`));
   mesh.scale.set(width, height, depth); group.add(mesh);
   // Sparse thatch bands emphasize the sloping silhouette without dense geometry.
   return group;

@@ -1,0 +1,291 @@
+{
+  "scope": "Source-file integrity only; not native game-asset acceptance",
+  "imageCount": 28,
+  "imageSources": 21,
+  "boardScreenshots": 7,
+  "allSourcesOpen": true,
+  "allImagesStatic": true,
+  "nativeProductionAssetsReady": false,
+  "images": [
+    {
+      "file": "ancient-sites-master.jpg",
+      "format": "JPEG",
+      "width": 1376,
+      "height": 768,
+      "mode": "RGB",
+      "frames": 1,
+      "bytes": 710522,
+      "sha256": "881955e71e14ee71c3eb59ae8163b6521d77b18e39e5e81b63113a60f25a0aff"
+    },
+    {
+      "file": "architecture-components.jpg",
+      "format": "JPEG",
+      "width": 1376,
+      "height": 768,
+      "mode": "RGB",
+      "frames": 1,
+      "bytes": 541131,
+      "sha256": "be0090eb5e219c578df14889e307ccfffd8330f32cc6c5939dd5115379c7d4ef"
+    },
+    {
+      "file": "bldg-01-board.png",
+      "format": "PNG",
+      "width": 2560,
+      "height": 4488,
+      "mode": "RGB",
+      "frames": 1,
+      "bytes": 1359889,
+      "sha256": "9e4a051562a2f09282c23ed58ac84dfbb92459ed5d1589d2dce122969ca98be4"
+    },
+    {
+      "file": "char-01-board.png",
+      "format": "PNG",
+      "width": 2560,
+      "height": 3152,
+      "mode": "RGB",
+      "frames": 1,
+      "bytes": 1176026,
+      "sha256": "3ea01b5269dbde73f50b8bbd8da8d46af80406b6ea5822bd1a039cb336e190c8"
+    },
+    {
+      "file": "char-equipment-initial.jpg",
+      "format": "JPEG",
+      "width": 1376,
+      "height": 768,
+      "mode": "RGB",
+      "frames": 1,
+      "bytes": 352461,
+      "sha256": "80aca24efd155284a539b099c0ae7fb2eb2144b98661e674a3c920143ef63210"
+    },
+    {
+      "file": "char-master.jpg",
+      "format": "JPEG",
+      "width": 1024,
+      "height": 1024,
+      "mode": "RGB",
+      "frames": 1,
+      "bytes": 503266,
+      "sha256": "9d688ea8f1d058bd601b72a70b4d7de31a0b3136945493c5b6a5bc509a71b8e0"
+    },
+    {
+      "file": "char-readability.jpg",
+      "format": "JPEG",
+      "width": 1200,
+      "height": 896,
+      "mode": "RGB",
+      "frames": 1,
+      "bytes": 601245,
+      "sha256": "588e24d543999f3bde0591b128efcb26f117c22b170a9e2853567a99534c402c"
+    },
+    {
+      "file": "citizen-scale-reference.jpg",
+      "format": "JPEG",
+      "width": 1264,
+      "height": 848,
+      "mode": "RGB",
+      "frames": 1,
+      "bytes": 697183,
+      "sha256": "7fe874b583ffd4aac0264a4d3724e8c4125f0fb449d1163e8de2b906ee34836f"
+    },
+    {
+      "file": "env-01-board.png",
+      "format": "PNG",
+      "width": 2560,
+      "height": 5468,
+      "mode": "RGB",
+      "frames": 1,
+      "bytes": 1807110,
+      "sha256": "28ee5fd76922f5e88f4b82d25486da03ab574994041c3ecd4b1eda9d1236f1c5"
+    },
+    {
+      "file": "icon-ui-01-board.png",
+      "format": "PNG",
+      "width": 2560,
+      "height": 6584,
+      "mode": "RGB",
+      "frames": 1,
+      "bytes": 3958223,
+      "sha256": "c937751693a0ee4b7d9d8182628359682a00a53e6942f9b2afacb63b06ea6aec"
+    },
+    {
+      "file": "icons-initial-master.jpg",
+      "format": "JPEG",
+      "width": 1376,
+      "height": 768,
+      "mode": "RGB",
+      "frames": 1,
+      "bytes": 719262,
+      "sha256": "669070aa36989a0b6edee4ffa4c8eeff1fd5c759433fb0391273d9bb11ae579a"
+    },
+    {
+      "file": "icons-master.jpg",
+      "format": "JPEG",
+      "width": 1376,
+      "height": 768,
+      "mode": "RGB",
+      "frames": 1,
+      "bytes": 692028,
+      "sha256": "116384f18c215d16e60f576c796c49ad66a59dba32ad0021997c26cefe379eb0"
+    },
+    {
+      "file": "interior-cutaways.jpg",
+      "format": "JPEG",
+      "width": 1376,
+      "height": 768,
+      "mode": "RGB",
+      "frames": 1,
+      "bytes": 605659,
+      "sha256": "eb71fd86fa341de12c02eb14797eb348e297c38ac6a788d3b85f1f8ffd404bfc"
+    },
+    {
+      "file": "legacy-01-board.png",
+      "format": "PNG",
+      "width": 2560,
+      "height": 5622,
+      "mode": "RGB",
+      "frames": 1,
+      "bytes": 1344193,
+      "sha256": "83aabc5772f6f8d8035c14fa810f334e0fd30235d682aa0514915b416759529d"
+    },
+    {
+      "file": "legacy-master.jpg",
+      "format": "JPEG",
+      "width": 1376,
+      "height": 768,
+      "mode": "RGB",
+      "frames": 1,
+      "bytes": 638992,
+      "sha256": "7d96bf665e3d64e58d01d42bec09535fa67cf6b10346ce0341cf210ab9746b03"
+    },
+    {
+      "file": "legacy-scale.jpg",
+      "format": "JPEG",
+      "width": 1376,
+      "height": 768,
+      "mode": "RGB",
+      "frames": 1,
+      "bytes": 549815,
+      "sha256": "7220331f069c1859d9ebdbfcd524d06bc7a20814f00abda86af52cecdeaf9e16"
+    },
+    {
+      "file": "material-reference.jpg",
+      "format": "JPEG",
+      "width": 1024,
+      "height": 1024,
+      "mode": "RGB",
+      "frames": 1,
+      "bytes": 660996,
+      "sha256": "1956b1a6f8ddbf360f5c793cd4e677b3c1c7d88661510e6b354ec89e4c770c97"
+    },
+    {
+      "file": "nature-master.jpg",
+      "format": "JPEG",
+      "width": 1376,
+      "height": 768,
+      "mode": "RGB",
+      "frames": 1,
+      "bytes": 660503,
+      "sha256": "81531a5620da0769349862ae4faf7e815c934a9194eb9a540171cbd167a003ed"
+    },
+    {
+      "file": "props-master.jpg",
+      "format": "JPEG",
+      "width": 1376,
+      "height": 768,
+      "mode": "RGB",
+      "frames": 1,
+      "bytes": 540682,
+      "sha256": "4d0553665d4a261ef3d209c088536796e23c915ffb25bac9f150b84644cb730f"
+    },
+    {
+      "file": "terrain-dirt-initial.jpg",
+      "format": "JPEG",
+      "width": 1024,
+      "height": 1024,
+      "mode": "RGB",
+      "frames": 1,
+      "bytes": 776808,
+      "sha256": "2a70415559c79da59fe39faa764b663fab5e2f2f097aac2d9562d722a03036be"
+    },
+    {
+      "file": "terrain-dirt-master.jpg",
+      "format": "JPEG",
+      "width": 1024,
+      "height": 1024,
+      "mode": "RGB",
+      "frames": 1,
+      "bytes": 456029,
+      "sha256": "8c13ce18334d5aecd8d72c4c414a709b5e1fd1cff62a97d4e4030c6dad79e6f1"
+    },
+    {
+      "file": "terrain-grass-initial.jpg",
+      "format": "JPEG",
+      "width": 1024,
+      "height": 1024,
+      "mode": "RGB",
+      "frames": 1,
+      "bytes": 522433,
+      "sha256": "1d8ac947c23e6f1daa23b6ecce08d2cb2a8a5c1cb7b8286ec7bdfaf797fd99d1"
+    },
+    {
+      "file": "terrain-grass-master.jpg",
+      "format": "JPEG",
+      "width": 1024,
+      "height": 1024,
+      "mode": "RGB",
+      "frames": 1,
+      "bytes": 426984,
+      "sha256": "99155bca93830a75a780e7bf94ae4c7dcf7ecbc5b0e1386622b3a895659d0109"
+    },
+    {
+      "file": "terrain-path-master.jpg",
+      "format": "JPEG",
+      "width": 1024,
+      "height": 1024,
+      "mode": "RGB",
+      "frames": 1,
+      "bytes": 552186,
+      "sha256": "f734e9cf306e087d8183736bb890b396662bc8ed21f6afd8fc32b639013a0bd0"
+    },
+    {
+      "file": "terrain-reference-initial.jpg",
+      "format": "JPEG",
+      "width": 1376,
+      "height": 768,
+      "mode": "RGB",
+      "frames": 1,
+      "bytes": 436702,
+      "sha256": "36ce9d60517a7c076cccc285bc26df073a2807d14a684516be835695ffe4be3d"
+    },
+    {
+      "file": "ui-02-board.png",
+      "format": "PNG",
+      "width": 2560,
+      "height": 5240,
+      "mode": "RGB",
+      "frames": 1,
+      "bytes": 1577258,
+      "sha256": "44091440d30c8019274b066536ded587543e814ea99cc799fbb46810a88122b1"
+    },
+    {
+      "file": "world-01-board.png",
+      "format": "PNG",
+      "width": 2880,
+      "height": 2252,
+      "mode": "RGB",
+      "frames": 1,
+      "bytes": 1167958,
+      "sha256": "636a7418654371d7b5ba5706aa19d59711b5fd2dde8b234e1ead4be95e329e98"
+    },
+    {
+      "file": "world-master.jpg",
+      "format": "JPEG",
+      "width": 1376,
+      "height": 768,
+      "mode": "RGB",
+      "frames": 1,
+      "bytes": 1012137,
+      "sha256": "87ae5a0d93bcb6b641576a795f78c2580259a746011f1743e025a61a6663c6df"
+    }
+  ]
+}

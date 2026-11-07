@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>LEGACY-01 / Extended City Asset Family</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Noto+Serif:ital,wght@0,600;0,700;1,600&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            'settlement-parchment': '#E7DABC',
+            'settlement-dark': '#302C36',
+            'settlement-timber': '#65483C',
+            'settlement-agedwood': '#96704D',
+            'settlement-clay': '#AD644D',
+            'settlement-moss': '#385C46',
+            'settlement-foliage': '#59845A',
+            'settlement-blue': '#527B8C',
+            'settlement-straw': '#C2A05B',
+            'settlement-stone': '#919B8B',
+            'settlement-soil': '#B28E65',
+            'settlement-gold': '#E8BA55',
+            'settlement-purple': '#87709B',
+          },
+          fontFamily: {
+            serif: ['"Noto Serif"', 'serif'],
+            sans: ['"Noto Sans"', 'sans-serif'],
+            mono: ['"JetBrains Mono"', 'monospace'],
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    body {
+      background-color: #E7DABC;
+      color: #302C36;
+      font-family: 'Noto Sans', sans-serif;
+    }
+    .pixel-art-board {
+      image-rendering: pixelated;
+      image-rendering: -moz-crisp-edges;
+      image-rendering: crisp-edges;
+    }
+    .panel-frame {
+      border: 1px solid rgba(48, 44, 54, 0.28);
+      background-color: rgba(231, 218, 188, 0.45);
+      border-radius: 4px;
+    }
+    .badge-tag {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11px;
+      line-height: 14px;
+      padding: 2px 7px;
+      border-radius: 3px;
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+    }
+  </style>
+</head>
+<body class="p-6 md:p-8 max-w-[1520px] mx-auto min-h-screen">
+
+  <!-- ================= TOP HEADER / SPECIFICATION STATUS ================= -->
+  <header class="panel-frame p-4 mb-6 bg-[#E7DABC]/90 shadow-sm border-[#302C36]/30">
+    <div class="flex flex-col md:flex-row md:items-center justify-between gap-3 border-b border-[#302C36]/15 pb-3">
+      <div class="flex items-center flex-wrap gap-3">
+        <span class="badge-tag bg-[#302C36] text-[#E7DABC] font-semibold tracking-wider">LEGACY-01</span>
+        <h1 class="font-serif text-2xl md:text-3xl font-bold tracking-tight text-[#302C36]">
+          Extended City Asset Family
+        </h1>
+        <span class="badge-tag bg-[#65483C]/15 text-[#65483C] border border-[#65483C]/30 font-medium">
+          LIVING SETTLEMENT MASTER ART SPECIFICATION
+        </span>
+      </div>
+      <div class="flex items-center gap-3">
+        <span class="badge-tag bg-[#AD644D]/15 text-[#AD644D] border border-[#AD644D]/40 font-semibold">
+          <span class="w-2 h-2 rounded-full bg-[#AD644D] inline-block"></span>
+          Inactive catalog - static concepts only
+        </span>
+        <span class="badge-tag bg-[#302C36]/10 text-[#302C36] border border-[#302C36]/20">
+          1440px Art Review Canvas
+        </span>
+      </div>
+    </div>
+
+    <!-- Metadata strip -->
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-4 pt-3 text-xs font-mono text-[#302C36]/80">
+      <div>
+        <span class="text-[#302C36]/50 block uppercase text-[10px]">Source Ownership:</span>
+        <span class="font-semibold text-[#302C36]">BuildingFactory legacy paths</span>
+      </div>
+      <div>
+        <span class="text-[#302C36]/50 block uppercase text-[10px]">Catalog Scope:</span>
+        <span>12 callable legacy IDs (Pre-Ancient)</span>
+      </div>
+      <div>
+        <span class="text-[#302C36]/50 block uppercase text-[10px]">Projection & Lighting:</span>
+        <span>2:1 Dimetric Isometric (Upper-Right Light)</span>
+      </div>
+      <div>
+        <span class="text-[#302C36]/50 block uppercase text-[10px]">Palette Compliance:</span>
+        <span>Living Settlement 28-Color Restrained</span>
+      </div>
+    </div>
+  </header>
+
+  <!-- ================= SECTION 1: MASTER ILLUSTRATION MATRIX ================= -->
+  <section class="panel-frame p-5 mb-6 border-[#302C36]/25 bg-[#E7DABC]/60">
+    <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-4">
+      <div>
+        <div class="flex items-center gap-2">
+          <span class="badge-tag bg-[#527B8C] text-[#E7DABC] font-bold">ASSET-MASTER</span>
+          <h2 class="font-serif text-xl font-bold text-[#302C36]">
+            12-Asset Extended City Family Matrix (3×4 Grid)
+          </h2>
+        </div>
+        <p class="text-xs text-[#302C36]/75 mt-1 font-mono">
+          Authentic 16-bit retro isometric strategy pixel-art on solid flat parchment beige (#E7DABC). Completely static, unpopulated masters with wide isolation padding for slicing.
+        </p>
+      </div>
+
+      <a href="https://lh3.googleusercontent.com/aida-public/AB6AXuBY-Qu8ox93QQ1cnN6v0QBb3IGVhEcimSbXKktAMdxIb_Ml7vXiTQZ9vppVKQEZVRsu0iDhRlX28ZL9yN8qUSi7jJ9pdYvy3EXhrRCoINpA0AHbonEiYO7_PHcMy4xrDlY8wlGUXQslGE17DSgGO1EuUt6Fq1M0U8Xiyagibhx4gsdUXzRqy0g56qkN8Rh9Z1d9SZ0yAKcOtD7PTq3QcNEbqULbuyGjfSS2NQVWSTBFnqFmUUi9Rbwr3m-mipaM9mzZdHosl24jquk" target="_blank" download="LEGACY-01_Extended_City_Family_Master.png" 
+         class="inline-flex items-center gap-2 px-3 py-1.5 bg-[#302C36]/10 hover:bg-[#302C36]/20 border border-[#302C36]/30 rounded text-xs font-mono font-medium text-[#302C36] transition-colors self-start sm:self-auto">
+        <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/></svg>
+        Download Master PNG (1376×768)
+      </a>
+    </div>
+
+    <!-- Master Image Container -->
+    <div class="rounded border border-[#302C36]/20 bg-[#E7DABC] overflow-hidden p-2 flex items-center justify-center">
+      <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuBY-Qu8ox93QQ1cnN6v0QBb3IGVhEcimSbXKktAMdxIb_Ml7vXiTQZ9vppVKQEZVRsu0iDhRlX28ZL9yN8qUSi7jJ9pdYvy3EXhrRCoINpA0AHbonEiYO7_PHcMy4xrDlY8wlGUXQslGE17DSgGO1EuUt6Fq1M0U8Xiyagibhx4gsdUXzRqy0g56qkN8Rh9Z1d9SZ0yAKcOtD7PTq3QcNEbqULbuyGjfSS2NQVWSTBFnqFmUUi9Rbwr3m-mipaM9mzZdHosl24jquk" alt="LEGACY-01 Extended City Family 12-Asset Master Sheet" 
+           class="w-full h-auto object-contain pixel-art-board rounded shadow-sm max-h-[740px]" />
+    </div>
+
+    <!-- Matrix Row Breakdown & Cell Inventory -->
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mt-5 text-xs">
+      
+      <!-- Row 1 Card -->
+      <div class="p-3.5 bg-[#E7DABC]/80 border border-[#302C36]/15 rounded">
+        <div class="flex items-center justify-between pb-2 border-b border-[#302C36]/15 mb-2 font-mono">
+          <span class="font-bold text-[#65483C]">ROW 1: INFRASTRUCTURE & DOMESTIC</span>
+          <span class="text-[10px] text-[#302C36]/60">CELLS 1-4</span>
+        </div>
+        <ul class="space-y-2 text-[#302C36]/85">
+          <li>
+            <strong class="font-mono text-[#302C36]">1. road:</strong> Modular asphalt junction with chiseled curb stone sidewalks and subtle worn cobblestone underlay.
+          </li>
+          <li>
+            <strong class="font-mono text-[#302C36]">2. streetlight:</strong> Complete cast-iron Victorian/craftsman street lamp post with grounded fluted plinth and glass lantern head.
+          </li>
+          <li>
+            <strong class="font-mono text-[#302C36]">3. small_house:</strong> Compact single-family cottage, red brick chimney, tiled gable roof, framed windows and clean entrance door.
+          </li>
+          <li>
+            <strong class="font-mono text-[#302C36]">4. family_house:</strong> Larger two-story family residence, timber-clad porch, multi-pitch roof, dormer and clear doorway clearance.
+          </li>
+        </ul>
+      </div>
+
+      <!-- Row 2 Card -->
+      <div class="p-3.5 bg-[#E7DABC]/80 border border-[#302C36]/15 rounded">
+        <div class="flex items-center justify-between pb-2 border-b border-[#302C36]/15 mb-2 font-mono">
+          <span class="font-bold text-[#AD644D]">ROW 2: URBAN RESIDENTIAL & COMMERCE</span>
+          <span class="text-[10px] text-[#302C36]/60">CELLS 5-8</span>
+        </div>
+        <ul class="space-y-2 text-[#302C36]/85">
+          <li>
+            <strong class="font-mono text-[#302C36]">5. apartment:</strong> Multi-story brick/stone town apartment block with repeated sash windows, cornice roofline and grounded entrance stoop.
+          </li>
+          <li>
+            <strong class="font-mono text-[#302C36]">6. shop:</strong> Cozy merchant storefront with pitched striped fabric awning, display window bay and wooden paneled door.
+          </li>
+          <li>
+            <strong class="font-mono text-[#302C36]">7. bakery:</strong> Artisan bakery storefront featuring street-facing bread display vitrine, striped canvas canopy and wooden bracket sign.
+          </li>
+          <li>
+            <strong class="font-mono text-[#302C36]">8. restaurant:</strong> Neighborhood dining establishment with covered entrance and open outdoor pergola terrace with tiny bistro tables.
+          </li>
+        </ul>
+      </div>
+
+      <!-- Row 3 Card -->
+      <div class="p-3.5 bg-[#E7DABC]/80 border border-[#302C36]/15 rounded">
+        <div class="flex items-center justify-between pb-2 border-b border-[#302C36]/15 mb-2 font-mono">
+          <span class="font-bold text-[#59845A]">ROW 3: CIVIC, MEDICAL & GREENERY</span>
+          <span class="text-[10px] text-[#302C36]/60">CELLS 9-12</span>
+        </div>
+        <ul class="space-y-2 text-[#302C36]/85">
+          <li>
+            <strong class="font-mono text-[#302C36]">9. school:</strong> Classic municipal red brick school with central entrance bell/clock cupola, twin flights of stone steps, and scholastic windows.
+          </li>
+          <li>
+            <strong class="font-mono text-[#302C36]">10. clinic:</strong> Town medical clinic / apothecary with ashlar masonry walls, hipped slate roof, and classical entry portico columns.
+          </li>
+          <li>
+            <strong class="font-mono text-[#302C36]">11. park:</strong> Pocket public garden tile with stone perimeter border, gravel walking paths, manicured flower bed, and wooden park bench.
+          </li>
+          <li>
+            <strong class="font-mono text-[#302C36]">12. tree:</strong> Mature standalone town shade tree with broad clustered crown (#59845A), oak bark trunk and grounded root flare.
+          </li>
+        </ul>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ================= SECTION 2: SCALE REFERENCE & ARCHITECTURAL CLEARANCE STRIP ================= -->
+  <section class="panel-frame p-5 mb-6 border-[#302C36]/25 bg-[#E7DABC]/60">
+    <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-4">
+      <div>
+        <div class="flex items-center gap-2">
+          <span class="badge-tag bg-[#65483C] text-[#E7DABC] font-bold">SCALE-VERIFY</span>
+          <h2 class="font-serif text-xl font-bold text-[#302C36]">
+            Architectural Scale & Doorway Clearance Reference Strip
+          </h2>
+        </div>
+        <p class="text-xs text-[#302C36]/75 mt-1 font-mono">
+          Side-by-side progression: Cottage &rarr; Family Home &rarr; Apartment &rarr; Municipal Hall. A neutral CHAR-01 citizen (~48-54px in blue linen tunic) stands beside each doorway to confirm 2.2m scale clearance.
+        </p>
+      </div>
+
+      <a href="https://lh3.googleusercontent.com/aida-public/AB6AXuAXTQpfaF6vB3uBBRgwigujC_v0CiLzKp4EC_dcc1U-hRJ-7qGMHwafSYvbuT07sBXMkb90VYuvqBIhZdWSgIEb2FZBu6OGA9b2MM9MS5vfa7NQary7-DZ9OZihXWEprFnNGg1Zo_mk_YEvexL2hQuOnyQo8aHpJwr9GqW7CYkaqO660shO3WFQHSX3UzjVNA60WKSzHHXfzL0b9EXMEvzKPpfRv89q8cH3naV1u_yM1hfLWZaa8G_qgvz5kJCOtibAq943nYZfjrY" target="_blank" download="LEGACY-01_Scale_Reference_Strip.png" 
+         class="inline-flex items-center gap-2 px-3 py-1.5 bg-[#302C36]/10 hover:bg-[#302C36]/20 border border-[#302C36]/30 rounded text-xs font-mono font-medium text-[#302C36] transition-colors self-start sm:self-auto">
+        <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/></svg>
+        Download Scale Strip (1376×768)
+      </a>
+    </div>
+
+    <!-- Scale Strip Image Container -->
+    <div class="rounded border border-[#302C36]/20 bg-[#E7DABC] overflow-hidden p-2 flex items-center justify-center">
+      <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuAXTQpfaF6vB3uBBRgwigujC_v0CiLzKp4EC_dcc1U-hRJ-7qGMHwafSYvbuT07sBXMkb90VYuvqBIhZdWSgIEb2FZBu6OGA9b2MM9MS5vfa7NQary7-DZ9OZihXWEprFnNGg1Zo_mk_YEvexL2hQuOnyQo8aHpJwr9GqW7CYkaqO660shO3WFQHSX3UzjVNA60WKSzHHXfzL0b9EXMEvzKPpfRv89q8cH3naV1u_yM1hfLWZaa8G_qgvz5kJCOtibAq943nYZfjrY" alt="LEGACY-01 Scale and Doorway Clearance Reference Strip" 
+           class="w-full h-auto object-contain pixel-art-board rounded shadow-sm max-h-[500px]" />
+    </div>
+
+    <!-- Metrics verification details -->
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mt-4 text-xs font-mono">
+      <div class="p-3 bg-[#E7DABC]/80 border border-[#302C36]/15 rounded">
+        <div class="font-bold text-[#302C36] text-sm mb-1">1. small_house</div>
+        <div class="text-[#302C36]/70">Eave Height: ~84px</div>
+        <div class="text-[#302C36]/70">Doorway Clearance: 2.2m (48px sprite fit)</div>
+        <div class="text-[#59845A] font-semibold mt-1">✓ Proportion Verified</div>
+      </div>
+      <div class="p-3 bg-[#E7DABC]/80 border border-[#302C36]/15 rounded">
+        <div class="font-bold text-[#302C36] text-sm mb-1">2. family_house</div>
+        <div class="text-[#302C36]/70">Eave Height: ~140px (2 Stories)</div>
+        <div class="text-[#302C36]/70">Doorway Clearance: 2.3m with porch step</div>
+        <div class="text-[#59845A] font-semibold mt-1">✓ Proportion Verified</div>
+      </div>
+      <div class="p-3 bg-[#E7DABC]/80 border border-[#302C36]/15 rounded">
+        <div class="font-bold text-[#302C36] text-sm mb-1">3. apartment</div>
+        <div class="text-[#302C36]/70">Parapet Height: ~210px (3 Stories)</div>
+        <div class="text-[#302C36]/70">Entryway: Double doors & masonry stoop</div>
+        <div class="text-[#59845A] font-semibold mt-1">✓ Proportion Verified</div>
+      </div>
+      <div class="p-3 bg-[#E7DABC]/80 border border-[#302C36]/15 rounded">
+        <div class="font-bold text-[#302C36] text-sm mb-1">4. Municipal Structure</div>
+        <div class="text-[#302C36]/70">Pediment Peak: ~245px</div>
+        <div class="text-[#302C36]/70">Entryway: Portico colonnade entrance</div>
+        <div class="text-[#59845A] font-semibold mt-1">✓ Proportion Verified</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= SECTION 3: CONCISE ID LIST & PIPELINE AUDIT ================= -->
+  <section class="panel-frame p-5 border-[#302C36]/25 bg-[#E7DABC]/70">
+    <div class="flex items-center gap-2 mb-3">
+      <span class="badge-tag bg-[#302C36] text-[#E7DABC] font-bold">PIPELINE-AUDIT</span>
+      <h2 class="font-serif text-lg font-bold text-[#302C36]">
+        BuildingFactory Legacy Paths — Ownership & Export Registry
+      </h2>
+    </div>
+
+    <!-- Table of 12 Callable IDs -->
+    <div class="overflow-x-auto rounded border border-[#302C36]/20 bg-[#E7DABC]/90">
+      <table class="w-full text-left text-xs font-mono border-collapse">
+        <thead>
+          <tr class="bg-[#302C36]/10 border-b border-[#302C36]/20 text-[#302C36]">
+            <th class="p-2.5 font-bold">Asset ID</th>
+            <th class="p-2.5 font-bold">Callable Source Path</th>
+            <th class="p-2.5 font-bold">Visual Description</th>
+            <th class="p-2.5 font-bold">Catalog Status</th>
+            <th class="p-2.5 font-bold">Export Baseline</th>
+          </tr>
+        </thead>
+        <tbody class="divide-y divide-[#302C36]/10 text-[#302C36]/85">
+          <tr>
+            <td class="p-2 font-bold text-[#302C36]">road</td>
+            <td class="p-2">BuildingFactory.legacy.road</td>
+            <td class="p-2">Asphalt 4-way crossroad junction with stone curb sidewalk</td>
+            <td class="p-2"><span class="badge-tag bg-[#AD644D]/15 text-[#AD644D] border border-[#AD644D]/30">Inactive Concept</span></td>
+            <td class="p-2 text-[#59845A]">Static Art Approved</td>
+          </tr>
+          <tr>
+            <td class="p-2 font-bold text-[#302C36]">streetlight</td>
+            <td class="p-2">BuildingFactory.legacy.streetlight</td>
+            <td class="p-2">Cast-iron craftsman lamp post with fluted pedestal base</td>
+            <td class="p-2"><span class="badge-tag bg-[#AD644D]/15 text-[#AD644D] border border-[#AD644D]/30">Inactive Concept</span></td>
+            <td class="p-2 text-[#59845A]">Static Art Approved</td>
+          </tr>
+          <tr>
+            <td class="p-2 font-bold text-[#302C36]">small_house</td>
+            <td class="p-2">BuildingFactory.legacy.small_house</td>
+            <td class="p-2">Compact cottage, brick chimney, tiled gable roof</td>
+            <td class="p-2"><span class="badge-tag bg-[#AD644D]/15 text-[#AD644D] border border-[#AD644D]/30">Inactive Concept</span></td>
+            <td class="p-2 text-[#59845A]">Static Art Approved</td>
+          </tr>
+          <tr>
+            <td class="p-2 font-bold text-[#302C36]">family_house</td>
+            <td class="p-2">BuildingFactory.legacy.family_house</td>
+            <td class="p-2">Two-story residence with porch, bay window and dormer</td>
+            <td class="p-2"><span class="badge-tag bg-[#AD644D]/15 text-[#AD644D] border border-[#AD644D]/30">Inactive Concept</span></td>
+            <td class="p-2 text-[#59845A]">Static Art Approved</td>
+          </tr>
+          <tr>
+            <td class="p-2 font-bold text-[#302C36]">apartment</td>
+            <td class="p-2">BuildingFactory.legacy.apartment</td>
+            <td class="p-2">Multi-story residential block with stone stoop entrance</td>
+            <td class="p-2"><span class="badge-tag bg-[#AD644D]/15 text-[#AD644D] border border-[#AD644D]/30">Inactive Concept</span></td>
+            <td class="p-2 text-[#59845A]">Static Art Approved</td>
+          </tr>
+          <tr>
+            <td class="p-2 font-bold text-[#302C36]">shop</td>
+            <td class="p-2">BuildingFactory.legacy.shop</td>
+            <td class="p-2">Commercial storefront with striped awning and bay vitrine</td>
+            <td class="p-2"><span class="badge-tag bg-[#AD644D]/15 text-[#AD644D] border border-[#AD644D]/30">Inactive Concept</span></td>
+            <td class="p-2 text-[#59845A]">Static Art Approved</td>
+          </tr>
+          <tr>
+            <td class="p-2 font-bold text-[#302C36]">bakery</td>
+            <td class="p-2">BuildingFactory.legacy.bakery</td>
+            <td class="p-2">Artisan bakery with bread display window and striped canopy</td>
+            <td class="p-2"><span class="badge-tag bg-[#AD644D]/15 text-[#AD644D] border border-[#AD644D]/30">Inactive Concept</span></td>
+            <td class="p-2 text-[#59845A]">Static Art Approved</td>
+          </tr>
+          <tr>
+            <td class="p-2 font-bold text-[#302C36]">restaurant</td>
+            <td class="p-2">BuildingFactory.legacy.restaurant</td>
+            <td class="p-2">Dining establishment with pergola terrace and bistro seating</td>
+            <td class="p-2"><span class="badge-tag bg-[#AD644D]/15 text-[#AD644D] border border-[#AD644D]/30">Inactive Concept</span></td>
+            <td class="p-2 text-[#59845A]">Static Art Approved</td>
+          </tr>
+          <tr>
+            <td class="p-2 font-bold text-[#302C36]">school</td>
+            <td class="p-2">BuildingFactory.legacy.school</td>
+            <td class="p-2">Red brick municipal school with cupola bell tower and dual stairs</td>
+            <td class="p-2"><span class="badge-tag bg-[#AD644D]/15 text-[#AD644D] border border-[#AD644D]/30">Inactive Concept</span></td>
+            <td class="p-2 text-[#59845A]">Static Art Approved</td>
+          </tr>
+          <tr>
+            <td class="p-2 font-bold text-[#302C36]">clinic</td>
+            <td class="p-2">BuildingFactory.legacy.clinic</td>
+            <td class="p-2">Ashlar stone clinic / apothecary with entry portico columns</td>
+            <td class="p-2"><span class="badge-tag bg-[#AD644D]/15 text-[#AD644D] border border-[#AD644D]/30">Inactive Concept</span></td>
+            <td class="p-2 text-[#59845A]">Static Art Approved</td>
+          </tr>
+          <tr>
+            <td class="p-2 font-bold text-[#302C36]">park</td>
+            <td class="p-2">BuildingFactory.legacy.park</td>
+            <td class="p-2">Civic pocket park tile with gravel path, garden beds and bench</td>
+            <td class="p-2"><span class="badge-tag bg-[#AD644D]/15 text-[#AD644D] border border-[#AD644D]/30">Inactive Concept</span></td>
+            <td class="p-2 text-[#59845A]">Static Art Approved</td>
+          </tr>
+          <tr>
+            <td class="p-2 font-bold text-[#302C36]">tree</td>
+            <td class="p-2">BuildingFactory.legacy.tree</td>
+            <td class="p-2">Standalone mature urban shade tree with trunk and grounded root flare</td>
+            <td class="p-2"><span class="badge-tag bg-[#AD644D]/15 text-[#AD644D] border border-[#AD644D]/30">Inactive Concept</span></td>
+            <td class="p-2 text-[#59845A]">Static Art Approved</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Governance Constraints Note -->
+    <div class="mt-4 p-3 bg-[#E7DABC] border border-[#302C36]/20 rounded text-[11px] font-mono leading-relaxed text-[#302C36]/80 flex flex-col md:flex-row md:items-center justify-between gap-2">
+      <div>
+        <strong class="text-[#302C36]">CONSTRAINTS ENFORCED:</strong> Zero active gameplay changes; zero cost, tech era, or runtime placement rules authored. Artwork authored strictly as static art direction review masters on flat parchment beige (#E7DABC).
+      </div>
+      <div class="text-[#65483C] whitespace-nowrap">
+        CIVILIZATION TOWN // PHASE 1 LEGACY AUDIT
+      </div>
+    </div>
+  </section>
+
+</body>
+</html>
+

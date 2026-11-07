@@ -1,0 +1,1994 @@
+{
+  "activeGameManifest": false,
+  "assets": {
+    "architecture_references/door": {
+      "anchor": [
+        64,
+        125
+      ],
+      "crop": [
+        857,
+        46,
+        1043,
+        349
+      ],
+      "cutout": "cutouts/architecture_references/door.png",
+      "file": "native/architecture_references/door.png",
+      "height": 128,
+      "sha256": "128e69787e59735f26e87ba43081c9af35dd32b9c3725837a379e0274fb52a96",
+      "source": "architecture-components.jpg",
+      "sourceSha256": "be0090eb5e219c578df14889e307ccfffd8330f32cc6c5939dd5115379c7d4ef",
+      "usage": "reference_only_not_a_3d_mesh",
+      "width": 128
+    },
+    "architecture_references/fence": {
+      "anchor": [
+        64,
+        125
+      ],
+      "crop": [
+        383,
+        453,
+        587,
+        688
+      ],
+      "cutout": "cutouts/architecture_references/fence.png",
+      "file": "native/architecture_references/fence.png",
+      "height": 128,
+      "sha256": "7c3e19d788671b3c2e145d5d22efe8a760df4c3e3374df1ca4e2076413fc51de",
+      "source": "architecture-components.jpg",
+      "sourceSha256": "be0090eb5e219c578df14889e307ccfffd8330f32cc6c5939dd5115379c7d4ef",
+      "usage": "reference_only_not_a_3d_mesh",
+      "width": 128
+    },
+    "architecture_references/flag": {
+      "anchor": [
+        64,
+        125
+      ],
+      "crop": [
+        622,
+        424,
+        788,
+        688
+      ],
+      "cutout": "cutouts/architecture_references/flag.png",
+      "file": "native/architecture_references/flag.png",
+      "height": 128,
+      "sha256": "a18bb6b88c078b17f40a6a8a17e469bd891e5c2b39c7bcd2b487ae2fb9ce2069",
+      "source": "architecture-components.jpg",
+      "sourceSha256": "be0090eb5e219c578df14889e307ccfffd8330f32cc6c5939dd5115379c7d4ef",
+      "usage": "reference_only_not_a_3d_mesh",
+      "width": 128
+    },
+    "architecture_references/foundation": {
+      "anchor": [
+        64,
+        125
+      ],
+      "crop": [
+        35,
+        110,
+        345,
+        320
+      ],
+      "cutout": "cutouts/architecture_references/foundation.png",
+      "file": "native/architecture_references/foundation.png",
+      "height": 128,
+      "sha256": "686a7161c171a4d64b8b495692568cf664c271a92e3338c43fae9bd4d2826f3f",
+      "source": "architecture-components.jpg",
+      "sourceSha256": "be0090eb5e219c578df14889e307ccfffd8330f32cc6c5939dd5115379c7d4ef",
+      "usage": "reference_only_not_a_3d_mesh",
+      "width": 128
+    },
+    "architecture_references/post": {
+      "anchor": [
+        64,
+        125
+      ],
+      "crop": [
+        405,
+        35,
+        505,
+        360
+      ],
+      "cutout": "cutouts/architecture_references/post.png",
+      "file": "native/architecture_references/post.png",
+      "height": 128,
+      "sha256": "8bfbdb9aa2433c3e80dfcbd7696393378823badc37145b976a43c56d4ad2df8b",
+      "source": "architecture-components.jpg",
+      "sourceSha256": "be0090eb5e219c578df14889e307ccfffd8330f32cc6c5939dd5115379c7d4ef",
+      "usage": "reference_only_not_a_3d_mesh",
+      "width": 128
+    },
+    "architecture_references/research_table": {
+      "anchor": [
+        64,
+        125
+      ],
+      "crop": [
+        820,
+        430,
+        1080,
+        715
+      ],
+      "cutout": "cutouts/architecture_references/research_table.png",
+      "file": "native/architecture_references/research_table.png",
+      "height": 128,
+      "sha256": "77db5c19238e4bd837a2f15dd74b407efbd5ac59f62655aa6159d43ffac6cf4e",
+      "source": "architecture-components.jpg",
+      "sourceSha256": "be0090eb5e219c578df14889e307ccfffd8330f32cc6c5939dd5115379c7d4ef",
+      "usage": "reference_only_not_a_3d_mesh",
+      "width": 128
+    },
+    "architecture_references/thatch_roof": {
+      "anchor": [
+        64,
+        125
+      ],
+      "crop": [
+        15,
+        395,
+        380,
+        715
+      ],
+      "cutout": "cutouts/architecture_references/thatch_roof.png",
+      "file": "native/architecture_references/thatch_roof.png",
+      "height": 128,
+      "sha256": "546e4cb2c8ab1756d2dff1d1765648579f3880b5d37e090fdca42ebdbc01dd54",
+      "source": "architecture-components.jpg",
+      "sourceSha256": "be0090eb5e219c578df14889e307ccfffd8330f32cc6c5939dd5115379c7d4ef",
+      "usage": "reference_only_not_a_3d_mesh",
+      "width": 128
+    },
+    "architecture_references/wall": {
+      "anchor": [
+        64,
+        125
+      ],
+      "crop": [
+        570,
+        40,
+        790,
+        360
+      ],
+      "cutout": "cutouts/architecture_references/wall.png",
+      "file": "native/architecture_references/wall.png",
+      "height": 128,
+      "sha256": "bc09bae2001f13269e0ea295b4bd65a9e43d488555b52fd92f523dc0c84aadb1",
+      "source": "architecture-components.jpg",
+      "sourceSha256": "be0090eb5e219c578df14889e307ccfffd8330f32cc6c5939dd5115379c7d4ef",
+      "usage": "reference_only_not_a_3d_mesh",
+      "width": 128
+    },
+    "architecture_references/window": {
+      "anchor": [
+        64,
+        125
+      ],
+      "crop": [
+        1110,
+        35,
+        1340,
+        360
+      ],
+      "cutout": "cutouts/architecture_references/window.png",
+      "file": "native/architecture_references/window.png",
+      "height": 128,
+      "sha256": "bf4b382e7c4f744a96f0b0a494c669890d017cf4beba8cead251528d5cb3565b",
+      "source": "architecture-components.jpg",
+      "sourceSha256": "be0090eb5e219c578df14889e307ccfffd8330f32cc6c5939dd5115379c7d4ef",
+      "usage": "reference_only_not_a_3d_mesh",
+      "width": 128
+    },
+    "architecture_references/work_area": {
+      "anchor": [
+        64,
+        125
+      ],
+      "crop": [
+        1080,
+        380,
+        1360,
+        720
+      ],
+      "cutout": "cutouts/architecture_references/work_area.png",
+      "file": "native/architecture_references/work_area.png",
+      "height": 128,
+      "sha256": "f0d5d2d9b222cc5e8c85f33e0f646a24e604db1f05f0d81e1654d21bbf728420",
+      "source": "architecture-components.jpg",
+      "sourceSha256": "be0090eb5e219c578df14889e307ccfffd8330f32cc6c5939dd5115379c7d4ef",
+      "usage": "reference_only_not_a_3d_mesh",
+      "width": 128
+    },
+    "building_references/dirt_road": {
+      "anchor": [
+        128,
+        253
+      ],
+      "crop": [
+        1049,
+        546,
+        1338,
+        700
+      ],
+      "cutout": "cutouts/building_references/dirt_road.png",
+      "file": "native/building_references/dirt_road.png",
+      "height": 256,
+      "sha256": "c62a211230a4681804d2e52b5a58c86e647bc631c730ca51d78b4f6047ba1502",
+      "source": "ancient-sites-master.jpg",
+      "sourceSha256": "881955e71e14ee71c3eb59ae8163b6521d77b18e39e5e81b63113a60f25a0aff",
+      "usage": "reference_only_not_a_3d_mesh",
+      "width": 256
+    },
+    "building_references/farm": {
+      "anchor": [
+        128,
+        253
+      ],
+      "crop": [
+        680,
+        90,
+        1028,
+        357
+      ],
+      "cutout": "cutouts/building_references/farm.png",
+      "file": "native/building_references/farm.png",
+      "height": 256,
+      "sha256": "bbe76add2d790acd6fa26e462be0c0ee69ecbd939f12d065656075521cd634ec",
+      "source": "ancient-sites-master.jpg",
+      "sourceSha256": "881955e71e14ee71c3eb59ae8163b6521d77b18e39e5e81b63113a60f25a0aff",
+      "usage": "reference_only_not_a_3d_mesh",
+      "width": 256
+    },
+    "building_references/lumber_camp": {
+      "anchor": [
+        128,
+        253
+      ],
+      "crop": [
+        1030,
+        50,
+        1355,
+        332
+      ],
+      "cutout": "cutouts/building_references/lumber_camp.png",
+      "file": "native/building_references/lumber_camp.png",
+      "height": 256,
+      "sha256": "af1cab8825292759de1e1a8c73c3f1a8418da0377bf08f42e765eaae26817ca6",
+      "source": "ancient-sites-master.jpg",
+      "sourceSha256": "881955e71e14ee71c3eb59ae8163b6521d77b18e39e5e81b63113a60f25a0aff",
+      "usage": "reference_only_not_a_3d_mesh",
+      "width": 256
+    },
+    "building_references/primitive_house": {
+      "anchor": [
+        128,
+        253
+      ],
+      "crop": [
+        410,
+        65,
+        683,
+        320
+      ],
+      "cutout": "cutouts/building_references/primitive_house.png",
+      "file": "native/building_references/primitive_house.png",
+      "height": 256,
+      "sha256": "4c6638085c23c21bd3fa412e254a818add95b6cedfdbf057a646b44d8581676b",
+      "source": "ancient-sites-master.jpg",
+      "sourceSha256": "881955e71e14ee71c3eb59ae8163b6521d77b18e39e5e81b63113a60f25a0aff",
+      "usage": "reference_only_not_a_3d_mesh",
+      "width": 256
+    },
+    "building_references/research_hut": {
+      "anchor": [
+        128,
+        253
+      ],
+      "crop": [
+        710,
+        405,
+        1020,
+        710
+      ],
+      "cutout": "cutouts/building_references/research_hut.png",
+      "file": "native/building_references/research_hut.png",
+      "height": 256,
+      "sha256": "00c97c966bb1973e4ebeace665f71d901bb17d8b87d1bf4a57e4c6aa3f4ae333",
+      "source": "ancient-sites-master.jpg",
+      "sourceSha256": "881955e71e14ee71c3eb59ae8163b6521d77b18e39e5e81b63113a60f25a0aff",
+      "usage": "reference_only_not_a_3d_mesh",
+      "width": 256
+    },
+    "building_references/stone_quarry": {
+      "anchor": [
+        128,
+        253
+      ],
+      "crop": [
+        35,
+        405,
+        365,
+        704
+      ],
+      "cutout": "cutouts/building_references/stone_quarry.png",
+      "file": "native/building_references/stone_quarry.png",
+      "height": 256,
+      "sha256": "4726fb4c2cf35cacc6ca8f02e9653c8f849a0899133e74ffbd3ab481acfe1e64",
+      "source": "ancient-sites-master.jpg",
+      "sourceSha256": "881955e71e14ee71c3eb59ae8163b6521d77b18e39e5e81b63113a60f25a0aff",
+      "usage": "reference_only_not_a_3d_mesh",
+      "width": 256
+    },
+    "building_references/storage_hut": {
+      "anchor": [
+        128,
+        253
+      ],
+      "crop": [
+        375,
+        405,
+        700,
+        707
+      ],
+      "cutout": "cutouts/building_references/storage_hut.png",
+      "file": "native/building_references/storage_hut.png",
+      "height": 256,
+      "sha256": "3e9ad39dab8eab96185b82cea366d1f86bd03779af7131ad5ecfc21cd579a89f",
+      "source": "ancient-sites-master.jpg",
+      "sourceSha256": "881955e71e14ee71c3eb59ae8163b6521d77b18e39e5e81b63113a60f25a0aff",
+      "usage": "reference_only_not_a_3d_mesh",
+      "width": 256
+    },
+    "building_references/town_center": {
+      "anchor": [
+        128,
+        253
+      ],
+      "crop": [
+        25,
+        5,
+        374,
+        365
+      ],
+      "cutout": "cutouts/building_references/town_center.png",
+      "file": "native/building_references/town_center.png",
+      "height": 256,
+      "sha256": "805244c937afdb8260bfd985e2335631c8957582c0132967723fb9058f77f5df",
+      "source": "ancient-sites-master.jpg",
+      "sourceSha256": "881955e71e14ee71c3eb59ae8163b6521d77b18e39e5e81b63113a60f25a0aff",
+      "usage": "reference_only_not_a_3d_mesh",
+      "width": 256
+    },
+    "characters/builder_NE": {
+      "anchor": [
+        32,
+        60
+      ],
+      "crop": [
+        73,
+        773,
+        185,
+        1014
+      ],
+      "cutout": "cutouts/characters/builder_NE.png",
+      "file": "native/characters/builder_NE.png",
+      "height": 64,
+      "sha256": "3c06feda04e9dd85ae48cde8eac1abf2f1d674ba36a88b81d9b44785325cef38",
+      "source": "char-master.jpg",
+      "sourceSha256": "9d688ea8f1d058bd601b72a70b4d7de31a0b3136945493c5b6a5bc509a71b8e0",
+      "usage": "static_runtime_candidate",
+      "width": 64
+    },
+    "characters/builder_NW": {
+      "anchor": [
+        32,
+        60
+      ],
+      "crop": [
+        335,
+        773,
+        446,
+        1014
+      ],
+      "cutout": "cutouts/characters/builder_NW.png",
+      "file": "native/characters/builder_NW.png",
+      "height": 64,
+      "sha256": "f9060c582cedfbfb223c67f53c6421a624b7c3a093413091d784eea4cc048109",
+      "source": "char-master.jpg",
+      "sourceSha256": "9d688ea8f1d058bd601b72a70b4d7de31a0b3136945493c5b6a5bc509a71b8e0",
+      "usage": "static_runtime_candidate",
+      "width": 64
+    },
+    "characters/builder_SE": {
+      "anchor": [
+        32,
+        60
+      ],
+      "crop": [
+        582,
+        773,
+        691,
+        1014
+      ],
+      "cutout": "cutouts/characters/builder_SE.png",
+      "file": "native/characters/builder_SE.png",
+      "height": 64,
+      "sha256": "94ed828bffbd0b6528a43c259af7d255f2d6c42858a52c36cd1d99809d52e34b",
+      "source": "char-master.jpg",
+      "sourceSha256": "9d688ea8f1d058bd601b72a70b4d7de31a0b3136945493c5b6a5bc509a71b8e0",
+      "usage": "static_runtime_candidate",
+      "width": 64
+    },
+    "characters/builder_SW": {
+      "anchor": [
+        32,
+        60
+      ],
+      "crop": [
+        845,
+        773,
+        953,
+        1015
+      ],
+      "cutout": "cutouts/characters/builder_SW.png",
+      "file": "native/characters/builder_SW.png",
+      "height": 64,
+      "sha256": "51c3bb2c980b138b157b1dc385c23af7ada09ad680fbf60756d071a0ebad3c72",
+      "source": "char-master.jpg",
+      "sourceSha256": "9d688ea8f1d058bd601b72a70b4d7de31a0b3136945493c5b6a5bc509a71b8e0",
+      "usage": "static_runtime_candidate",
+      "width": 64
+    },
+    "characters/farmer_NE": {
+      "anchor": [
+        32,
+        60
+      ],
+      "crop": [
+        79,
+        274,
+        185,
+        513
+      ],
+      "cutout": "cutouts/characters/farmer_NE.png",
+      "file": "native/characters/farmer_NE.png",
+      "height": 64,
+      "sha256": "71f45ae2e77e7b688726a05e4adad28fd5dabf315ba4dc11fb2855d2663c787c",
+      "source": "char-master.jpg",
+      "sourceSha256": "9d688ea8f1d058bd601b72a70b4d7de31a0b3136945493c5b6a5bc509a71b8e0",
+      "usage": "static_runtime_candidate",
+      "width": 64
+    },
+    "characters/farmer_NW": {
+      "anchor": [
+        32,
+        60
+      ],
+      "crop": [
+        333,
+        274,
+        439,
+        513
+      ],
+      "cutout": "cutouts/characters/farmer_NW.png",
+      "file": "native/characters/farmer_NW.png",
+      "height": 64,
+      "sha256": "3ff63ed2455f368cfe59cbb19ddfe8c159802b69350beb409f8a1b7776041cbb",
+      "source": "char-master.jpg",
+      "sourceSha256": "9d688ea8f1d058bd601b72a70b4d7de31a0b3136945493c5b6a5bc509a71b8e0",
+      "usage": "static_runtime_candidate",
+      "width": 64
+    },
+    "characters/farmer_SE": {
+      "anchor": [
+        32,
+        60
+      ],
+      "crop": [
+        585,
+        273,
+        691,
+        515
+      ],
+      "cutout": "cutouts/characters/farmer_SE.png",
+      "file": "native/characters/farmer_SE.png",
+      "height": 64,
+      "sha256": "6037fb2507735c31a54340e5a2bbbf1967ed7f524d9287040eb8d03393d6f6f0",
+      "source": "char-master.jpg",
+      "sourceSha256": "9d688ea8f1d058bd601b72a70b4d7de31a0b3136945493c5b6a5bc509a71b8e0",
+      "usage": "static_runtime_candidate",
+      "width": 64
+    },
+    "characters/farmer_SW": {
+      "anchor": [
+        32,
+        60
+      ],
+      "crop": [
+        844,
+        273,
+        951,
+        515
+      ],
+      "cutout": "cutouts/characters/farmer_SW.png",
+      "file": "native/characters/farmer_SW.png",
+      "height": 64,
+      "sha256": "1563878d16c034793a74b53b8270e27dbef1d1a1fce4ba2bea9568196f5d7c1b",
+      "source": "char-master.jpg",
+      "sourceSha256": "9d688ea8f1d058bd601b72a70b4d7de31a0b3136945493c5b6a5bc509a71b8e0",
+      "usage": "static_runtime_candidate",
+      "width": 64
+    },
+    "characters/lumberjack_NE": {
+      "anchor": [
+        32,
+        60
+      ],
+      "crop": [
+        76,
+        522,
+        185,
+        763
+      ],
+      "cutout": "cutouts/characters/lumberjack_NE.png",
+      "file": "native/characters/lumberjack_NE.png",
+      "height": 64,
+      "sha256": "d60483c58698ba1852072a87442f466082854588fb0a44fbed853678489198b0",
+      "source": "char-master.jpg",
+      "sourceSha256": "9d688ea8f1d058bd601b72a70b4d7de31a0b3136945493c5b6a5bc509a71b8e0",
+      "usage": "static_runtime_candidate",
+      "width": 64
+    },
+    "characters/lumberjack_NW": {
+      "anchor": [
+        32,
+        60
+      ],
+      "crop": [
+        335,
+        522,
+        443,
+        764
+      ],
+      "cutout": "cutouts/characters/lumberjack_NW.png",
+      "file": "native/characters/lumberjack_NW.png",
+      "height": 64,
+      "sha256": "e4eb367af1c7431d250082870baf9400d32609895fa5e5d11972180e65f8d6bd",
+      "source": "char-master.jpg",
+      "sourceSha256": "9d688ea8f1d058bd601b72a70b4d7de31a0b3136945493c5b6a5bc509a71b8e0",
+      "usage": "static_runtime_candidate",
+      "width": 64
+    },
+    "characters/lumberjack_SE": {
+      "anchor": [
+        32,
+        60
+      ],
+      "crop": [
+        582,
+        522,
+        694,
+        764
+      ],
+      "cutout": "cutouts/characters/lumberjack_SE.png",
+      "file": "native/characters/lumberjack_SE.png",
+      "height": 64,
+      "sha256": "55ce36120de99b7cc74655b5ee85c1afa59f81da743241391c043e13c8070dcc",
+      "source": "char-master.jpg",
+      "sourceSha256": "9d688ea8f1d058bd601b72a70b4d7de31a0b3136945493c5b6a5bc509a71b8e0",
+      "usage": "static_runtime_candidate",
+      "width": 64
+    },
+    "characters/lumberjack_SW": {
+      "anchor": [
+        32,
+        60
+      ],
+      "crop": [
+        841,
+        522,
+        953,
+        764
+      ],
+      "cutout": "cutouts/characters/lumberjack_SW.png",
+      "file": "native/characters/lumberjack_SW.png",
+      "height": 64,
+      "sha256": "695d01345bcbd2501a82aa9290584042994e4cb8ee3c7373b724fb6ab8c1f0d1",
+      "source": "char-master.jpg",
+      "sourceSha256": "9d688ea8f1d058bd601b72a70b4d7de31a0b3136945493c5b6a5bc509a71b8e0",
+      "usage": "static_runtime_candidate",
+      "width": 64
+    },
+    "characters/villager_NE": {
+      "anchor": [
+        32,
+        60
+      ],
+      "crop": [
+        82,
+        25,
+        185,
+        264
+      ],
+      "cutout": "cutouts/characters/villager_NE.png",
+      "file": "native/characters/villager_NE.png",
+      "height": 64,
+      "sha256": "506ce5f51ae643816fbf5e4db3226555835b15a0bb7dff84df8daf4f52e9ec4e",
+      "source": "char-master.jpg",
+      "sourceSha256": "9d688ea8f1d058bd601b72a70b4d7de31a0b3136945493c5b6a5bc509a71b8e0",
+      "usage": "static_runtime_candidate",
+      "width": 64
+    },
+    "characters/villager_NW": {
+      "anchor": [
+        32,
+        60
+      ],
+      "crop": [
+        332,
+        25,
+        435,
+        264
+      ],
+      "cutout": "cutouts/characters/villager_NW.png",
+      "file": "native/characters/villager_NW.png",
+      "height": 64,
+      "sha256": "b82dd6fa81053d100b90fe2ab2ed1afb195789a9ad9c7efef572b213639f0f45",
+      "source": "char-master.jpg",
+      "sourceSha256": "9d688ea8f1d058bd601b72a70b4d7de31a0b3136945493c5b6a5bc509a71b8e0",
+      "usage": "static_runtime_candidate",
+      "width": 64
+    },
+    "characters/villager_SE": {
+      "anchor": [
+        32,
+        60
+      ],
+      "crop": [
+        589,
+        25,
+        690,
+        265
+      ],
+      "cutout": "cutouts/characters/villager_SE.png",
+      "file": "native/characters/villager_SE.png",
+      "height": 64,
+      "sha256": "2fda9ecd10d33724465116fb12e92fe2a287824c54cb9a1a1937a752d7e6515e",
+      "source": "char-master.jpg",
+      "sourceSha256": "9d688ea8f1d058bd601b72a70b4d7de31a0b3136945493c5b6a5bc509a71b8e0",
+      "usage": "static_runtime_candidate",
+      "width": 64
+    },
+    "characters/villager_SW": {
+      "anchor": [
+        32,
+        60
+      ],
+      "crop": [
+        845,
+        25,
+        947,
+        265
+      ],
+      "cutout": "cutouts/characters/villager_SW.png",
+      "file": "native/characters/villager_SW.png",
+      "height": 64,
+      "sha256": "9621ecffc97bc28899368b5646fdc85f214da467cb80bf4d7fadbf8444a5794e",
+      "source": "char-master.jpg",
+      "sourceSha256": "9d688ea8f1d058bd601b72a70b4d7de31a0b3136945493c5b6a5bc509a71b8e0",
+      "usage": "static_runtime_candidate",
+      "width": 64
+    },
+    "icons/agriculture": {
+      "anchor": [
+        12,
+        21
+      ],
+      "crop": [
+        340,
+        599,
+        483,
+        739
+      ],
+      "cutout": "cutouts/icons/agriculture.png",
+      "file": "native/icons/agriculture.png",
+      "height": 24,
+      "sha256": "715b412ca569941a25337ba9deb8d87796a6a3a2f0616910b86c5470d824348e",
+      "source": "icons-master.jpg",
+      "sourceSha256": "116384f18c215d16e60f576c796c49ad66a59dba32ad0021997c26cefe379eb0",
+      "usage": "static_runtime_candidate",
+      "width": 24
+    },
+    "icons/coins": {
+      "anchor": [
+        12,
+        21
+      ],
+      "crop": [
+        903,
+        49,
+        1026,
+        166
+      ],
+      "cutout": "cutouts/icons/coins.png",
+      "file": "native/icons/coins.png",
+      "height": 24,
+      "sha256": "e7e65cfb523c4371bb38a272e57d71be5b4a883745d01d1cb056cccd87d19854",
+      "source": "icons-master.jpg",
+      "sourceSha256": "116384f18c215d16e60f576c796c49ad66a59dba32ad0021997c26cefe379eb0",
+      "usage": "static_runtime_candidate",
+      "width": 24
+    },
+    "icons/construction": {
+      "anchor": [
+        12,
+        21
+      ],
+      "crop": [
+        336,
+        227,
+        482,
+        370
+      ],
+      "cutout": "cutouts/icons/construction.png",
+      "file": "native/icons/construction.png",
+      "height": 24,
+      "sha256": "8ec423cf1546f21929e92b60d91ae1f840fe03669c554fa2a61375a5ec146cee",
+      "source": "icons-master.jpg",
+      "sourceSha256": "116384f18c215d16e60f576c796c49ad66a59dba32ad0021997c26cefe379eb0",
+      "usage": "static_runtime_candidate",
+      "width": 24
+    },
+    "icons/dirt_road": {
+      "anchor": [
+        12,
+        21
+      ],
+      "crop": [
+        19,
+        604,
+        256,
+        734
+      ],
+      "cutout": "cutouts/icons/dirt_road.png",
+      "file": "native/icons/dirt_road.png",
+      "height": 24,
+      "sha256": "773098dab27c771d6a5e35eca19078550ddd1384c069c087a89f773647c086b5",
+      "source": "icons-master.jpg",
+      "sourceSha256": "116384f18c215d16e60f576c796c49ad66a59dba32ad0021997c26cefe379eb0",
+      "usage": "static_runtime_candidate",
+      "width": 24
+    },
+    "icons/farm": {
+      "anchor": [
+        12,
+        21
+      ],
+      "crop": [
+        31,
+        432,
+        245,
+        573
+      ],
+      "cutout": "cutouts/icons/farm.png",
+      "file": "native/icons/farm.png",
+      "height": 24,
+      "sha256": "f984e6fa56e84ffac044c07776c1d8edb357331e8c4d548ef4c4312dd1d7445f",
+      "source": "icons-master.jpg",
+      "sourceSha256": "116384f18c215d16e60f576c796c49ad66a59dba32ad0021997c26cefe379eb0",
+      "usage": "static_runtime_candidate",
+      "width": 24
+    },
+    "icons/food": {
+      "anchor": [
+        12,
+        21
+      ],
+      "crop": [
+        603,
+        30,
+        763,
+        168
+      ],
+      "cutout": "cutouts/icons/food.png",
+      "file": "native/icons/food.png",
+      "height": 24,
+      "sha256": "fad876ec20c4ec7a34738acd1a71323bc9f9df25082fda2825f5a2e461f77d75",
+      "source": "icons-master.jpg",
+      "sourceSha256": "116384f18c215d16e60f576c796c49ad66a59dba32ad0021997c26cefe379eb0",
+      "usage": "static_runtime_candidate",
+      "width": 24
+    },
+    "icons/happiness": {
+      "anchor": [
+        12,
+        21
+      ],
+      "crop": [
+        70,
+        234,
+        204,
+        367
+      ],
+      "cutout": "cutouts/icons/happiness.png",
+      "file": "native/icons/happiness.png",
+      "height": 24,
+      "sha256": "4f89b57cf22e2e60d85936364a1a6251112983ed425bde04e0657481aab56816",
+      "source": "icons-master.jpg",
+      "sourceSha256": "116384f18c215d16e60f576c796c49ad66a59dba32ad0021997c26cefe379eb0",
+      "usage": "static_runtime_candidate",
+      "width": 24
+    },
+    "icons/lumber_camp": {
+      "anchor": [
+        12,
+        21
+      ],
+      "crop": [
+        335,
+        426,
+        491,
+        568
+      ],
+      "cutout": "cutouts/icons/lumber_camp.png",
+      "file": "native/icons/lumber_camp.png",
+      "height": 24,
+      "sha256": "631a2de311c2fc522725b1a6e9ca70b761dbe809db8dcba67e1aaf58ec6948f0",
+      "source": "icons-master.jpg",
+      "sourceSha256": "116384f18c215d16e60f576c796c49ad66a59dba32ad0021997c26cefe379eb0",
+      "usage": "static_runtime_candidate",
+      "width": 24
+    },
+    "icons/masonry": {
+      "anchor": [
+        12,
+        21
+      ],
+      "crop": [
+        611,
+        604,
+        772,
+        741
+      ],
+      "cutout": "cutouts/icons/masonry.png",
+      "file": "native/icons/masonry.png",
+      "height": 24,
+      "sha256": "3d7f59f9d1045eb5de33af5d20db426445db46c216333b0efc01e17a5db9fae3",
+      "source": "icons-master.jpg",
+      "sourceSha256": "116384f18c215d16e60f576c796c49ad66a59dba32ad0021997c26cefe379eb0",
+      "usage": "static_runtime_candidate",
+      "width": 24
+    },
+    "icons/population": {
+      "anchor": [
+        12,
+        21
+      ],
+      "crop": [
+        1162,
+        39,
+        1313,
+        168
+      ],
+      "cutout": "cutouts/icons/population.png",
+      "file": "native/icons/population.png",
+      "height": 24,
+      "sha256": "13c982c5e9b088535e848049e80cc5319d4d961afaee9a3d27f78ed42163f1e7",
+      "source": "icons-master.jpg",
+      "sourceSha256": "116384f18c215d16e60f576c796c49ad66a59dba32ad0021997c26cefe379eb0",
+      "usage": "static_runtime_candidate",
+      "width": 24
+    },
+    "icons/primitive_house": {
+      "anchor": [
+        12,
+        21
+      ],
+      "crop": [
+        1157,
+        221,
+        1321,
+        372
+      ],
+      "cutout": "cutouts/icons/primitive_house.png",
+      "file": "native/icons/primitive_house.png",
+      "height": 24,
+      "sha256": "450f744aa0b50ac60b06ab5cc3ed13bea5ff519559c67ec9dcaf958fc5a195e7",
+      "source": "icons-master.jpg",
+      "sourceSha256": "116384f18c215d16e60f576c796c49ad66a59dba32ad0021997c26cefe379eb0",
+      "usage": "static_runtime_candidate",
+      "width": 24
+    },
+    "icons/research_hut": {
+      "anchor": [
+        12,
+        21
+      ],
+      "crop": [
+        1145,
+        409,
+        1333,
+        574
+      ],
+      "cutout": "cutouts/icons/research_hut.png",
+      "file": "native/icons/research_hut.png",
+      "height": 24,
+      "sha256": "f2df827f18422b006b4384aed69e4fb6250e29822d771d4966ec028031fd7974",
+      "source": "icons-master.jpg",
+      "sourceSha256": "116384f18c215d16e60f576c796c49ad66a59dba32ad0021997c26cefe379eb0",
+      "usage": "static_runtime_candidate",
+      "width": 24
+    },
+    "icons/stone": {
+      "anchor": [
+        12,
+        21
+      ],
+      "crop": [
+        335,
+        39,
+        483,
+        168
+      ],
+      "cutout": "cutouts/icons/stone.png",
+      "file": "native/icons/stone.png",
+      "height": 24,
+      "sha256": "f6a05f1e47d9f1ee27a9672374a83269ee0f3adca74443bcf14db7afaddbcd31",
+      "source": "icons-master.jpg",
+      "sourceSha256": "116384f18c215d16e60f576c796c49ad66a59dba32ad0021997c26cefe379eb0",
+      "usage": "static_runtime_candidate",
+      "width": 24
+    },
+    "icons/stone_quarry": {
+      "anchor": [
+        12,
+        21
+      ],
+      "crop": [
+        599,
+        435,
+        777,
+        566
+      ],
+      "cutout": "cutouts/icons/stone_quarry.png",
+      "file": "native/icons/stone_quarry.png",
+      "height": 24,
+      "sha256": "96afc074d928fa8206b8248ac5228c413dd5027dfd7da1f009ed773f9936fc42",
+      "source": "icons-master.jpg",
+      "sourceSha256": "116384f18c215d16e60f576c796c49ad66a59dba32ad0021997c26cefe379eb0",
+      "usage": "static_runtime_candidate",
+      "width": 24
+    },
+    "icons/storage_hut": {
+      "anchor": [
+        12,
+        21
+      ],
+      "crop": [
+        889,
+        415,
+        1061,
+        573
+      ],
+      "cutout": "cutouts/icons/storage_hut.png",
+      "file": "native/icons/storage_hut.png",
+      "height": 24,
+      "sha256": "d7c0aee3f82fe264cd4630a0f94a5ff470d385a9c2002a833d268a5e0d91df22",
+      "source": "icons-master.jpg",
+      "sourceSha256": "116384f18c215d16e60f576c796c49ad66a59dba32ad0021997c26cefe379eb0",
+      "usage": "static_runtime_candidate",
+      "width": 24
+    },
+    "icons/technology": {
+      "anchor": [
+        12,
+        21
+      ],
+      "crop": [
+        611,
+        232,
+        763,
+        367
+      ],
+      "cutout": "cutouts/icons/technology.png",
+      "file": "native/icons/technology.png",
+      "height": 24,
+      "sha256": "927396a4987f4128270f9725f1de28ce3e3ddccc8e4d7a20a6d2e92a11af9566",
+      "source": "icons-master.jpg",
+      "sourceSha256": "116384f18c215d16e60f576c796c49ad66a59dba32ad0021997c26cefe379eb0",
+      "usage": "static_runtime_candidate",
+      "width": 24
+    },
+    "icons/toolmaking": {
+      "anchor": [
+        12,
+        21
+      ],
+      "crop": [
+        910,
+        607,
+        1056,
+        740
+      ],
+      "cutout": "cutouts/icons/toolmaking.png",
+      "file": "native/icons/toolmaking.png",
+      "height": 24,
+      "sha256": "4f859cccdba6a9b4e345dfb122e3784ee304984f03d49a0245f2a05b6b93fe5b",
+      "source": "icons-master.jpg",
+      "sourceSha256": "116384f18c215d16e60f576c796c49ad66a59dba32ad0021997c26cefe379eb0",
+      "usage": "static_runtime_candidate",
+      "width": 24
+    },
+    "icons/town_center": {
+      "anchor": [
+        12,
+        21
+      ],
+      "crop": [
+        878,
+        219,
+        1038,
+        372
+      ],
+      "cutout": "cutouts/icons/town_center.png",
+      "file": "native/icons/town_center.png",
+      "height": 24,
+      "sha256": "c8436154f8835fe6dde7441777c1b2f43b1454da445fee6191fd7e5047892626",
+      "source": "icons-master.jpg",
+      "sourceSha256": "116384f18c215d16e60f576c796c49ad66a59dba32ad0021997c26cefe379eb0",
+      "usage": "static_runtime_candidate",
+      "width": 24
+    },
+    "icons/wood": {
+      "anchor": [
+        12,
+        21
+      ],
+      "crop": [
+        57,
+        42,
+        217,
+        166
+      ],
+      "cutout": "cutouts/icons/wood.png",
+      "file": "native/icons/wood.png",
+      "height": 24,
+      "sha256": "810e1eb789bea3349ed0e21f8a6fdc89cf9861594cd3321503e45bfbf964f1eb",
+      "source": "icons-master.jpg",
+      "sourceSha256": "116384f18c215d16e60f576c796c49ad66a59dba32ad0021997c26cefe379eb0",
+      "usage": "static_runtime_candidate",
+      "width": 24
+    },
+    "interior_references/primitive_house": {
+      "anchor": [
+        128,
+        253
+      ],
+      "crop": [
+        450,
+        345,
+        685,
+        610
+      ],
+      "cutout": "cutouts/interior_references/primitive_house.png",
+      "file": "native/interior_references/primitive_house.png",
+      "height": 256,
+      "sha256": "33583b0fc672dfd0d038c44557a49f12b77cecf6e229efd00dda07e8f3e64cd1",
+      "source": "interior-cutaways.jpg",
+      "sourceSha256": "eb71fd86fa341de12c02eb14797eb348e297c38ac6a788d3b85f1f8ffd404bfc",
+      "usage": "reference_only_not_a_3d_mesh",
+      "width": 256
+    },
+    "interior_references/research_hut": {
+      "anchor": [
+        128,
+        253
+      ],
+      "crop": [
+        1022,
+        232,
+        1337,
+        625
+      ],
+      "cutout": "cutouts/interior_references/research_hut.png",
+      "file": "native/interior_references/research_hut.png",
+      "height": 256,
+      "sha256": "cc61509f3a0b60599f8e0f7eddd20cc79690a423796499fc1fe11b262123b61a",
+      "source": "interior-cutaways.jpg",
+      "sourceSha256": "eb71fd86fa341de12c02eb14797eb348e297c38ac6a788d3b85f1f8ffd404bfc",
+      "usage": "reference_only_not_a_3d_mesh",
+      "width": 256
+    },
+    "interior_references/storage_hut": {
+      "anchor": [
+        128,
+        253
+      ],
+      "crop": [
+        695,
+        230,
+        1055,
+        635
+      ],
+      "cutout": "cutouts/interior_references/storage_hut.png",
+      "file": "native/interior_references/storage_hut.png",
+      "height": 256,
+      "sha256": "85dc7cd0535083ad7545f5a7dd2b181e3bf377a97df5502a49dc2eb8a2571071",
+      "source": "interior-cutaways.jpg",
+      "sourceSha256": "eb71fd86fa341de12c02eb14797eb348e297c38ac6a788d3b85f1f8ffd404bfc",
+      "usage": "reference_only_not_a_3d_mesh",
+      "width": 256
+    },
+    "interior_references/town_center": {
+      "anchor": [
+        128,
+        253
+      ],
+      "crop": [
+        30,
+        150,
+        450,
+        640
+      ],
+      "cutout": "cutouts/interior_references/town_center.png",
+      "file": "native/interior_references/town_center.png",
+      "height": 256,
+      "sha256": "4ebabf3fb4197bf481a53712b7677b36b4a2fa109b8c3c7fc9124a6c5fc04816",
+      "source": "interior-cutaways.jpg",
+      "sourceSha256": "eb71fd86fa341de12c02eb14797eb348e297c38ac6a788d3b85f1f8ffd404bfc",
+      "usage": "reference_only_not_a_3d_mesh",
+      "width": 256
+    },
+    "legacy_references/apartment": {
+      "anchor": [
+        128,
+        253
+      ],
+      "crop": [
+        108,
+        259,
+        267,
+        492
+      ],
+      "cutout": "cutouts/legacy_references/apartment.png",
+      "file": "native/legacy_references/apartment.png",
+      "height": 256,
+      "sha256": "8d2919108243617021beabee85c8cff5d996f5d4e153aee735cfeb04954b08cb",
+      "source": "legacy-master.jpg",
+      "sourceSha256": "7d96bf665e3d64e58d01d42bec09535fa67cf6b10346ce0341cf210ab9746b03",
+      "usage": "inactive_catalog_reference_only",
+      "width": 256
+    },
+    "legacy_references/bakery": {
+      "anchor": [
+        128,
+        253
+      ],
+      "crop": [
+        758,
+        273,
+        992,
+        482
+      ],
+      "cutout": "cutouts/legacy_references/bakery.png",
+      "file": "native/legacy_references/bakery.png",
+      "height": 256,
+      "sha256": "0166a66aaae9a6368c0b773be9498bc5d8c635f3cd008347ec353a07da8c630d",
+      "source": "legacy-master.jpg",
+      "sourceSha256": "7d96bf665e3d64e58d01d42bec09535fa67cf6b10346ce0341cf210ab9746b03",
+      "usage": "inactive_catalog_reference_only",
+      "width": 256
+    },
+    "legacy_references/clinic": {
+      "anchor": [
+        128,
+        253
+      ],
+      "crop": [
+        409,
+        520,
+        647,
+        726
+      ],
+      "cutout": "cutouts/legacy_references/clinic.png",
+      "file": "native/legacy_references/clinic.png",
+      "height": 256,
+      "sha256": "2babcc15906a6bfd9000b47f6dd7ac703945e254fcf03d5f56edf9d7adb5ddbc",
+      "source": "legacy-master.jpg",
+      "sourceSha256": "7d96bf665e3d64e58d01d42bec09535fa67cf6b10346ce0341cf210ab9746b03",
+      "usage": "inactive_catalog_reference_only",
+      "width": 256
+    },
+    "legacy_references/family_house": {
+      "anchor": [
+        128,
+        253
+      ],
+      "crop": [
+        1075,
+        11,
+        1317,
+        243
+      ],
+      "cutout": "cutouts/legacy_references/family_house.png",
+      "file": "native/legacy_references/family_house.png",
+      "height": 256,
+      "sha256": "e5417cbad86ac6b5dd62dc31ad979e378b93a3c2a88ddd5aa9564e72743d0736",
+      "source": "legacy-master.jpg",
+      "sourceSha256": "7d96bf665e3d64e58d01d42bec09535fa67cf6b10346ce0341cf210ab9746b03",
+      "usage": "inactive_catalog_reference_only",
+      "width": 256
+    },
+    "legacy_references/park": {
+      "anchor": [
+        128,
+        253
+      ],
+      "crop": [
+        710,
+        564,
+        1009,
+        732
+      ],
+      "cutout": "cutouts/legacy_references/park.png",
+      "file": "native/legacy_references/park.png",
+      "height": 256,
+      "sha256": "40b7d78dbb1d4cda34abd57e077590c1935aa0919a443fb996dcee22ce0208d5",
+      "source": "legacy-master.jpg",
+      "sourceSha256": "7d96bf665e3d64e58d01d42bec09535fa67cf6b10346ce0341cf210ab9746b03",
+      "usage": "inactive_catalog_reference_only",
+      "width": 256
+    },
+    "legacy_references/restaurant": {
+      "anchor": [
+        128,
+        253
+      ],
+      "crop": [
+        1073,
+        265,
+        1325,
+        492
+      ],
+      "cutout": "cutouts/legacy_references/restaurant.png",
+      "file": "native/legacy_references/restaurant.png",
+      "height": 256,
+      "sha256": "acf5b3e222d0d975e40cd600b0c963203076062d59299fa3fb1cf57bd08db985",
+      "source": "legacy-master.jpg",
+      "sourceSha256": "7d96bf665e3d64e58d01d42bec09535fa67cf6b10346ce0341cf210ab9746b03",
+      "usage": "inactive_catalog_reference_only",
+      "width": 256
+    },
+    "legacy_references/road": {
+      "anchor": [
+        128,
+        253
+      ],
+      "crop": [
+        24,
+        49,
+        358,
+        239
+      ],
+      "cutout": "cutouts/legacy_references/road.png",
+      "file": "native/legacy_references/road.png",
+      "height": 256,
+      "sha256": "5addbb52866885c4cb87e3d6a31e758a69cdc6e1cb3cd7d3ff6939752bda2d30",
+      "source": "legacy-master.jpg",
+      "sourceSha256": "7d96bf665e3d64e58d01d42bec09535fa67cf6b10346ce0341cf210ab9746b03",
+      "usage": "inactive_catalog_reference_only",
+      "width": 256
+    },
+    "legacy_references/school": {
+      "anchor": [
+        128,
+        253
+      ],
+      "crop": [
+        71,
+        510,
+        306,
+        737
+      ],
+      "cutout": "cutouts/legacy_references/school.png",
+      "file": "native/legacy_references/school.png",
+      "height": 256,
+      "sha256": "dcd5a7ed3a84e6d1346ecda9c2c0ff09ddb2d87e1fc5294b5827793934a61647",
+      "source": "legacy-master.jpg",
+      "sourceSha256": "7d96bf665e3d64e58d01d42bec09535fa67cf6b10346ce0341cf210ab9746b03",
+      "usage": "inactive_catalog_reference_only",
+      "width": 256
+    },
+    "legacy_references/shop": {
+      "anchor": [
+        128,
+        253
+      ],
+      "crop": [
+        417,
+        277,
+        622,
+        474
+      ],
+      "cutout": "cutouts/legacy_references/shop.png",
+      "file": "native/legacy_references/shop.png",
+      "height": 256,
+      "sha256": "58b1e8dfb8b2a55b55447fb9d97722a165d1764cd669f26b14ddec78bb07033c",
+      "source": "legacy-master.jpg",
+      "sourceSha256": "7d96bf665e3d64e58d01d42bec09535fa67cf6b10346ce0341cf210ab9746b03",
+      "usage": "inactive_catalog_reference_only",
+      "width": 256
+    },
+    "legacy_references/small_house": {
+      "anchor": [
+        128,
+        253
+      ],
+      "crop": [
+        752,
+        34,
+        967,
+        227
+      ],
+      "cutout": "cutouts/legacy_references/small_house.png",
+      "file": "native/legacy_references/small_house.png",
+      "height": 256,
+      "sha256": "bd8423ce7546538d672816c7c50887455868fa5bcb53bbb6cfd83335dde376be",
+      "source": "legacy-master.jpg",
+      "sourceSha256": "7d96bf665e3d64e58d01d42bec09535fa67cf6b10346ce0341cf210ab9746b03",
+      "usage": "inactive_catalog_reference_only",
+      "width": 256
+    },
+    "legacy_references/streetlight": {
+      "anchor": [
+        128,
+        253
+      ],
+      "crop": [
+        485,
+        17,
+        555,
+        236
+      ],
+      "cutout": "cutouts/legacy_references/streetlight.png",
+      "file": "native/legacy_references/streetlight.png",
+      "height": 256,
+      "sha256": "bc12a9460f848ba73b4719dc689c424fe17a40151497d5ed0641f0a1a4782e0e",
+      "source": "legacy-master.jpg",
+      "sourceSha256": "7d96bf665e3d64e58d01d42bec09535fa67cf6b10346ce0341cf210ab9746b03",
+      "usage": "inactive_catalog_reference_only",
+      "width": 256
+    },
+    "legacy_references/tree": {
+      "anchor": [
+        128,
+        253
+      ],
+      "crop": [
+        1104,
+        518,
+        1292,
+        738
+      ],
+      "cutout": "cutouts/legacy_references/tree.png",
+      "file": "native/legacy_references/tree.png",
+      "height": 256,
+      "sha256": "b4f19223d9c7d84e483f775a17747688b4c3c81f12f6a52036cc5763ef047c2f",
+      "source": "legacy-master.jpg",
+      "sourceSha256": "7d96bf665e3d64e58d01d42bec09535fa67cf6b10346ce0341cf210ab9746b03",
+      "usage": "inactive_catalog_reference_only",
+      "width": 256
+    },
+    "nature_references/bush_1": {
+      "anchor": [
+        64,
+        125
+      ],
+      "crop": [
+        796,
+        161,
+        965,
+        281
+      ],
+      "cutout": "cutouts/nature_references/bush_1.png",
+      "file": "native/nature_references/bush_1.png",
+      "height": 128,
+      "sha256": "97c006cc455e6df95dc546c19d2bacb97d2d30551df50379425a361b0c2ade08",
+      "source": "nature-master.jpg",
+      "sourceSha256": "81531a5620da0769349862ae4faf7e815c934a9194eb9a540171cbd167a003ed",
+      "usage": "reference_only_pending_3d_adaptation",
+      "width": 128
+    },
+    "nature_references/bush_2": {
+      "anchor": [
+        64,
+        125
+      ],
+      "crop": [
+        984,
+        140,
+        1176,
+        281
+      ],
+      "cutout": "cutouts/nature_references/bush_2.png",
+      "file": "native/nature_references/bush_2.png",
+      "height": 128,
+      "sha256": "929ec7c012c9446ed79653bb23dc542c0da4d67a0928660beb14794f568606ae",
+      "source": "nature-master.jpg",
+      "sourceSha256": "81531a5620da0769349862ae4faf7e815c934a9194eb9a540171cbd167a003ed",
+      "usage": "reference_only_pending_3d_adaptation",
+      "width": 128
+    },
+    "nature_references/bush_3": {
+      "anchor": [
+        64,
+        125
+      ],
+      "crop": [
+        1189,
+        149,
+        1331,
+        278
+      ],
+      "cutout": "cutouts/nature_references/bush_3.png",
+      "file": "native/nature_references/bush_3.png",
+      "height": 128,
+      "sha256": "3e1a9f3b026bce18d6cc21c6007d2dcf54149a7335a33fbca10f4be38572671b",
+      "source": "nature-master.jpg",
+      "sourceSha256": "81531a5620da0769349862ae4faf7e815c934a9194eb9a540171cbd167a003ed",
+      "usage": "reference_only_pending_3d_adaptation",
+      "width": 128
+    },
+    "nature_references/crop_1": {
+      "anchor": [
+        64,
+        125
+      ],
+      "crop": [
+        820,
+        550,
+        1068,
+        731
+      ],
+      "cutout": "cutouts/nature_references/crop_1.png",
+      "file": "native/nature_references/crop_1.png",
+      "height": 128,
+      "sha256": "298cbc2f187a22496ab3023b01d466ca2611a10a856cbeab7efd095960bd4903",
+      "source": "nature-master.jpg",
+      "sourceSha256": "81531a5620da0769349862ae4faf7e815c934a9194eb9a540171cbd167a003ed",
+      "usage": "reference_only_pending_3d_adaptation",
+      "width": 128
+    },
+    "nature_references/crop_2": {
+      "anchor": [
+        64,
+        125
+      ],
+      "crop": [
+        1090,
+        562,
+        1339,
+        731
+      ],
+      "cutout": "cutouts/nature_references/crop_2.png",
+      "file": "native/nature_references/crop_2.png",
+      "height": 128,
+      "sha256": "05e1e502f3fa8f541b3327eb188583ba16feec7e48bca5f03a9b329c146322a3",
+      "source": "nature-master.jpg",
+      "sourceSha256": "81531a5620da0769349862ae4faf7e815c934a9194eb9a540171cbd167a003ed",
+      "usage": "reference_only_pending_3d_adaptation",
+      "width": 128
+    },
+    "nature_references/grass_1": {
+      "anchor": [
+        64,
+        125
+      ],
+      "crop": [
+        278,
+        533,
+        421,
+        708
+      ],
+      "cutout": "cutouts/nature_references/grass_1.png",
+      "file": "native/nature_references/grass_1.png",
+      "height": 128,
+      "sha256": "af2b013a192e7e6da156ffa76b7c30981db8dfbe098dea8ba2d6a3c144513b11",
+      "source": "nature-master.jpg",
+      "sourceSha256": "81531a5620da0769349862ae4faf7e815c934a9194eb9a540171cbd167a003ed",
+      "usage": "reference_only_pending_3d_adaptation",
+      "width": 128
+    },
+    "nature_references/grass_2": {
+      "anchor": [
+        64,
+        125
+      ],
+      "crop": [
+        494,
+        608,
+        619,
+        705
+      ],
+      "cutout": "cutouts/nature_references/grass_2.png",
+      "file": "native/nature_references/grass_2.png",
+      "height": 128,
+      "sha256": "c7fb558903424fd6ecfc0896563f7c26c62110f0963e447d5c8b3bc5e1de8f2c",
+      "source": "nature-master.jpg",
+      "sourceSha256": "81531a5620da0769349862ae4faf7e815c934a9194eb9a540171cbd167a003ed",
+      "usage": "reference_only_pending_3d_adaptation",
+      "width": 128
+    },
+    "nature_references/grass_3": {
+      "anchor": [
+        64,
+        125
+      ],
+      "crop": [
+        634,
+        530,
+        762,
+        708
+      ],
+      "cutout": "cutouts/nature_references/grass_3.png",
+      "file": "native/nature_references/grass_3.png",
+      "height": 128,
+      "sha256": "7eac37f40e62f862b8e05c39814b05d4336d69e624fa706e93ebae0f408eef96",
+      "source": "nature-master.jpg",
+      "sourceSha256": "81531a5620da0769349862ae4faf7e815c934a9194eb9a540171cbd167a003ed",
+      "usage": "reference_only_pending_3d_adaptation",
+      "width": 128
+    },
+    "nature_references/rock_1": {
+      "anchor": [
+        64,
+        125
+      ],
+      "crop": [
+        788,
+        343,
+        966,
+        501
+      ],
+      "cutout": "cutouts/nature_references/rock_1.png",
+      "file": "native/nature_references/rock_1.png",
+      "height": 128,
+      "sha256": "2281de9af4d0f6e041adfd78c649d814b418e23cac66a42221c0c3b5234d41b4",
+      "source": "nature-master.jpg",
+      "sourceSha256": "81531a5620da0769349862ae4faf7e815c934a9194eb9a540171cbd167a003ed",
+      "usage": "reference_only_pending_3d_adaptation",
+      "width": 128
+    },
+    "nature_references/rock_2": {
+      "anchor": [
+        64,
+        125
+      ],
+      "crop": [
+        983,
+        367,
+        1182,
+        487
+      ],
+      "cutout": "cutouts/nature_references/rock_2.png",
+      "file": "native/nature_references/rock_2.png",
+      "height": 128,
+      "sha256": "edee92734483399491cd598bb6262aefeb8e96d562f1f8aa9158069d10c3e13a",
+      "source": "nature-master.jpg",
+      "sourceSha256": "81531a5620da0769349862ae4faf7e815c934a9194eb9a540171cbd167a003ed",
+      "usage": "reference_only_pending_3d_adaptation",
+      "width": 128
+    },
+    "nature_references/rock_3": {
+      "anchor": [
+        64,
+        125
+      ],
+      "crop": [
+        1203,
+        316,
+        1316,
+        498
+      ],
+      "cutout": "cutouts/nature_references/rock_3.png",
+      "file": "native/nature_references/rock_3.png",
+      "height": 128,
+      "sha256": "1b3fd551a892fd8a7829f195b94dbc51c57a6a50bac6efed219ef5be4f7f7b20",
+      "source": "nature-master.jpg",
+      "sourceSha256": "81531a5620da0769349862ae4faf7e815c934a9194eb9a540171cbd167a003ed",
+      "usage": "reference_only_pending_3d_adaptation",
+      "width": 128
+    },
+    "nature_references/rock_4": {
+      "anchor": [
+        64,
+        125
+      ],
+      "crop": [
+        48,
+        536,
+        255,
+        716
+      ],
+      "cutout": "cutouts/nature_references/rock_4.png",
+      "file": "native/nature_references/rock_4.png",
+      "height": 128,
+      "sha256": "d962eff58afa43c5e41db32d435e77cb5753a1c5ab9f3c4a651803f419477cd9",
+      "source": "nature-master.jpg",
+      "sourceSha256": "81531a5620da0769349862ae4faf7e815c934a9194eb9a540171cbd167a003ed",
+      "usage": "reference_only_pending_3d_adaptation",
+      "width": 128
+    },
+    "nature_references/tree_1": {
+      "anchor": [
+        64,
+        125
+      ],
+      "crop": [
+        37,
+        152,
+        298,
+        441
+      ],
+      "cutout": "cutouts/nature_references/tree_1.png",
+      "file": "native/nature_references/tree_1.png",
+      "height": 128,
+      "sha256": "8cf9491d87a0f00ca0cc49471c98e0eaa427ba15fe58a8705c03717d6f1823d9",
+      "source": "nature-master.jpg",
+      "sourceSha256": "81531a5620da0769349862ae4faf7e815c934a9194eb9a540171cbd167a003ed",
+      "usage": "reference_only_pending_3d_adaptation",
+      "width": 128
+    },
+    "nature_references/tree_2": {
+      "anchor": [
+        64,
+        125
+      ],
+      "crop": [
+        315,
+        106,
+        470,
+        441
+      ],
+      "cutout": "cutouts/nature_references/tree_2.png",
+      "file": "native/nature_references/tree_2.png",
+      "height": 128,
+      "sha256": "7e3e1dc6d5be5ee8f337775d0a3aca943b1acf656e710de5761d6db4b5ab0ad4",
+      "source": "nature-master.jpg",
+      "sourceSha256": "81531a5620da0769349862ae4faf7e815c934a9194eb9a540171cbd167a003ed",
+      "usage": "reference_only_pending_3d_adaptation",
+      "width": 128
+    },
+    "nature_references/tree_3": {
+      "anchor": [
+        64,
+        125
+      ],
+      "crop": [
+        496,
+        149,
+        749,
+        435
+      ],
+      "cutout": "cutouts/nature_references/tree_3.png",
+      "file": "native/nature_references/tree_3.png",
+      "height": 128,
+      "sha256": "de9b2d7c6fe55063ed235b1a975c2f0b427b71db204a521a6ebdad804d4ea13d",
+      "source": "nature-master.jpg",
+      "sourceSha256": "81531a5620da0769349862ae4faf7e815c934a9194eb9a540171cbd167a003ed",
+      "usage": "reference_only_pending_3d_adaptation",
+      "width": 128
+    },
+    "props/axe": {
+      "anchor": [
+        16,
+        29
+      ],
+      "crop": [
+        731,
+        112,
+        983,
+        270
+      ],
+      "cutout": "cutouts/props/axe.png",
+      "file": "native/props/axe.png",
+      "height": 32,
+      "sha256": "e6c410bbf4db07e6f82cd17aca2c69717222083d326e99a57a057050487c0718",
+      "source": "props-master.jpg",
+      "sourceSha256": "4d0553665d4a261ef3d209c088536796e23c915ffb25bac9f150b84644cb730f",
+      "usage": "static_runtime_candidate",
+      "width": 32
+    },
+    "props/book": {
+      "anchor": [
+        16,
+        29
+      ],
+      "crop": [
+        420,
+        326,
+        651,
+        496
+      ],
+      "cutout": "cutouts/props/book.png",
+      "file": "native/props/book.png",
+      "height": 32,
+      "sha256": "430ad2d4d385936e7285a834aa6a53dadebdd1a6d2443aeb45352d65b6bc5185",
+      "source": "props-master.jpg",
+      "sourceSha256": "4d0553665d4a261ef3d209c088536796e23c915ffb25bac9f150b84644cb730f",
+      "usage": "static_runtime_candidate",
+      "width": 32
+    },
+    "props/carried_stone": {
+      "anchor": [
+        16,
+        29
+      ],
+      "crop": [
+        1076,
+        327,
+        1288,
+        496
+      ],
+      "cutout": "cutouts/props/carried_stone.png",
+      "file": "native/props/carried_stone.png",
+      "height": 32,
+      "sha256": "4cb1188595ef3ba389e42d688abfe22f084847a177858d8e6cea8f29546a7e37",
+      "source": "props-master.jpg",
+      "sourceSha256": "4d0553665d4a261ef3d209c088536796e23c915ffb25bac9f150b84644cb730f",
+      "usage": "static_runtime_candidate",
+      "width": 32
+    },
+    "props/crate": {
+      "anchor": [
+        16,
+        29
+      ],
+      "crop": [
+        759,
+        518,
+        969,
+        739
+      ],
+      "cutout": "cutouts/props/crate.png",
+      "file": "native/props/crate.png",
+      "height": 32,
+      "sha256": "170b804160ecec421017871b2436b69b064998156c48b096c35bba2836448663",
+      "source": "props-master.jpg",
+      "sourceSha256": "4d0553665d4a261ef3d209c088536796e23c915ffb25bac9f150b84644cb730f",
+      "usage": "static_runtime_candidate",
+      "width": 32
+    },
+    "props/hammer": {
+      "anchor": [
+        16,
+        29
+      ],
+      "crop": [
+        1066,
+        106,
+        1295,
+        275
+      ],
+      "cutout": "cutouts/props/hammer.png",
+      "file": "native/props/hammer.png",
+      "height": 32,
+      "sha256": "e65d1db751713f76101f524fff47bc8b8f87b2d0d785155c04817ba9f0e73191",
+      "source": "props-master.jpg",
+      "sourceSha256": "4d0553665d4a261ef3d209c088536796e23c915ffb25bac9f150b84644cb730f",
+      "usage": "static_runtime_candidate",
+      "width": 32
+    },
+    "props/hoe": {
+      "anchor": [
+        16,
+        29
+      ],
+      "crop": [
+        84,
+        103,
+        327,
+        295
+      ],
+      "cutout": "cutouts/props/hoe.png",
+      "file": "native/props/hoe.png",
+      "height": 32,
+      "sha256": "f21644ab385289b5fba0c6f90bdf3ead455f2d9f273da6100ee8dc7eb1d34e59",
+      "source": "props-master.jpg",
+      "sourceSha256": "4d0553665d4a261ef3d209c088536796e23c915ffb25bac9f150b84644cb730f",
+      "usage": "static_runtime_candidate",
+      "width": 32
+    },
+    "props/log_stack": {
+      "anchor": [
+        16,
+        29
+      ],
+      "crop": [
+        415,
+        522,
+        659,
+        728
+      ],
+      "cutout": "cutouts/props/log_stack.png",
+      "file": "native/props/log_stack.png",
+      "height": 32,
+      "sha256": "60946b1ea4ce030f41c951fd613cdc67db9edd79fb96d81cb1aa5f22f360c3ec",
+      "source": "props-master.jpg",
+      "sourceSha256": "4d0553665d4a261ef3d209c088536796e23c915ffb25bac9f150b84644cb730f",
+      "usage": "static_runtime_candidate",
+      "width": 32
+    },
+    "props/pickaxe": {
+      "anchor": [
+        16,
+        29
+      ],
+      "crop": [
+        87,
+        320,
+        327,
+        501
+      ],
+      "cutout": "cutouts/props/pickaxe.png",
+      "file": "native/props/pickaxe.png",
+      "height": 32,
+      "sha256": "5c3df3cf14668e44395ab99bf6384b4c51375deabb54d98a2cc03aac663d1d6a",
+      "source": "props-master.jpg",
+      "sourceSha256": "4d0553665d4a261ef3d209c088536796e23c915ffb25bac9f150b84644cb730f",
+      "usage": "static_runtime_candidate",
+      "width": 32
+    },
+    "props/timber": {
+      "anchor": [
+        16,
+        29
+      ],
+      "crop": [
+        86,
+        525,
+        326,
+        723
+      ],
+      "cutout": "cutouts/props/timber.png",
+      "file": "native/props/timber.png",
+      "height": 32,
+      "sha256": "f965ec45927fc7ee66f1574a73a1576f1c3f6b8cd5b30b0ec424059d256f47fb",
+      "source": "props-master.jpg",
+      "sourceSha256": "4d0553665d4a261ef3d209c088536796e23c915ffb25bac9f150b84644cb730f",
+      "usage": "static_runtime_candidate",
+      "width": 32
+    },
+    "props/watering_can": {
+      "anchor": [
+        16,
+        29
+      ],
+      "crop": [
+        422,
+        100,
+        639,
+        295
+      ],
+      "cutout": "cutouts/props/watering_can.png",
+      "file": "native/props/watering_can.png",
+      "height": 32,
+      "sha256": "5428a3957f438be6c75e6fc88059a4ad34f291786fab0e4483e57e100bbcd2af",
+      "source": "props-master.jpg",
+      "sourceSha256": "4d0553665d4a261ef3d209c088536796e23c915ffb25bac9f150b84644cb730f",
+      "usage": "static_runtime_candidate",
+      "width": 32
+    },
+    "props/writing_tool": {
+      "anchor": [
+        16,
+        29
+      ],
+      "crop": [
+        746,
+        347,
+        974,
+        487
+      ],
+      "cutout": "cutouts/props/writing_tool.png",
+      "file": "native/props/writing_tool.png",
+      "height": 32,
+      "sha256": "88ba6a01cc23d1323b17428d1c7eb28911c06e91e132db1d19f2c6c2c4c91cb9",
+      "source": "props-master.jpg",
+      "sourceSha256": "4d0553665d4a261ef3d209c088536796e23c915ffb25bac9f150b84644cb730f",
+      "usage": "static_runtime_candidate",
+      "width": 32
+    },
+    "terrain/concrete": {
+      "anchor": null,
+      "crop": [
+        930,
+        447,
+        1120,
+        657
+      ],
+      "cutout": "cutouts/terrain/concrete.png",
+      "file": "native/terrain/concrete.png",
+      "height": 32,
+      "sha256": "45dbb4d5ff70986e40a13a73f77b9c1de04d33453756240747cc2af84baf92e4",
+      "source": "terrain-reference-initial.jpg",
+      "sourceSha256": "36ce9d60517a7c076cccc285bc26df073a2807d14a684516be835695ffe4be3d",
+      "usage": "static_grid_extension_candidate",
+      "width": 32
+    },
+    "terrain/dirt": {
+      "anchor": null,
+      "crop": [
+        0,
+        0,
+        1024,
+        1024
+      ],
+      "cutout": "cutouts/terrain/dirt.png",
+      "file": "native/terrain/dirt.png",
+      "height": 32,
+      "sha256": "faa9b10dbeb67c0fc1f6807960e246474c63e7614332cebe51538652929b2e34",
+      "source": "terrain-dirt-master.jpg",
+      "sourceSha256": "8c13ce18334d5aecd8d72c4c414a709b5e1fd1cff62a97d4e4030c6dad79e6f1",
+      "usage": "static_runtime_candidate",
+      "width": 32
+    },
+    "terrain/grass": {
+      "anchor": null,
+      "crop": [
+        0,
+        0,
+        1024,
+        1024
+      ],
+      "cutout": "cutouts/terrain/grass.png",
+      "file": "native/terrain/grass.png",
+      "height": 32,
+      "sha256": "81154c3d95fce3c7c82b2dde89fdabea078688ffc3e1f5d4dc0dca94515e0a47",
+      "source": "terrain-grass-master.jpg",
+      "sourceSha256": "99155bca93830a75a780e7bf94ae4c7dcf7ecbc5b0e1386622b3a895659d0109",
+      "usage": "static_runtime_candidate",
+      "width": 32
+    },
+    "terrain/path": {
+      "anchor": null,
+      "crop": [
+        0,
+        0,
+        512,
+        512
+      ],
+      "cutout": "cutouts/terrain/path.png",
+      "file": "native/terrain/path.png",
+      "height": 32,
+      "sha256": "b030622d688e154aabf19f082dea8300b3f2183eb17b1e6dbc75e0f92f4c48b1",
+      "source": "terrain-path-master.jpg",
+      "sourceSha256": "f734e9cf306e087d8183736bb890b396662bc8ed21f6afd8fc32b639013a0bd0",
+      "usage": "static_runtime_candidate",
+      "width": 32
+    },
+    "terrain/water": {
+      "anchor": null,
+      "crop": [
+        465,
+        463,
+        655,
+        514
+      ],
+      "cutout": "cutouts/terrain/water.png",
+      "file": "native/terrain/water.png",
+      "height": 32,
+      "sha256": "7ed36a66c1498fa2eb9cba3a05fc722fc87a18560a96e369f46c6c8c578553e4",
+      "source": "terrain-reference-initial.jpg",
+      "sourceSha256": "36ce9d60517a7c076cccc285bc26df073a2807d14a684516be835695ffe4be3d",
+      "usage": "static_grid_extension_candidate",
+      "width": 32
+    }
+  },
+  "paletteHash": "b05632696e6f79e1df1802ad4e881ff7940115e67a2706ef637d68a9a524f76a",
+  "source": "Stitch",
+  "staticOnly": true,
+  "version": 1
+}

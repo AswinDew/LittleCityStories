@@ -24,8 +24,8 @@ describe('MaterialLibrary', () => {
 
     expect(slab).toBeInstanceOf(THREE.Material);
     expect(grass).toBeInstanceOf(THREE.Material);
-    expect((slab as THREE.MeshLambertMaterial).color.getHex()).toBe(0x6e503b);
-    expect((grass as THREE.MeshLambertMaterial).color.getHex()).toBe(0x98cf7e);
+    expect((slab as THREE.MeshLambertMaterial).color.getHex()).toBe(0x65483c);
+    expect((grass as THREE.MeshLambertMaterial).color.getHex()).toBe(0x93af75);
   });
 
   it('resets singleton instance on dispose() so new instance is cleanly created', () => {
@@ -37,7 +37,7 @@ describe('MaterialLibrary', () => {
 
     // Verify materials work normally on new instance without returning purged fallback
     const wallMat = inst2.get('wall_cream');
-    expect((wallMat as THREE.MeshLambertMaterial).color.getHex()).toBe(0xfff3e0);
+    expect((wallMat as THREE.MeshLambertMaterial).color.getHex()).toBe(0xe7dabc);
   });
 
   it('returns fallback material for unregistered name with warning and caches it', () => {

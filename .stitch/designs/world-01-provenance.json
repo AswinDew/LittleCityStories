@@ -1,0 +1,47 @@
+{
+  "projectId": "9572784485551125903",
+  "sessionId": "7956754862826809728",
+  "source": "Stitch MCP",
+  "prompt": "Create the first STATIC GAME ART DIRECTION BOARD for Civilization Town, titled \"Living Settlement / World Composition\". This is a visual asset-development document, not a SaaS dashboard, product landing page, or playable game.\n\nPLATFORM: Desktop web art review, 1440px-wide, art-first composition.\n\nPAGE STRUCTURE:\n1. Compact title strip with board ID WORLD-01 and the label \"Static art concept\".\n2. Main content: one large original illustrated isometric pixel-art ancient village occupying at least 70% of the screen. Generate actual detailed scene imagery for this area, not CSS boxes, emoji, icon-font buildings, stock photographs, or UI wireframes. The scene contains a 3x3 town center with cloth banner, 1x1 thatched primitive homes, a 2x2 cultivated farm, 2x2 lumber camp with stacked logs, 2x2 quarry with rock face, 2x2 storage hut with crates, 2x2 research hut with table, connected 1x1 dirt paths, trees, bushes, rocks, grass clumps and crops. Make entrances and work areas visible. Include four small original pixel-art inhabitants at plausible doorway scale, standing still: tunic villager, straw-hat farmer, leather-vest lumberjack, linen-shirt builder with headband.\n3. A narrow reference strip beneath the scene shows the SAME four full-body inhabitants standing neutrally with visible complete arms, shoulders, pelvis and both legs. Show a house doorway alongside them for scale. No walking cycles or work poses.\n4. Small material detail crops showing thatch, wood, wall plaster, foliage and ground from the actual scene.\n5. Only a compact resource strip and construction selection sample along the scene edge; keep the village unobscured. No large sidebar, charts, marketing headline, newsletter, pricing or footer links.\n\nASSET REQUIREMENTS:\n- The scene and citizen portraits must be actual original image assets embedded in the HTML so they can be inspected and downloaded separately.\n- Keep citizen anatomy intact; do not hide arms behind oversized equipment. Tools can be shown beside characters.\n- All content is static: no animation, no GIF, no CSS transitions, no JavaScript motion.\n- This establishes the common source for subsequent character/building/nature/prop/icon sheets. Do not claim atlas/mesh exports or game integration.\n- Follow the project's Living Settlement design system for all visual styling.",
+  "screens": [
+    {
+      "name": "projects/9572784485551125903/screens/e1edd9785130403ea6a3b8c5a03d3bed",
+      "file": "world-master.png",
+      "type": "IMAGE",
+      "sourceFile": "projects/9572784485551125903/files/235a191927414b0b9331e18b44d418c8"
+    },
+    {
+      "name": "projects/9572784485551125903/screens/85ddf4e0e99f4363838beefbbcdbb741",
+      "file": "citizen-scale-reference.png",
+      "type": "IMAGE",
+      "sourceFile": "projects/9572784485551125903/files/4e93910dcc1c41bfa9c60b729195dd94"
+    },
+    {
+      "name": "projects/9572784485551125903/screens/8c6d6c0f9d77450989c17052f3486514",
+      "file": "material-reference.png",
+      "type": "IMAGE",
+      "sourceFile": "projects/9572784485551125903/files/96ee0d82c6c1467485500f949bd5734a"
+    },
+    {
+      "name": "projects/9572784485551125903/screens/1842cc534730402e8a32b9a7a2568a8b",
+      "file": "world-01-board.png",
+      "type": "DESIGN",
+      "sourceFile": "projects/9572784485551125903/files/dcdb0afcc4854d5a81ea8764ddde4b71",
+      "htmlFile": "projects/9572784485551125903/files/27fb3dda55d442f582fd08767fd072ff"
+    }
+  ],
+  "feedback": [
+    {
+      "text": "I have created the first **Static Game Art Direction Board** for Civilization Town: **\"Living Settlement / World Composition\" (WORLD-01)**, designed as a desktop web art review board at 1440px width following the Living Settlement design system.\n\n### Key Deliverables Produced:\n\n1. **Title & Classification Strip (WORLD-01)**:\n   - Compact header with board ID, \"Static art concept\" status badge, and review baseline indicators.\n\n2. **Master Isometric World Composition (occupies >70% of canvas)**:\n   - Asset: `High-fidelity 16-bit isometric pixel-art ancient settlement landscape, art direction master illustration for Civilization Town: Living Settlement. Ancient inhabited village from high isometric angle with sharp pixel clusters and crisp outlines. In the center: a 3x3 stone and timber ancient town center hall with woven cloth banner (#527B8C muted blue). Surrounding it: small 1x1 primitive thatched timber huts with open doorways, a 2x2 cultivated wheat and turnip farm with soil furrows, a 2x2 lumber camp with stacked timber logs and cutting stump, a 2x2 stone quarry with exposed rock face and chisel carts, a 2x2 clay storage hut with stacked pottery crates, and a 2x2 thatched research hut with scroll table. Grounded with 1x1 packed dirt paths, irregular green foliage trees (#59845A, #385C46), mossy boulders, and wild grass tufts on warm parchment soil (#B28E65, #93AF75). Visible tiny ancient inhabitants standing still near doorways and pathways: villager in simple blue tunic, farmer in straw hat and apron, lumberjack in leather vest, builder with headband and tool apron. Cohesive palette: warm parchment, timber brown, terracotta clay, moss green, harvest gold. No blurry rendering, clean pixel art craftsmanship.`\n   - High-fidelity 16-bit isometric pixel-art ancient settlement displaying:\n     - **3×3 Ancient Town Center Hall** with woven muted blue (#527B8C) banner.\n     - **1×1 Thatched primitive homes** with accessible doorways.\n     - **2×2 Cultivated farm** (wheat furrows and turnip patches).\n     - **2×2 Lumber camp** with stacked logs and cutting stump.\n     - **2×2 Exposed rock quarry** with carts.\n     - **2×2 Storage pottery hut** and **2×2 research hut**.\n     - Connected 1×1 dirt paths, organic foliage clusters, and grounded terrain.\n     - Four tiny pixel inhabitants placed at plausible doorway scale.\n\n3. **Neutral Citizen Scale Lineup (`CHAR-REF-01`)**:\n   - Asset: `Clean isometric 16-bit pixel-art character reference lineup of four ancient citizens standing side-by-side in neutral idle poses on neutral parchment background with a 1x1 thatched cottage doorway for scale comparison. From left to right: 1) Villager in simple muted blue linen tunic with waist pouch; 2) Farmer in wide straw hat and tied green-brown apron with visible pitchfork resting beside; 3) Lumberjack with robust build, leather vest, linen trousers, handaxe resting at feet; 4) Builder wearing headband, rolled linen shirt, leather tool apron with hammer on belt; 5) A wooden doorframe of a primitive thatched hut for scale height comparison. Full intact anatomical proportions: readable heads, continuous shoulders to elbows to wrists, two distinct arms, intact pelvis and connected legs, calm expressive pixel faces. Crisp pixel contours, restrained 2-3 shade steps, upper-right light source, no animation, static pixel art master.`\n   - Complete side-by-side anatomical master lineup on parchment ground alongside a 1×1 cottage doorway for scale clearance:\n     1. **Villager**: Muted blue linen tunic with belt pouch.\n     2. **Farmer**: Straw hat, tied apron, pitchfork resting.\n     3. **Lumberjack**: Robust build, leather vest, axe resting at feet.\n     4. **Builder**: Headband, rolled linen shirt, tool apron with hammer.\n   - Complete anatomical integrity: continuous shoulder-elbow-wrist arms, distinct hands, intact pelvis and legs, neutral idle poses (strictly static, no walk cycles or animation).\n\n4. **Material Detail Swatches (`MAT-SWATCH-01`)**:\n   - Asset: `Set of 5 clean 16-bit pixel art texture swatches in a row on parchment background: 1) layered straw thatch roof texture, 2) aged oak wood timber plank texture, 3) sundried clay plaster wall texture, 4) dense green tree canopy foliage texture, 5) packed loam dirt ground path texture. Crisp isometric pixel art craftsmanship matching ancient settlement palette.`\n   - Pixel-art material reference swatches for the 5 core settlement shaders:\n     - Layered Thatch (#C2A05B)\n     - Oak Timber (#65483C)\n     - Sundried Clay Plaster (#AD644D)\n     - Foliage Canopy (#59845A)\n     - Loam Dirt Path (#B28E65)\n\n5. **Edge HUD Overlay & Playfield Preservation**:\n   - Ultra-compact resource count strip (Food, Timber, Stone, Clay, Citizens) and 1×1 placement selector anchored cleanly along the perimeter without intruding into the settlement playfield.\n\nAll imagery consists of inspectable, standalone image assets embedded directly into the HTML without any CSS transitions, motion, or JavaScript animation."
+    },
+    {
+      "suggestion": "Generate Sheet CHAR-01: 4-directional isometric views (NE/NW/SE/SW) for the four citizens"
+    },
+    {
+      "suggestion": "Generate Sheet BLDG-01: Isometric architectural turnarounds and cutaways for ancient settlement buildings"
+    },
+    {
+      "suggestion": "Generate Sheet TILE-01: 32x32 terrain tiles and 24x24 resource icon pictograms"
+    }
+  ]
+}

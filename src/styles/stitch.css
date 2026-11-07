@@ -1,0 +1,96 @@
+/* Adapted from Stitch UI-02. Existing HUD controls/state bindings remain authoritative. */
+:root {
+  --font-main: 'Noto Sans', 'Segoe UI', sans-serif;
+  --font-mono: 'Cascadia Mono', Consolas, monospace;
+  --color-bg: #e7dabc;
+  --color-surface-glass: #f4ebd9;
+  --color-surface-glass-border: #65483c;
+  --color-primary: #59845a;
+  --color-primary-hover: #385c46;
+  --color-text-main: #302c36;
+  --color-text-muted: #65483c;
+  --color-danger: #ad644d;
+  --radius-sm: 4px;
+  --radius-md: 4px;
+  --shadow-sm: 0 1px 0 #65483c;
+  --shadow-md: 0 2px 0 #65483c;
+  --transition-fast: 0ms;
+}
+.glass-panel {
+  background: #f4ebd9;
+  border: 1px solid #65483c;
+  border-radius: 4px;
+  box-shadow: 0 2px 0 #65483c;
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+}
+.settlement-header { gap: 12px; }
+.settlement-title { padding: 10px 14px; min-width: 196px; }
+.settlement-title h1 { font-family: 'Noto Serif', Georgia, serif; font-size: 20px; letter-spacing: 0; }
+.settlement-title p { color: #65483c; }
+.resource-bar { padding: 9px 12px; gap: 8px 16px; }
+.resource-bar > div { min-width: 98px; column-gap: 7px; }
+.resource-bar strong { font-family: var(--font-mono); font-size: 16px; }
+.resource-bar small, .resource-bar span { color: #65483c; }
+.construction-hints { top: 142px; max-width: 295px; color: #65483c; }
+.construction-dock { width: min(840px, calc(100% - 32px)); padding: 10px 12px 6px; }
+.construction-tabs, .construction-tools { gap: 6px; }
+.construction-tabs button, .construction-tools button, .construction-inspector button {
+  background: #e7dabc;
+  border: 1px solid #65483c;
+  border-radius: 4px;
+  box-shadow: 0 1px 0 #65483c;
+  color: #302c36;
+  min-height: 30px;
+  padding: 6px 10px;
+  transition: none;
+}
+.construction-tabs button[aria-pressed="true"], .construction-tools button[aria-pressed="true"] {
+  background: #59845a; color: #fff; box-shadow: 0 1px 0 #302c36;
+}
+.construction-card {
+  background: #f4ebd9;
+  border: 1px solid #96704d;
+  border-radius: 3px;
+  min-width: 138px;
+  padding: 8px 10px;
+  gap: 4px;
+  color: #302c36;
+}
+.construction-card[aria-pressed="true"] { background: #e3d9b6; box-shadow: inset 0 0 0 2px #59845a; }
+.construction-card small { color: #65483c; }
+.construction-card:disabled { opacity: .6; border-style: dashed; }
+.construction-card:hover:not(:disabled), .construction-tools button:hover, .construction-tabs button:hover { border-color: #385c46; }
+.construction-card:active, .construction-tools button:active, .construction-tabs button:active, .camera-zoom button:active { transform: none; }
+.construction-feedback { color: #65483c; min-height: 24px; padding-top: 6px; }
+.construction-inspector { top: 185px; max-height: calc(100vh - 405px); width: 260px; padding: 14px; }
+.construction-inspector h2 { font-family: 'Noto Serif', Georgia, serif; }
+.construction-inspector button[data-action], .construction-tools [data-tool="demolish"][aria-pressed="true"] {
+  background: #ad644d; border-color: #65483c; color: #fff;
+}
+.worker-panel { border-color: #c19b68; }
+.worker-panel select { border: 1px solid #65483c; background: #e7dabc; color: #302c36; border-radius: 3px; }
+.camera-zoom { top: 139px; right: 16px; flex-direction: row; gap: 6px; }
+.camera-zoom button { width: 36px; height: 34px; background: #e7dabc; border: 1px solid #65483c; border-radius: 4px; box-shadow: 0 1px 0 #65483c; }
+button:focus-visible, select:focus-visible { outline: 3px solid #527b8c; outline-offset: 3px; }
+.asset-gallery-panel { border: 1px solid #65483c; border-radius: 4px; background: #f4ebd9; box-shadow: 0 2px 0 #65483c; }
+@media (max-width: 760px) {
+  .settlement-header { top: 10px; left: 10px; right: 10px; gap: 8px; }
+  .settlement-title { min-width: 170px; padding: 7px 10px; }
+  .settlement-title h1 { font-size: 17px; }
+  .resource-bar { gap: 7px 10px; padding: 7px 10px; }
+  .resource-bar > div { min-width: 80px; }
+  .resource-bar strong { font-size: 14px; }
+  .construction-inspector { top: 184px; right: 10px; width: 220px; max-height: calc(100vh - 420px); }
+  .construction-dock { bottom: 10px; width: calc(100% - 20px); padding: 8px; }
+  .construction-card { min-width: 125px; }
+  .camera-zoom { top: 140px; right: 10px; }
+}
+@media (max-width: 550px) {
+  /* The resource strip wraps below the title at phone widths. Reserve its rows. */
+  .settlement-header { flex-direction: column; }
+  .resource-bar { width: 100%; box-sizing: border-box; }
+  .resource-bar > div { flex: 1 1 calc(50% - 10px); min-width: 0; }
+  .camera-zoom { top: 212px; }
+  .construction-inspector { top: 254px; max-height: calc(100vh - 550px); }
+}

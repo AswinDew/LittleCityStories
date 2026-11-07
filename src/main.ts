@@ -1,4 +1,5 @@
 import './styles/global.css';
+import './styles/stitch.css';
 import { Game } from './game/Game';
 import { HUD } from './ui/HUD';
 import { GeneratedAssetLoader } from './assets/GeneratedAssetLoader';
@@ -6,6 +7,12 @@ import { applyWorldTextures } from './assets/WorldTextures';
 import { SpriteAtlas } from './assets/SpriteAtlas';
 
 document.addEventListener('DOMContentLoaded', () => {
+  if (import.meta.env.DEV && new URLSearchParams(location.search).get('buildingReview') === 'town_center') {
+    const root = document.getElementById('ui-root')!;
+    void import('./testing/TownCenterReview').then(({ createTownCenterReview }) => createTownCenterReview(root))
+      .catch(error => console.error('Town Center review failed:', error));
+    return;
+  }
   const canvasContainer = document.getElementById('canvas-container');
   if (!canvasContainer) {
     throw new Error('Canvas container element not found!');

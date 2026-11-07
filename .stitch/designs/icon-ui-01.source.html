@@ -1,0 +1,655 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ICON-UI-01 / Settlement Icons and HUD</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans:ital,wght@0,400;0,600;0,700;1,400&family=Noto+Serif:ital,wght@0,600;0,700;1,600&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            parchment: '#E7DABC',
+            'parchment-light': '#F4EBD9',
+            'parchment-dark': '#D8C7A3',
+            plum: '#302C36',
+            'deep-timber': '#65483C',
+            'aged-wood': '#96704D',
+            clay: '#AD644D',
+            moss: '#59845A',
+            'moss-dark': '#385C46',
+            'muted-blue': '#527B8C',
+            straw: '#C2A05B',
+            'harvest-gold': '#E8BA55',
+            stone: '#919B8B',
+            loam: '#B28E65',
+          },
+          fontFamily: {
+            serif: ['"Noto Serif"', 'serif'],
+            sans: ['"Noto Sans"', 'sans-serif'],
+            mono: ['"JetBrains Mono"', 'monospace'],
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    /* Strictly Static Pixel Art & Specification styling */
+    * {
+      box-sizing: border-box;
+      -webkit-font-smoothing: antialiased;
+    }
+    body {
+      background-color: #E7DABC;
+      color: #302C36;
+      font-family: 'Noto Sans', sans-serif;
+    }
+    .pixelated {
+      image-rendering: -moz-crisp-edges;
+      image-rendering: -webkit-crisp-edges;
+      image-rendering: pixelated;
+      image-rendering: crisp-edges;
+    }
+    .hud-panel {
+      background-color: rgba(231, 218, 188, 0.94);
+      border: 2px solid #65483C;
+      box-shadow: 0 4px 12px rgba(48, 44, 54, 0.22);
+    }
+    .hud-button {
+      background-color: #F4EBD9;
+      border: 1px solid #65483C;
+      color: #302C36;
+    }
+  </style>
+</head>
+<body class="p-6 md:p-10 max-w-[1500px] mx-auto min-h-screen">
+
+  <!-- TOP HEADER / BOARD SPECIFICATION -->
+  <header class="border-2 border-deep-timber rounded-lg bg-parchment-light p-5 mb-8 shadow-sm">
+    <div class="flex flex-wrap items-center justify-between gap-4 pb-4 border-b border-deep-timber/25">
+      <div class="flex items-center gap-3">
+        <span class="bg-plum text-parchment font-mono text-xs px-2.5 py-1 rounded font-bold uppercase tracking-wider">ICON-UI-01</span>
+        <h1 class="text-2xl md:text-3xl font-serif font-bold text-plum">Settlement Icons and Game HUD Specification</h1>
+        <span class="border border-deep-timber/40 bg-parchment px-2.5 py-0.5 rounded text-xs font-mono font-medium text-deep-timber uppercase tracking-wide">
+          Living Settlement Master Art Specification
+        </span>
+      </div>
+      <div class="flex items-center gap-3">
+        <span class="inline-flex items-center gap-1.5 text-xs font-mono font-bold bg-moss/20 text-moss-dark border border-moss/40 px-3 py-1 rounded-full">
+          <span class="w-2 h-2 rounded-full bg-moss inline-block"></span> Static Art Concept Approved Baseline (No Motion / No Animation)
+        </span>
+        <span class="text-xs font-mono bg-parchment px-2.5 py-1 rounded border border-deep-timber/30 text-deep-timber">
+          1440px Art Review Canvas
+        </span>
+      </div>
+    </div>
+
+    <!-- TECHNICAL METRICS BAR -->
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-4 pt-4 text-xs font-mono">
+      <div>
+        <span class="text-deep-timber/70 uppercase block text-[10px] font-bold">Target Icon Pixel Grid:</span>
+        <span class="font-bold text-plum">24×24 px (Runtime) / 48×48 px (Hi-DPI)</span>
+      </div>
+      <div>
+        <span class="text-deep-timber/70 uppercase block text-[10px] font-bold">HUD Projection Standard:</span>
+        <span class="font-bold text-plum">Dimetric Ortho (Non-obtrusive &gt;70% Playfield)</span>
+      </div>
+      <div>
+        <span class="text-deep-timber/70 uppercase block text-[10px] font-bold">Original Source Assets:</span>
+        <span class="font-bold text-plum">WORLD-01, BLDG-01, CHAR-01 verified</span>
+      </div>
+      <div>
+        <span class="text-deep-timber/70 uppercase block text-[10px] font-bold">Palette Compliance:</span>
+        <span class="font-bold text-plum">Living Settlement 28-Color Restrained (#302C36 contours)</span>
+      </div>
+    </div>
+  </header>
+
+  <!-- SECTION 1: MASTER PICTOCRAM ARTWORK (4x5 MATRIX / 19 ORIGINAL ICONS) -->
+  <section class="border-2 border-deep-timber rounded-lg bg-parchment-light p-6 mb-10 shadow-sm">
+    <div class="flex flex-wrap items-center justify-between gap-3 mb-4 pb-3 border-b border-deep-timber/30">
+      <div>
+        <div class="flex items-center gap-2">
+          <span class="bg-moss text-parchment-light font-mono text-xs px-2 py-0.5 rounded font-bold uppercase">ICON-MASTER</span>
+          <h2 class="text-xl font-serif font-bold text-plum">19-Icon Pixel-Art Master Sheet (4×5 Matrix Matrix)</h2>
+        </div>
+        <p class="text-xs text-deep-timber mt-1 font-sans">
+          Individually illustrated pixel-art pictograms on flat parchment beige (#E7DABC). Clear 1-pixel plum contour (#302C36), upper-right sunlight direction. No text inside icon pixels.
+        </p>
+      </div>
+      <div class="flex items-center gap-2">
+        <a href="https://lh3.googleusercontent.com/aida-public/AB6AXuDpwk-5yjdlbcZPnysTsAFO-VWsHacvG-L1gXgyLxaGH8HR87w9-OA6CLD5KhD-2X5RJEb5DgkXLxvYI_dUEb0F2JOwJK-3a59AibPpJSk-x2wlUmo4-aD82-uGSv5WYiF5jTf0944u-sHdT_2jjBwB_x0QrnLynZP9vlDcE-Vze80rjrm-_EbR88a9FRl2MxY1Dacwmfeu2UqdgggG-8RyhEDqP87b_X1pFQfXz9AmM0LLStHK6dhzPxKiuWQjGXAsUXQ3fcq8ZiM" target="_blank" download class="inline-flex items-center gap-1.5 text-xs font-mono font-bold bg-parchment hover:bg-parchment-dark text-plum border border-deep-timber px-3 py-1.5 rounded transition-none">
+          <svg class="w-3.5 h-3.5 text-deep-timber" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path></svg>
+          Download Master PNG (1376×768)
+        </a>
+      </div>
+    </div>
+
+    <!-- MAIN ARTWORK DISPLAY -->
+    <div class="bg-parchment p-3 rounded border border-deep-timber/40 overflow-hidden flex justify-center mb-6">
+      <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuDpwk-5yjdlbcZPnysTsAFO-VWsHacvG-L1gXgyLxaGH8HR87w9-OA6CLD5KhD-2X5RJEb5DgkXLxvYI_dUEb0F2JOwJK-3a59AibPpJSk-x2wlUmo4-aD82-uGSv5WYiF5jTf0944u-sHdT_2jjBwB_x0QrnLynZP9vlDcE-Vze80rjrm-_EbR88a9FRl2MxY1Dacwmfeu2UqdgggG-8RyhEDqP87b_X1pFQfXz9AmM0LLStHK6dhzPxKiuWQjGXAsUXQ3fcq8ZiM" alt="19-Icon Pixel Art Master Sheet (4x5 Matrix)" class="w-full max-w-[1100px] h-auto rounded border border-deep-timber/30 pixelated shadow-sm" />
+    </div>
+
+    <!-- SPECIFICATION & TAXONOMY AUDIT TABLE (READING ORDER VERIFICATION) -->
+    <div class="bg-parchment/60 rounded border border-deep-timber/30 p-4">
+      <h3 class="font-serif font-bold text-sm text-plum mb-3 flex items-center justify-between">
+        <span>Master Icon Taxonomy &amp; Semantic Readability Matrix (19 Authored / 1 Preserved Buffer)</span>
+        <span class="text-xs font-mono text-deep-timber">Export Size Target: 24×24px</span>
+      </h3>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 text-xs">
+        <!-- ROW 1 -->
+        <div class="border border-deep-timber/30 rounded p-3 bg-parchment-light">
+          <span class="font-mono font-bold text-deep-timber text-[11px] block border-b border-deep-timber/20 pb-1 mb-2">ROW 1: RESOURCES &amp; PEOPLE</span>
+          <ul class="space-y-2 font-mono">
+            <li><strong class="text-plum">1. wood:</strong> Bundled split oak firewood logs tied with twine.</li>
+            <li><strong class="text-plum">2. stone:</strong> Three natural rough-cut limestone rocks (not quarry).</li>
+            <li><strong class="text-plum">3. food:</strong> Wicker harvest basket with wheat &amp; purple turnip.</li>
+            <li><strong class="text-plum">4. coins:</strong> Stacked stamped bronze/gold round currency coins.</li>
+            <li><strong class="text-plum">5. population:</strong> Twin villager bust silhouettes in blue tunics.</li>
+          </ul>
+        </div>
+
+        <!-- ROW 2 -->
+        <div class="border border-deep-timber/30 rounded p-3 bg-parchment-light">
+          <span class="font-mono font-bold text-deep-timber text-[11px] block border-b border-deep-timber/20 pb-1 mb-2">ROW 2: METRICS &amp; CORE CIVICS</span>
+          <ul class="space-y-2 font-mono">
+            <li><strong class="text-plum">6. happiness:</strong> Carved wooden folk smiling face medallion.</li>
+            <li><strong class="text-plum">7. construction:</strong> Joiner hammer crossed with notched timber beam.</li>
+            <li><strong class="text-plum">8. technology:</strong> Scholar parchment scroll paired with brass gear.</li>
+            <li><strong class="text-plum">9. town_center:</strong> Exact BLDG-01 2-story civic hall &amp; banner.</li>
+            <li><strong class="text-plum">10. primitive_house:</strong> Exact BLDG-01 thatched clay 1×1 cottage.</li>
+          </ul>
+        </div>
+
+        <!-- ROW 3 -->
+        <div class="border border-deep-timber/30 rounded p-3 bg-parchment-light">
+          <span class="font-mono font-bold text-deep-timber text-[11px] block border-b border-deep-timber/20 pb-1 mb-2">ROW 3: PRODUCTION BUILDINGS</span>
+          <ul class="space-y-2 font-mono">
+            <li><strong class="text-plum">11. farm:</strong> 2×2 furrowed field with crops &amp; rustic fence.</li>
+            <li><strong class="text-plum">12. lumber_camp:</strong> Lean-to woodcutter shelter, logs &amp; stump.</li>
+            <li><strong class="text-plum">13. stone_quarry:</strong> Stepped rock-face excavation with rested pick.</li>
+            <li><strong class="text-plum">14. storage_hut:</strong> Raised clay storehouse with crate &amp; urn.</li>
+            <li><strong class="text-plum">15. research_hut:</strong> Scholar cottage with drafting desk &amp; scroll.</li>
+          </ul>
+        </div>
+
+        <!-- ROW 4 -->
+        <div class="border border-deep-timber/30 rounded p-3 bg-parchment-light">
+          <span class="font-mono font-bold text-deep-timber text-[11px] block border-b border-deep-timber/20 pb-1 mb-2">ROW 4: TRADES &amp; INFRASTRUCTURE</span>
+          <ul class="space-y-2 font-mono">
+            <li><strong class="text-plum">16. dirt_road:</strong> 4-way packed loam dirt path crossroad junction.</li>
+            <li><strong class="text-plum">17. agriculture:</strong> Fresh green seedling sprout &amp; single wheat ear.</li>
+            <li><strong class="text-plum">18. masonry:</strong> Dressed square ashlar blocks &amp; mason chisel.</li>
+            <li><strong class="text-plum">19. toolmaking:</strong> Iron blacksmith anvil resting on tree trunk.</li>
+            <li><span class="text-deep-timber/60 italic font-mono">20. [BLANK]: Reserved spacing slot for padding.</span></li>
+          </ul>
+        </div>
+      </div>
+      
+      <!-- SILHOUETTE DISAMBIGUATION GUARANTEE -->
+      <div class="mt-4 pt-3 border-t border-deep-timber/20 text-[11px] font-sans flex flex-wrap items-center justify-between text-deep-timber">
+        <span class="font-medium">
+          <strong>Distinct Silhouette Audit:</strong> <span class="text-moss-dark font-bold font-mono">food</span> (woven basket) ≠ <span class="text-moss-dark font-bold font-mono">farm</span> (fenced plot) ≠ <span class="text-moss-dark font-bold font-mono">agriculture</span> (sprouting shoot) &bull; <span class="text-muted-blue font-bold font-mono">stone</span> (raw rock pile) ≠ <span class="text-muted-blue font-bold font-mono">stone_quarry</span> (cut cliff) ≠ <span class="text-muted-blue font-bold font-mono">masonry</span> (square ashlar + chisel).
+        </span>
+        <span class="font-mono text-[10px] bg-parchment px-2 py-0.5 rounded border border-deep-timber/20">Zero stock emoji / Unicode used</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- SECTION 2: STATIC IN-GAME HUD COMPOSITION OVER WORLD-01 -->
+  <section class="border-2 border-deep-timber rounded-lg bg-parchment-light p-6 mb-10 shadow-sm">
+    <div class="flex flex-wrap items-center justify-between gap-3 mb-4 pb-3 border-b border-deep-timber/30">
+      <div>
+        <div class="flex items-center gap-2">
+          <span class="bg-muted-blue text-parchment-light font-mono text-xs px-2 py-0.5 rounded font-bold uppercase">HUD-VIEWPORT</span>
+          <h2 class="text-xl font-serif font-bold text-plum">Living Settlement In-Game HUD Composition</h2>
+        </div>
+        <p class="text-xs text-deep-timber mt-1 font-sans">
+          Static in-game HUD overlay composite using the verified WORLD-01 art direction master as playfield. Over 75% of the living world is completely visible and unobscured.
+        </p>
+      </div>
+      <div class="text-xs font-mono text-deep-timber bg-parchment px-3 py-1 rounded border border-deep-timber/30">
+        Viewport Target: 16:9 In-Game Dimetric View
+      </div>
+    </div>
+
+    <!-- HUD VIEWPORT CONTAINER -->
+    <div class="relative w-full aspect-[16/9] rounded-lg overflow-hidden border-2 border-deep-timber shadow-md bg-stone/20 select-none">
+      
+      <!-- ACTUAL PLAYFIELD BACKGROUND IMAGE (WORLD-01) -->
+      <img src="https://lh3.googleusercontent.com/aida/AEtjO1XEbVaANUXCUJtT9fVeHRf6gl5F7ErXmTmTZj5-2BRKKYJh-vPcBueKdbJ2xBx5WGMsGGOKqcECgs9eeIfGTdKdmMKJ4AkCJSriTqG4h5YyoTKn3dQ6oib6k6FTpzYxWJLogtKDHo07eFUhuNY7QUoLzdAWTs6hpJ1Jw5pWyM8YAen0UK-fVC6yPY2w2RfiQ0eqGBDBsLdCIWYWHyVCDezcPQYzbqfzTvsoIEhdBQGmg676JSLrOYdt2zE" alt="Settlement Playfield" class="absolute inset-0 w-full h-full object-cover pixelated" />
+
+      <!-- GRID OVERLAY INDICATOR (NON-INTRUSIVE PLACEMENT GUIDELINES) -->
+      <div class="absolute inset-0 pointer-events-none bg-gradient-to-t from-plum/20 via-transparent to-plum/10"></div>
+
+      <!-- 1. TOP RESOURCE & STATUS STRIP (COMPACT UPPER BAR) -->
+      <div class="absolute top-3 left-4 right-4 flex items-center justify-between pointer-events-auto">
+        <!-- Resource Counters (Wood, Stone, Food, Coins) -->
+        <div class="hud-panel px-3 py-1.5 rounded flex items-center gap-5 text-xs font-mono">
+          <!-- Wood -->
+          <div class="flex items-center gap-1.5" title="Wood: 284">
+            <span class="w-4 h-4 rounded bg-deep-timber/20 border border-deep-timber flex items-center justify-center font-bold text-[10px] text-deep-timber">W</span>
+            <span class="font-bold text-plum">284</span>
+            <span class="text-[10px] text-moss-dark font-medium">+12/m</span>
+          </div>
+          <!-- Stone -->
+          <div class="flex items-center gap-1.5 border-l border-deep-timber/25 pl-4" title="Stone: 195">
+            <span class="w-4 h-4 rounded bg-stone/30 border border-deep-timber flex items-center justify-center font-bold text-[10px] text-deep-timber">S</span>
+            <span class="font-bold text-plum">195</span>
+            <span class="text-[10px] text-moss-dark font-medium">+6/m</span>
+          </div>
+          <!-- Food -->
+          <div class="flex items-center gap-1.5 border-l border-deep-timber/25 pl-4" title="Food: 320">
+            <span class="w-4 h-4 rounded bg-straw/30 border border-deep-timber flex items-center justify-center font-bold text-[10px] text-deep-timber">F</span>
+            <span class="font-bold text-plum">320</span>
+            <span class="text-[10px] text-moss-dark font-medium">+24/m</span>
+          </div>
+          <!-- Coins -->
+          <div class="flex items-center gap-1.5 border-l border-deep-timber/25 pl-4" title="Coins: 142">
+            <span class="w-4 h-4 rounded bg-harvest-gold/40 border border-deep-timber flex items-center justify-center font-bold text-[10px] text-deep-timber">C</span>
+            <span class="font-bold text-plum">142</span>
+            <span class="text-[10px] text-moss-dark font-medium">+4/m</span>
+          </div>
+        </div>
+
+        <!-- Population & Settlement Happiness -->
+        <div class="hud-panel px-3 py-1.5 rounded flex items-center gap-4 text-xs font-mono">
+          <!-- Population -->
+          <div class="flex items-center gap-1.5" title="Population: 14 Villagers (18 Capacity)">
+            <span class="w-4 h-4 rounded bg-muted-blue/30 border border-deep-timber flex items-center justify-center font-bold text-[10px] text-muted-blue">P</span>
+            <span class="font-bold text-plum">14 / 18</span>
+            <span class="text-[10px] text-deep-timber/70">Citizens</span>
+          </div>
+          <!-- Happiness -->
+          <div class="flex items-center gap-1.5 border-l border-deep-timber/25 pl-4" title="Happiness: 92% (High Morale)">
+            <span class="w-4 h-4 rounded bg-harvest-gold/30 border border-deep-timber flex items-center justify-center font-bold text-[10px] text-deep-timber">H</span>
+            <span class="font-bold text-moss-dark font-bold">92%</span>
+            <span class="text-[10px] text-moss-dark font-medium">Content</span>
+          </div>
+        </div>
+
+        <!-- View Controls (Zoom / Pause) -->
+        <div class="hud-panel px-2 py-1 rounded flex items-center gap-1 text-xs font-mono">
+          <button class="w-6 h-6 hud-button rounded font-bold flex items-center justify-center text-xs" title="Zoom In">+</button>
+          <span class="text-[10px] text-deep-timber px-1 font-bold">100%</span>
+          <button class="w-6 h-6 hud-button rounded font-bold flex items-center justify-center text-xs" title="Zoom Out">&minus;</button>
+          <button class="px-2 h-6 hud-button rounded font-bold text-[10px] ml-1 bg-parchment" title="Pause World Clock">PAUSE</button>
+        </div>
+      </div>
+
+      <!-- 2. SELECTED BUILDING INSPECTOR (TOP RIGHT / COMPACT SIDE HUD) -->
+      <aside class="absolute top-14 right-4 w-72 hud-panel rounded-lg p-3 text-xs font-mono pointer-events-auto">
+        <div class="flex items-center justify-between border-b border-deep-timber/30 pb-2 mb-2">
+          <div class="flex items-center gap-2">
+            <span class="w-2.5 h-2.5 rounded bg-moss border border-moss-dark"></span>
+            <h4 class="font-serif font-bold text-plum text-sm">Farm (2×2 Field)</h4>
+          </div>
+          <span class="text-[10px] text-deep-timber bg-parchment px-1.5 py-0.5 rounded border border-deep-timber/30">ID #AGR-03</span>
+        </div>
+
+        <div class="space-y-1.5 text-[11px] mb-3">
+          <div class="flex justify-between text-deep-timber">
+            <span>Status:</span>
+            <span class="font-bold text-moss-dark">Active Harvest</span>
+          </div>
+          <div class="flex justify-between text-deep-timber">
+            <span>Workers Assigned:</span>
+            <span class="font-bold text-plum">2 / 2 Farmers</span>
+          </div>
+          <div class="flex justify-between text-deep-timber">
+            <span>Production Output:</span>
+            <span class="font-bold text-plum">+16 Food / cycle</span>
+          </div>
+          <div class="flex justify-between text-deep-timber">
+            <span>Upkeep Cost:</span>
+            <span class="font-bold text-plum">1 Wood / cycle</span>
+          </div>
+        </div>
+
+        <!-- Worker Assignment Controls -->
+        <div class="border-t border-deep-timber/25 pt-2 mb-3">
+          <div class="flex items-center justify-between text-[10px] text-deep-timber mb-1.5">
+            <span>Citizen Staffing:</span>
+            <span class="font-bold text-plum">Full Capacity</span>
+          </div>
+          <div class="grid grid-cols-2 gap-1.5">
+            <button class="hud-button text-[10px] font-bold py-1 px-2 rounded bg-parchment-light border border-deep-timber hover:bg-parchment text-plum flex items-center justify-center gap-1">
+              <span>+</span> Assign Worker
+            </button>
+            <button class="hud-button text-[10px] font-bold py-1 px-2 rounded bg-parchment-light border border-deep-timber hover:bg-parchment text-plum flex items-center justify-center gap-1">
+              <span>&minus;</span> Unassign
+            </button>
+          </div>
+        </div>
+
+        <!-- Building Actions -->
+        <div class="flex items-center justify-between pt-1 border-t border-deep-timber/25 text-[10px]">
+          <button class="text-deep-timber hover:text-plum font-bold underline">Focus Camera</button>
+          <button class="text-clay hover:text-deep-timber font-bold border border-clay/50 px-2 py-0.5 rounded bg-parchment-light">Demolish</button>
+        </div>
+      </aside>
+
+      <!-- 3. IN-WORLD SELECTION TILE CALLOUT (OVER TOWN CENTER) -->
+      <div class="absolute top-[40%] left-[45%] pointer-events-none transform -translate-x-1/2 -translate-y-1/2">
+        <div class="border-2 border-dashed border-harvest-gold/80 rounded w-28 h-20 rotate-[-12deg] flex items-center justify-center">
+          <span class="bg-plum/90 text-parchment text-[9px] font-mono px-1.5 py-0.5 rounded shadow">
+            SELECTED: Town Center (3×3)
+          </span>
+        </div>
+      </div>
+
+      <!-- 4. BOTTOM CONSTRUCTION DOCK (CATEGORY TABS + CARDS) -->
+      <div class="absolute bottom-3 left-1/2 transform -translate-x-1/2 hud-panel rounded-lg p-2 flex flex-col items-center pointer-events-auto max-w-[94%]">
+        <!-- Category Tabs -->
+        <div class="flex items-center gap-1 mb-2 border-b border-deep-timber/20 pb-1 w-full justify-center text-xs font-mono">
+          <button class="px-2.5 py-0.5 rounded text-[11px] font-bold bg-parchment-dark border border-deep-timber text-plum">
+            Housing (1)
+          </button>
+          <button class="px-2.5 py-0.5 rounded text-[11px] font-bold bg-parchment text-deep-timber hover:text-plum border border-transparent">
+            Production (4)
+          </button>
+          <button class="px-2.5 py-0.5 rounded text-[11px] font-bold bg-parchment text-deep-timber hover:text-plum border border-transparent">
+            Infrastructure (1)
+          </button>
+          <button class="px-2.5 py-0.5 rounded text-[11px] font-bold bg-parchment text-deep-timber hover:text-plum border border-transparent">
+            Community (2)
+          </button>
+        </div>
+
+        <!-- Building Construction Cards (Existing BLDG-01 Catalog) -->
+        <div class="flex items-center gap-2">
+          <!-- Card 1: Primitive House -->
+          <div class="hud-button rounded p-1.5 w-28 flex flex-col items-center border border-deep-timber bg-parchment-light cursor-pointer shadow-sm">
+            <span class="text-[9px] font-mono font-bold text-deep-timber block uppercase">1×1 Tile</span>
+            <div class="w-9 h-9 rounded bg-parchment border border-deep-timber/40 flex items-center justify-center my-0.5">
+              <span class="font-serif font-bold text-xs text-clay">HUT</span>
+            </div>
+            <span class="font-serif font-bold text-[11px] text-plum text-center leading-tight">Worker House</span>
+            <div class="flex items-center gap-1 text-[9px] font-mono text-deep-timber mt-0.5">
+              <span>10W</span> &bull; <span>5S</span>
+            </div>
+          </div>
+
+          <!-- Card 2: Cultivated Farm (Active Selection) -->
+          <div class="hud-button rounded p-1.5 w-28 flex flex-col items-center border-2 border-plum bg-parchment-dark cursor-pointer shadow-sm ring-1 ring-plum">
+            <span class="text-[9px] font-mono font-bold text-moss-dark block uppercase">2×2 Plot</span>
+            <div class="w-9 h-9 rounded bg-parchment border border-deep-timber/40 flex items-center justify-center my-0.5">
+              <span class="font-serif font-bold text-xs text-moss-dark">FARM</span>
+            </div>
+            <span class="font-serif font-bold text-[11px] text-plum text-center leading-tight">Farm Plot</span>
+            <div class="flex items-center gap-1 text-[9px] font-mono text-deep-timber mt-0.5">
+              <span>15W</span> &bull; <span>0S</span>
+            </div>
+          </div>
+
+          <!-- Card 3: Lumber Camp -->
+          <div class="hud-button rounded p-1.5 w-28 flex flex-col items-center border border-deep-timber bg-parchment-light cursor-pointer shadow-sm">
+            <span class="text-[9px] font-mono font-bold text-deep-timber block uppercase">2×2 Depot</span>
+            <div class="w-9 h-9 rounded bg-parchment border border-deep-timber/40 flex items-center justify-center my-0.5">
+              <span class="font-serif font-bold text-xs text-deep-timber">WOOD</span>
+            </div>
+            <span class="font-serif font-bold text-[11px] text-plum text-center leading-tight">Lumber Camp</span>
+            <div class="flex items-center gap-1 text-[9px] font-mono text-deep-timber mt-0.5">
+              <span>20W</span> &bull; <span>8S</span>
+            </div>
+          </div>
+
+          <!-- Card 4: Stone Quarry -->
+          <div class="hud-button rounded p-1.5 w-28 flex flex-col items-center border border-deep-timber bg-parchment-light cursor-pointer shadow-sm">
+            <span class="text-[9px] font-mono font-bold text-deep-timber block uppercase">2×2 Mine</span>
+            <div class="w-9 h-9 rounded bg-parchment border border-deep-timber/40 flex items-center justify-center my-0.5">
+              <span class="font-serif font-bold text-xs text-stone">ROCK</span>
+            </div>
+            <span class="font-serif font-bold text-[11px] text-plum text-center leading-tight">Stone Quarry</span>
+            <div class="flex items-center gap-1 text-[9px] font-mono text-deep-timber mt-0.5">
+              <span>25W</span> &bull; <span>10S</span>
+            </div>
+          </div>
+
+          <!-- Card 5: Research Hut (Disabled - Need Tech) -->
+          <div class="hud-button rounded p-1.5 w-28 flex flex-col items-center border border-deep-timber/40 bg-parchment/60 opacity-60 cursor-not-allowed">
+            <span class="text-[9px] font-mono font-bold text-deep-timber/60 block uppercase">2×2 Study</span>
+            <div class="w-9 h-9 rounded bg-parchment border border-deep-timber/20 flex items-center justify-center my-0.5">
+              <span class="font-serif font-bold text-xs text-muted-blue">LORE</span>
+            </div>
+            <span class="font-serif font-bold text-[11px] text-plum/60 text-center leading-tight">Research Hut</span>
+            <div class="text-[9px] font-mono text-deep-timber/60 mt-0.5">Locked (TC lv2)</div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- SECTION 3: UI ART COMPONENTS & STATIC INTERFACE KIT -->
+  <section class="border-2 border-deep-timber rounded-lg bg-parchment-light p-6 mb-10 shadow-sm">
+    <div class="flex flex-wrap items-center justify-between gap-3 mb-5 pb-3 border-b border-deep-timber/30">
+      <div>
+        <div class="flex items-center gap-2">
+          <span class="bg-clay text-parchment-light font-mono text-xs px-2 py-0.5 rounded font-bold uppercase">UI-COMPONENTS</span>
+          <h2 class="text-xl font-serif font-bold text-plum">Static UI Art Component Library &amp; State Matrix</h2>
+        </div>
+        <p class="text-xs text-deep-timber mt-1 font-sans">
+          Reusable HUD elements rendered in static side-by-side states (Neutral / Active-Selected / Disabled-Locked). Strictly zero CSS transitions or hover effects.
+        </p>
+      </div>
+      <div class="text-xs font-mono text-deep-timber">
+        Design System: {{DATA:DESIGN_SYSTEM:DESIGN_SYSTEM_1}}
+      </div>
+    </div>
+
+    <!-- COMPONENT GRID -->
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+
+      <!-- 1. CONSTRUCTION CARD STATES -->
+      <div class="border border-deep-timber/30 rounded p-4 bg-parchment">
+        <h4 class="font-serif font-bold text-sm text-plum mb-1">1. Construction Dock Cards</h4>
+        <p class="text-[11px] text-deep-timber mb-3 font-sans">Standard 112×130px building selection tile with cost formula.</p>
+        <div class="flex items-center justify-between gap-2 pt-2 border-t border-deep-timber/20">
+          <!-- Neutral -->
+          <div class="text-center">
+            <span class="text-[9px] font-mono text-deep-timber block mb-1">NEUTRAL</span>
+            <div class="hud-panel p-2 rounded w-20 flex flex-col items-center">
+              <div class="w-6 h-6 bg-parchment border border-deep-timber rounded flex items-center justify-center text-[9px] font-mono font-bold">1×1</div>
+              <span class="font-serif text-[10px] font-bold text-plum mt-1">House</span>
+              <span class="font-mono text-[8px] text-deep-timber">10W 5S</span>
+            </div>
+          </div>
+          <!-- Selected -->
+          <div class="text-center">
+            <span class="text-[9px] font-mono text-plum font-bold block mb-1">SELECTED</span>
+            <div class="hud-panel p-2 rounded w-20 flex flex-col items-center border-2 border-plum bg-parchment-dark ring-1 ring-plum">
+              <div class="w-6 h-6 bg-parchment-light border border-deep-timber rounded flex items-center justify-center text-[9px] font-mono font-bold text-moss-dark">1×1</div>
+              <span class="font-serif text-[10px] font-bold text-plum mt-1">House</span>
+              <span class="font-mono text-[8px] text-deep-timber">10W 5S</span>
+            </div>
+          </div>
+          <!-- Disabled -->
+          <div class="text-center">
+            <span class="text-[9px] font-mono text-deep-timber/60 block mb-1">DISABLED</span>
+            <div class="hud-panel p-2 rounded w-20 flex flex-col items-center opacity-50 bg-parchment/60">
+              <div class="w-6 h-6 bg-parchment border border-deep-timber/30 rounded flex items-center justify-center text-[9px] font-mono">1×1</div>
+              <span class="font-serif text-[10px] text-plum/60 mt-1">House</span>
+              <span class="font-mono text-[8px] text-deep-timber/60">No Res</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 2. CATEGORY TABS -->
+      <div class="border border-deep-timber/30 rounded p-4 bg-parchment">
+        <h4 class="font-serif font-bold text-sm text-plum mb-1">2. Category Filter Tabs</h4>
+        <p class="text-[11px] text-deep-timber mb-3 font-sans">Architectural group filters for quick dock navigation.</p>
+        <div class="space-y-2 pt-2 border-t border-deep-timber/20">
+          <div class="flex items-center justify-between text-xs font-mono">
+            <span class="text-[10px] text-deep-timber w-20">NEUTRAL:</span>
+            <div class="hud-button px-3 py-1 rounded text-xs font-bold text-deep-timber border border-deep-timber/40">
+              Production (4)
+            </div>
+          </div>
+          <div class="flex items-center justify-between text-xs font-mono">
+            <span class="text-[10px] text-plum font-bold w-20">SELECTED:</span>
+            <div class="hud-button px-3 py-1 rounded text-xs font-bold text-plum bg-parchment-dark border-2 border-deep-timber shadow-sm">
+              Production (4)
+            </div>
+          </div>
+          <div class="flex items-center justify-between text-xs font-mono">
+            <span class="text-[10px] text-deep-timber/60 w-20">DISABLED:</span>
+            <div class="hud-button px-3 py-1 rounded text-xs font-bold text-deep-timber/40 bg-parchment/50 border border-deep-timber/20 opacity-60">
+              Locked Era (0)
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 3. ACTION & TOOL BUTTONS -->
+      <div class="border border-deep-timber/30 rounded p-4 bg-parchment">
+        <h4 class="font-serif font-bold text-sm text-plum mb-1">3. Action &amp; Tool Buttons</h4>
+        <p class="text-[11px] text-deep-timber mb-3 font-sans">Assignment, zoom, cancel and demolish controls.</p>
+        <div class="grid grid-cols-3 gap-2 pt-2 border-t border-deep-timber/20 text-center font-mono text-xs">
+          <div>
+            <span class="text-[9px] text-deep-timber block mb-1">PRIMARY</span>
+            <button class="w-full hud-button font-bold py-1.5 rounded bg-moss/20 border border-moss-dark text-moss-dark text-[10px]">
+              Assign
+            </button>
+          </div>
+          <div>
+            <span class="text-[9px] text-plum font-bold block mb-1">ACTIVE</span>
+            <button class="w-full hud-button font-bold py-1.5 rounded bg-parchment-dark border-2 border-plum text-plum text-[10px]">
+              Assigned
+            </button>
+          </div>
+          <div>
+            <span class="text-[9px] text-clay block mb-1">DANGER</span>
+            <button class="w-full hud-button font-bold py-1.5 rounded bg-clay/10 border border-clay text-clay text-[10px]">
+              Demolish
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- 4. ISOMETRIC PLACEMENT INDICATORS -->
+      <div class="border border-deep-timber/30 rounded p-4 bg-parchment">
+        <h4 class="font-serif font-bold text-sm text-plum mb-1">4. Placement Tile Overlays</h4>
+        <p class="text-[11px] text-deep-timber mb-3 font-sans">Dimetric ground footprint indicators for building footprint.</p>
+        <div class="grid grid-cols-2 gap-3 pt-2 border-t border-deep-timber/20">
+          <!-- Valid Placement -->
+          <div class="border border-moss/50 bg-moss/10 rounded p-2.5 text-center">
+            <span class="text-[9px] font-mono font-bold text-moss-dark uppercase block mb-1">Valid (Unobstructed)</span>
+            <div class="w-16 h-8 mx-auto border-2 border-moss rounded bg-moss/20 transform rotate-[-8deg] flex items-center justify-center">
+              <span class="text-[8px] font-mono font-bold text-moss-dark">1×1 PASS</span>
+            </div>
+            <span class="text-[10px] text-deep-timber block mt-1.5 font-mono">Flat Loam / Grass</span>
+          </div>
+
+          <!-- Invalid Placement -->
+          <div class="border border-clay/50 bg-clay/10 rounded p-2.5 text-center">
+            <span class="text-[9px] font-mono font-bold text-clay uppercase block mb-1">Invalid (Blocked)</span>
+            <div class="w-16 h-8 mx-auto border-2 border-clay rounded bg-clay/20 transform rotate-[-8deg] flex items-center justify-center">
+              <span class="text-[8px] font-mono font-bold text-clay">BLOCKED</span>
+            </div>
+            <span class="text-[10px] text-deep-timber block mt-1.5 font-mono">Rock / Tree Clash</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- 5. RESOURCE STRIP UNIT CHIPS -->
+      <div class="border border-deep-timber/30 rounded p-4 bg-parchment">
+        <h4 class="font-serif font-bold text-sm text-plum mb-1">5. Resource Strip Chips</h4>
+        <p class="text-[11px] text-deep-timber mb-3 font-sans">Compact header data chips with delta rate indicators.</p>
+        <div class="space-y-2 pt-2 border-t border-deep-timber/20 font-mono text-xs">
+          <!-- Stock normal -->
+          <div class="flex items-center justify-between border border-deep-timber/30 bg-parchment-light px-2.5 py-1 rounded">
+            <div class="flex items-center gap-2">
+              <span class="w-3.5 h-3.5 rounded bg-deep-timber/20 text-deep-timber font-bold text-[9px] flex items-center justify-center">W</span>
+              <span class="font-bold text-plum">284 Wood</span>
+            </div>
+            <span class="text-[10px] text-moss-dark font-bold">+12/m</span>
+          </div>
+          <!-- Stock deficit warning -->
+          <div class="flex items-center justify-between border border-clay/60 bg-clay/10 px-2.5 py-1 rounded">
+            <div class="flex items-center gap-2">
+              <span class="w-3.5 h-3.5 rounded bg-straw/30 text-deep-timber font-bold text-[9px] flex items-center justify-center">F</span>
+              <span class="font-bold text-plum">18 Food</span>
+            </div>
+            <span class="text-[10px] text-clay font-bold">&minus;4/m (Deficit)</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- 6. ZOOM & TIME CONTROLS -->
+      <div class="border border-deep-timber/30 rounded p-4 bg-parchment">
+        <h4 class="font-serif font-bold text-sm text-plum mb-1">6. View &amp; Navigation Controls</h4>
+        <p class="text-[11px] text-deep-timber mb-3 font-sans">Upper camera controls and settlement clock toggles.</p>
+        <div class="flex items-center justify-center gap-2 pt-3 border-t border-deep-timber/20 font-mono">
+          <button class="w-8 h-8 hud-button rounded font-bold text-sm flex items-center justify-center border border-deep-timber bg-parchment-light text-plum">
+            +
+          </button>
+          <div class="px-2 py-1 bg-parchment border border-deep-timber/40 rounded text-xs font-bold text-plum">
+            100% (Native)
+          </div>
+          <button class="w-8 h-8 hud-button rounded font-bold text-sm flex items-center justify-center border border-deep-timber bg-parchment-light text-plum">
+            &minus;
+          </button>
+          <button class="h-8 px-2.5 hud-button rounded font-bold text-xs bg-parchment border border-deep-timber text-deep-timber ml-2">
+            PAUSE
+          </button>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- SECTION 4: PIPELINE VERIFICATION, EXPORT STATUS & METADATA -->
+  <footer class="border-2 border-deep-timber rounded-lg bg-parchment-light p-5 shadow-sm text-xs font-mono">
+    <div class="flex flex-wrap items-center justify-between gap-4 pb-3 border-b border-deep-timber/25">
+      <div>
+        <span class="font-bold text-plum text-sm font-serif">Living Settlement Asset Export &amp; Pipeline Status</span>
+        <p class="text-[11px] text-deep-timber font-sans mt-0.5">
+          Board ICON-UI-01 verified against Civilization Town specifications. All masters are authored as static review references.
+        </p>
+      </div>
+      <div class="flex items-center gap-2">
+        <span class="bg-moss/20 text-moss-dark border border-moss/40 px-2.5 py-0.5 rounded text-[10px] font-bold">
+          AUDIT STATUS: APPROVED
+        </span>
+        <span class="bg-parchment border border-deep-timber/30 px-2 py-0.5 rounded text-[10px] text-deep-timber">
+          Pipeline: 2026-11-07
+        </span>
+      </div>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 pt-4 text-[11px]">
+      <div>
+        <span class="font-bold text-deep-timber block uppercase mb-1">Target Icon Runtime Footprint</span>
+        <p class="font-sans text-deep-timber leading-relaxed">
+          The 19 illustrated pictograms are authored for clean slicing to <strong class="text-plum">24×24 px runtime UI slots</strong> (48×48 px 2× Retina scaling). Generous empty space in slot (4,5) preserves clean atlas border clamping.
+        </p>
+      </div>
+      <div>
+        <span class="font-bold text-deep-timber block uppercase mb-1">Transparency Export Warning</span>
+        <p class="font-sans text-deep-timber leading-relaxed">
+          Master sheets use uniform flat parchment beige (<strong class="text-plum">#E7DABC</strong>). Native PNG alpha channels are unsupported in the current generative pipeline; chroma-key masking or sprite slicers should target #E7DABC directly.
+        </p>
+      </div>
+      <div>
+        <span class="font-bold text-deep-timber block uppercase mb-1">Static Baseline Conformance</span>
+        <p class="font-sans text-deep-timber leading-relaxed">
+          Zero animated CSS, GIFs, or WebGL camera routines are used. The HUD is strictly non-intrusive and preserves <strong class="text-plum">&gt;75% visible settlement playfield</strong> on standard 16:9 displays.
+        </p>
+      </div>
+    </div>
+
+    <div class="mt-4 pt-3 border-t border-deep-timber/20 flex flex-wrap items-center justify-between text-[10px] text-deep-timber/80">
+      <span>Civilization Town // Living Settlement Master Boards: ENV-01 &bull; BLDG-01 &bull; CHAR-01 &bull; WORLD-01 &bull; <strong>ICON-UI-01</strong></span>
+      <span>Strictly Authentic 16-Bit Pixel Art &bull; Upper-Right Sunlight</span>
+    </div>
+  </footer>
+
+</body>
+</html>

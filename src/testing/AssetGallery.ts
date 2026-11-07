@@ -26,7 +26,7 @@ export function createAssetGallery(game: Game, root: HTMLElement, loader: Genera
   let activity: SpriteActivity = 'walk';
   const abort = new AbortController();
   root.innerHTML = `<section class="asset-gallery-panel" aria-label="Asset inspection">
-    <h1>Civilization Town · M2 Asset Gallery</h1>
+    <h1>Civilization Town · Living Settlement Art Gallery</h1>
     <p>Art inspection only · 32px sprites · NE / NW / SE / SW · drag right to pan, scroll to zoom</p>
     <div class="asset-gallery-actions"><button type="button" data-state="idle">Idle poses</button>
     <button type="button" data-state="walk">Walk poses</button><button type="button" data-state="work">Work poses</button>

@@ -1,4 +1,9 @@
 {
+  "artSource": {
+    "provider": "Stitch",
+    "sourceManifestSha256": "8a5d3985a51809f44ee55d25d76fa24d7af1fd200569196aae37d53f39c7604f",
+    "staticOnly": true
+  },
   "assets": {
     "citizens": {
       "file": "characters/citizens.png",
@@ -9,133 +14,133 @@
     "icon_agriculture": {
       "file": "icons/agriculture.png",
       "height": 24,
-      "sha256": "9b4bfda21941402004c5b70183e691725793b2f0e9be27edafef9d63a45aff7a",
+      "sha256": "75d43001edb88696f614eb0c10d1c4fa52dcfcab42c75b881f0c9a5fdf454278",
       "width": 24
     },
     "icon_coins": {
       "file": "icons/coins.png",
       "height": 24,
-      "sha256": "51f698135a263d0bc3e6a291c98a7b96a8ba2cc97608588deecbec4978d96c7c",
+      "sha256": "c9d451a2cb5810286599c1260550b9c1fe07ca246e4991465ce042cfb1ed3a77",
       "width": 24
     },
     "icon_construction": {
       "file": "icons/construction.png",
       "height": 24,
-      "sha256": "404c0eeb772482dc899ca694e5165fb9acd969cd76ee69cb5e5ea504e8773c49",
+      "sha256": "66df7bb84289de262aca3e1dc565383d8699dff3cd1c8ac2561faebd25458c6d",
       "width": 24
     },
     "icon_dirt_road": {
       "file": "icons/dirt_road.png",
       "height": 24,
-      "sha256": "26fbb1e72df50bf5bd25e97742188824dacb244afb9b23d175cf901f43459c86",
+      "sha256": "626e0647ee83aa80f6f04eadd1b171842256b4cc0c20538cb0e7b489ba8022e9",
       "width": 24
     },
     "icon_farm": {
       "file": "icons/farm.png",
       "height": 24,
-      "sha256": "9b4bfda21941402004c5b70183e691725793b2f0e9be27edafef9d63a45aff7a",
+      "sha256": "2f083b0bec51262e27ad01f3396bac8afc383c096753334367b6edd100da97e8",
       "width": 24
     },
     "icon_food": {
       "file": "icons/food.png",
       "height": 24,
-      "sha256": "9b4bfda21941402004c5b70183e691725793b2f0e9be27edafef9d63a45aff7a",
+      "sha256": "6b444dbebe75c17feb86de71bcd8f599a604541bb84440f05481a3f33c691fd1",
       "width": 24
     },
     "icon_happiness": {
       "file": "icons/happiness.png",
       "height": 24,
-      "sha256": "8c72ae711631ca0bb2b05c9fbb4bda6d3a0c1716665e5df374edd95db335c5e4",
+      "sha256": "13be0121146d0f1230b4927323a760cd1600adf73df44e41c51c3eec2d960d24",
       "width": 24
     },
     "icon_lumber_camp": {
       "file": "icons/lumber_camp.png",
       "height": 24,
-      "sha256": "e8330624145cc4a012a27fdecb159b4ac8661560c917452ccc614a404b9b28d9",
+      "sha256": "ca32bd9d6e398da445dba423323e2662628bfa18ccefce1a3096d13007f0d06a",
       "width": 24
     },
     "icon_masonry": {
       "file": "icons/masonry.png",
       "height": 24,
-      "sha256": "8d02eb36da38d0af4e491ff0ca6aa99ef54487fb33f66b9105cd9bfb217df062",
+      "sha256": "8c93f9aa8bdfe42bb28d9e2395bf112f5eeadabc81615e5d02acc77fdf15c0f6",
       "width": 24
     },
     "icon_population": {
       "file": "icons/population.png",
       "height": 24,
-      "sha256": "97dd76b744c2c778ad1edc3de0f042c46df915ac672835d4e4a61cf198079d14",
+      "sha256": "e5e631fa4ce14cb67bb848172a7805c442eb4f14c95e09399ec6995e2aa51b86",
       "width": 24
     },
     "icon_primitive_house": {
       "file": "icons/primitive_house.png",
       "height": 24,
-      "sha256": "02aeff295e1e0ca342bc074cc37435e65f4e71573236e88170049c912a00411c",
+      "sha256": "2fa69a9a6c7c04bc18631ccf9966c7035c8be28761cee66a5c9d2222a7b57711",
       "width": 24
     },
     "icon_research_hut": {
       "file": "icons/research_hut.png",
       "height": 24,
-      "sha256": "d4abb8cb7c3266474d780746a0f4e9305d8f4ccf5d4979ee4a2a6ed0edeea37b",
+      "sha256": "fd55bd342edc0a26fc60be12010c72cd18921616efcea9a4ced0ade8f32a1676",
       "width": 24
     },
     "icon_stone": {
       "file": "icons/stone.png",
       "height": 24,
-      "sha256": "cfc293cc43922effdab1a6c54aa1b91981aad649cf61d3b1da761535e22dd4e7",
+      "sha256": "07467d0c9ffb63e15b6de2dfe279c1208ec1b35cb8039a09132cc4bc470e21a9",
       "width": 24
     },
     "icon_stone_quarry": {
       "file": "icons/stone_quarry.png",
       "height": 24,
-      "sha256": "cfc293cc43922effdab1a6c54aa1b91981aad649cf61d3b1da761535e22dd4e7",
+      "sha256": "6d12c78ade0297cd69caf66a4aa249c9554dde3445e87f153e45458456dee228",
       "width": 24
     },
     "icon_storage_hut": {
       "file": "icons/storage_hut.png",
       "height": 24,
-      "sha256": "7d76dfa8cbacb382345cabbba76c4a825ea84bc0e4c5fafeb36ebd1dca2aac86",
+      "sha256": "c87db3cd673215f73a40efbdd9e64678058edfcab691b1d9a474c4ee9ffc89b6",
       "width": 24
     },
     "icon_technology": {
       "file": "icons/technology.png",
       "height": 24,
-      "sha256": "d4abb8cb7c3266474d780746a0f4e9305d8f4ccf5d4979ee4a2a6ed0edeea37b",
+      "sha256": "d43bd37e0795a86c5a4bfd9e4f5acc192f2113c1fbe019a713c9560c1df669b8",
       "width": 24
     },
     "icon_toolmaking": {
       "file": "icons/toolmaking.png",
       "height": 24,
-      "sha256": "4a3bdab353ca51d190eda99362cb44ec96597e41fae5ddf2e319cf5287b6250e",
+      "sha256": "21967e517ff71ce639c41ba56ffd04510a89c19bd80157cc360ea24a554cdc0e",
       "width": 24
     },
     "icon_town_center": {
       "file": "icons/town_center.png",
       "height": 24,
-      "sha256": "41d503890992c0cf59246d83de5d673972becc86aec6db0b0ffcfa516be8fade",
+      "sha256": "a7aa76293d5fd74ff960cc7f68b36292487e6cb125a529a291fcd89c9bd18a14",
       "width": 24
     },
     "icon_wood": {
       "file": "icons/wood.png",
       "height": 24,
-      "sha256": "48aa0e7a33eb556887e105a290cfc283dc4688ff6b52368c4fa6a767ac7af744",
+      "sha256": "cc90a731dceca0a576954f619fb5f441a300f1d2189f8ccb6f5a491c94ab86bf",
       "width": 24
     },
     "terrain_dirt": {
       "file": "terrain/dirt.png",
       "height": 32,
-      "sha256": "48b62d6d6f8fd5f8c458044543be72036d778fc53970a79d070081ede43fe03e",
+      "sha256": "01eeb4e0169fa652f83827f224c4a5582ec341f9d918b06807f79b8327584f8d",
       "width": 32
     },
     "terrain_grass": {
       "file": "terrain/grass.png",
       "height": 32,
-      "sha256": "3b8e198934f4afd9fdc419c3bd7d58c7c396ee54a0922dc998144b87d4b6d4dd",
+      "sha256": "980900f2c250160b643c8ca1a98b3dc78bc76d23e619e06785d090097c23620e",
       "width": 32
     },
     "terrain_path": {
       "file": "terrain/path.png",
       "height": 32,
-      "sha256": "9f762a0c9344f7632a51e24d2872745e0f25c1aeaf5b05fd2a98c422b5da428c",
+      "sha256": "1980baf1ef48e79f1e61dfc701f173aa40f03bcaa9ba711cbb0971b51e30ea5a",
       "width": 32
     }
   },

@@ -97,14 +97,16 @@ Gunakan Python 3.12+ dengan executable nyata; alias WindowsApps `python` mungkin
 
 ```powershell
 python -m pip install -r tools/assets/requirements.txt
-python tools/assets/generate_assets.py --seed 42 --output public/generated
+python tools/assets/generate_assets.py --seed 42 --output public/generated --stitch-source .stitch/exports
 python tools/assets/validate_assets.py --input public/generated
 python -m unittest discover -s tests/assets
 npm.cmd test
 npm.cmd run build
 ```
 
-PNG dan manifest di `public/generated/` disertakan dalam repository sehingga menjalankan game tidak memerlukan Python. Edit generator/palet, kemudian regenerasi seluruh output; jangan menggambar ulang PNG secara manual. Manifest mencatat seed, versi, palette hash, file hash, dimensi dan atlas metadata tanpa timestamp atau path mesin. Seed identik menghasilkan file identik. Validator memeriksa file wajib, alpha/palet/dimensi, batas frame, anchor dan hash. Texture terrain merupakan patch warna seamless; ukuran patch visual tidak mengubah grid logis.
+PNG dan manifest di `public/generated/` disertakan sehingga menjalankan game tidak memerlukan Python. Ikon dan tiga terrain aktif berasal dari ekspor Stitch yang dibekukan; gunakan `--stitch-source .stitch/exports` saat regenerasi agar art aktif tetap sama. Paket yang tidak lengkap, berubah hash, atau melanggar palet ditolak sebelum output ditulis. Atlas animasi warga lama dipertahankan hingga tahap animasi berikutnya; 16 master warga Stitch tersedia sebagai preview statis.
+
+Manifest mencatat seed, versi, palette hash, file hash, dimensi dan atlas metadata tanpa timestamp atau path mesin. Input identik menghasilkan file identik. Validator memeriksa file wajib, alpha/palet/dimensi, batas frame, anchor dan hash. Terrain Stitch mempunyai tepi yang cocok; ukuran patch visual tidak mengubah grid logis. Galeri referensi tersedia di `.stitch/index.html`, ekspor native di `.stitch/exports/index.html`, dan model aktif di `/?assets=1` pada server development.
 
 ## Kontrol saat ini
 

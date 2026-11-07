@@ -30,7 +30,7 @@ export class HUD {
   private inspectorMarkup = '';
   constructor(private readonly container: HTMLElement, private readonly game: Game) {
     container.innerHTML = `<header class="settlement-header">
-      <div class="glass-panel settlement-title"><h1>Civilization Town</h1><p>M5 · Ancient Settlement</p>
+      <div class="glass-panel settlement-title"><h1>Civilization Town</h1><p>Ancient Settlement</p>
       <p data-population></p><p data-happiness></p></div>
       <div class="glass-panel resource-bar" aria-label="Settlement resources">${RESOURCE_IDS.map(key => `<div data-resource="${key}">${icon(key)}<span>${key}</span><strong>0</strong><small>/ 300</small></div>`).join('')}</div>
       </header><aside class="glass-panel construction-inspector" aria-label="Building inspector" hidden></aside>

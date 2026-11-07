@@ -16,11 +16,11 @@ export class SceneManager {
     this.scene.name = 'CitySceneRoot';
 
     // Soft sky background
-    this.scene.background = new THREE.Color(0xaedbf0);
+    this.scene.background = new THREE.Color(0xe7dabc);
 
     // Optional subtle fog to blend distant edges into the pastel sky
     const distance = Math.max(80, metrics.size * metrics.cellSize * 2);
-    this.scene.fog = new THREE.FogExp2(0xaedbf0, 0.007 * 80 / distance);
+    this.scene.fog = new THREE.FogExp2(0xe7dabc, 0.007 * 80 / distance);
 
     // Building container
     this.buildingsGroup = new THREE.Group();

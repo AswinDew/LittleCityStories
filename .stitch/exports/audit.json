@@ -1,0 +1,3031 @@
+{
+  "scope": "Native 2D checks; reference images are not meshes; edge equality is not perceptual proof",
+  "count": 100,
+  "allPassed": true,
+  "assets": [
+    {
+      "id": "architecture_references/door",
+      "pass": true,
+      "checks": {
+        "alpha": {
+          "semi_transparent_pixels": 0,
+          "total_pixels": 16384,
+          "clean": true
+        },
+        "orphans": {
+          "orphan_pixels": 0,
+          "clean": true
+        },
+        "palette": {
+          "unique_colors": 14,
+          "max_allowed": 28,
+          "clean": true
+        },
+        "grid": {
+          "width": 128,
+          "height": 128,
+          "grid_size": 128,
+          "aligned": true
+        },
+        "paletteMembership": true,
+        "nonempty": true,
+        "padding": true,
+        "manifestHash": true
+      }
+    },
+    {
+      "id": "architecture_references/fence",
+      "pass": true,
+      "checks": {
+        "alpha": {
+          "semi_transparent_pixels": 0,
+          "total_pixels": 16384,
+          "clean": true
+        },
+        "orphans": {
+          "orphan_pixels": 0,
+          "clean": true
+        },
+        "palette": {
+          "unique_colors": 18,
+          "max_allowed": 28,
+          "clean": true
+        },
+        "grid": {
+          "width": 128,
+          "height": 128,
+          "grid_size": 128,
+          "aligned": true
+        },
+        "paletteMembership": true,
+        "nonempty": true,
+        "padding": true,
+        "manifestHash": true
+      }
+    },
+    {
+      "id": "architecture_references/flag",
+      "pass": true,
+      "checks": {
+        "alpha": {
+          "semi_transparent_pixels": 0,
+          "total_pixels": 16384,
+          "clean": true
+        },
+        "orphans": {
+          "orphan_pixels": 0,
+          "clean": true
+        },
+        "palette": {
+          "unique_colors": 16,
+          "max_allowed": 28,
+          "clean": true
+        },
+        "grid": {
+          "width": 128,
+          "height": 128,
+          "grid_size": 128,
+          "aligned": true
+        },
+        "paletteMembership": true,
+        "nonempty": true,
+        "padding": true,
+        "manifestHash": true
+      }
+    },
+    {
+      "id": "architecture_references/foundation",
+      "pass": true,
+      "checks": {
+        "alpha": {
+          "semi_transparent_pixels": 0,
+          "total_pixels": 16384,
+          "clean": true
+        },
+        "orphans": {
+          "orphan_pixels": 0,
+          "clean": true
+        },
+        "palette": {
+          "unique_colors": 14,
+          "max_allowed": 28,
+          "clean": true
+        },
+        "grid": {
+          "width": 128,
+          "height": 128,
+          "grid_size": 128,
+          "aligned": true
+        },
+        "paletteMembership": true,
+        "nonempty": true,
+        "padding": true,
+        "manifestHash": true
+      }
+    },
+    {
+      "id": "architecture_references/post",
+      "pass": true,
+      "checks": {
+        "alpha": {
+          "semi_transparent_pixels": 0,
+          "total_pixels": 16384,
+          "clean": true
+        },
+        "orphans": {
+          "orphan_pixels": 0,
+          "clean": true
+        },
+        "palette": {
+          "unique_colors": 13,
+          "max_allowed": 28,
+          "clean": true
+        },
+        "grid": {
+          "width": 128,
+          "height": 128,
+          "grid_size": 128,
+          "aligned": true
+        },
+        "paletteMembership": true,
+        "nonempty": true,
+        "padding": true,
+        "manifestHash": true
+      }
+    },
+    {
+      "id": "architecture_references/research_table",
+      "pass": true,
+      "checks": {
+        "alpha": {
+          "semi_transparent_pixels": 0,
+          "total_pixels": 16384,
+          "clean": true
+        },
+        "orphans": {
+          "orphan_pixels": 0,
+          "clean": true
+        },
+        "palette": {
+          "unique_colors": 19,
+          "max_allowed": 28,
+          "clean": true
+        },
+        "grid": {
+          "width": 128,
+          "height": 128,
+          "grid_size": 128,
+          "aligned": true
+        },
+        "paletteMembership": true,
+        "nonempty": true,
+        "padding": true,
+        "manifestHash": true
+      }
+    },
+    {
+      "id": "architecture_references/thatch_roof",
+      "pass": true,
+      "checks": {
+        "alpha": {
+          "semi_transparent_pixels": 0,
+          "total_pixels": 16384,
+          "clean": true
+        },
+        "orphans": {
+          "orphan_pixels": 0,
+          "clean": true
+        },
+        "palette": {
+          "unique_colors": 20,
+          "max_allowed": 28,
+          "clean": true
+        },
+        "grid": {
+          "width": 128,
+          "height": 128,
+          "grid_size": 128,
+          "aligned": true
+        },
+        "paletteMembership": true,
+        "nonempty": true,
+        "padding": true,
+        "manifestHash": true
+      }
+    },
+    {
+      "id": "architecture_references/wall",
+      "pass": true,
+      "checks": {
+        "alpha": {
+          "semi_transparent_pixels": 0,
+          "total_pixels": 16384,
+          "clean": true
+        },
+        "orphans": {
+          "orphan_pixels": 0,
+          "clean": true
+        },
+        "palette": {
+          "unique_colors": 15,
+          "max_allowed": 28,
+          "clean": true
+        },
+        "grid": {
+          "width": 128,
+          "height": 128,
+          "grid_size": 128,
+          "aligned": true
+        },
+        "paletteMembership": true,
+        "nonempty": true,
+        "padding": true,
+        "manifestHash": true
+      }
+    },
+    {
+      "id": "architecture_references/window",
+      "pass": true,
+      "checks": {
+        "alpha": {
+          "semi_transparent_pixels": 0,
+          "total_pixels": 16384,
+          "clean": true
+        },
+        "orphans": {
+          "orphan_pixels": 0,
+          "clean": true
+        },
+        "palette": {
+          "unique_colors": 17,
+          "max_allowed": 28,
+          "clean": true
+        },
+        "grid": {
+          "width": 128,
+          "height": 128,
+          "grid_size": 128,
+          "aligned": true
+        },
+        "paletteMembership": true,
+        "nonempty": true,
+        "padding": true,
+        "manifestHash": true
+      }
+    },
+    {
+      "id": "architecture_references/work_area",
+      "pass": true,
+      "checks": {
+        "alpha": {
+          "semi_transparent_pixels": 0,
+          "total_pixels": 16384,
+          "clean": true
+        },
+        "orphans": {
+          "orphan_pixels": 0,
+          "clean": true
+        },
+        "palette": {
+          "unique_colors": 18,
+          "max_allowed": 28,
+          "clean": true
+        },
+        "grid": {
+          "width": 128,
+          "height": 128,
+          "grid_size": 128,
+          "aligned": true
+        },
+        "paletteMembership": true,
+        "nonempty": true,
+        "padding": true,
+        "manifestHash": true
+      }
+    },
+    {
+      "id": "building_references/dirt_road",
+      "pass": true,
+      "checks": {
+        "alpha": {
+          "semi_transparent_pixels": 0,
+          "total_pixels": 65536,
+          "clean": true
+        },
+        "orphans": {
+          "orphan_pixels": 0,
+          "clean": true
+        },
+        "palette": {
+          "unique_colors": 20,
+          "max_allowed": 28,
+          "clean": true
+        },
+        "grid": {
+          "width": 256,
+          "height": 256,
+          "grid_size": 256,
+          "aligned": true
+        },
+        "paletteMembership": true,
+        "nonempty": true,
+        "padding": true,
+        "manifestHash": true
+      }
+    },
+    {
+      "id": "building_references/farm",
+      "pass": true,
+      "checks": {
+        "alpha": {
+          "semi_transparent_pixels": 0,
+          "total_pixels": 65536,
+          "clean": true
+        },
+        "orphans": {
+          "orphan_pixels": 0,
+          "clean": true
+        },
+        "palette": {
+          "unique_colors": 25,
+          "max_allowed": 28,
+          "clean": true
+        },
+        "grid": {
+          "width": 256,
+          "height": 256,
+          "grid_size": 256,
+          "aligned": true
+        },
+        "paletteMembership": true,
+        "nonempty": true,
+        "padding": true,
+        "manifestHash": true
+      }
+    },
+    {
+      "id": "building_references/lumber_camp",
+      "pass": true,
+      "checks": {
+        "alpha": {
+          "semi_transparent_pixels": 0,
+          "total_pixels": 65536,
+          "clean": true
+        },
+        "orphans": {
+          "orphan_pixels": 0,
+          "clean": true
+        },
+        "palette": {
+          "unique_colors": 22,
+          "max_allowed": 28,
+          "clean": true
+        },
+        "grid": {
+          "width": 256,
+          "height": 256,
+          "grid_size": 256,
+          "aligned": true
+        },
+        "paletteMembership": true,
+        "nonempty": true,
+        "padding": true,
+        "manifestHash": true
+      }
+    },
+    {
+      "id": "building_references/primitive_house",
+      "pass": true,
+      "checks": {
+        "alpha": {
+          "semi_transparent_pixels": 0,
+          "total_pixels": 65536,
+          "clean": true
+        },
+        "orphans": {
+          "orphan_pixels": 0,
+          "clean": true
+        },
+        "palette": {
+          "unique_colors": 21,
+          "max_allowed": 28,
+          "clean": true
+        },
+        "grid": {
+          "width": 256,
+          "height": 256,
+          "grid_size": 256,
+          "aligned": true
+        },
+        "paletteMembership": true,
+        "nonempty": true,
+        "padding": true,
+        "manifestHash": true
+      }
+    },
+    {
+      "id": "building_references/research_hut",
+      "pass": true,
+      "checks": {
+        "alpha": {
+          "semi_transparent_pixels": 0,
+          "total_pixels": 65536,
+          "clean": true
+        },
+        "orphans": {
+          "orphan_pixels": 0,
+          "clean": true
+        },
+        "palette": {
+          "unique_colors": 23,
+          "max_allowed": 28,
+          "clean": true
+        },
+        "grid": {
+          "width": 256,
+          "height": 256,
+          "grid_size": 256,
+          "aligned": true
+        },
+        "paletteMembership": true,
+        "nonempty": true,
+        "padding": true,
+        "manifestHash": true
+      }
+    },
+    {
+      "id": "building_references/stone_quarry",
+      "pass": true,
+      "checks": {
+        "alpha": {
+          "semi_transparent_pixels": 0,
+          "total_pixels": 65536,
+          "clean": true
+        },
+        "orphans": {
+          "orphan_pixels": 0,
+          "clean": true
+        },
+        "palette": {
+          "unique_colors": 17,
+          "max_allowed": 28,
+          "clean": true
+        },
+        "grid": {
+          "width": 256,
+          "height": 256,
+          "grid_size": 256,
+          "aligned": true
+        },
+        "paletteMembership": true,
+        "nonempty": true,
+        "padding": true,
+        "manifestHash": true
+      }
+    },
+    {
+      "id": "building_references/storage_hut",
+      "pass": true,
+      "checks": {
+        "alpha": {
+          "semi_transparent_pixels": 0,
+          "total_pixels": 65536,
+          "clean": true
+        },
+        "orphans": {
+          "orphan_pixels": 0,
+          "clean": true
+        },
+        "palette": {
+          "unique_colors": 19,
+          "max_allowed": 28,
+          "clean": true
+        },
+        "grid": {
+          "width": 256,
+          "height": 256,
+          "grid_size": 256,
+          "aligned": true
+        },
+        "paletteMembership": true,
+        "nonempty": true,
+        "padding": true,
+        "manifestHash": true
+      }
+    },
+    {
+      "id": "building_references/town_center",
+      "pass": true,
+      "checks": {
+        "alpha": {
+          "semi_transparent_pixels": 0,
+          "total_pixels": 65536,
+          "clean": true
+        },
+        "orphans": {
+          "orphan_pixels": 0,
+          "clean": true
+        },
+        "palette": {
+          "unique_colors": 24,
+          "max_allowed": 28,
+          "clean": true
+        },
+        "grid": {
+          "width": 256,
+          "height": 256,
+          "grid_size": 256,
+          "aligned": true
+        },
+        "paletteMembership": true,
+        "nonempty": true,
+        "padding": true,
+        "manifestHash": true
+      }
+    },
+    {
+      "id": "characters/builder_NE",
+      "pass": true,
+      "checks": {
+        "alpha": {
+          "semi_transparent_pixels": 0,
+          "total_pixels": 4096,
+          "clean": true
+        },
+        "orphans": {
+          "orphan_pixels": 0,
+          "clean": true
+        },
+        "palette": {
+          "unique_colors": 13,
+          "max_allowed": 16,
+          "clean": true
+        },
+        "grid": {
+          "width": 64,
+          "height": 64,
+          "grid_size": 64,
+          "aligned": true
+        },
+        "paletteMembership": true,
+        "nonempty": true,
+        "padding": true,
+        "manifestHash": true,
+        "footBaseline": true
+      }
+    },
+    {
+      "id": "characters/builder_NW",
+      "pass": true,
+      "checks": {
+        "alpha": {
+          "semi_transparent_pixels": 0,
+          "total_pixels": 4096,
+          "clean": true
+        },
+        "orphans": {
+          "orphan_pixels": 0,
+          "clean": true
+        },
+        "palette": {
+          "unique_colors": 13,
+          "max_allowed": 16,
+          "clean": true
+        },
+        "grid": {
+          "width": 64,
+          "height": 64,
+          "grid_size": 64,
+          "aligned": true
+        },
+        "paletteMembership": true,
+        "nonempty": true,
+        "padding": true,
+        "manifestHash": true,
+        "footBaseline": true
+      }
+    },
+    {
+      "id": "characters/builder_SE",
+      "pass": true,
+      "checks": {
+        "alpha": {
+          "semi_transparent_pixels": 0,
+          "total_pixels": 4096,
+          "clean": true
+        },
+        "orphans": {
+          "orphan_pixels": 0,
+          "clean": true
+        },
+        "palette": {
+          "unique_colors": 13,
+          "max_allowed": 16,
+          "clean": true
+        },
+        "grid": {
+          "width": 64,
+          "height": 64,
+          "grid_size": 64,
+          "aligned": true
+        },
+        "paletteMembership": true,
+        "nonempty": true,
+        "padding": true,
+        "manifestHash": true,
+        "footBaseline": true
+      }
+    },
+    {
+      "id": "characters/builder_SW",
+      "pass": true,
+      "checks": {
+        "alpha": {
+          "semi_transparent_pixels": 0,
+          "total_pixels": 4096,
+          "clean": true
+        },
+        "orphans": {
+          "orphan_pixels": 0,
+          "clean": true
+        },
+        "palette": {
+          "unique_colors": 13,
+          "max_allowed": 16,
+          "clean": true
+        },
+        "grid": {
+          "width": 64,
+          "height": 64,
+          "grid_size": 64,
+          "aligned": true
+        },
+        "paletteMembership": true,
+        "nonempty": true,
+        "padding": true,
+        "manifestHash": true,
+        "footBaseline": true
+      }
+    },
+    {
+      "id": "characters/farmer_NE",
+      "pass": true,
+      "checks": {
+        "alpha": {
+          "semi_transparent_pixels": 0,
+          "total_pixels": 4096,
+          "clean": true
+        },
+        "orphans": {
+          "orphan_pixels": 0,
+          "clean": true
+        },
+        "palette": {
+          "unique_colors": 14,
+          "max_allowed": 16,
+          "clean": true
+        },
+        "grid": {
+          "width": 64,
+          "height": 64,
+          "grid_size": 64,
+          "aligned": true
+        },
+        "paletteMembership": true,
+        "nonempty": true,
+        "padding": true,
+        "manifestHash": true,
+        "footBaseline": true
+      }
+    },
+    {
+      "id": "characters/farmer_NW",
+      "pass": true,
+      "checks": {
+        "alpha": {
+          "semi_transparent_pixels": 0,
+          "total_pixels": 4096,
+          "clean": true
+        },
+        "orphans": {
+          "orphan_pixels": 0,
+          "clean": true
+        },
+        "palette": {
+          "unique_colors": 15,
+          "max_allowed": 16,
+          "clean": true
+        },
+        "grid": {
+          "width": 64,
+          "height": 64,
+          "grid_size": 64,
+          "aligned": true
+        },
+        "paletteMembership": true,
+        "nonempty": true,
+        "padding": true,
+        "manifestHash": true,
+        "footBaseline": true
+      }
+    },
+    {
+      "id": "characters/farmer_SE",
+      "pass": true,
+      "checks": {
+        "alpha": {
+          "semi_transparent_pixels": 0,
+          "total_pixels": 4096,
+          "clean": true
+        },
+        "orphans": {
+          "orphan_pixels": 0,
+          "clean": true
+        },
+        "palette": {
+          "unique_colors": 15,
+          "max_allowed": 16,
+          "clean": true
+        },
+        "grid": {
+          "width": 64,
+          "height": 64,
+          "grid_size": 64,
+          "aligned": true
+        },
+        "paletteMembership": true,
+        "nonempty": true,
+        "padding": true,
+        "manifestHash": true,
+        "footBaseline": true
+      }
+    },
+    {
+      "id": "characters/farmer_SW",
+      "pass": true,
+      "checks": {
+        "alpha": {
+          "semi_transparent_pixels": 0,
+          "total_pixels": 4096,
+          "clean": true
+        },
+        "orphans": {
+          "orphan_pixels": 0,
+          "clean": true
+        },
+        "palette": {
+          "unique_colors": 15,
+          "max_allowed": 16,
+          "clean": true
+        },
+        "grid": {
+          "width": 64,
+          "height": 64,
+          "grid_size": 64,
+          "aligned": true
+        },
+        "paletteMembership": true,
+        "nonempty": true,
+        "padding": true,
+        "manifestHash": true,
+        "footBaseline": true
+      }
+    },
+    {
+      "id": "characters/lumberjack_NE",
+      "pass": true,
+      "checks": {
+        "alpha": {
+          "semi_transparent_pixels": 0,
+          "total_pixels": 4096,
+          "clean": true
+        },
+        "orphans": {
+          "orphan_pixels": 0,
+          "clean": true
+        },
+        "palette": {
+          "unique_colors": 13,
+          "max_allowed": 16,
+          "clean": true
+        },
+        "grid": {
+          "width": 64,
+          "height": 64,
+          "grid_size": 64,
+          "aligned": true
+        },
+        "paletteMembership": true,
+        "nonempty": true,
+        "padding": true,
+        "manifestHash": true,
+        "footBaseline": true
+      }
+    },
+    {
+      "id": "characters/lumberjack_NW",
+      "pass": true,
+      "checks": {
+        "alpha": {
+          "semi_transparent_pixels": 0,
+          "total_pixels": 4096,
+          "clean": true
+        },
+        "orphans": {
+          "orphan_pixels": 0,
+          "clean": true
+        },
+        "palette": {
+          "unique_colors": 13,
+          "max_allowed": 16,
+          "clean": true
+        },
+        "grid": {
+          "width": 64,
+          "height": 64,
+          "grid_size": 64,
+          "aligned": true
+        },
+        "paletteMembership": true,
+        "nonempty": true,
+        "padding": true,
+        "manifestHash": true,
+        "footBaseline": true
+      }
+    },
+    {
+      "id": "characters/lumberjack_SE",
+      "pass": true,
+      "checks": {
+        "alpha": {
+          "semi_transparent_pixels": 0,
+          "total_pixels": 4096,
+          "clean": true
+        },
+        "orphans": {
+          "orphan_pixels": 0,
+          "clean": true
+        },
+        "palette": {
+          "unique_colors": 13,
+          "max_allowed": 16,
+          "clean": true
+        },
+        "grid": {
+          "width": 64,
+          "height": 64,
+          "grid_size": 64,
+          "aligned": true
+        },
+        "paletteMembership": true,
+        "nonempty": true,
+        "padding": true,
+        "manifestHash": true,
+        "footBaseline": true
+      }
+    },
+    {
+      "id": "characters/lumberjack_SW",
+      "pass": true,
+      "checks": {
+        "alpha": {
+          "semi_transparent_pixels": 0,
+          "total_pixels": 4096,
+          "clean": true
+        },
+        "orphans": {
+          "orphan_pixels": 0,
+          "clean": true
+        },
+        "palette": {
+          "unique_colors": 13,
+          "max_allowed": 16,
+          "clean": true
+        },
+        "grid": {
+          "width": 64,
+          "height": 64,
+          "grid_size": 64,
+          "aligned": true
+        },
+        "paletteMembership": true,
+        "nonempty": true,
+        "padding": true,
+        "manifestHash": true,
+        "footBaseline": true
+      }
+    },
+    {
+      "id": "characters/villager_NE",
+      "pass": true,
+      "checks": {
+        "alpha": {
+          "semi_transparent_pixels": 0,
+          "total_pixels": 4096,
+          "clean": true
+        },
+        "orphans": {
+          "orphan_pixels": 0,
+          "clean": true
+        },
+        "palette": {
+          "unique_colors": 12,
+          "max_allowed": 16,
+          "clean": true
+        },
+        "grid": {
+          "width": 64,
+          "height": 64,
+          "grid_size": 64,
+          "aligned": true
+        },
+        "paletteMembership": true,
+        "nonempty": true,
+        "padding": true,
+        "manifestHash": true,
+        "footBaseline": true
+      }
+    },
+    {
+      "id": "characters/villager_NW",
+      "pass": true,
+      "checks": {
+        "alpha": {
+          "semi_transparent_pixels": 0,
+          "total_pixels": 4096,
+          "clean": true
+        },
+        "orphans": {
+          "orphan_pixels": 0,
+          "clean": true
+        },
+        "palette": {
+          "unique_colors": 13,
+          "max_allowed": 16,
+          "clean": true
+        },
+        "grid": {
+          "width": 64,
+          "height": 64,
+          "grid_size": 64,
+          "aligned": true
+        },
+        "paletteMembership": true,
+        "nonempty": true,
+        "padding": true,
+        "manifestHash": true,
+        "footBaseline": true
+      }
+    },
+    {
+      "id": "characters/villager_SE",
+      "pass": true,
+      "checks": {
+        "alpha": {
+          "semi_transparent_pixels": 0,
+          "total_pixels": 4096,
+          "clean": true
+        },
+        "orphans": {
+          "orphan_pixels": 0,
+          "clean": true
+        },
+        "palette": {
+          "unique_colors": 13,
+          "max_allowed": 16,
+          "clean": true
+        },
+        "grid": {
+          "width": 64,
+          "height": 64,
+          "grid_size": 64,
+          "aligned": true
+        },
+        "paletteMembership": true,
+        "nonempty": true,
+        "padding": true,
+        "manifestHash": true,
+        "footBaseline": true
+      }
+    },
+    {
+      "id": "characters/villager_SW",
+      "pass": true,
+      "checks": {
+        "alpha": {
+          "semi_transparent_pixels": 0,
+          "total_pixels": 4096,
+          "clean": true
+        },
+        "orphans": {
+          "orphan_pixels": 0,
+          "clean": true
+        },
+        "palette": {
+          "unique_colors": 13,
+          "max_allowed": 16,
+          "clean": true
+        },
+        "grid": {
+          "width": 64,
+          "height": 64,
+          "grid_size": 64,
+          "aligned": true
+        },
+        "paletteMembership": true,
+        "nonempty": true,
+        "padding": true,
+        "manifestHash": true,
+        "footBaseline": true
+      }
+    },
+    {
+      "id": "icons/agriculture",
+      "pass": true,
+      "checks": {
+        "alpha": {
+          "semi_transparent_pixels": 0,
+          "total_pixels": 576,
+          "clean": true
+        },
+        "orphans": {
+          "orphan_pixels": 0,
+          "clean": true
+        },
+        "palette": {
+          "unique_colors": 17,
+          "max_allowed": 28,
+          "clean": true
+        },
+        "grid": {
+          "width": 24,
+          "height": 24,
+          "grid_size": 24,
+          "aligned": true
+        },
+        "paletteMembership": true,
+        "nonempty": true,
+        "padding": true,
+        "manifestHash": true
+      }
+    },
+    {
+      "id": "icons/coins",
+      "pass": true,
+      "checks": {
+        "alpha": {
+          "semi_transparent_pixels": 0,
+          "total_pixels": 576,
+          "clean": true
+        },
+        "orphans": {
+          "orphan_pixels": 0,
+          "clean": true
+        },
+        "palette": {
+          "unique_colors": 19,
+          "max_allowed": 28,
+          "clean": true
+        },
+        "grid": {
+          "width": 24,
+          "height": 24,
+          "grid_size": 24,
+          "aligned": true
+        },
+        "paletteMembership": true,
+        "nonempty": true,
+        "padding": true,
+        "manifestHash": true
+      }
+    },
+    {
+      "id": "icons/construction",
+      "pass": true,
+      "checks": {
+        "alpha": {
+          "semi_transparent_pixels": 0,
+          "total_pixels": 576,
+          "clean": true
+        },
+        "orphans": {
+          "orphan_pixels": 0,
+          "clean": true
+        },
+        "palette": {
+          "unique_colors": 12,
+          "max_allowed": 28,
+          "clean": true
+        },
+        "grid": {
+          "width": 24,
+          "height": 24,
+          "grid_size": 24,
+          "aligned": true
+        },
+        "paletteMembership": true,
+        "nonempty": true,
+        "padding": true,
+        "manifestHash": true
+      }
+    },
+    {
+      "id": "icons/dirt_road",
+      "pass": true,
+      "checks": {
+        "alpha": {
+          "semi_transparent_pixels": 0,
+          "total_pixels": 576,
+          "clean": true
+        },
+        "orphans": {
+          "orphan_pixels": 0,
+          "clean": true
+        },
+        "palette": {
+          "unique_colors": 14,
+          "max_allowed": 28,
+          "clean": true
+        },
+        "grid": {
+          "width": 24,
+          "height": 24,
+          "grid_size": 24,
+          "aligned": true
+        },
+        "paletteMembership": true,
+        "nonempty": true,
+        "padding": true,
+        "manifestHash": true
+      }
+    },
+    {
+      "id": "icons/farm",
+      "pass": true,
+      "checks": {
+        "alpha": {
+          "semi_transparent_pixels": 0,
+          "total_pixels": 576,
+          "clean": true
+        },
+        "orphans": {
+          "orphan_pixels": 0,
+          "clean": true
+        },
+        "palette": {
+          "unique_colors": 17,
+          "max_allowed": 28,
+          "clean": true
+        },
+        "grid": {
+          "width": 24,
+          "height": 24,
+          "grid_size": 24,
+          "aligned": true
+        },
+        "paletteMembership": true,
+        "nonempty": true,
+        "padding": true,
+        "manifestHash": true
+      }
+    },
+    {
+      "id": "icons/food",
+      "pass": true,
+      "checks": {
+        "alpha": {
+          "semi_transparent_pixels": 0,
+          "total_pixels": 576,
+          "clean": true
+        },
+        "orphans": {
+          "orphan_pixels": 0,
+          "clean": true
+        },
+        "palette": {
+          "unique_colors": 20,
+          "max_allowed": 28,
+          "clean": true
+        },
+        "grid": {
+          "width": 24,
+          "height": 24,
+          "grid_size": 24,
+          "aligned": true
+        },
+        "paletteMembership": true,
+        "nonempty": true,
+        "padding": true,
+        "manifestHash": true
+      }
+    },
+    {
+      "id": "icons/happiness",
+      "pass": true,
+      "checks": {
+        "alpha": {
+          "semi_transparent_pixels": 0,
+          "total_pixels": 576,
+          "clean": true
+        },
+        "orphans": {
+          "orphan_pixels": 0,
+          "clean": true
+        },
+        "palette": {
+          "unique_colors": 8,
+          "max_allowed": 28,
+          "clean": true
+        },
+        "grid": {
+          "width": 24,
+          "height": 24,
+          "grid_size": 24,
+          "aligned": true
+        },
+        "paletteMembership": true,
+        "nonempty": true,
+        "padding": true,
+        "manifestHash": true
+      }
+    },
+    {
+      "id": "icons/lumber_camp",
+      "pass": true,
+      "checks": {
+        "alpha": {
+          "semi_transparent_pixels": 0,
+          "total_pixels": 576,
+          "clean": true
+        },
+        "orphans": {
+          "orphan_pixels": 0,
+          "clean": true
+        },
+        "palette": {
+          "unique_colors": 16,
+          "max_allowed": 28,
+          "clean": true
+        },
+        "grid": {
+          "width": 24,
+          "height": 24,
+          "grid_size": 24,
+          "aligned": true
+        },
+        "paletteMembership": true,
+        "nonempty": true,
+        "padding": true,
+        "manifestHash": true
+      }
+    },
+    {
+      "id": "icons/masonry",
+      "pass": true,
+      "checks": {
+        "alpha": {
+          "semi_transparent_pixels": 0,
+          "total_pixels": 576,
+          "clean": true
+        },
+        "orphans": {
+          "orphan_pixels": 0,
+          "clean": true
+        },
+        "palette": {
+          "unique_colors": 11,
+          "max_allowed": 28,
+          "clean": true
+        },
+        "grid": {
+          "width": 24,
+          "height": 24,
+          "grid_size": 24,
+          "aligned": true
+        },
+        "paletteMembership": true,
+        "nonempty": true,
+        "padding": true,
+        "manifestHash": true
+      }
+    },
+    {
+      "id": "icons/population",
+      "pass": true,
+      "checks": {
+        "alpha": {
+          "semi_transparent_pixels": 0,
+          "total_pixels": 576,
+          "clean": true
+        },
+        "orphans": {
+          "orphan_pixels": 0,
+          "clean": true
+        },
+        "palette": {
+          "unique_colors": 16,
+          "max_allowed": 28,
+          "clean": true
+        },
+        "grid": {
+          "width": 24,
+          "height": 24,
+          "grid_size": 24,
+          "aligned": true
+        },
+        "paletteMembership": true,
+        "nonempty": true,
+        "padding": true,
+        "manifestHash": true
+      }
+    },
+    {
+      "id": "icons/primitive_house",
+      "pass": true,
+      "checks": {
+        "alpha": {
+          "semi_transparent_pixels": 0,
+          "total_pixels": 576,
+          "clean": true
+        },
+        "orphans": {
+          "orphan_pixels": 0,
+          "clean": true
+        },
+        "palette": {
+          "unique_colors": 15,
+          "max_allowed": 28,
+          "clean": true
+        },
+        "grid": {
+          "width": 24,
+          "height": 24,
+          "grid_size": 24,
+          "aligned": true
+        },
+        "paletteMembership": true,
+        "nonempty": true,
+        "padding": true,
+        "manifestHash": true
+      }
+    },
+    {
+      "id": "icons/research_hut",
+      "pass": true,
+      "checks": {
+        "alpha": {
+          "semi_transparent_pixels": 0,
+          "total_pixels": 576,
+          "clean": true
+        },
+        "orphans": {
+          "orphan_pixels": 0,
+          "clean": true
+        },
+        "palette": {
+          "unique_colors": 15,
+          "max_allowed": 28,
+          "clean": true
+        },
+        "grid": {
+          "width": 24,
+          "height": 24,
+          "grid_size": 24,
+          "aligned": true
+        },
+        "paletteMembership": true,
+        "nonempty": true,
+        "padding": true,
+        "manifestHash": true
+      }
+    },
+    {
+      "id": "icons/stone",
+      "pass": true,
+      "checks": {
+        "alpha": {
+          "semi_transparent_pixels": 0,
+          "total_pixels": 576,
+          "clean": true
+        },
+        "orphans": {
+          "orphan_pixels": 0,
+          "clean": true
+        },
+        "palette": {
+          "unique_colors": 9,
+          "max_allowed": 28,
+          "clean": true
+        },
+        "grid": {
+          "width": 24,
+          "height": 24,
+          "grid_size": 24,
+          "aligned": true
+        },
+        "paletteMembership": true,
+        "nonempty": true,
+        "padding": true,
+        "manifestHash": true
+      }
+    },
+    {
+      "id": "icons/stone_quarry",
+      "pass": true,
+      "checks": {
+        "alpha": {
+          "semi_transparent_pixels": 0,
+          "total_pixels": 576,
+          "clean": true
+        },
+        "orphans": {
+          "orphan_pixels": 0,
+          "clean": true
+        },
+        "palette": {
+          "unique_colors": 11,
+          "max_allowed": 28,
+          "clean": true
+        },
+        "grid": {
+          "width": 24,
+          "height": 24,
+          "grid_size": 24,
+          "aligned": true
+        },
+        "paletteMembership": true,
+        "nonempty": true,
+        "padding": true,
+        "manifestHash": true
+      }
+    },
+    {
+      "id": "icons/storage_hut",
+      "pass": true,
+      "checks": {
+        "alpha": {
+          "semi_transparent_pixels": 0,
+          "total_pixels": 576,
+          "clean": true
+        },
+        "orphans": {
+          "orphan_pixels": 0,
+          "clean": true
+        },
+        "palette": {
+          "unique_colors": 8,
+          "max_allowed": 28,
+          "clean": true
+        },
+        "grid": {
+          "width": 24,
+          "height": 24,
+          "grid_size": 24,
+          "aligned": true
+        },
+        "paletteMembership": true,
+        "nonempty": true,
+        "padding": true,
+        "manifestHash": true
+      }
+    },
+    {
+      "id": "icons/technology",
+      "pass": true,
+      "checks": {
+        "alpha": {
+          "semi_transparent_pixels": 0,
+          "total_pixels": 576,
+          "clean": true
+        },
+        "orphans": {
+          "orphan_pixels": 0,
+          "clean": true
+        },
+        "palette": {
+          "unique_colors": 13,
+          "max_allowed": 28,
+          "clean": true
+        },
+        "grid": {
+          "width": 24,
+          "height": 24,
+          "grid_size": 24,
+          "aligned": true
+        },
+        "paletteMembership": true,
+        "nonempty": true,
+        "padding": true,
+        "manifestHash": true
+      }
+    },
+    {
+      "id": "icons/toolmaking",
+      "pass": true,
+      "checks": {
+        "alpha": {
+          "semi_transparent_pixels": 0,
+          "total_pixels": 576,
+          "clean": true
+        },
+        "orphans": {
+          "orphan_pixels": 0,
+          "clean": true
+        },
+        "palette": {
+          "unique_colors": 13,
+          "max_allowed": 28,
+          "clean": true
+        },
+        "grid": {
+          "width": 24,
+          "height": 24,
+          "grid_size": 24,
+          "aligned": true
+        },
+        "paletteMembership": true,
+        "nonempty": true,
+        "padding": true,
+        "manifestHash": true
+      }
+    },
+    {
+      "id": "icons/town_center",
+      "pass": true,
+      "checks": {
+        "alpha": {
+          "semi_transparent_pixels": 0,
+          "total_pixels": 576,
+          "clean": true
+        },
+        "orphans": {
+          "orphan_pixels": 0,
+          "clean": true
+        },
+        "palette": {
+          "unique_colors": 18,
+          "max_allowed": 28,
+          "clean": true
+        },
+        "grid": {
+          "width": 24,
+          "height": 24,
+          "grid_size": 24,
+          "aligned": true
+        },
+        "paletteMembership": true,
+        "nonempty": true,
+        "padding": true,
+        "manifestHash": true
+      }
+    },
+    {
+      "id": "icons/wood",
+      "pass": true,
+      "checks": {
+        "alpha": {
+          "semi_transparent_pixels": 0,
+          "total_pixels": 576,
+          "clean": true
+        },
+        "orphans": {
+          "orphan_pixels": 0,
+          "clean": true
+        },
+        "palette": {
+          "unique_colors": 12,
+          "max_allowed": 28,
+          "clean": true
+        },
+        "grid": {
+          "width": 24,
+          "height": 24,
+          "grid_size": 24,
+          "aligned": true
+        },
+        "paletteMembership": true,
+        "nonempty": true,
+        "padding": true,
+        "manifestHash": true
+      }
+    },
+    {
+      "id": "interior_references/primitive_house",
+      "pass": true,
+      "checks": {
+        "alpha": {
+          "semi_transparent_pixels": 0,
+          "total_pixels": 65536,
+          "clean": true
+        },
+        "orphans": {
+          "orphan_pixels": 0,
+          "clean": true
+        },
+        "palette": {
+          "unique_colors": 25,
+          "max_allowed": 28,
+          "clean": true
+        },
+        "grid": {
+          "width": 256,
+          "height": 256,
+          "grid_size": 256,
+          "aligned": true
+        },
+        "paletteMembership": true,
+        "nonempty": true,
+        "padding": true,
+        "manifestHash": true
+      }
+    },
+    {
+      "id": "interior_references/research_hut",
+      "pass": true,
+      "checks": {
+        "alpha": {
+          "semi_transparent_pixels": 0,
+          "total_pixels": 65536,
+          "clean": true
+        },
+        "orphans": {
+          "orphan_pixels": 0,
+          "clean": true
+        },
+        "palette": {
+          "unique_colors": 26,
+          "max_allowed": 28,
+          "clean": true
+        },
+        "grid": {
+          "width": 256,
+          "height": 256,
+          "grid_size": 256,
+          "aligned": true
+        },
+        "paletteMembership": true,
+        "nonempty": true,
+        "padding": true,
+        "manifestHash": true
+      }
+    },
+    {
+      "id": "interior_references/storage_hut",
+      "pass": true,
+      "checks": {
+        "alpha": {
+          "semi_transparent_pixels": 0,
+          "total_pixels": 65536,
+          "clean": true
+        },
+        "orphans": {
+          "orphan_pixels": 0,
+          "clean": true
+        },
+        "palette": {
+          "unique_colors": 24,
+          "max_allowed": 28,
+          "clean": true
+        },
+        "grid": {
+          "width": 256,
+          "height": 256,
+          "grid_size": 256,
+          "aligned": true
+        },
+        "paletteMembership": true,
+        "nonempty": true,
+        "padding": true,
+        "manifestHash": true
+      }
+    },
+    {
+      "id": "interior_references/town_center",
+      "pass": true,
+      "checks": {
+        "alpha": {
+          "semi_transparent_pixels": 0,
+          "total_pixels": 65536,
+          "clean": true
+        },
+        "orphans": {
+          "orphan_pixels": 0,
+          "clean": true
+        },
+        "palette": {
+          "unique_colors": 24,
+          "max_allowed": 28,
+          "clean": true
+        },
+        "grid": {
+          "width": 256,
+          "height": 256,
+          "grid_size": 256,
+          "aligned": true
+        },
+        "paletteMembership": true,
+        "nonempty": true,
+        "padding": true,
+        "manifestHash": true
+      }
+    },
+    {
+      "id": "legacy_references/apartment",
+      "pass": true,
+      "checks": {
+        "alpha": {
+          "semi_transparent_pixels": 0,
+          "total_pixels": 65536,
+          "clean": true
+        },
+        "orphans": {
+          "orphan_pixels": 0,
+          "clean": true
+        },
+        "palette": {
+          "unique_colors": 16,
+          "max_allowed": 28,
+          "clean": true
+        },
+        "grid": {
+          "width": 256,
+          "height": 256,
+          "grid_size": 256,
+          "aligned": true
+        },
+        "paletteMembership": true,
+        "nonempty": true,
+        "padding": true,
+        "manifestHash": true
+      }
+    },
+    {
+      "id": "legacy_references/bakery",
+      "pass": true,
+      "checks": {
+        "alpha": {
+          "semi_transparent_pixels": 0,
+          "total_pixels": 65536,
+          "clean": true
+        },
+        "orphans": {
+          "orphan_pixels": 0,
+          "clean": true
+        },
+        "palette": {
+          "unique_colors": 24,
+          "max_allowed": 28,
+          "clean": true
+        },
+        "grid": {
+          "width": 256,
+          "height": 256,
+          "grid_size": 256,
+          "aligned": true
+        },
+        "paletteMembership": true,
+        "nonempty": true,
+        "padding": true,
+        "manifestHash": true
+      }
+    },
+    {
+      "id": "legacy_references/clinic",
+      "pass": true,
+      "checks": {
+        "alpha": {
+          "semi_transparent_pixels": 0,
+          "total_pixels": 65536,
+          "clean": true
+        },
+        "orphans": {
+          "orphan_pixels": 0,
+          "clean": true
+        },
+        "palette": {
+          "unique_colors": 14,
+          "max_allowed": 28,
+          "clean": true
+        },
+        "grid": {
+          "width": 256,
+          "height": 256,
+          "grid_size": 256,
+          "aligned": true
+        },
+        "paletteMembership": true,
+        "nonempty": true,
+        "padding": true,
+        "manifestHash": true
+      }
+    },
+    {
+      "id": "legacy_references/family_house",
+      "pass": true,
+      "checks": {
+        "alpha": {
+          "semi_transparent_pixels": 0,
+          "total_pixels": 65536,
+          "clean": true
+        },
+        "orphans": {
+          "orphan_pixels": 0,
+          "clean": true
+        },
+        "palette": {
+          "unique_colors": 20,
+          "max_allowed": 28,
+          "clean": true
+        },
+        "grid": {
+          "width": 256,
+          "height": 256,
+          "grid_size": 256,
+          "aligned": true
+        },
+        "paletteMembership": true,
+        "nonempty": true,
+        "padding": true,
+        "manifestHash": true
+      }
+    },
+    {
+      "id": "legacy_references/park",
+      "pass": true,
+      "checks": {
+        "alpha": {
+          "semi_transparent_pixels": 0,
+          "total_pixels": 65536,
+          "clean": true
+        },
+        "orphans": {
+          "orphan_pixels": 0,
+          "clean": true
+        },
+        "palette": {
+          "unique_colors": 19,
+          "max_allowed": 28,
+          "clean": true
+        },
+        "grid": {
+          "width": 256,
+          "height": 256,
+          "grid_size": 256,
+          "aligned": true
+        },
+        "paletteMembership": true,
+        "nonempty": true,
+        "padding": true,
+        "manifestHash": true
+      }
+    },
+    {
+      "id": "legacy_references/restaurant",
+      "pass": true,
+      "checks": {
+        "alpha": {
+          "semi_transparent_pixels": 0,
+          "total_pixels": 65536,
+          "clean": true
+        },
+        "orphans": {
+          "orphan_pixels": 0,
+          "clean": true
+        },
+        "palette": {
+          "unique_colors": 21,
+          "max_allowed": 28,
+          "clean": true
+        },
+        "grid": {
+          "width": 256,
+          "height": 256,
+          "grid_size": 256,
+          "aligned": true
+        },
+        "paletteMembership": true,
+        "nonempty": true,
+        "padding": true,
+        "manifestHash": true
+      }
+    },
+    {
+      "id": "legacy_references/road",
+      "pass": true,
+      "checks": {
+        "alpha": {
+          "semi_transparent_pixels": 0,
+          "total_pixels": 65536,
+          "clean": true
+        },
+        "orphans": {
+          "orphan_pixels": 0,
+          "clean": true
+        },
+        "palette": {
+          "unique_colors": 13,
+          "max_allowed": 28,
+          "clean": true
+        },
+        "grid": {
+          "width": 256,
+          "height": 256,
+          "grid_size": 256,
+          "aligned": true
+        },
+        "paletteMembership": true,
+        "nonempty": true,
+        "padding": true,
+        "manifestHash": true
+      }
+    },
+    {
+      "id": "legacy_references/school",
+      "pass": true,
+      "checks": {
+        "alpha": {
+          "semi_transparent_pixels": 0,
+          "total_pixels": 65536,
+          "clean": true
+        },
+        "orphans": {
+          "orphan_pixels": 0,
+          "clean": true
+        },
+        "palette": {
+          "unique_colors": 22,
+          "max_allowed": 28,
+          "clean": true
+        },
+        "grid": {
+          "width": 256,
+          "height": 256,
+          "grid_size": 256,
+          "aligned": true
+        },
+        "paletteMembership": true,
+        "nonempty": true,
+        "padding": true,
+        "manifestHash": true
+      }
+    },
+    {
+      "id": "legacy_references/shop",
+      "pass": true,
+      "checks": {
+        "alpha": {
+          "semi_transparent_pixels": 0,
+          "total_pixels": 65536,
+          "clean": true
+        },
+        "orphans": {
+          "orphan_pixels": 0,
+          "clean": true
+        },
+        "palette": {
+          "unique_colors": 21,
+          "max_allowed": 28,
+          "clean": true
+        },
+        "grid": {
+          "width": 256,
+          "height": 256,
+          "grid_size": 256,
+          "aligned": true
+        },
+        "paletteMembership": true,
+        "nonempty": true,
+        "padding": true,
+        "manifestHash": true
+      }
+    },
+    {
+      "id": "legacy_references/small_house",
+      "pass": true,
+      "checks": {
+        "alpha": {
+          "semi_transparent_pixels": 0,
+          "total_pixels": 65536,
+          "clean": true
+        },
+        "orphans": {
+          "orphan_pixels": 0,
+          "clean": true
+        },
+        "palette": {
+          "unique_colors": 19,
+          "max_allowed": 28,
+          "clean": true
+        },
+        "grid": {
+          "width": 256,
+          "height": 256,
+          "grid_size": 256,
+          "aligned": true
+        },
+        "paletteMembership": true,
+        "nonempty": true,
+        "padding": true,
+        "manifestHash": true
+      }
+    },
+    {
+      "id": "legacy_references/streetlight",
+      "pass": true,
+      "checks": {
+        "alpha": {
+          "semi_transparent_pixels": 0,
+          "total_pixels": 65536,
+          "clean": true
+        },
+        "orphans": {
+          "orphan_pixels": 0,
+          "clean": true
+        },
+        "palette": {
+          "unique_colors": 15,
+          "max_allowed": 28,
+          "clean": true
+        },
+        "grid": {
+          "width": 256,
+          "height": 256,
+          "grid_size": 256,
+          "aligned": true
+        },
+        "paletteMembership": true,
+        "nonempty": true,
+        "padding": true,
+        "manifestHash": true
+      }
+    },
+    {
+      "id": "legacy_references/tree",
+      "pass": true,
+      "checks": {
+        "alpha": {
+          "semi_transparent_pixels": 0,
+          "total_pixels": 65536,
+          "clean": true
+        },
+        "orphans": {
+          "orphan_pixels": 0,
+          "clean": true
+        },
+        "palette": {
+          "unique_colors": 15,
+          "max_allowed": 28,
+          "clean": true
+        },
+        "grid": {
+          "width": 256,
+          "height": 256,
+          "grid_size": 256,
+          "aligned": true
+        },
+        "paletteMembership": true,
+        "nonempty": true,
+        "padding": true,
+        "manifestHash": true
+      }
+    },
+    {
+      "id": "nature_references/bush_1",
+      "pass": true,
+      "checks": {
+        "alpha": {
+          "semi_transparent_pixels": 0,
+          "total_pixels": 16384,
+          "clean": true
+        },
+        "orphans": {
+          "orphan_pixels": 0,
+          "clean": true
+        },
+        "palette": {
+          "unique_colors": 19,
+          "max_allowed": 28,
+          "clean": true
+        },
+        "grid": {
+          "width": 128,
+          "height": 128,
+          "grid_size": 128,
+          "aligned": true
+        },
+        "paletteMembership": true,
+        "nonempty": true,
+        "padding": true,
+        "manifestHash": true
+      }
+    },
+    {
+      "id": "nature_references/bush_2",
+      "pass": true,
+      "checks": {
+        "alpha": {
+          "semi_transparent_pixels": 0,
+          "total_pixels": 16384,
+          "clean": true
+        },
+        "orphans": {
+          "orphan_pixels": 0,
+          "clean": true
+        },
+        "palette": {
+          "unique_colors": 16,
+          "max_allowed": 28,
+          "clean": true
+        },
+        "grid": {
+          "width": 128,
+          "height": 128,
+          "grid_size": 128,
+          "aligned": true
+        },
+        "paletteMembership": true,
+        "nonempty": true,
+        "padding": true,
+        "manifestHash": true
+      }
+    },
+    {
+      "id": "nature_references/bush_3",
+      "pass": true,
+      "checks": {
+        "alpha": {
+          "semi_transparent_pixels": 0,
+          "total_pixels": 16384,
+          "clean": true
+        },
+        "orphans": {
+          "orphan_pixels": 0,
+          "clean": true
+        },
+        "palette": {
+          "unique_colors": 15,
+          "max_allowed": 28,
+          "clean": true
+        },
+        "grid": {
+          "width": 128,
+          "height": 128,
+          "grid_size": 128,
+          "aligned": true
+        },
+        "paletteMembership": true,
+        "nonempty": true,
+        "padding": true,
+        "manifestHash": true
+      }
+    },
+    {
+      "id": "nature_references/crop_1",
+      "pass": true,
+      "checks": {
+        "alpha": {
+          "semi_transparent_pixels": 0,
+          "total_pixels": 16384,
+          "clean": true
+        },
+        "orphans": {
+          "orphan_pixels": 0,
+          "clean": true
+        },
+        "palette": {
+          "unique_colors": 19,
+          "max_allowed": 28,
+          "clean": true
+        },
+        "grid": {
+          "width": 128,
+          "height": 128,
+          "grid_size": 128,
+          "aligned": true
+        },
+        "paletteMembership": true,
+        "nonempty": true,
+        "padding": true,
+        "manifestHash": true
+      }
+    },
+    {
+      "id": "nature_references/crop_2",
+      "pass": true,
+      "checks": {
+        "alpha": {
+          "semi_transparent_pixels": 0,
+          "total_pixels": 16384,
+          "clean": true
+        },
+        "orphans": {
+          "orphan_pixels": 0,
+          "clean": true
+        },
+        "palette": {
+          "unique_colors": 17,
+          "max_allowed": 28,
+          "clean": true
+        },
+        "grid": {
+          "width": 128,
+          "height": 128,
+          "grid_size": 128,
+          "aligned": true
+        },
+        "paletteMembership": true,
+        "nonempty": true,
+        "padding": true,
+        "manifestHash": true
+      }
+    },
+    {
+      "id": "nature_references/grass_1",
+      "pass": true,
+      "checks": {
+        "alpha": {
+          "semi_transparent_pixels": 0,
+          "total_pixels": 16384,
+          "clean": true
+        },
+        "orphans": {
+          "orphan_pixels": 0,
+          "clean": true
+        },
+        "palette": {
+          "unique_colors": 16,
+          "max_allowed": 28,
+          "clean": true
+        },
+        "grid": {
+          "width": 128,
+          "height": 128,
+          "grid_size": 128,
+          "aligned": true
+        },
+        "paletteMembership": true,
+        "nonempty": true,
+        "padding": true,
+        "manifestHash": true
+      }
+    },
+    {
+      "id": "nature_references/grass_2",
+      "pass": true,
+      "checks": {
+        "alpha": {
+          "semi_transparent_pixels": 0,
+          "total_pixels": 16384,
+          "clean": true
+        },
+        "orphans": {
+          "orphan_pixels": 0,
+          "clean": true
+        },
+        "palette": {
+          "unique_colors": 16,
+          "max_allowed": 28,
+          "clean": true
+        },
+        "grid": {
+          "width": 128,
+          "height": 128,
+          "grid_size": 128,
+          "aligned": true
+        },
+        "paletteMembership": true,
+        "nonempty": true,
+        "padding": true,
+        "manifestHash": true
+      }
+    },
+    {
+      "id": "nature_references/grass_3",
+      "pass": true,
+      "checks": {
+        "alpha": {
+          "semi_transparent_pixels": 0,
+          "total_pixels": 16384,
+          "clean": true
+        },
+        "orphans": {
+          "orphan_pixels": 0,
+          "clean": true
+        },
+        "palette": {
+          "unique_colors": 16,
+          "max_allowed": 28,
+          "clean": true
+        },
+        "grid": {
+          "width": 128,
+          "height": 128,
+          "grid_size": 128,
+          "aligned": true
+        },
+        "paletteMembership": true,
+        "nonempty": true,
+        "padding": true,
+        "manifestHash": true
+      }
+    },
+    {
+      "id": "nature_references/rock_1",
+      "pass": true,
+      "checks": {
+        "alpha": {
+          "semi_transparent_pixels": 0,
+          "total_pixels": 16384,
+          "clean": true
+        },
+        "orphans": {
+          "orphan_pixels": 0,
+          "clean": true
+        },
+        "palette": {
+          "unique_colors": 17,
+          "max_allowed": 28,
+          "clean": true
+        },
+        "grid": {
+          "width": 128,
+          "height": 128,
+          "grid_size": 128,
+          "aligned": true
+        },
+        "paletteMembership": true,
+        "nonempty": true,
+        "padding": true,
+        "manifestHash": true
+      }
+    },
+    {
+      "id": "nature_references/rock_2",
+      "pass": true,
+      "checks": {
+        "alpha": {
+          "semi_transparent_pixels": 0,
+          "total_pixels": 16384,
+          "clean": true
+        },
+        "orphans": {
+          "orphan_pixels": 0,
+          "clean": true
+        },
+        "palette": {
+          "unique_colors": 14,
+          "max_allowed": 28,
+          "clean": true
+        },
+        "grid": {
+          "width": 128,
+          "height": 128,
+          "grid_size": 128,
+          "aligned": true
+        },
+        "paletteMembership": true,
+        "nonempty": true,
+        "padding": true,
+        "manifestHash": true
+      }
+    },
+    {
+      "id": "nature_references/rock_3",
+      "pass": true,
+      "checks": {
+        "alpha": {
+          "semi_transparent_pixels": 0,
+          "total_pixels": 16384,
+          "clean": true
+        },
+        "orphans": {
+          "orphan_pixels": 0,
+          "clean": true
+        },
+        "palette": {
+          "unique_colors": 14,
+          "max_allowed": 28,
+          "clean": true
+        },
+        "grid": {
+          "width": 128,
+          "height": 128,
+          "grid_size": 128,
+          "aligned": true
+        },
+        "paletteMembership": true,
+        "nonempty": true,
+        "padding": true,
+        "manifestHash": true
+      }
+    },
+    {
+      "id": "nature_references/rock_4",
+      "pass": true,
+      "checks": {
+        "alpha": {
+          "semi_transparent_pixels": 0,
+          "total_pixels": 16384,
+          "clean": true
+        },
+        "orphans": {
+          "orphan_pixels": 0,
+          "clean": true
+        },
+        "palette": {
+          "unique_colors": 17,
+          "max_allowed": 28,
+          "clean": true
+        },
+        "grid": {
+          "width": 128,
+          "height": 128,
+          "grid_size": 128,
+          "aligned": true
+        },
+        "paletteMembership": true,
+        "nonempty": true,
+        "padding": true,
+        "manifestHash": true
+      }
+    },
+    {
+      "id": "nature_references/tree_1",
+      "pass": true,
+      "checks": {
+        "alpha": {
+          "semi_transparent_pixels": 0,
+          "total_pixels": 16384,
+          "clean": true
+        },
+        "orphans": {
+          "orphan_pixels": 0,
+          "clean": true
+        },
+        "palette": {
+          "unique_colors": 15,
+          "max_allowed": 28,
+          "clean": true
+        },
+        "grid": {
+          "width": 128,
+          "height": 128,
+          "grid_size": 128,
+          "aligned": true
+        },
+        "paletteMembership": true,
+        "nonempty": true,
+        "padding": true,
+        "manifestHash": true
+      }
+    },
+    {
+      "id": "nature_references/tree_2",
+      "pass": true,
+      "checks": {
+        "alpha": {
+          "semi_transparent_pixels": 0,
+          "total_pixels": 16384,
+          "clean": true
+        },
+        "orphans": {
+          "orphan_pixels": 0,
+          "clean": true
+        },
+        "palette": {
+          "unique_colors": 15,
+          "max_allowed": 28,
+          "clean": true
+        },
+        "grid": {
+          "width": 128,
+          "height": 128,
+          "grid_size": 128,
+          "aligned": true
+        },
+        "paletteMembership": true,
+        "nonempty": true,
+        "padding": true,
+        "manifestHash": true
+      }
+    },
+    {
+      "id": "nature_references/tree_3",
+      "pass": true,
+      "checks": {
+        "alpha": {
+          "semi_transparent_pixels": 0,
+          "total_pixels": 16384,
+          "clean": true
+        },
+        "orphans": {
+          "orphan_pixels": 0,
+          "clean": true
+        },
+        "palette": {
+          "unique_colors": 18,
+          "max_allowed": 28,
+          "clean": true
+        },
+        "grid": {
+          "width": 128,
+          "height": 128,
+          "grid_size": 128,
+          "aligned": true
+        },
+        "paletteMembership": true,
+        "nonempty": true,
+        "padding": true,
+        "manifestHash": true
+      }
+    },
+    {
+      "id": "props/axe",
+      "pass": true,
+      "checks": {
+        "alpha": {
+          "semi_transparent_pixels": 0,
+          "total_pixels": 1024,
+          "clean": true
+        },
+        "orphans": {
+          "orphan_pixels": 0,
+          "clean": true
+        },
+        "palette": {
+          "unique_colors": 13,
+          "max_allowed": 28,
+          "clean": true
+        },
+        "grid": {
+          "width": 32,
+          "height": 32,
+          "grid_size": 32,
+          "aligned": true
+        },
+        "paletteMembership": true,
+        "nonempty": true,
+        "padding": true,
+        "manifestHash": true
+      }
+    },
+    {
+      "id": "props/book",
+      "pass": true,
+      "checks": {
+        "alpha": {
+          "semi_transparent_pixels": 0,
+          "total_pixels": 1024,
+          "clean": true
+        },
+        "orphans": {
+          "orphan_pixels": 0,
+          "clean": true
+        },
+        "palette": {
+          "unique_colors": 17,
+          "max_allowed": 28,
+          "clean": true
+        },
+        "grid": {
+          "width": 32,
+          "height": 32,
+          "grid_size": 32,
+          "aligned": true
+        },
+        "paletteMembership": true,
+        "nonempty": true,
+        "padding": true,
+        "manifestHash": true
+      }
+    },
+    {
+      "id": "props/carried_stone",
+      "pass": true,
+      "checks": {
+        "alpha": {
+          "semi_transparent_pixels": 0,
+          "total_pixels": 1024,
+          "clean": true
+        },
+        "orphans": {
+          "orphan_pixels": 0,
+          "clean": true
+        },
+        "palette": {
+          "unique_colors": 12,
+          "max_allowed": 28,
+          "clean": true
+        },
+        "grid": {
+          "width": 32,
+          "height": 32,
+          "grid_size": 32,
+          "aligned": true
+        },
+        "paletteMembership": true,
+        "nonempty": true,
+        "padding": true,
+        "manifestHash": true
+      }
+    },
+    {
+      "id": "props/crate",
+      "pass": true,
+      "checks": {
+        "alpha": {
+          "semi_transparent_pixels": 0,
+          "total_pixels": 1024,
+          "clean": true
+        },
+        "orphans": {
+          "orphan_pixels": 0,
+          "clean": true
+        },
+        "palette": {
+          "unique_colors": 15,
+          "max_allowed": 28,
+          "clean": true
+        },
+        "grid": {
+          "width": 32,
+          "height": 32,
+          "grid_size": 32,
+          "aligned": true
+        },
+        "paletteMembership": true,
+        "nonempty": true,
+        "padding": true,
+        "manifestHash": true
+      }
+    },
+    {
+      "id": "props/hammer",
+      "pass": true,
+      "checks": {
+        "alpha": {
+          "semi_transparent_pixels": 0,
+          "total_pixels": 1024,
+          "clean": true
+        },
+        "orphans": {
+          "orphan_pixels": 0,
+          "clean": true
+        },
+        "palette": {
+          "unique_colors": 12,
+          "max_allowed": 28,
+          "clean": true
+        },
+        "grid": {
+          "width": 32,
+          "height": 32,
+          "grid_size": 32,
+          "aligned": true
+        },
+        "paletteMembership": true,
+        "nonempty": true,
+        "padding": true,
+        "manifestHash": true
+      }
+    },
+    {
+      "id": "props/hoe",
+      "pass": true,
+      "checks": {
+        "alpha": {
+          "semi_transparent_pixels": 0,
+          "total_pixels": 1024,
+          "clean": true
+        },
+        "orphans": {
+          "orphan_pixels": 0,
+          "clean": true
+        },
+        "palette": {
+          "unique_colors": 12,
+          "max_allowed": 28,
+          "clean": true
+        },
+        "grid": {
+          "width": 32,
+          "height": 32,
+          "grid_size": 32,
+          "aligned": true
+        },
+        "paletteMembership": true,
+        "nonempty": true,
+        "padding": true,
+        "manifestHash": true
+      }
+    },
+    {
+      "id": "props/log_stack",
+      "pass": true,
+      "checks": {
+        "alpha": {
+          "semi_transparent_pixels": 0,
+          "total_pixels": 1024,
+          "clean": true
+        },
+        "orphans": {
+          "orphan_pixels": 0,
+          "clean": true
+        },
+        "palette": {
+          "unique_colors": 14,
+          "max_allowed": 28,
+          "clean": true
+        },
+        "grid": {
+          "width": 32,
+          "height": 32,
+          "grid_size": 32,
+          "aligned": true
+        },
+        "paletteMembership": true,
+        "nonempty": true,
+        "padding": true,
+        "manifestHash": true
+      }
+    },
+    {
+      "id": "props/pickaxe",
+      "pass": true,
+      "checks": {
+        "alpha": {
+          "semi_transparent_pixels": 0,
+          "total_pixels": 1024,
+          "clean": true
+        },
+        "orphans": {
+          "orphan_pixels": 0,
+          "clean": true
+        },
+        "palette": {
+          "unique_colors": 13,
+          "max_allowed": 28,
+          "clean": true
+        },
+        "grid": {
+          "width": 32,
+          "height": 32,
+          "grid_size": 32,
+          "aligned": true
+        },
+        "paletteMembership": true,
+        "nonempty": true,
+        "padding": true,
+        "manifestHash": true
+      }
+    },
+    {
+      "id": "props/timber",
+      "pass": true,
+      "checks": {
+        "alpha": {
+          "semi_transparent_pixels": 0,
+          "total_pixels": 1024,
+          "clean": true
+        },
+        "orphans": {
+          "orphan_pixels": 0,
+          "clean": true
+        },
+        "palette": {
+          "unique_colors": 12,
+          "max_allowed": 28,
+          "clean": true
+        },
+        "grid": {
+          "width": 32,
+          "height": 32,
+          "grid_size": 32,
+          "aligned": true
+        },
+        "paletteMembership": true,
+        "nonempty": true,
+        "padding": true,
+        "manifestHash": true
+      }
+    },
+    {
+      "id": "props/watering_can",
+      "pass": true,
+      "checks": {
+        "alpha": {
+          "semi_transparent_pixels": 0,
+          "total_pixels": 1024,
+          "clean": true
+        },
+        "orphans": {
+          "orphan_pixels": 0,
+          "clean": true
+        },
+        "palette": {
+          "unique_colors": 16,
+          "max_allowed": 28,
+          "clean": true
+        },
+        "grid": {
+          "width": 32,
+          "height": 32,
+          "grid_size": 32,
+          "aligned": true
+        },
+        "paletteMembership": true,
+        "nonempty": true,
+        "padding": true,
+        "manifestHash": true
+      }
+    },
+    {
+      "id": "props/writing_tool",
+      "pass": true,
+      "checks": {
+        "alpha": {
+          "semi_transparent_pixels": 0,
+          "total_pixels": 1024,
+          "clean": true
+        },
+        "orphans": {
+          "orphan_pixels": 0,
+          "clean": true
+        },
+        "palette": {
+          "unique_colors": 16,
+          "max_allowed": 28,
+          "clean": true
+        },
+        "grid": {
+          "width": 32,
+          "height": 32,
+          "grid_size": 32,
+          "aligned": true
+        },
+        "paletteMembership": true,
+        "nonempty": true,
+        "padding": true,
+        "manifestHash": true
+      }
+    },
+    {
+      "id": "terrain/concrete",
+      "pass": true,
+      "checks": {
+        "alpha": {
+          "semi_transparent_pixels": 0,
+          "total_pixels": 1024,
+          "clean": true
+        },
+        "orphans": {
+          "orphan_pixels": 0,
+          "clean": true
+        },
+        "palette": {
+          "unique_colors": 6,
+          "max_allowed": 28,
+          "clean": true
+        },
+        "grid": {
+          "width": 32,
+          "height": 32,
+          "grid_size": 32,
+          "aligned": true
+        },
+        "paletteMembership": true,
+        "nonempty": true,
+        "padding": true,
+        "manifestHash": true,
+        "oppositeEdgesMatch": true
+      }
+    },
+    {
+      "id": "terrain/dirt",
+      "pass": true,
+      "checks": {
+        "alpha": {
+          "semi_transparent_pixels": 0,
+          "total_pixels": 1024,
+          "clean": true
+        },
+        "orphans": {
+          "orphan_pixels": 0,
+          "clean": true
+        },
+        "palette": {
+          "unique_colors": 5,
+          "max_allowed": 28,
+          "clean": true
+        },
+        "grid": {
+          "width": 32,
+          "height": 32,
+          "grid_size": 32,
+          "aligned": true
+        },
+        "paletteMembership": true,
+        "nonempty": true,
+        "padding": true,
+        "manifestHash": true,
+        "oppositeEdgesMatch": true
+      }
+    },
+    {
+      "id": "terrain/grass",
+      "pass": true,
+      "checks": {
+        "alpha": {
+          "semi_transparent_pixels": 0,
+          "total_pixels": 1024,
+          "clean": true
+        },
+        "orphans": {
+          "orphan_pixels": 0,
+          "clean": true
+        },
+        "palette": {
+          "unique_colors": 5,
+          "max_allowed": 28,
+          "clean": true
+        },
+        "grid": {
+          "width": 32,
+          "height": 32,
+          "grid_size": 32,
+          "aligned": true
+        },
+        "paletteMembership": true,
+        "nonempty": true,
+        "padding": true,
+        "manifestHash": true,
+        "oppositeEdgesMatch": true
+      }
+    },
+    {
+      "id": "terrain/path",
+      "pass": true,
+      "checks": {
+        "alpha": {
+          "semi_transparent_pixels": 0,
+          "total_pixels": 1024,
+          "clean": true
+        },
+        "orphans": {
+          "orphan_pixels": 0,
+          "clean": true
+        },
+        "palette": {
+          "unique_colors": 12,
+          "max_allowed": 28,
+          "clean": true
+        },
+        "grid": {
+          "width": 32,
+          "height": 32,
+          "grid_size": 32,
+          "aligned": true
+        },
+        "paletteMembership": true,
+        "nonempty": true,
+        "padding": true,
+        "manifestHash": true,
+        "oppositeEdgesMatch": true
+      }
+    },
+    {
+      "id": "terrain/water",
+      "pass": true,
+      "checks": {
+        "alpha": {
+          "semi_transparent_pixels": 0,
+          "total_pixels": 1024,
+          "clean": true
+        },
+        "orphans": {
+          "orphan_pixels": 0,
+          "clean": true
+        },
+        "palette": {
+          "unique_colors": 1,
+          "max_allowed": 28,
+          "clean": true
+        },
+        "grid": {
+          "width": 32,
+          "height": 32,
+          "grid_size": 32,
+          "aligned": true
+        },
+        "paletteMembership": true,
+        "nonempty": true,
+        "padding": true,
+        "manifestHash": true,
+        "oppositeEdgesMatch": true
+      }
+    }
+  ],
+  "sourceCropBoundaryCandidates": [],
+  "repeatExportMatches": 233,
+  "originalMastersUnchanged": true
+}

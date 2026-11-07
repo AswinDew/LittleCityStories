@@ -13,15 +13,15 @@ export class GameLighting {
     this.group.name = 'LightingGroup';
 
     // Warm daylight sky color + subtle ground bounce
-    this.hemiLight = new THREE.HemisphereLight(0xdff0fc, 0x8ab986, 0.65);
+    this.hemiLight = new THREE.HemisphereLight(0xe7dabc, 0x65483c, 0.5);
     this.group.add(this.hemiLight);
 
     // Soft global ambient
-    this.ambientLight = new THREE.AmbientLight(0xfff6ea, 0.45);
+    this.ambientLight = new THREE.AmbientLight(0xfff6ea, 0.35);
     this.group.add(this.ambientLight);
 
     // Main directional sunlight with soft pastel warmth
-    this.sunLight = new THREE.DirectionalLight(0xfff5e6, 1.35);
+    this.sunLight = new THREE.DirectionalLight(0xfff3d1, 1.0);
     const scale = GRID_WORLD_WIDTH / 40;
     this.sunLight.position.set(45 * scale, 65 * scale, 35 * scale);
     this.sunLight.castShadow = true;

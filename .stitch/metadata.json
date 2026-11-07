@@ -1,0 +1,291 @@
+{
+  "title": "Civilization Town - Living Settlement",
+  "status": "static_runtime_integrated_pending_visual_review",
+  "projectId": "9572784485551125903",
+  "screens": [
+    {
+      "id": "WORLD-01",
+      "name": "projects/9572784485551125903/screens/1842cc534730402e8a32b9a7a2568a8b",
+      "screenshotSource": "projects/9572784485551125903/files/dcdb0afcc4854d5a81ea8764ddde4b71",
+      "htmlSource": "projects/9572784485551125903/files/27fb3dda55d442f582fd08767fd072ff",
+      "sourceHtml": "designs/world-01.source.html",
+      "status": "archived_initial"
+    },
+    {
+      "id": "CHAR-01",
+      "name": "projects/9572784485551125903/screens/bf101e4a914741488ff2600aca2b64fa",
+      "screenshotSource": "projects/9572784485551125903/files/dec48fd5b235489dabbfca22daf97ee3",
+      "htmlSource": "projects/9572784485551125903/files/de3c62dde78942a98af4453e885b4367",
+      "sourceHtml": "designs/char-01.source.html",
+      "status": "static_design_for_review"
+    },
+    {
+      "id": "BLDG-01",
+      "name": "projects/9572784485551125903/screens/6b607d23787a40d38985f0024e5bcfaa",
+      "screenshotSource": "projects/9572784485551125903/files/006821bcd9f040c9ac3f0810e04c7baf",
+      "htmlSource": "projects/9572784485551125903/files/781fdebd498d43f19839f015ca53a8d2",
+      "sourceHtml": "designs/bldg-01.source.html",
+      "status": "static_design_for_review"
+    },
+    {
+      "id": "ENV-01",
+      "name": "projects/9572784485551125903/screens/3df53b8c96b14f65a1969cdbfa2663f8",
+      "screenshotSource": "projects/9572784485551125903/files/6a75be250465458ab13b3e7076bbac3c",
+      "htmlSource": "projects/9572784485551125903/files/bd979ba4f54542c6939edb30fd4b79b1",
+      "sourceHtml": "designs/env-01.source.html",
+      "status": "archived_initial"
+    },
+    {
+      "id": "ICON-UI-01",
+      "name": "projects/9572784485551125903/screens/a0c7bc32781940c2b06310c04675406e",
+      "screenshotSource": "projects/9572784485551125903/files/df853876ffa24992a178445e8ef3399e",
+      "htmlSource": "projects/9572784485551125903/files/34165eb6305145fa94e54a7106e3121e",
+      "sourceHtml": "designs/icon-ui-01.source.html",
+      "status": "archived_initial"
+    },
+    {
+      "id": "LEGACY-01",
+      "name": "projects/9572784485551125903/screens/da255ebece6947faba5a2330d666be20",
+      "screenshotSource": "projects/9572784485551125903/files/d11d004bf8d74c7ab9989879628d97c8",
+      "htmlSource": "projects/9572784485551125903/files/616be923434b4352857f3d734a4bd02e",
+      "sourceHtml": "designs/legacy-01.source.html",
+      "status": "static_design_for_review"
+    },
+    {
+      "id": "UI-02",
+      "name": "projects/9572784485551125903/screens/640d6134625444939d7c427d252c08da",
+      "sourceFile": "projects/9572784485551125903/files/8f4c5827374f4e87bf5fda2fe5dc23b2",
+      "htmlFile": "projects/9572784485551125903/files/10e0c1f7d36e41188cc1a3562973a409",
+      "file": "ui-02-board.png",
+      "sourceHtml": "designs/ui-02.source.html",
+      "status": "static_design_for_review"
+    }
+  ],
+  "designSystem": {
+    "name": "assets/7e69032a14294b34916f28326fae80ba",
+    "displayName": "Civilization Town - Living Settlement",
+    "source": ".stitch/DESIGN.md",
+    "status": "uploaded",
+    "fullBriefUpdate": "Server rejected optional full-markdown update; uploaded theme retained and explicit per-board art prompts used"
+  },
+  "workflow": "complete_static_assets_before_animation",
+  "runtimeIntegration": "ancient_3d_environment_icons_terrain_hud_integrated",
+  "inventory": {
+    "characters": {
+      "roles": [
+        "villager",
+        "farmer",
+        "lumberjack",
+        "builder"
+      ],
+      "directions": [
+        "NE",
+        "NW",
+        "SE",
+        "SW"
+      ],
+      "neutralMasters": 16,
+      "status": "native_2d_exported_pending_integration",
+      "sources": [
+        "designs/char-master.jpg"
+      ]
+    },
+    "activeSites": {
+      "ids": [
+        "town_center",
+        "primitive_house",
+        "farm",
+        "lumber_camp",
+        "stone_quarry",
+        "storage_hut",
+        "research_hut",
+        "dirt_road"
+      ],
+      "status": "active_3d_adaptation_integrated",
+      "sources": [
+        "designs/ancient-sites-master.jpg"
+      ]
+    },
+    "nature": {
+      "ids": [
+        "tree",
+        "bush",
+        "rock",
+        "grass",
+        "crop"
+      ],
+      "status": "active_3d_adaptation_integrated",
+      "sources": [
+        "designs/nature-master.jpg"
+      ]
+    },
+    "terrain": {
+      "textureIds": [
+        "terrain_grass",
+        "terrain_dirt",
+        "terrain_path"
+      ],
+      "additionalGridAppearances": [
+        "water",
+        "concrete"
+      ],
+      "status": "three_active_textures_integrated_water_concrete_palette_adapted",
+      "sources": [
+        "designs/terrain-grass-master.jpg",
+        "designs/terrain-dirt-master.jpg",
+        "designs/terrain-path-master.jpg",
+        "designs/terrain-reference-initial.jpg"
+      ]
+    },
+    "icons": {
+      "ids": [
+        "wood",
+        "stone",
+        "food",
+        "coins",
+        "population",
+        "happiness",
+        "construction",
+        "technology",
+        "town_center",
+        "primitive_house",
+        "farm",
+        "lumber_camp",
+        "stone_quarry",
+        "storage_hut",
+        "research_hut",
+        "dirt_road",
+        "agriculture",
+        "masonry",
+        "toolmaking"
+      ],
+      "count": 19,
+      "status": "nineteen_native_icons_integrated",
+      "sources": [
+        "designs/icons-master.jpg"
+      ]
+    },
+    "props": {
+      "ids": [
+        "hoe",
+        "watering_can",
+        "axe",
+        "hammer",
+        "pickaxe",
+        "book",
+        "writing_tool",
+        "carried_stone",
+        "timber",
+        "log_stack",
+        "crate"
+      ],
+      "status": "native_2d_exported_pending_integration",
+      "sources": [
+        "designs/props-master.jpg"
+      ]
+    },
+    "architectureParts": {
+      "ids": [
+        "foundation",
+        "post",
+        "wall",
+        "door",
+        "window",
+        "thatch_roof",
+        "fence",
+        "flag",
+        "research_table",
+        "work_area"
+      ],
+      "status": "active_3d_adaptation_integrated",
+      "sources": [
+        "designs/architecture-components.jpg",
+        "designs/interior-cutaways.jpg"
+      ]
+    },
+    "uiArt": {
+      "ids": [
+        "resource_strip",
+        "construction_card",
+        "construction_tab",
+        "building_inspector",
+        "tool_button",
+        "zoom_button",
+        "selection_indicator",
+        "placement_indicator"
+      ],
+      "status": "existing_hud_adapted_and_browser_verified",
+      "sources": [
+        "designs/ui-02-board.png"
+      ]
+    },
+    "legacyFactories": {
+      "ids": [
+        "road",
+        "streetlight",
+        "small_house",
+        "family_house",
+        "apartment",
+        "shop",
+        "bakery",
+        "restaurant",
+        "school",
+        "clinic",
+        "park",
+        "tree"
+      ],
+      "status": "reference_rasters_exported_3d_adaptation_pending",
+      "activeCatalog": false,
+      "sources": [
+        "designs/legacy-master.jpg",
+        "designs/legacy-scale.jpg"
+      ]
+    }
+  },
+  "approval": {
+    "date": "2026-11-07",
+    "scope": "Design-system upload, Stitch art generation and technical adaptation authorized by user",
+    "generatedArtApproved": false,
+    "exportAuthorized": true
+  },
+  "gallery": "index.html",
+  "staticAssetMilestoneComplete": false,
+  "animationStatus": "not_started",
+  "productionExports": {
+    "status": "static_exports_and_active_3d_ui_integrated",
+    "individualNativeSprites": 16,
+    "nativeIcons": 19,
+    "nativeProps": 11,
+    "nativeTerrainTiles": 5,
+    "edgeMatchedNativeTiles": 5,
+    "verifiedSeamlessTiles": 0,
+    "referenceRasters": 49,
+    "uiComponentReferences": 8,
+    "new3DMeshes": 13,
+    "manifest": "exports/static-manifest.json",
+    "audit": "exports/audit.json",
+    "bundle": "exports/stitch-static-pack.zip"
+  },
+  "pendingProductionWork": [
+    "User visual review of static art in game",
+    "Replace legacy citizen animation atlas from Stitch neutral masters in the next authorized animation phase",
+    "Inactive legacy catalog geometry remains outside this runtime increment"
+  ],
+  "exportGallery": "exports/index.html",
+  "runtimeReview": {
+    "progress": "docs/progress/2026-11-07-stitch-3d-ui.md",
+    "nativeCitizenAtlasMigrated": false,
+    "newAnimationAuthored": false,
+    "activeBuildingModels": 8,
+    "environmentKinds": 5,
+    "townCenter": {
+      "status": "awaiting_user_visual_review",
+      "source": "designs/ancient-sites-master.jpg",
+      "implementation": "src/assets/procedural/townCenter.ts",
+      "reviewPath": "/?buildingReview=town_center",
+      "scope": "one_building_only",
+      "otherBuildingRolloutAuthorized": false,
+      "progress": "docs/progress/2026-11-07-town-center-fidelity.md"
+    }
+  }
+}
