@@ -1,0 +1,398 @@
+{
+  "version": 1,
+  "buildingId": "town_center",
+  "width": 1024,
+  "height": 1024,
+  "gutter": 8,
+  "materials": {
+    "soil_dark": {
+      "color": "#96734f"
+    },
+    "stone_dark": {
+      "color": "#675b59"
+    },
+    "wood_dark": {
+      "color": "#4a3435"
+    },
+    "stone": {
+      "source": "limestone_grain",
+      "gain": 1,
+      "baseColor": "#a49a87",
+      "detailStrength": 0.65
+    },
+    "stone_light": {
+      "source": "limestone_grain",
+      "gain": 1,
+      "baseColor": "#c5b99e",
+      "detailStrength": 0.65
+    },
+    "linen": {
+      "source": "plaster_grain",
+      "gain": 1,
+      "baseColor": "#cbbb9e",
+      "detailStrength": 0.65
+    },
+    "ink": {
+      "color": "#30232b"
+    },
+    "wood": {
+      "source": "oak_grain",
+      "gain": 1,
+      "baseColor": "#856f59",
+      "detailStrength": 0.65
+    },
+    "wood_light": {
+      "source": "oak_grain",
+      "gain": 1,
+      "baseColor": "#b99b73",
+      "detailStrength": 0.65
+    },
+    "straw": {
+      "source": "straw_grain",
+      "gain": 1,
+      "baseColor": "#caa265",
+      "detailStrength": 0.65
+    },
+    "straw_light": {
+      "source": "straw_grain",
+      "gain": 1,
+      "baseColor": "#e3bc7a",
+      "detailStrength": 0.65
+    },
+    "blue": {
+      "source": "linen_weave",
+      "gain": 1,
+      "baseColor": "#527b8c",
+      "detailStrength": 0.35,
+      "texelDensity": 64
+    },
+    "blue_light": {
+      "source": "linen_weave",
+      "gain": 1,
+      "baseColor": "#8db9be",
+      "detailStrength": 0.35,
+      "texelDensity": 64
+    }
+  },
+  "shades": {
+    "top": 0.94,
+    "front": 0.84,
+    "side": 0.72,
+    "dark": 0.68
+  },
+  "regions": {
+    "soil_dark_top": [
+      8,
+      8,
+      112,
+      112
+    ],
+    "soil_dark_front": [
+      136,
+      8,
+      112,
+      112
+    ],
+    "soil_dark_side": [
+      264,
+      8,
+      112,
+      112
+    ],
+    "soil_dark_dark": [
+      392,
+      8,
+      112,
+      112
+    ],
+    "stone_dark_top": [
+      520,
+      8,
+      112,
+      112
+    ],
+    "stone_dark_front": [
+      648,
+      8,
+      112,
+      112
+    ],
+    "stone_dark_side": [
+      776,
+      8,
+      112,
+      112
+    ],
+    "stone_dark_dark": [
+      904,
+      8,
+      112,
+      112
+    ],
+    "wood_dark_top": [
+      8,
+      136,
+      112,
+      112
+    ],
+    "wood_dark_front": [
+      136,
+      136,
+      112,
+      112
+    ],
+    "wood_dark_side": [
+      264,
+      136,
+      112,
+      112
+    ],
+    "wood_dark_dark": [
+      392,
+      136,
+      112,
+      112
+    ],
+    "stone_top": [
+      520,
+      136,
+      112,
+      112
+    ],
+    "stone_front": [
+      648,
+      136,
+      112,
+      112
+    ],
+    "stone_side": [
+      776,
+      136,
+      112,
+      112
+    ],
+    "stone_dark": [
+      904,
+      136,
+      112,
+      112
+    ],
+    "stone_light_top": [
+      8,
+      264,
+      112,
+      112
+    ],
+    "stone_light_front": [
+      136,
+      264,
+      112,
+      112
+    ],
+    "stone_light_side": [
+      264,
+      264,
+      112,
+      112
+    ],
+    "stone_light_dark": [
+      392,
+      264,
+      112,
+      112
+    ],
+    "linen_top": [
+      520,
+      264,
+      112,
+      112
+    ],
+    "linen_front": [
+      648,
+      264,
+      112,
+      112
+    ],
+    "linen_side": [
+      776,
+      264,
+      112,
+      112
+    ],
+    "linen_dark": [
+      904,
+      264,
+      112,
+      112
+    ],
+    "ink_top": [
+      8,
+      392,
+      112,
+      112
+    ],
+    "ink_front": [
+      136,
+      392,
+      112,
+      112
+    ],
+    "ink_side": [
+      264,
+      392,
+      112,
+      112
+    ],
+    "ink_dark": [
+      392,
+      392,
+      112,
+      112
+    ],
+    "wood_top": [
+      520,
+      392,
+      112,
+      112
+    ],
+    "wood_front": [
+      648,
+      392,
+      112,
+      112
+    ],
+    "wood_side": [
+      776,
+      392,
+      112,
+      112
+    ],
+    "wood_dark": [
+      904,
+      392,
+      112,
+      112
+    ],
+    "wood_light_top": [
+      8,
+      520,
+      112,
+      112
+    ],
+    "wood_light_front": [
+      136,
+      520,
+      112,
+      112
+    ],
+    "wood_light_side": [
+      264,
+      520,
+      112,
+      112
+    ],
+    "wood_light_dark": [
+      392,
+      520,
+      112,
+      112
+    ],
+    "straw_top": [
+      520,
+      520,
+      112,
+      112
+    ],
+    "straw_front": [
+      648,
+      520,
+      112,
+      112
+    ],
+    "straw_side": [
+      776,
+      520,
+      112,
+      112
+    ],
+    "straw_dark": [
+      904,
+      520,
+      112,
+      112
+    ],
+    "straw_light_top": [
+      8,
+      648,
+      112,
+      112
+    ],
+    "straw_light_front": [
+      136,
+      648,
+      112,
+      112
+    ],
+    "straw_light_side": [
+      264,
+      648,
+      112,
+      112
+    ],
+    "straw_light_dark": [
+      392,
+      648,
+      112,
+      112
+    ],
+    "blue_top": [
+      520,
+      648,
+      112,
+      112
+    ],
+    "blue_front": [
+      648,
+      648,
+      112,
+      112
+    ],
+    "blue_side": [
+      776,
+      648,
+      112,
+      112
+    ],
+    "blue_dark": [
+      904,
+      648,
+      112,
+      112
+    ],
+    "blue_light_top": [
+      8,
+      776,
+      112,
+      112
+    ],
+    "blue_light_front": [
+      136,
+      776,
+      112,
+      112
+    ],
+    "blue_light_side": [
+      264,
+      776,
+      112,
+      112
+    ],
+    "blue_light_dark": [
+      392,
+      776,
+      112,
+      112
+    ]
+  },
+  "layoutHash": "eae5db68c145dbb5c565320795a52917e9d652a3cb2e3d6c39a475630d96ca83"
+}

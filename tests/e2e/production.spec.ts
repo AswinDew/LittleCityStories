@@ -9,13 +9,16 @@ test('production renders without exposing test controls', async ({ page }) => {
   const textures = ['grass', 'dirt', 'path'].map(kind => page.waitForResponse(response =>
     response.url().endsWith(`/generated/terrain/${kind}.png`) && response.status() === 200));
   const citizens = page.waitForResponse(response => response.url().endsWith('/generated/characters/citizens.png') && response.status() === 200);
+  const civicSkin = page.waitForResponse(response => response.url().endsWith('/building-skins/town-center/atlas.png') && response.status() === 200);
   await page.goto('/?manual=1&assets=1');
   await Promise.all(textures);
   await citizens;
+  await civicSkin;
   await expect(page.locator('canvas')).toBeVisible();
   await expect(page.getByRole('heading', { name: 'Civilization Town' })).toBeVisible();
   expect(await page.evaluate(() => window.__CIV_TOWN_TEST__)).toBeUndefined();
   await expect(page.locator('[data-gallery-ready]')).toHaveCount(0);
   await page.getByTitle('Zoom In (+)', { exact: true }).click();
+  await page.screenshot({ path: 'test-results/town-center-skin-production.png' });
   expect(errors).toEqual([]);
 });

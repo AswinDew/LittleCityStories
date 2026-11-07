@@ -2,6 +2,7 @@ import * as THREE from 'three';
 import { cachedMesh } from '../GeometryCache';
 import { MaterialLibrary } from '../MaterialLibrary';
 import palette from '../../../tools/assets/palette.json';
+import { civicBoxSpan, civicSkinUV, CIVIC_TEXELS_PER_UNIT, projectCivicBoxUV, TOWN_CENTER_SKIN_LAYOUT, type SkinSpan, type SkinUV } from '../TownCenterSkinLayout';
 
 type Tone = keyof typeof palette.colors;
 // Civic reference has warm grey masonry and umber timber, rather than the terrain's green-grey.
@@ -9,7 +10,7 @@ const civicColors = { ...palette.colors, ink: '#30232b', wood_dark: '#4a3435', w
   wood_light: '#b99b73', stone_dark: '#675b59', stone: '#a49a87', stone_light: '#c5b99e',
   linen: '#cbbb9e', straw: '#caa265', straw_light: '#e3bc7a' };
 type Point = [number, number, number];
-interface Surface { positions: number[]; colors: number[]; stage: string; start: number; end: number }
+interface Surface { positions: number[]; colors: number[]; uvs: number[]; stage: string; start: number; end: number }
 
 /** Only the civic landmark: static details batched by construction stage, not per straw/brick. */
 class CivicSurfaces {
@@ -25,15 +26,16 @@ class CivicSurfaces {
   private current!: Surface;
 
   use(name: string, stage: string, start: number, end: number): void {
-    if (!this.surfaces.has(name)) this.surfaces.set(name, { positions: [], colors: [], stage, start, end });
+    if (!this.surfaces.has(name)) this.surfaces.set(name, { positions: [], colors: [], uvs: [], stage, start, end });
     this.current = this.surfaces.get(name)!;
   }
-  private vertex(point: THREE.Vector3, normal: THREE.Vector3, tone: Tone, variation: number): void {
+  private vertex(point: THREE.Vector3, normal: THREE.Vector3, tone: Tone, variation: number, uv: SkinUV): void {
     // Fixed illustrated light preserves ink/ochre contrast under the game's warm lighting.
     const light = 0.68 + Math.max(0, normal.y) * 0.26 + Math.max(0, normal.z) * 0.16 + Math.max(0, normal.x) * 0.04;
     this.color.set(civicColors[tone]).multiplyScalar(light * variation);
     this.current.positions.push(point.x, point.y, point.z);
     this.current.colors.push(this.color.r, this.color.g, this.color.b);
+    this.current.uvs.push(...uv);
   }
   block(tone: Tone, w: number, h: number, d: number, x: number, y: number, z: number,
     rx = 0, ry = 0, rz = 0, variation = 1): void {
@@ -48,16 +50,32 @@ class CivicSurfaces {
     this.matrix.compose(new THREE.Vector3(x, y, z), this.rotation, new THREE.Vector3(w, h, d));
     this.normalMatrix.getNormalMatrix(this.matrix);
     const p = shape.getAttribute('position'), n = shape.getAttribute('normal');
+    const texture = shape.getAttribute('uv'), face = new THREE.Vector3(), local = new THREE.Vector3();
+    const size = { x: w, y: h, z: d }, seed = x * 12.9898 + y * 78.233 + z * 37.719 + h;
     for (let i = 0; i < p.count; i++) {
+      if (i % 3 === 0) {
+        face.set(0, 0, 0);
+        for (let j = 0; j < 3; j++) face.add(local.fromBufferAttribute(n, i + j));
+        face.applyMatrix3(this.normalMatrix).normalize();
+      }
+      const coord = shape === this.bundle ? [texture.getX(i), 1 - texture.getY(i)] as SkinUV :
+        projectCivicBoxUV(local.fromBufferAttribute(p, i), this.normal.fromBufferAttribute(n, i), size);
+      const span = shape === this.bundle ? { u: Math.PI * (w + h) / 2, v: d * 2 } : civicBoxSpan(this.normal.fromBufferAttribute(n, i), size);
       this.point.fromBufferAttribute(p, i).applyMatrix4(this.matrix);
       this.normal.fromBufferAttribute(n, i).applyMatrix3(this.normalMatrix).normalize();
-      this.vertex(this.point, this.normal, tone, variation);
+      this.vertex(this.point, this.normal, tone, variation, civicSkinUV(tone, face, coord[0], coord[1], seed, span));
     }
   }
-  triangle(tone: Tone, a: Point, b: Point, c: Point, variation = 1): void {
+  triangle(tone: Tone, a: Point, b: Point, c: Point, variation = 1, uv?: [SkinUV, SkinUV, SkinUV], span?: SkinSpan): void {
     const p = new THREE.Vector3(...a), q = new THREE.Vector3(...b), r = new THREE.Vector3(...c);
     const normal = q.clone().sub(p).cross(r.clone().sub(p)).normalize();
-    for (const vertex of [p, q, r]) this.vertex(vertex, normal, tone, variation);
+    const vertices = [p, q, r], axis = Math.abs(normal.x) > Math.abs(normal.z) ? 'z' : 'x';
+    const lo = Math.min(...vertices.map(v => v[axis])), hi = Math.max(...vertices.map(v => v[axis]));
+    const bottom = Math.min(a[1], b[1], c[1]), top = Math.max(a[1], b[1], c[1]);
+    for (const [i, vertex] of vertices.entries()) {
+      const coord = uv?.[i] ?? [(vertex[axis] - lo) / Math.max(0.001, hi - lo), (top - vertex.y) / Math.max(0.001, top - bottom)];
+      this.vertex(vertex, normal, tone, variation, civicSkinUV(tone, normal, coord[0], coord[1], 0, span ?? { u: hi - lo, v: top - bottom }));
+    }
   }
   beam(tone: Tone, a: Point, b: Point, width: number, depth = width): void {
     const from = new THREE.Vector3(...a), to = new THREE.Vector3(...b), middle = from.clone().add(to).multiplyScalar(0.5);
@@ -69,13 +87,14 @@ class CivicSurfaces {
     const group = new THREE.Group();
     group.name = 'town_center'; group.userData.artSource = 'Stitch BLDG-01/town_center';
     for (const [name, data] of this.surfaces) {
-      const mesh = cachedMesh(`stitch/civic-v2/${name}`, () => {
+      const mesh = cachedMesh(`stitch/civic-v3-uv/${CIVIC_TEXELS_PER_UNIT}/${TOWN_CENTER_SKIN_LAYOUT.layoutHash}/${name}`, () => {
         const geometry = new THREE.BufferGeometry();
         geometry.setAttribute('position', new THREE.Float32BufferAttribute(data.positions, 3));
         geometry.setAttribute('color', new THREE.Float32BufferAttribute(data.colors, 3));
+        geometry.setAttribute('uv', new THREE.Float32BufferAttribute(data.uvs, 2));
         geometry.computeVertexNormals(); geometry.computeBoundingBox();
         return geometry;
-      }, MaterialLibrary.getInstance().get('stitch_civic_illustrated'));
+      }, MaterialLibrary.getInstance().get('stitch_civic_skin'));
       mesh.name = `town-center-${name}`;
       Object.assign(mesh.userData, { assembly: data.stage, assemblyStart: data.start, assemblyEnd: data.end });
       group.add(mesh);
@@ -271,7 +290,8 @@ export function createDetailedTownCenter(): THREE.Group {
       const a = clothPoint(u, v, border), b = clothPoint((col + 1) / 6, v, border);
       const c = clothPoint((col + 1) / 6, (row + 1) / 8, border), d = clothPoint(u, (row + 1) / 8, border);
       const tone = border ? 'wood_dark' : col === 0 || col === 5 ? 'blue' : 'blue_light';
-      s.triangle(tone, a, d, b); s.triangle(tone, b, d, c);
+      s.triangle(tone, a, d, b, 1, [[u, v], [u, (row + 1) / 8], [(col + 1) / 6, v]], { u: width, v: height });
+      s.triangle(tone, b, d, c, 1, [[(col + 1) / 6, v], [u, (row + 1) / 8], [(col + 1) / 6, (row + 1) / 8]], { u: width, v: height });
     }
     // A stitched hem and a restrained V-shaped woven motif, fully static.
     s.beam('blue', [x - 0.17, 2.16, front + 0.30], [x, 2.01, front + 0.33], 0.018);

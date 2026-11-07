@@ -1,8 +1,8 @@
 # Town Center Stitch Texture/Skin — Implementation Plan
 
-> **Status: TAHAP A SELESAI — MENUNGGU REVIEW BAHAN.** Pengguna telah memerintahkan
-> implementasi. Lima kandidat bahan telah disiapkan; Tahap B–E belum dijalankan.
-> Tunggu review Checkpoint A sebelum membuat atlas, UV dan integrasi material.
+> **Status: TAHAP B–E SELESAI — MENUNGGU REVIEW MODEL (CHECKPOINT B).**
+> Pengguna telah menyetujui lima bahan. Atlas, UV dan skin Town Center sudah
+> terpasang dan diverifikasi. Penerapan ke bangunan lain belum diizinkan.
 > Persetujuan terhadap Town Center sebelumnya bukan izin memperluas ke bangunan lain.
 >
 > **For agentic workers:** Setelah diizinkan, gunakan `superpowers:executing-plans`
@@ -140,18 +140,18 @@ yang berubah pada setiap generasi. Manifest mencantumkan versi/hash layout yang
 sama. Runtime menolak layout yang berbeda dari kontrak geometri; tidak mengimpor
 file dari `public/` langsung ke TypeScript.
 
-- [ ] Tulis/run tes gagal untuk hash sumber berubah, path keluar folder, region
+- [x] Tulis/run tes gagal untuk hash sumber berubah, path keluar folder, region
   keluar batas/bertumpuk, dan gutter yang salah; kegagalan tidak menulis output parsial.
-- [ ] Implementasikan packing deterministik; jangan mengubah `public/generated/`
+- [x] Implementasikan packing deterministik; jangan mengubah `public/generated/`
   atau menjalankan regenerasi atlas warga/ikon/terrain.
-- [ ] Tes memastikan manifest dan kontrak layout TypeScript/Python identik. Region
+- [x] Tes memastikan manifest dan kontrak layout TypeScript/Python identik. Region
   yang hilang atau berubah tanpa versi baru harus ditolak sebelum publish.
-- [ ] Sediakan patch varian terang/sisi/gelap yang terkalibrasi dari bahan yang sama
+- [x] Sediakan patch varian terang/sisi/gelap yang terkalibrasi dari bahan yang sama
   serta swatch trim/rongga. Varian orientasi membawa shading ilustratif satu kali.
   Hindari pola kuat yang menggandakan garis grout/rangka pada geometri.
-- [ ] Pertahankan warna/detail sumber; validasi skin melalui kontrak tersendiri,
+- [x] Pertahankan warna/detail sumber; validasi skin melalui kontrak tersendiri,
   tanpa quantization ke palet sprite 28 warna. Tidak perlu alpha transparan pada atlas.
-- [ ] Verifikasi tes lulus dan dua ekspor menghasilkan file byte-identik.
+- [x] Verifikasi tes lulus dan dua ekspor menghasilkan file byte-identik.
 
 ### Tahap C — UV Town Center tanpa perubahan bentuk
 
@@ -166,20 +166,20 @@ Helper mengimpor kontrak layout bersama dari Tahap B; manifest runtime harus coc
 dengan kontrak tersebut. Geometri tidak menunggu fetch dan UV tidak diubah setelah
 di-cache. Region mencakup lima bahan, varian orientasinya, dan swatch trim/rongga.
 
-- [ ] Tes gagal: `uv.count === position.count`, nilai finite, semua UV di region
+- [x] Tes gagal: `uv.count === position.count`, nilai finite, semua UV di region
   interior yang benar; uji sudut region dan orientasi V dengan fixture asimetris.
-- [ ] Simpan UV lokal saat `stamp()` mentransformasi vertex. Jangan menebak UV
+- [x] Simpan UV lokal saat `stamp()` mentransformasi vertex. Jangan menebak UV
   dari posisi dunia gabungan setelah semua bagian kehilangan identitasnya.
-- [ ] Box/beam memakai proyeksi per muka; serat balok mengikuti sumbu panjang lokal.
+- [x] Box/beam memakai proyeksi per muka; serat balok mengikuti sumbu panjang lokal.
   Capsule jerami memakai arah panjang lokal dan seam di sisi bawah. Triangle/gable
   dan banner memiliki mapping tersendiri. Hindari satu patch stretched pada semua muka.
-- [ ] Pilih region berdasarkan bahan dan arah muka lokal; variasikan crop secara
+- [x] Pilih region berdasarkan bahan dan arah muka lokal; variasikan crop secara
   deterministik agar semua batu/ikatan jerami tidak tampak seperti salinan identik.
-- [ ] Atlas patch yang tidak seamless tidak boleh diulang seolah seamless. Pilih
+- [x] Atlas patch yang tidak seamless tidak boleh diulang seolah seamless. Pilih
   crop yang sesuai atau verifikasi tepinya terlebih dahulu.
-- [ ] Versikan key geometri cache ke `stitch/civic-v3-uv/...`. Pertahankan warna lama
+- [x] Versikan key geometri cache ke `stitch/civic-v3-uv/...`. Pertahankan warna lama
   untuk baseline/fallback, posisi vertex, bounds, pintu dan metadata konstruksi.
-- [ ] Jalankan tes UV serta tes Town Center/ownership/footprint yang sudah ada.
+- [x] Jalankan tes UV serta tes Town Center/ownership/footprint yang sudah ada.
 
 ### Tahap D — Material, loading dan fallback yang terisolasi
 
@@ -192,25 +192,25 @@ Owner ini memegang texture; `MaterialLibrary` memegang material. Dependency load
 dapat diinjeksi untuk menguji load gagal/terlambat. Tidak mencampur manifest skin
 dengan manifest warga/terrain yang dipakai `GeneratedAssetLoader`.
 
-- [ ] Tes gagal untuk load sekali, retry, dimensi/metadata invalid, load gagal,
+- [x] Tes gagal untuk load sekali, retry, dimensi/metadata invalid, load gagal,
   dispose dua kali, dan texture yang selesai setelah owner sudah disposed.
   Validasi versi/hash layout terhadap kontrak UV dan dimensi gambar hasil decode
   sebelum material diaktifkan; hash sumber/PNG juga diverifikasi dalam pipeline ekspor.
-- [ ] Material `stitch_civic_skin` adalah material bersama **terpisah** dari
+- [x] Material `stitch_civic_skin` adalah material bersama **terpisah** dari
   `stitch_civic_illustrated`. Sebelum siap, parameter tampilannya meniru fallback lama.
-- [ ] Setelah atlas tervalidasi, aktifkan `map`, warna putih, `vertexColors: false`,
+- [x] Setelah atlas tervalidasi, aktifkan `map`, warna putih, `vertexColors: false`,
   `toneMapped: false` dan `needsUpdate`. Shading berasal dari region atlas; warna/shading
   vertex lama tidak dikalikan lagi. Jangan menambah Lambert/PBR di atas baked shading.
-- [ ] Sampling awal: `SRGBColorSpace`, `NearestFilter` untuk min/mag, tanpa mipmap,
+- [x] Sampling awal: `SRGBColorSpace`, `NearestFilter` untuk min/mag, tanpa mipmap,
   `ClampToEdgeWrapping`. Inspeksi shimmer saat zoom; perubahan sampling harus berdasarkan
   perbandingan render dan tidak mengubah sampling sprite/terrain global.
-- [ ] Terapkan pembaruan pada material bersama Town Center saja, tanpa menukar model,
+- [x] Terapkan pembaruan pada material bersama Town Center saja, tanpa menukar model,
   mengubah snapshot, memulai ulang simulasi atau memblokir input sambil menunggu texture.
-- [ ] Jika gagal, pertahankan fallback berwarna lama dan tampilkan alasan di halaman
+- [x] Jika gagal, pertahankan fallback berwarna lama dan tampilkan alasan di halaman
   review developer; jangan membuat aplikasi gagal atau otomatis memakai art lain.
-- [ ] Bereskan cleanup main/review agar texture dilepas tepat sekali, material hanya
+- [x] Bereskan cleanup main/review agar texture dilepas tepat sekali, material hanya
   oleh library, dan penyelesaian async setelah teardown tidak memasang ulang aset.
-- [ ] Preview clone tetap memiliki materialnya sendiri; disposal clone tidak melepas
+- [x] Preview clone tetap memiliki materialnya sendiri; disposal clone tidak melepas
   texture bersama. Baseline review menggunakan material lama yang tidak dimutasi.
 
 ### Tahap E — Perbandingan visual dan regresi
@@ -219,22 +219,22 @@ dengan manifest warga/terrain yang dipakai `GeneratedAssetLoader`.
 `tests/e2e/production.spec.ts`. **Dokumentasi hasil:**
 `docs/progress/2026-11-07-town-center-stitch-skin.md`.
 
-- [ ] Tambahkan perbandingan master asli / model baseline / model bertekstur dengan
+- [x] Tambahkan perbandingan master asli / model baseline / model bertekstur dengan
   skala dan kamera sama, toggle jelas dan sudut 0/90/180/270°. Gunakan factory model
   yang sama dengan game; jangan mengganti preview dengan gambar render palsu.
-- [ ] Ambil gambar pada zoom game 1× dan 2.8×, sudut Stitch dan sudut game. Periksa
+- [x] Ambil gambar pada zoom game 1× dan 2.8×, sudut Stitch dan sudut game. Periksa
   detail jerami, ukuran grain, plester, batu, kayu, banner, seam dan konsistensi warna.
-- [ ] Inspeksi kiri/belakang yang tidak terlihat pada sumber: bahan harus konsisten,
+- [x] Inspeksi kiri/belakang yang tidak terlihat pada sumber: bahan harus konsisten,
   tanpa tulisan/objek duplikat atau claim bahwa sisi itu diekspor langsung dari JPEG.
-- [ ] Uji request atlas hanya sekali, jalur berbasis `BASE_URL`, gagal load dengan
+- [x] Uji request atlas hanya sekali, jalur berbasis `BASE_URL`, gagal load dengan
   fallback yang nyata, pergantian baseline/skin, disposal dan console/network error.
-- [ ] Pastikan konstruksi, pintu/kehadiran warga, bounds dan mesh budget tetap lulus.
+- [x] Pastikan konstruksi, pintu/kehadiran warga, bounds dan mesh budget tetap lulus.
   Catat draw calls, jumlah texture dan ukuran file; jangan menyimpulkan FPS perangkat
   pengguna hanya dari software WebGL.
-- [ ] Jalankan `python -m unittest discover -s tests/assets`, `npm.cmd test`,
+- [x] Jalankan `python -m unittest discover -s tests/assets`, `npm.cmd test`,
   `npm.cmd run build`, dan dengan `PLAYWRIGHT_CHANNEL=chrome` jalankan
   `npm.cmd run test:e2e` serta `npm.cmd run test:e2e:production`.
-- [ ] Production memuat atlas lokal dan tidak memuat sumber JPEG `.stitch` atau halaman
+- [x] Production memuat atlas lokal dan tidak memuat sumber JPEG `.stitch` atau halaman
   review developer. Lakukan fresh code review dan perbaiki masalah fungsi yang ditemukan.
 
 **Checkpoint B:** Tunjukkan hasil Town Center bertekstur dan perbandingan langsung
@@ -257,7 +257,7 @@ Jangan menerapkan skin ke bangunan lain atau melanjutkan karakter/animasi otomat
 ## 7. Kondisi awal dan handoff terbaru
 
 Saat penyusunan awal, hanya dokumen rencana ini dibuat. Setelah perintah implementasi,
-Tahap A menghasilkan lima kandidat bahan dari Stitch dan galeri review lokal.
+Tahap A menghasilkan lima kandidat bahan dari Stitch dan galeri review lokal. Setelah review bahan disetujui, Tahap B–E mengintegrasikan skin hanya ke Town Center.
 Lihat `docs/progress/2026-11-07-town-center-stitch-skin.md` untuk sumber, penolakan
-draft yang tidak sesuai, validasi dan hasil review teknis. Runtime tetap tidak diubah.
-**Checkpoint A masih menunggu review pengguna; seluruh Tahap B–E tetap pending.**
+draft yang tidak sesuai, validasi dan hasil review teknis. Runtime kini memuat satu atlas khusus Town Center; aset lain dipertahankan.
+Checkpoint A telah disetujui melalui perintah lanjut pengguna. Tahap B–E selesai; **Checkpoint B menunggu review visual model bertekstur.**

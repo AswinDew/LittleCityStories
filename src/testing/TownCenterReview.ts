@@ -3,6 +3,7 @@ import { BuildingFactory } from '@/assets/BuildingFactory';
 import { disposeBuilding } from '@/assets/procedural/houses';
 import { MaterialLibrary } from '@/assets/MaterialLibrary';
 import { GameRenderer } from '@/game/Renderer';
+import { TownCenterSkin } from '@/assets/TownCenterSkin';
 
 /** Development-only comparison. The model is the same factory asset used in the settlement. */
 export async function createTownCenterReview(root: HTMLElement): Promise<void> {
@@ -24,6 +25,8 @@ export async function createTownCenterReview(root: HTMLElement): Promise<void> {
     <article><h2>Master Stitch asli</h2><svg viewBox="20 0 360 365" role="img" aria-label="Master Town Center asli dari Stitch">
     <image href="${source}" width="1376" height="768"/></svg><p>Potongan tampilan dari master asli; gambar sumber tidak diubah.</p></article>
     <article><h2>Model 3D yang dipasang ke game</h2><div class="town-review-canvas"></div>
+    <div><button data-appearance="baseline" aria-pressed="false">Tanpa tekstur</button><button data-appearance="skin" aria-pressed="true" disabled>Dengan tekstur</button></div>
+    <p data-skin-status="loading" role="status">Memuat skin Stitch…</p>
     <div><button data-view="reference" aria-pressed="true">Sudut Stitch</button><button data-view="game" aria-pressed="false">Sudut game</button><button data-turn="1">Putar 90°</button></div>
     <p>Model tetap tiga dimensi. Tombol hanya mengubah sudut inspeksi.</p></article></div>
     <footer><p>Fokus saat ini hanya Town Center. Karakter, terrain, HUD game dan bangunan lain tidak diubah pada perbaikan ini.</p></footer></main>`;
@@ -34,19 +37,31 @@ export async function createTownCenterReview(root: HTMLElement): Promise<void> {
   const target = new THREE.Vector3(0, 2.25, -0.10);
   camera.position.copy(target).add(new THREE.Vector3(12, 12, 12)); camera.lookAt(target);
   const model = BuildingFactory.createBuildingMesh('town_center', 1, 42);
+  const skin = new TownCenterSkin();
   scene.add(model); model.rotation.y = Math.PI / 2;
   const abort = new AbortController(); let disposed = false;
   const render = () => {
     if (disposed) return;
     renderer.resize(); renderer.render(scene, camera);
+    root.dataset.modelDrawCalls = String(renderer.renderer.info.render.calls);
+    root.dataset.modelTextures = String(renderer.renderer.info.memory.textures);
   };
   const resize = new ResizeObserver(render); resize.observe(canvas);
+  const showAppearance = (appearance: string) => {
+    const material = MaterialLibrary.getInstance().get(appearance === 'skin' ? 'stitch_civic_skin' : 'stitch_civic_illustrated');
+    model.traverse(node => { if (node instanceof THREE.Mesh) node.material = material; });
+    root.dataset.appearance = appearance;
+    for (const button of root.querySelectorAll<HTMLButtonElement>('[data-appearance]')) {
+      button.setAttribute('aria-pressed', String(button.dataset.appearance === appearance));
+    }
+  };
   root.addEventListener('click', event => {
     const button = (event.target as HTMLElement).closest<HTMLButtonElement>('button');
     if (!button) return;
     if (button.dataset.view) model.rotation.y = button.dataset.view === 'reference' ? Math.PI / 2 : 0;
     if (button.dataset.turn) model.rotation.y += Math.PI / 2;
-    for (const view of root.querySelectorAll<HTMLButtonElement>('[data-view]')) {
+    if (button.dataset.appearance) showAppearance(button.dataset.appearance);
+    if (button.dataset.view || button.dataset.turn) for (const view of root.querySelectorAll<HTMLButtonElement>('[data-view]')) {
       view.setAttribute('aria-pressed', String(!button.dataset.turn && view === button));
     }
     render();
@@ -54,12 +69,20 @@ export async function createTownCenterReview(root: HTMLElement): Promise<void> {
   const cleanup = () => {
     if (disposed) return;
     disposed = true; resize.disconnect(); abort.abort();
-    disposeBuilding(model); MaterialLibrary.getInstance().dispose(); renderer.dispose();
+    skin.dispose(); disposeBuilding(model); MaterialLibrary.getInstance().dispose(); renderer.dispose();
   };
   window.addEventListener('pagehide', event => { if (!event.persisted) cleanup(); }, { signal: abort.signal });
   window.addEventListener('pageshow', render, { signal: abort.signal });
   render();
   const reference = new Image(); reference.src = source;
-  await reference.decode();
-  if (!disposed) root.dataset.townReviewReady = 'true';
+  await Promise.all([reference.decode(), skin.load().catch(() => {})]);
+  if (!disposed) {
+    const status = root.querySelector<HTMLElement>('[data-skin-status]')!;
+    status.dataset.skinStatus = skin.status;
+    status.textContent = skin.status === 'ready' ? 'Skin Stitch aktif · bandingkan dengan tampilan tanpa tekstur.' :
+      'Skin tidak tersedia; tampilan tanpa tekstur tetap digunakan. ' + skin.error;
+    root.querySelector<HTMLButtonElement>('[data-appearance=skin]')!.disabled = skin.status !== 'ready';
+    showAppearance(skin.status === 'ready' ? 'skin' : 'baseline');
+    render(); root.dataset.townReviewReady = 'true';
+  }
 }

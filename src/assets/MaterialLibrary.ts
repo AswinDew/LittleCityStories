@@ -22,6 +22,7 @@ export class MaterialLibrary {
 
   private initDefaultMaterials(): void {
     this.register('stitch_civic_illustrated', new THREE.MeshBasicMaterial({ vertexColors: true, toneMapped: false }));
+    this.register('stitch_civic_skin', this.get('stitch_civic_illustrated').clone());
     for (const [key, color] of Object.entries(palette.colors)) {
       this.register(`ancient_${key}`, new THREE.MeshLambertMaterial({ color }));
     }

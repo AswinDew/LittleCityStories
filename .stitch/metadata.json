@@ -287,13 +287,15 @@
       "otherBuildingRolloutAuthorized": false,
       "progress": "docs/progress/2026-11-07-town-center-fidelity.md",
       "skin": {
-        "stage": "A",
-        "status": "awaiting_user_material_review",
+        "stage": "B-E",
+        "status": "awaiting_user_model_review",
+        "sourceMaterialsApproved": true,
         "materials": 5,
-        "gallery": "exports/town-center-skin/review.html",
-        "sourceSpec": "exports/town-center-skin/source-spec.json",
-        "runtimeIntegrated": false,
-        "atlasCreated": false,
+        "atlas": "public/building-skins/town-center/atlas.png",
+        "manifest": "public/building-skins/town-center/manifest.json",
+        "reviewPath": "/?buildingReview=town_center",
+        "runtimeIntegrated": true,
+        "atlasCreated": true,
         "otherBuildingRolloutAuthorized": false
       }
     }

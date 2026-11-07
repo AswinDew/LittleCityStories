@@ -4,16 +4,50 @@ test('one-building review shows the original Stitch source and the real Town Cen
   await page.setViewportSize({ width: 1280, height: 900 });
   const errors: string[] = [];
   page.on('pageerror', error => errors.push(error.message));
+  let atlasRequests = 0;
+  page.on('request', request => { if (request.url().endsWith('/building-skins/town-center/atlas.png')) atlasRequests++; });
   await page.goto('/?buildingReview=town_center');
   await expect(page.locator('[data-town-review-ready=true]')).toBeVisible();
   await expect(page.locator('svg image')).toHaveAttribute('href', /ancient-sites-master\.jpg/);
   await expect(page.locator('.town-review canvas')).toBeVisible();
+  await expect(page.getByRole('button', { name: 'Dengan tekstur', exact: true })).toHaveAttribute('aria-pressed', 'true');
+  await expect(page.locator('[data-skin-status]')).toHaveAttribute('data-skin-status', 'ready');
+  await expect(page.locator('[data-model-draw-calls]')).toHaveAttribute('data-model-draw-calls', '8');
+  await expect(page.locator('[data-model-textures]')).toHaveAttribute('data-model-textures', '1');
+  const skinFrame = await page.locator('.town-review canvas').screenshot();
+  await page.getByRole('button', { name: 'Tanpa tekstur', exact: true }).click();
+  const baselineFrame = await page.locator('.town-review canvas').screenshot();
+  expect(skinFrame.equals(baselineFrame)).toBe(false);
+  await page.screenshot({ path: 'test-results/town-center-skin-baseline-review.png' });
+  await page.getByRole('button', { name: 'Dengan tekstur', exact: true }).click();
   await page.screenshot({ path: 'test-results/town-center-reference-review.png' });
   await page.getByRole('button', { name: 'Sudut game', exact: true }).click();
   await expect(page.getByRole('button', { name: 'Sudut game', exact: true })).toHaveAttribute('aria-pressed', 'true');
   await page.screenshot({ path: 'test-results/town-center-game-review.png' });
-  await page.getByRole('button', { name: 'Putar 90°', exact: true }).click();
+  for (let turn = 0; turn < 4; turn++) {
+    await page.getByRole('button', { name: 'Putar 90°', exact: true }).click();
+    await page.locator('.town-review canvas').screenshot({ path: `test-results/town-center-skin-turn-${turn}.png` });
+  }
+  expect(atlasRequests).toBe(1);
   expect(errors).toEqual([]);
+});
+
+test('missing civic atlas keeps the review fallback and the real settlement usable', async ({ page }) => {
+  const pageErrors: string[] = [];
+  page.on('pageerror', error => pageErrors.push(error.message));
+  await page.route('**/building-skins/town-center/atlas.png', route => route.abort());
+  await page.goto('/?buildingReview=town_center');
+  await expect(page.locator('[data-town-review-ready=true]')).toBeVisible();
+  await expect(page.locator('[data-skin-status]')).toHaveAttribute('data-skin-status', 'fallback');
+  await expect(page.getByRole('button', { name: 'Dengan tekstur', exact: true })).toBeDisabled();
+  await expect(page.getByRole('button', { name: 'Tanpa tekstur', exact: true })).toHaveAttribute('aria-pressed', 'true');
+  await page.screenshot({ path: 'test-results/town-center-skin-unavailable.png' });
+  await page.goto('/?manual=1');
+  await page.waitForFunction(() => !!window.__CIV_TOWN_TEST__);
+  await expect(page.getByRole('heading', { name: 'Civilization Town', exact: true })).toBeVisible();
+  await page.getByRole('button', { name: 'Zoom in', exact: true }).click();
+  await expect.poll(() => page.evaluate(() => window.__CIV_TOWN_TEST__!.getCameraState().zoom)).toBeGreaterThan(1);
+  expect(pageErrors).toEqual([]);
 });
 
 test('Stitch static assets and matte HUD load while real settlement controls remain usable', async ({ page }) => {

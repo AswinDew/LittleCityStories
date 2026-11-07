@@ -1,0 +1,350 @@
+{
+  "atlas": {
+    "file": "atlas.png",
+    "height": 1024,
+    "sha256": "cb61d71246985a903598e0186c5ddaf8053484ee30af64875665759ccda64e04",
+    "width": 1024
+  },
+  "buildingId": "town_center",
+  "colorSpace": "srgb",
+  "gutter": 8,
+  "layoutHash": "eae5db68c145dbb5c565320795a52917e9d652a3cb2e3d6c39a475630d96ca83",
+  "layoutVersion": 1,
+  "regions": {
+    "blue_dark": [
+      904,
+      648,
+      112,
+      112
+    ],
+    "blue_front": [
+      648,
+      648,
+      112,
+      112
+    ],
+    "blue_light_dark": [
+      392,
+      776,
+      112,
+      112
+    ],
+    "blue_light_front": [
+      136,
+      776,
+      112,
+      112
+    ],
+    "blue_light_side": [
+      264,
+      776,
+      112,
+      112
+    ],
+    "blue_light_top": [
+      8,
+      776,
+      112,
+      112
+    ],
+    "blue_side": [
+      776,
+      648,
+      112,
+      112
+    ],
+    "blue_top": [
+      520,
+      648,
+      112,
+      112
+    ],
+    "ink_dark": [
+      392,
+      392,
+      112,
+      112
+    ],
+    "ink_front": [
+      136,
+      392,
+      112,
+      112
+    ],
+    "ink_side": [
+      264,
+      392,
+      112,
+      112
+    ],
+    "ink_top": [
+      8,
+      392,
+      112,
+      112
+    ],
+    "linen_dark": [
+      904,
+      264,
+      112,
+      112
+    ],
+    "linen_front": [
+      648,
+      264,
+      112,
+      112
+    ],
+    "linen_side": [
+      776,
+      264,
+      112,
+      112
+    ],
+    "linen_top": [
+      520,
+      264,
+      112,
+      112
+    ],
+    "soil_dark_dark": [
+      392,
+      8,
+      112,
+      112
+    ],
+    "soil_dark_front": [
+      136,
+      8,
+      112,
+      112
+    ],
+    "soil_dark_side": [
+      264,
+      8,
+      112,
+      112
+    ],
+    "soil_dark_top": [
+      8,
+      8,
+      112,
+      112
+    ],
+    "stone_dark": [
+      904,
+      136,
+      112,
+      112
+    ],
+    "stone_dark_dark": [
+      904,
+      8,
+      112,
+      112
+    ],
+    "stone_dark_front": [
+      648,
+      8,
+      112,
+      112
+    ],
+    "stone_dark_side": [
+      776,
+      8,
+      112,
+      112
+    ],
+    "stone_dark_top": [
+      520,
+      8,
+      112,
+      112
+    ],
+    "stone_front": [
+      648,
+      136,
+      112,
+      112
+    ],
+    "stone_light_dark": [
+      392,
+      264,
+      112,
+      112
+    ],
+    "stone_light_front": [
+      136,
+      264,
+      112,
+      112
+    ],
+    "stone_light_side": [
+      264,
+      264,
+      112,
+      112
+    ],
+    "stone_light_top": [
+      8,
+      264,
+      112,
+      112
+    ],
+    "stone_side": [
+      776,
+      136,
+      112,
+      112
+    ],
+    "stone_top": [
+      520,
+      136,
+      112,
+      112
+    ],
+    "straw_dark": [
+      904,
+      520,
+      112,
+      112
+    ],
+    "straw_front": [
+      648,
+      520,
+      112,
+      112
+    ],
+    "straw_light_dark": [
+      392,
+      648,
+      112,
+      112
+    ],
+    "straw_light_front": [
+      136,
+      648,
+      112,
+      112
+    ],
+    "straw_light_side": [
+      264,
+      648,
+      112,
+      112
+    ],
+    "straw_light_top": [
+      8,
+      648,
+      112,
+      112
+    ],
+    "straw_side": [
+      776,
+      520,
+      112,
+      112
+    ],
+    "straw_top": [
+      520,
+      520,
+      112,
+      112
+    ],
+    "wood_dark": [
+      904,
+      392,
+      112,
+      112
+    ],
+    "wood_dark_dark": [
+      392,
+      136,
+      112,
+      112
+    ],
+    "wood_dark_front": [
+      136,
+      136,
+      112,
+      112
+    ],
+    "wood_dark_side": [
+      264,
+      136,
+      112,
+      112
+    ],
+    "wood_dark_top": [
+      8,
+      136,
+      112,
+      112
+    ],
+    "wood_front": [
+      648,
+      392,
+      112,
+      112
+    ],
+    "wood_light_dark": [
+      392,
+      520,
+      112,
+      112
+    ],
+    "wood_light_front": [
+      136,
+      520,
+      112,
+      112
+    ],
+    "wood_light_side": [
+      264,
+      520,
+      112,
+      112
+    ],
+    "wood_light_top": [
+      8,
+      520,
+      112,
+      112
+    ],
+    "wood_side": [
+      776,
+      392,
+      112,
+      112
+    ],
+    "wood_top": [
+      520,
+      392,
+      112,
+      112
+    ]
+  },
+  "schemaVersion": 1,
+  "sources": {
+    "limestone_grain": {
+      "candidateSha256": "233e4ffb5036d9d03d95dff635c77c2c58bc14a0c1838081e5799a19dd5f6a49",
+      "sourceSha256": "cee6a5f1d1782f85d04d798f6997af9edcd8cec656a8fd3511b2c01970343fae"
+    },
+    "linen_weave": {
+      "candidateSha256": "87d89dd43016e1dd89b467af87aea5baf03814dc1d0b6b0f6179893e98ab4666",
+      "sourceSha256": "6241cf65c2c4ea54921600a9361ce6b7fc478ee65b5b911ef9da9e445ab27c8c"
+    },
+    "oak_grain": {
+      "candidateSha256": "3e5d893ddea3bb359486396b57eb0a20ffb0cc973ba2d47997e6338af17ba458",
+      "sourceSha256": "1d762d00b8aee188bcec28d3077cfb543bdc3b894b0b4e6c95c4c8e1f9851aab"
+    },
+    "plaster_grain": {
+      "candidateSha256": "680515c487f70cf6a618b720de60c71585f5349544caa343381b6a3c65eb99c2",
+      "sourceSha256": "9f0059cc007b7dd72ce9d07a86d42d88d3241418f432773804c33ef26eb911d8"
+    },
+    "straw_grain": {
+      "candidateSha256": "4cef4b0434ec9db7a058753eb5b31e9356647c3a71577186ab37be91d99ca097",
+      "sourceSha256": "89788cfcc575108cfa814fc2c09412bd233ecdbfb9826dff71ed95b21c926e0d"
+    }
+  }
+}

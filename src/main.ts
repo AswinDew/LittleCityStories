@@ -5,6 +5,7 @@ import { HUD } from './ui/HUD';
 import { GeneratedAssetLoader } from './assets/GeneratedAssetLoader';
 import { applyWorldTextures } from './assets/WorldTextures';
 import { SpriteAtlas } from './assets/SpriteAtlas';
+import { TownCenterSkin } from './assets/TownCenterSkin';
 
 document.addEventListener('DOMContentLoaded', () => {
   if (import.meta.env.DEV && new URLSearchParams(location.search).get('buildingReview') === 'town_center') {
@@ -26,6 +27,10 @@ document.addEventListener('DOMContentLoaded', () => {
   let removeTestHooks: (() => void) | undefined;
   let disposed = false;
   const assetLoader = new GeneratedAssetLoader();
+  const townCenterSkin = new TownCenterSkin();
+  void townCenterSkin.load().catch(error => {
+    if (!disposed) console.warn('Town Center skin unavailable; using vertex-color fallback:', error);
+  });
   const texturesReady = applyWorldTextures(game, assetLoader);
   void Promise.all([assetLoader.getManifest(), assetLoader.load('citizens')]).then(([manifest, texture]) => {
     if (!disposed) game.setCitizenAssets(new SpriteAtlas(manifest.atlases.citizens), texture);
@@ -57,6 +62,7 @@ document.addEventListener('DOMContentLoaded', () => {
     disposed = true;
     removeTestHooks?.();
     disposeGallery?.();
+    townCenterSkin.dispose();
     assetLoader.dispose();
     hud?.dispose();
     game.dispose();
