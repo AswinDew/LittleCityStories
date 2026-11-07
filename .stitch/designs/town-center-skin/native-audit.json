@@ -1,0 +1,43 @@
+[
+  {
+    "id": "straw_grain",
+    "status": "native_mcp_bytes_verified",
+    "sha256": "880f91d2037f1e9680dc5be8374a7a32a888f58f9933652c2a9f33adc676104f",
+    "width": 1024,
+    "height": 1024
+  },
+  {
+    "id": "oak_grain",
+    "status": "native_mcp_bytes_verified",
+    "sha256": "1d762d00b8aee188bcec28d3077cfb543bdc3b894b0b4e6c95c4c8e1f9851aab",
+    "width": 1024,
+    "height": 1024
+  },
+  {
+    "id": "plaster_grain",
+    "status": "native_mcp_bytes_verified",
+    "sha256": "9f0059cc007b7dd72ce9d07a86d42d88d3241418f432773804c33ef26eb911d8",
+    "width": 1024,
+    "height": 1024
+  },
+  {
+    "id": "limestone_grain",
+    "status": "native_mcp_bytes_verified",
+    "sha256": "cee6a5f1d1782f85d04d798f6997af9edcd8cec656a8fd3511b2c01970343fae",
+    "width": 1024,
+    "height": 1024
+  },
+  {
+    "id": "linen_weave",
+    "status": "native_mcp_bytes_verified",
+    "sha256": "65b20afc7a45c0821f56a517bc132e650c93ec08d00a367caf565e04256cfa7e",
+    "width": 1024,
+    "height": 1024
+  },
+  {
+    "id": "board",
+    "status": "screenshot_archive_incomplete_not_a_candidate",
+    "bytes": 1575000,
+    "htmlArchive": "board.source.html"
+  }
+]

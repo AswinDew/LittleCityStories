@@ -1,0 +1,37 @@
+{
+  "images": [
+    {
+      "alt": "Swatch serat jerami datar dari Stitch",
+      "width": 1024,
+      "height": 1024,
+      "complete": true
+    },
+    {
+      "alt": "Swatch serat kayu oak datar dari Stitch",
+      "width": 1024,
+      "height": 1024,
+      "complete": true
+    },
+    {
+      "alt": "Swatch permukaan batu kapur dari Stitch",
+      "width": 896,
+      "height": 896,
+      "complete": true
+    },
+    {
+      "alt": "Swatch plester dinding datar dari Stitch",
+      "width": 896,
+      "height": 896,
+      "complete": true
+    },
+    {
+      "alt": "Swatch tenunan kain banner dari Stitch",
+      "width": 1024,
+      "height": 1024,
+      "complete": true
+    }
+  ],
+  "consoleErrors": [],
+  "narrowViewportWidth": 390,
+  "horizontalOverflow": false
+}

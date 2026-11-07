@@ -1,0 +1,200 @@
+{
+  "version": 1,
+  "stage": "A",
+  "buildingId": "town_center",
+  "projectId": "9572784485551125903",
+  "reference": {
+    "file": "../../designs/ancient-sites-master.jpg",
+    "sha256": "881955e71e14ee71c3eb59ae8163b6521d77b18e39e5e81b63113a60f25a0aff"
+  },
+  "status": "awaiting_user_material_review",
+  "runtimeIntegrated": false,
+  "atlasCreated": false,
+  "materials": [
+    {
+      "id": "straw_grain",
+      "source": {
+        "file": "../../designs/town-center-skin/straw_grain.v3.source.jpg",
+        "screen": "projects/9572784485551125903/screens/ed7dda46689a492b829239f0b5750fa6",
+        "resource": "projects/9572784485551125903/files/9de90f0bd7de46e88bc4d071582843bd",
+        "sha256": "89788cfcc575108cfa814fc2c09412bd233ecdbfb9826dff71ed95b21c926e0d",
+        "width": 1024,
+        "height": 1024
+      },
+      "transform": {
+        "crop": [
+          0,
+          0,
+          1024,
+          1024
+        ],
+        "resampling": null,
+        "colorQuantization": null,
+        "redrawnPixels": false,
+        "sourceModified": false
+      },
+      "candidate": {
+        "file": "candidates/straw_grain.png",
+        "width": 1024,
+        "height": 1024,
+        "sha256": "4cef4b0434ec9db7a058753eb5b31e9356647c3a71577186ab37be91d99ca097"
+      },
+      "fiberDirection": "vertical",
+      "status": "awaiting_user_material_review",
+      "seamlessVerified": false,
+      "notes": [
+        "Freshly generated in Stitch after two prior bark-like candidates were rejected; mostly fine parallel fibres.",
+        "Fibre density and scale still need a later game-surface review.",
+        "Edge continuity has not been certified."
+      ]
+    },
+    {
+      "id": "oak_grain",
+      "source": {
+        "file": "../../designs/town-center-skin/oak_grain.source.jpg",
+        "screen": "projects/9572784485551125903/screens/b21d91e90e9d43a59567b9ed8585054b",
+        "resource": "projects/9572784485551125903/files/a530e63a2d0f46a8aeeb1f3a448c1259",
+        "sha256": "1d762d00b8aee188bcec28d3077cfb543bdc3b894b0b4e6c95c4c8e1f9851aab",
+        "width": 1024,
+        "height": 1024
+      },
+      "transform": {
+        "crop": [
+          0,
+          0,
+          1024,
+          1024
+        ],
+        "resampling": null,
+        "colorQuantization": null,
+        "redrawnPixels": false,
+        "sourceModified": false
+      },
+      "candidate": {
+        "file": "candidates/oak_grain.png",
+        "width": 1024,
+        "height": 1024,
+        "sha256": "3e5d893ddea3bb359486396b57eb0a20ffb0cc973ba2d47997e6338af17ba458"
+      },
+      "fiberDirection": "vertical",
+      "status": "awaiting_user_material_review",
+      "seamlessVerified": false,
+      "notes": [
+        "Single aged oak surface; no joined board grid.",
+        "Knot repetition needs deterministic varied crops during UV mapping.",
+        "Edge continuity has not been certified."
+      ]
+    },
+    {
+      "id": "limestone_grain",
+      "source": {
+        "file": "../../designs/town-center-skin/limestone_grain.source.jpg",
+        "screen": "projects/9572784485551125903/screens/4edbe13d68124d529ca1256e9ed01f71",
+        "resource": "projects/9572784485551125903/files/0e6aa35d2a3c4f9db6714a186c2babd4",
+        "sha256": "cee6a5f1d1782f85d04d798f6997af9edcd8cec656a8fd3511b2c01970343fae",
+        "width": 1024,
+        "height": 1024
+      },
+      "transform": {
+        "crop": [
+          64,
+          64,
+          960,
+          960
+        ],
+        "resampling": null,
+        "colorQuantization": null,
+        "redrawnPixels": false,
+        "sourceModified": false
+      },
+      "candidate": {
+        "file": "candidates/limestone_grain.png",
+        "width": 896,
+        "height": 896,
+        "sha256": "233e4ffb5036d9d03d95dff635c77c2c58bc14a0c1838081e5799a19dd5f6a49"
+      },
+      "fiberDirection": "non_directional_surface",
+      "status": "awaiting_user_material_review",
+      "seamlessVerified": false,
+      "notes": [
+        "Technical interior crop removes outer slab edge/shadow; original source remains unchanged.",
+        "Grain only, without masonry or grout lines.",
+        "The grey-green source tone and large chisel streaks require user material review; not yet color-calibrated on the model."
+      ]
+    },
+    {
+      "id": "plaster_grain",
+      "source": {
+        "file": "../../designs/town-center-skin/plaster_grain.source.jpg",
+        "screen": "projects/9572784485551125903/screens/e8a978f2ded3456f8a51b6d1942e5382",
+        "resource": "projects/9572784485551125903/files/698a8d621f9548abbbf3b9a652535f18",
+        "sha256": "9f0059cc007b7dd72ce9d07a86d42d88d3241418f432773804c33ef26eb911d8",
+        "width": 1024,
+        "height": 1024
+      },
+      "transform": {
+        "crop": [
+          64,
+          64,
+          960,
+          960
+        ],
+        "resampling": null,
+        "colorQuantization": null,
+        "redrawnPixels": false,
+        "sourceModified": false
+      },
+      "candidate": {
+        "file": "candidates/plaster_grain.png",
+        "width": 896,
+        "height": 896,
+        "sha256": "680515c487f70cf6a618b720de60c71585f5349544caa343381b6a3c65eb99c2"
+      },
+      "fiberDirection": "non_directional_surface",
+      "status": "awaiting_user_material_review",
+      "seamlessVerified": false,
+      "notes": [
+        "Technical interior crop excludes the source presentation background and rim.",
+        "Sparse trowel marks, without timber or openings.",
+        "Large marks and repeat boundaries still require later panel-scale inspection."
+      ]
+    },
+    {
+      "id": "linen_weave",
+      "source": {
+        "file": "../../designs/town-center-skin/linen_weave.v4.source.jpg",
+        "screen": "projects/9572784485551125903/screens/46c7d73a498e43cabdf6e168abb90fb5",
+        "resource": "projects/9572784485551125903/files/606c2892f313490b815dff5de7b5c7e9",
+        "sha256": "6241cf65c2c4ea54921600a9361ce6b7fc478ee65b5b911ef9da9e445ab27c8c",
+        "width": 1024,
+        "height": 1024
+      },
+      "transform": {
+        "crop": [
+          0,
+          0,
+          1024,
+          1024
+        ],
+        "resampling": null,
+        "colorQuantization": null,
+        "redrawnPixels": false,
+        "sourceModified": false
+      },
+      "candidate": {
+        "file": "candidates/linen_weave.png",
+        "width": 1024,
+        "height": 1024,
+        "sha256": "87d89dd43016e1dd89b467af87aea5baf03814dc1d0b6b0f6179893e98ab4666"
+      },
+      "fiberDirection": "warp_vertical_weft_horizontal",
+      "status": "awaiting_user_material_review",
+      "seamlessVerified": false,
+      "notes": [
+        "Fresh raster with fine natural flax fibres, selected after maze-pattern and native-SVG attempts were rejected.",
+        "Thread scale must be calibrated on the banner before runtime acceptance.",
+        "Edge continuity has not been certified."
+      ]
+    }
+  ]
+}

@@ -1,0 +1,26 @@
+{
+  "straw_grain": {
+    "base64Length": 933836,
+    "fnv1aBase64": "4f308e0c"
+  },
+  "oak_grain": {
+    "base64Length": 725972,
+    "fnv1aBase64": "8602fc77"
+  },
+  "plaster_grain": {
+    "base64Length": 537256,
+    "fnv1aBase64": "2005ef55"
+  },
+  "limestone_grain": {
+    "base64Length": 583444,
+    "fnv1aBase64": "20745d0b"
+  },
+  "linen_weave": {
+    "base64Length": 896480,
+    "fnv1aBase64": "a1b33a1e"
+  },
+  "board": {
+    "base64Length": 2334808,
+    "fnv1aBase64": "a1ba90c7"
+  }
+}

@@ -1,0 +1,74 @@
+[
+  {
+    "id": "straw_grain",
+    "sourceFile": "straw_grain.v3.source.jpg",
+    "screen": "projects/9572784485551125903/screens/ed7dda46689a492b829239f0b5750fa6",
+    "resource": "projects/9572784485551125903/files/9de90f0bd7de46e88bc4d071582843bd",
+    "direction": "vertical",
+    "notes": [
+      "Freshly generated in Stitch after two prior bark-like candidates were rejected; mostly fine parallel fibres.",
+      "Fibre density and scale still need a later game-surface review.",
+      "Edge continuity has not been certified."
+    ]
+  },
+  {
+    "id": "oak_grain",
+    "sourceFile": "oak_grain.source.jpg",
+    "screen": "projects/9572784485551125903/screens/b21d91e90e9d43a59567b9ed8585054b",
+    "resource": "projects/9572784485551125903/files/a530e63a2d0f46a8aeeb1f3a448c1259",
+    "direction": "vertical",
+    "notes": [
+      "Single aged oak surface; no joined board grid.",
+      "Knot repetition needs deterministic varied crops during UV mapping.",
+      "Edge continuity has not been certified."
+    ]
+  },
+  {
+    "id": "limestone_grain",
+    "sourceFile": "limestone_grain.source.jpg",
+    "screen": "projects/9572784485551125903/screens/4edbe13d68124d529ca1256e9ed01f71",
+    "resource": "projects/9572784485551125903/files/0e6aa35d2a3c4f9db6714a186c2babd4",
+    "crop": [
+      64,
+      64,
+      960,
+      960
+    ],
+    "direction": "non_directional_surface",
+    "notes": [
+      "Technical interior crop removes outer slab edge/shadow; original source remains unchanged.",
+      "Grain only, without masonry or grout lines.",
+      "The grey-green source tone and large chisel streaks require user material review; not yet color-calibrated on the model."
+    ]
+  },
+  {
+    "id": "plaster_grain",
+    "sourceFile": "plaster_grain.source.jpg",
+    "screen": "projects/9572784485551125903/screens/e8a978f2ded3456f8a51b6d1942e5382",
+    "resource": "projects/9572784485551125903/files/698a8d621f9548abbbf3b9a652535f18",
+    "crop": [
+      64,
+      64,
+      960,
+      960
+    ],
+    "direction": "non_directional_surface",
+    "notes": [
+      "Technical interior crop excludes the source presentation background and rim.",
+      "Sparse trowel marks, without timber or openings.",
+      "Large marks and repeat boundaries still require later panel-scale inspection."
+    ]
+  },
+  {
+    "id": "linen_weave",
+    "sourceFile": "linen_weave.v4.source.jpg",
+    "screen": "projects/9572784485551125903/screens/46c7d73a498e43cabdf6e168abb90fb5",
+    "resource": "projects/9572784485551125903/files/606c2892f313490b815dff5de7b5c7e9",
+    "direction": "warp_vertical_weft_horizontal",
+    "notes": [
+      "Fresh raster with fine natural flax fibres, selected after maze-pattern and native-SVG attempts were rejected.",
+      "Thread scale must be calibrated on the banner before runtime acceptance.",
+      "Edge continuity has not been certified."
+    ]
+  }
+]

@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TC-SKIN-A / Town Center Flat Material Sources</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans:wght@400;500;600;700&family=Noto+Serif:wght@600;700&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            parchment: '#E7DABC',
+            'parchment-deep': '#ded0af',
+            'parchment-light': '#f3ecda',
+            'plum-charcoal': '#302C36',
+            'deep-timber': '#65483C',
+            'aged-oak': '#96704D',
+            'warm-timber': '#C19B68',
+            'warm-clay': '#AD644D',
+            'sunlit-clay': '#D28B64',
+            'foliage-moss': '#59845A',
+            'muted-blue': '#527B8C',
+            'sky-blue': '#8DB9BE',
+            'straw-base': '#C2A05B',
+            'straw-light': '#E3C882',
+            'stone-base': '#919B8B',
+            'stone-light': '#BEC5AE',
+            'stone-shadow': '#687574',
+            'soil-loam': '#B28E65',
+          },
+          fontFamily: {
+            serif: ['"Noto Serif"', 'serif'],
+            sans: ['"Noto Sans"', 'sans-serif'],
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    .pixelated {
+      image-rendering: -moz-crisp-edges;
+      image-rendering: -webkit-crisp-edges;
+      image-rendering: pixelated;
+      image-rendering: crisp-edges;
+    }
+  </style>
+</head>
+<body class="bg-parchment text-plum-charcoal font-sans antialiased min-h-screen p-6 md:p-10">
+
+  <div class="max-w-7xl mx-auto space-y-8">
+
+    <!-- Header Section -->
+    <header class="border-b-2 border-deep-timber/25 pb-5">
+      <div class="flex flex-col md:flex-row md:items-end justify-between gap-4">
+        <div>
+          <div class="flex items-center gap-3">
+            <span class="inline-block px-2.5 py-1 text-xs font-bold tracking-wider uppercase bg-deep-timber text-parchment-light rounded">TC-SKIN-A</span>
+            <span class="inline-block px-2.5 py-1 text-xs font-semibold tracking-wide bg-foliage-moss/15 text-foliage-moss border border-foliage-moss/30 rounded">Stage A - material review only</span>
+          </div>
+          <h1 class="text-3xl md:text-4xl font-serif font-bold text-plum-charcoal mt-2 tracking-tight">Town Center / Flat Material Sources</h1>
+          <p class="text-sm text-deep-timber mt-1 font-medium">Civilization Town: Living Settlement &bull; Master Material Review Board &bull; Desktop Review Spec</p>
+        </div>
+        <div class="bg-parchment-light border border-deep-timber/20 rounded p-3 text-xs leading-relaxed text-deep-timber max-w-md">
+          <span class="font-bold text-plum-charcoal block mb-0.5">Asset Pipeline Notice:</span>
+          Orthogonal planar texture sources for the BLDG-01 Town Center hall. Prepared for manual sprite downsampling and shader masking. Repeating seams and wrap-around continuity remain unverified.
+        </div>
+      </div>
+    </header>
+
+    <!-- Material Grid: 5 Large Independent Raster Images -->
+    <section>
+      <div class="flex items-center justify-between mb-4">
+        <h2 class="text-lg font-serif font-bold text-plum-charcoal flex items-center gap-2">
+          <span>1. Core Flat Material Swatches</span>
+          <span class="text-xs font-sans font-normal text-deep-timber/80 bg-parchment-deep/60 px-2 py-0.5 rounded border border-deep-timber/15">5 Independent 1024&times;1024 Master Rasters</span>
+        </h2>
+        <span class="text-xs font-semibold text-deep-timber">Edge-to-edge orthogonal planar textures &bull; Zero baked geometry</span>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-6">
+
+        <!-- Swatch 1: Straw Grain -->
+        <article class="bg-parchment-light border border-deep-timber/25 rounded p-4 flex flex-col justify-between shadow-sm">
+          <div>
+            <div class="flex items-center justify-between mb-2">
+              <span class="font-bold text-sm tracking-wide text-plum-charcoal">a. straw_grain</span>
+              <span class="text-[10px] uppercase font-bold text-straw-base bg-straw-base/15 px-1.5 py-0.5 rounded border border-straw-base/30">Roof Thatch</span>
+            </div>
+            
+            <div class="aspect-square w-full bg-parchment border border-deep-timber/20 rounded overflow-hidden relative group">
+              <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuDOj0BpVyfjKs-JrXTFNfx6MrOz6x1m_AJlbOI6DxXCZZPsgVMrHvrPdSZU1mtNnJKNWQUDKWOe-jenTX8Izr2zqL_cikad5ywD6usrhkCRT_Z8V7scA7LIcFwsX2-EtpCczELwFWGhMN6Lwp5YJ72XSoc9ZSwSUJMg84weMv-5IHT-BK2oWFqS4wxlu0WmF80kndXehH-UOUnbjYRsmyLc1iMFfL8xydx9OJhTdOliSS3MD9mAxklr3vAzVTF7xUwdNMupzrYh0xY" alt="straw_grain - 16-bit orthogonal flat straw thatch texture" class="w-full h-full object-cover pixelated">
+            </div>
+
+            <div class="mt-3 space-y-1.5 text-xs text-deep-timber">
+              <div class="flex justify-between border-b border-deep-timber/10 pb-1">
+                <span class="font-semibold text-plum-charcoal">Orientation:</span>
+                <span>Vertical fiber grain</span>
+              </div>
+              <div class="flex justify-between border-b border-deep-timber/10 pb-1">
+                <span class="font-semibold text-plum-charcoal">Target Surface:</span>
+                <span>Thatch roof &amp; dormer eave</span>
+              </div>
+              <div class="flex justify-between border-b border-deep-timber/10 pb-1">
+                <span class="font-semibold text-plum-charcoal">Palette Steps:</span>
+                <span>#C2A05B / #E3C882 / #96704D</span>
+              </div>
+              <p class="pt-1 text-[11px] leading-relaxed text-plum-charcoal/80">
+                Close, flat surface detail of dried roof straw fibers running vertically top to bottom. Clustered pixel strands with natural organic fiber interruptions. No complete roof mesh, sheaf silhouette, ridge cap, or directional shadow.
+              </p>
+            </div>
+          </div>
+
+          <div class="mt-4 pt-3 border-t border-deep-timber/15 flex items-center justify-between">
+            <span class="text-[10px] text-warm-clay font-medium">&bull; Seams unverified</span>
+            <a href="https://lh3.googleusercontent.com/aida-public/AB6AXuDOj0BpVyfjKs-JrXTFNfx6MrOz6x1m_AJlbOI6DxXCZZPsgVMrHvrPdSZU1mtNnJKNWQUDKWOe-jenTX8Izr2zqL_cikad5ywD6usrhkCRT_Z8V7scA7LIcFwsX2-EtpCczELwFWGhMN6Lwp5YJ72XSoc9ZSwSUJMg84weMv-5IHT-BK2oWFqS4wxlu0WmF80kndXehH-UOUnbjYRsmyLc1iMFfL8xydx9OJhTdOliSS3MD9mAxklr3vAzVTF7xUwdNMupzrYh0xY" download="straw_grain_master.png" class="text-xs bg-deep-timber text-parchment px-2.5 py-1 rounded font-medium hover:bg-plum-charcoal transition-colors">Download PNG</a>
+          </div>
+        </article>
+
+        <!-- Swatch 2: Oak Grain -->
+        <article class="bg-parchment-light border border-deep-timber/25 rounded p-4 flex flex-col justify-between shadow-sm">
+          <div>
+            <div class="flex items-center justify-between mb-2">
+              <span class="font-bold text-sm tracking-wide text-plum-charcoal">b. oak_grain</span>
+              <span class="text-[10px] uppercase font-bold text-deep-timber bg-deep-timber/15 px-1.5 py-0.5 rounded border border-deep-timber/30">Timber Post</span>
+            </div>
+            
+            <div class="aspect-square w-full bg-parchment border border-deep-timber/20 rounded overflow-hidden relative group">
+              <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuAWg7Sam_wCvK-JYb_dxdk7jhsQcTM-05DXh0bPcQECxFqnXBSiHmy2ppQVDBiRPwgoN40ANw4D_VPPZAU8vhiT5jX9blmCjnWbvuvLyX7l7zDXhutTzdg1vIAYrq_4cVz0la5cBbvR7q_XNv-zVFQt4sCQbhUAw3-LOA2POz9oczWM3sOHn_FllPPRd40A3h7leQFfiG6QB3eGUCVE_GfCL-Qblp_rLVDqpgrYzPrJNP9ezOEkSL2HxdYAtlILyHH6Mhg2F2reyGo" alt="oak_grain - 16-bit orthogonal flat aged oak timber beam texture" class="w-full h-full object-cover pixelated">
+            </div>
+
+            <div class="mt-3 space-y-1.5 text-xs text-deep-timber">
+              <div class="flex justify-between border-b border-deep-timber/10 pb-1">
+                <span class="font-semibold text-plum-charcoal">Orientation:</span>
+                <span>Vertical along beam length</span>
+              </div>
+              <div class="flex justify-between border-b border-deep-timber/10 pb-1">
+                <span class="font-semibold text-plum-charcoal">Target Surface:</span>
+                <span>Corner posts, studs &amp; lintels</span>
+              </div>
+              <div class="flex justify-between border-b border-deep-timber/10 pb-1">
+                <span class="font-semibold text-plum-charcoal">Palette Steps:</span>
+                <span>#65483C / #96704D / #C19B68</span>
+              </div>
+              <p class="pt-1 text-[11px] leading-relaxed text-plum-charcoal/80">
+                Close flat aged oak beam surface. Fine irregular vertical growth rings and subtle understated wood grain knots. Continuous single timber face without joined floorboards, plank gaps, cut end rings, or nail hardware.
+              </p>
+            </div>
+          </div>
+
+          <div class="mt-4 pt-3 border-t border-deep-timber/15 flex items-center justify-between">
+            <span class="text-[10px] text-warm-clay font-medium">&bull; Seams unverified</span>
+            <a href="https://lh3.googleusercontent.com/aida-public/AB6AXuAWg7Sam_wCvK-JYb_dxdk7jhsQcTM-05DXh0bPcQECxFqnXBSiHmy2ppQVDBiRPwgoN40ANw4D_VPPZAU8vhiT5jX9blmCjnWbvuvLyX7l7zDXhutTzdg1vIAYrq_4cVz0la5cBbvR7q_XNv-zVFQt4sCQbhUAw3-LOA2POz9oczWM3sOHn_FllPPRd40A3h7leQFfiG6QB3eGUCVE_GfCL-Qblp_rLVDqpgrYzPrJNP9ezOEkSL2HxdYAtlILyHH6Mhg2F2reyGo" download="oak_grain_master.png" class="text-xs bg-deep-timber text-parchment px-2.5 py-1 rounded font-medium hover:bg-plum-charcoal transition-colors">Download PNG</a>
+          </div>
+        </article>
+
+        <!-- Swatch 3: Limestone Grain -->
+        <article class="bg-parchment-light border border-deep-timber/25 rounded p-4 flex flex-col justify-between shadow-sm">
+          <div>
+            <div class="flex items-center justify-between mb-2">
+              <span class="font-bold text-sm tracking-wide text-plum-charcoal">c. limestone_grain</span>
+              <span class="text-[10px] uppercase font-bold text-stone-base bg-stone-base/20 px-1.5 py-0.5 rounded border border-stone-base/30">Foundation Ashlar</span>
+            </div>
+            
+            <div class="aspect-square w-full bg-parchment border border-deep-timber/20 rounded overflow-hidden relative group">
+              <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuDRb9kUUAn7Waiqh9MG7ZJWEuUaGeQHmquh4CJ3uK5KYy-2t-mq1X5V_dUXgz3qzo-7gDqVyH0J03QZQLVFV-YIgrOM7U6WXpF4ZspeRD7BwZEQR_3O5RnTLAbiYu9DWdpBw__Tw8X0kHbi_Czv4T_BiPIHGWvk28h6_ZVJou2bUGk-aP468TwnGhCjt3QRXczvb6-AQT4Ve4aL1sFS9NEvDzzeJ6ioSHQlUsCOSisXX7Vk7LriwA_0q9Bn1oGO1lZN-y8_02_lAMo" alt="limestone_grain - 16-bit orthogonal flat warm weathered limestone block texture" class="w-full h-full object-cover pixelated">
+            </div>
+
+            <div class="mt-3 space-y-1.5 text-xs text-deep-timber">
+              <div class="flex justify-between border-b border-deep-timber/10 pb-1">
+                <span class="font-semibold text-plum-charcoal">Orientation:</span>
+                <span>Planar isotropic facing</span>
+              </div>
+              <div class="flex justify-between border-b border-deep-timber/10 pb-1">
+                <span class="font-semibold text-plum-charcoal">Target Surface:</span>
+                <span>Lower masonry &amp; front steps</span>
+              </div>
+              <div class="flex justify-between border-b border-deep-timber/10 pb-1">
+                <span class="font-semibold text-plum-charcoal">Palette Steps:</span>
+                <span>#919B8B / #BEC5AE / #687574</span>
+              </div>
+              <p class="pt-1 text-[11px] leading-relaxed text-plum-charcoal/80">
+                Uniform close surface of one warm weathered limestone face with fine chisel impressions, restrained mineral pores, and soft weathering. Zero mortar seams, masonry courses, brick grid divisions, or 3D block bevels.
+              </p>
+            </div>
+          </div>
+
+          <div class="mt-4 pt-3 border-t border-deep-timber/15 flex items-center justify-between">
+            <span class="text-[10px] text-warm-clay font-medium">&bull; Seams unverified</span>
+            <a href="https://lh3.googleusercontent.com/aida-public/AB6AXuDRb9kUUAn7Waiqh9MG7ZJWEuUaGeQHmquh4CJ3uK5KYy-2t-mq1X5V_dUXgz3qzo-7gDqVyH0J03QZQLVFV-YIgrOM7U6WXpF4ZspeRD7BwZEQR_3O5RnTLAbiYu9DWdpBw__Tw8X0kHbi_Czv4T_BiPIHGWvk28h6_ZVJou2bUGk-aP468TwnGhCjt3QRXczvb6-AQT4Ve4aL1sFS9NEvDzzeJ6ioSHQlUsCOSisXX7Vk7LriwA_0q9Bn1oGO1lZN-y8_02_lAMo" download="limestone_grain_master.png" class="text-xs bg-deep-timber text-parchment px-2.5 py-1 rounded font-medium hover:bg-plum-charcoal transition-colors">Download PNG</a>
+          </div>
+        </article>
+
+        <!-- Swatch 4: Plaster Grain -->
+        <article class="bg-parchment-light border border-deep-timber/25 rounded p-4 flex flex-col justify-between shadow-sm">
+          <div>
+            <div class="flex items-center justify-between mb-2">
+              <span class="font-bold text-sm tracking-wide text-plum-charcoal">d. plaster_grain</span>
+              <span class="text-[10px] uppercase font-bold text-sunlit-clay bg-sunlit-clay/20 px-1.5 py-0.5 rounded border border-sunlit-clay/35">Half-Timber Infill</span>
+            </div>
+            
+            <div class="aspect-square w-full bg-parchment border border-deep-timber/20 rounded overflow-hidden relative group">
+              <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuCAFKUB0M2s9wNkV05xxz0tdiGKo0X8lw7c_jZLsWZF-YR4Nl5Bh8x1VhuWYIqmHCl-pTwz9MjQbh6FPRi9xBrel28XnzB0En70gkT79KVzbzQzT17qEI65KlzY9W-stGcZutnWb__UXiSkCiZmV3rKHiBKFjRLzO340ixUWIrvqwR2fQmpISK2_8wZowhAJrNO9o6ITx7VWfdIateLIz5IaMC4TjESDR2MTwC_9aLunDCLGHyQxw_LRZZrruCl_bcosaY5QlXEvFs" alt="plaster_grain - 16-bit orthogonal flat dried light wall plaster texture" class="w-full h-full object-cover pixelated">
+            </div>
+
+            <div class="mt-3 space-y-1.5 text-xs text-deep-timber">
+              <div class="flex justify-between border-b border-deep-timber/10 pb-1">
+                <span class="font-semibold text-plum-charcoal">Orientation:</span>
+                <span>Planar non-directional</span>
+              </div>
+              <div class="flex justify-between border-b border-deep-timber/10 pb-1">
+                <span class="font-semibold text-plum-charcoal">Target Surface:</span>
+                <span>Upper floor wall infill panels</span>
+              </div>
+              <div class="flex justify-between border-b border-deep-timber/10 pb-1">
+                <span class="font-semibold text-plum-charcoal">Palette Steps:</span>
+                <span>#E7DABC / #D28B64 / #C7AA7B</span>
+              </div>
+              <p class="pt-1 text-[11px] leading-relaxed text-plum-charcoal/80">
+                Uniform flat dried light wall plaster surface matching Town Hall upper wall bays. Subtle hand-trowel variations and delicate age mottling. No timber frame edges, window openings, or vignette gradients.
+              </p>
+            </div>
+          </div>
+
+          <div class="mt-4 pt-3 border-t border-deep-timber/15 flex items-center justify-between">
+            <span class="text-[10px] text-warm-clay font-medium">&bull; Seams unverified</span>
+            <a href="https://lh3.googleusercontent.com/aida-public/AB6AXuCAFKUB0M2s9wNkV05xxz0tdiGKo0X8lw7c_jZLsWZF-YR4Nl5Bh8x1VhuWYIqmHCl-pTwz9MjQbh6FPRi9xBrel28XnzB0En70gkT79KVzbzQzT17qEI65KlzY9W-stGcZutnWb__UXiSkCiZmV3rKHiBKFjRLzO340ixUWIrvqwR2fQmpISK2_8wZowhAJrNO9o6ITx7VWfdIateLIz5IaMC4TjESDR2MTwC_9aLunDCLGHyQxw_LRZZrruCl_bcosaY5QlXEvFs" download="plaster_grain_master.png" class="text-xs bg-deep-timber text-parchment px-2.5 py-1 rounded font-medium hover:bg-plum-charcoal transition-colors">Download PNG</a>
+          </div>
+        </article>
+
+        <!-- Swatch 5: Linen Weave -->
+        <article class="bg-parchment-light border border-deep-timber/25 rounded p-4 flex flex-col justify-between shadow-sm">
+          <div>
+            <div class="flex items-center justify-between mb-2">
+              <span class="font-bold text-sm tracking-wide text-plum-charcoal">e. linen_weave</span>
+              <span class="text-[10px] uppercase font-bold text-muted-blue bg-muted-blue/15 px-1.5 py-0.5 rounded border border-muted-blue/30">Hanging Banner</span>
+            </div>
+            
+            <div class="aspect-square w-full bg-parchment border border-deep-timber/20 rounded overflow-hidden relative group">
+              <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuA_WMzlwiLXu5D7BWMiXX59nzGganN3Lj2DajQhI4SfGj2qi5V2WN-krTBvNqGoUWIawh-pJhkkSKmS93DkPcW0ULg9Cj9mRodluUqBuHwkGQ6Rnzmp7Q7TAaFS0_4E3_OmW_xAyCSoKyzdy02g6yth3qOCH_jLTz1BfDLzRyr_hh2EFVDkkWgbm4hkNtXMiQK01xotI2phjmc_RJuXNsqWF2lSP2vglFH_u0PNQ4rOw6MRh6samownaY_jIlPG17zcbl0zI1Z1I9I" alt="linen_weave - 16-bit orthogonal flat woven muted blue cloth textile texture" class="w-full h-full object-cover pixelated">
+            </div>
+
+            <div class="mt-3 space-y-1.5 text-xs text-deep-timber">
+              <div class="flex justify-between border-b border-deep-timber/10 pb-1">
+                <span class="font-semibold text-plum-charcoal">Orientation:</span>
+                <span>Orthogonal warp &amp; weft grid</span>
+              </div>
+              <div class="flex justify-between border-b border-deep-timber/10 pb-1">
+                <span class="font-semibold text-plum-charcoal">Target Surface:</span>
+                <span>Facade cloth pennant banners</span>
+              </div>
+              <div class="flex justify-between border-b border-deep-timber/10 pb-1">
+                <span class="font-semibold text-plum-charcoal">Palette Steps:</span>
+                <span>#527B8C / #688C9C / #3F6070</span>
+              </div>
+              <p class="pt-1 text-[11px] leading-relaxed text-plum-charcoal/80">
+                Close flat cloth material matching Town Center hanging heraldic banners. Clear woven linen thread structure with subtle yarn variations. No banner silhouette, wooden pole, folds, drapery shadows, or heraldry crests.
+              </p>
+            </div>
+          </div>
+
+          <div class="mt-4 pt-3 border-t border-deep-timber/15 flex items-center justify-between">
+            <span class="text-[10px] text-warm-clay font-medium">&bull; Seams unverified</span>
+            <a href="https://lh3.googleusercontent.com/aida-public/AB6AXuA_WMzlwiLXu5D7BWMiXX59nzGganN3Lj2DajQhI4SfGj2qi5V2WN-krTBvNqGoUWIawh-pJhkkSKmS93DkPcW0ULg9Cj9mRodluUqBuHwkGQ6Rnzmp7Q7TAaFS0_4E3_OmW_xAyCSoKyzdy02g6yth3qOCH_jLTz1BfDLzRyr_hh2EFVDkkWgbm4hkNtXMiQK01xotI2phjmc_RJuXNsqWF2lSP2vglFH_u0PNQ4rOw6MRh6samownaY_jIlPG17zcbl0zI1Z1I9I" download="linen_weave_master.png" class="text-xs bg-deep-timber text-parchment px-2.5 py-1 rounded font-medium hover:bg-plum-charcoal transition-colors">Download PNG</a>
+          </div>
+        </article>
+
+      </div>
+    </section>
+
+    <!-- Context & Architecture Master Reference -->
+    <section class="border-t-2 border-deep-timber/20 pt-6">
+      <div class="flex items-center justify-between mb-4">
+        <h2 class="text-lg font-serif font-bold text-plum-charcoal flex items-center gap-2">
+          <span>2. Architectural Reference Context</span>
+          <span class="text-xs font-sans font-normal text-deep-timber/80 bg-parchment-deep/60 px-2 py-0.5 rounded border border-deep-timber/15">Source: BLDG-01 Master Architecture (Screen 5eaec90d6212477cb95917458d523044)</span>
+        </h2>
+        <span class="text-xs font-medium text-deep-timber">Reference only &bull; Preserved original geometry</span>
+      </div>
+
+      <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+
+        <!-- Architecture Master Extract Card -->
+        <div class="bg-parchment-light border border-deep-timber/25 rounded p-4 lg:col-span-2">
+          <div class="flex items-center justify-between mb-3 pb-2 border-b border-deep-timber/15">
+            <div class="flex items-center gap-2">
+              <span class="w-2.5 h-2.5 rounded-full bg-foliage-moss"></span>
+              <span class="font-bold text-sm text-plum-charcoal">BLDG-01 Architecture Master Sheet (Slot 1: town_center 3&times;3)</span>
+            </div>
+            <span class="text-xs font-mono text-deep-timber">Footprint: 3&times;3 Dimetric &bull; 2:1 True Isometric</span>
+          </div>
+
+          <div class="bg-parchment border border-deep-timber/20 rounded p-2 overflow-hidden flex flex-col items-center">
+            <img src="https://lh3.googleusercontent.com/aida/AEtjO1WYiQfT2CzTIAZSj53WJ4cGgVVdyZJXJAf_AvvDKl0UJ85F1RHcc_DGIzrs0F5a-5lW56xfE41Hzl9FkNqFXYbbJQGgQb2ZU63OUfcKGlAqlNlVKII0P3jyk9T0wlTBrsLavjhP3FypOVjxv7BWVi6ho4ymfCSwd8LTbK-xQyLiQRQXLyU3agnuoQ050bCIgVt3A9pVSs5XuGhA22JuMOncoElvRPOph1kYwu1h_chKuEJo5gHeYe3l-zQ" alt="BLDG-01 Ancient Settlement Architecture Master Matrix" class="w-full h-auto max-h-[380px] object-contain pixelated rounded">
+            <p class="text-[11px] text-deep-timber mt-2 text-center">
+              Top-left entity (1. town_center) shows the target application: ashlar lower story (limestone), oak framing (oak_grain), light infill (plaster_grain), straw roof (straw_grain), and blue civic banners (linen_weave).
+            </p>
+          </div>
+        </div>
+
+        <!-- Technical Specification & Audit Notes -->
+        <div class="bg-parchment-light border border-deep-timber/25 rounded p-4 flex flex-col justify-between">
+          <div>
+            <h3 class="font-bold text-sm text-plum-charcoal pb-2 border-b border-deep-timber/15 flex items-center justify-between">
+              <span>Pipeline Audit &amp; Stage Notes</span>
+              <span class="text-[10px] font-mono uppercase bg-parchment-deep px-1.5 py-0.5 rounded text-deep-timber">Stage A</span>
+            </h3>
+
+            <ul class="mt-3 space-y-2 text-xs text-deep-timber leading-relaxed">
+              <li class="flex items-start gap-2">
+                <span class="text-foliage-moss font-bold mt-0.5">&#10003;</span>
+                <span><strong>No Geometric Interference:</strong> All 5 images are 100% planar orthogonal surfaces without 3D wedges, isometric slabs, cutaway bevels, or baked drop shadows.</span>
+              </li>
+              <li class="flex items-start gap-2">
+                <span class="text-foliage-moss font-bold mt-0.5">&#10003;</span>
+                <span><strong>Authentic Pixel Clusters:</strong> Master textures preserve the hand-drawn 16-bit cluster styling of Living Settlement rather than blurred photography or noise shaders.</span>
+              </li>
+              <li class="flex items-start gap-2">
+                <span class="text-foliage-moss font-bold mt-0.5">&#10003;</span>
+                <span><strong>Isolated Independence:</strong> Download links point directly to individual standalone PNG assets suitable for texture atlas packing.</span>
+              </li>
+              <li class="flex items-start gap-2">
+                <span class="text-warm-clay font-bold mt-0.5">&bull;</span>
+                <span><strong>Seam Verification Pending:</strong> Edge seams have not been wrap-around tested. Downsampling from master resolution to runtime tile mipmaps must be audited in Phase 2 sprite tools.</span>
+              </li>
+            </ul>
+          </div>
+
+          <div class="mt-4 pt-3 border-t border-deep-timber/15 bg-parchment/60 p-2.5 rounded text-[11px] text-plum-charcoal/80 space-y-1">
+            <div class="font-bold text-plum-charcoal">Downstream Task Handoff:</div>
+            <p>
+              UV projection across the 3&times;3 Town Center geometry can directly map <code class="bg-parchment px-1 rounded text-deep-timber">straw_grain</code> onto roof slopes and <code class="bg-parchment px-1 rounded text-deep-timber">oak_grain</code> onto vertical lintel columns without texture stretching.
+            </p>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- Footer Meta -->
+    <footer class="border-t border-deep-timber/20 pt-4 flex flex-col md:flex-row items-center justify-between text-xs text-deep-timber gap-2">
+      <div>
+        <span>Civilization Town // Living Settlement // Asset Library TC-SKIN-A</span> &bull; <span>Art Direction Master</span>
+      </div>
+      <div class="font-mono text-[11px]">
+        DESIGN SYSTEM: Living Settlement &bull; 28-Color Restrained Palette
+      </div>
+    </footer>
+
+  </div>
+
+</body>
+</html>

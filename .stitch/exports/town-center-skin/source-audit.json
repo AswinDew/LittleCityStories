@@ -1,0 +1,66 @@
+{
+  "stage": "A",
+  "status": "source_audit_complete_five_candidates_awaiting_user_review",
+  "runtimeChanged": false,
+  "sources": [
+    {
+      "file": "../../designs/ancient-sites-master.jpg",
+      "width": 1376,
+      "height": 768,
+      "sha256": "881955e71e14ee71c3eb59ae8163b6521d77b18e39e5e81b63113a60f25a0aff"
+    },
+    {
+      "file": "../../designs/material-reference.jpg",
+      "width": 1024,
+      "height": 1024,
+      "sha256": "1956b1a6f8ddbf360f5c793cd4e677b3c1c7d88661510e6b354ec89e4c770c97"
+    }
+  ],
+  "materials": [
+    {
+      "id": "straw_grain",
+      "decision": "new_flat_stitch_source_required",
+      "inspection": "visual_native_master",
+      "reason": "Town Center roof contains overlapping courses, dormer, perspective and directional shadow. Whole-roof projection would duplicate mesh structure; unobstructed fibres occupy only small patches.",
+      "crop": null,
+      "rectification": null,
+      "sourceUpscaled": false
+    },
+    {
+      "id": "oak_grain",
+      "decision": "new_flat_stitch_source_required",
+      "inspection": "visual_native_master",
+      "reason": "Timber beams are narrow and crossed by joints/outline. Existing material-reference has isometric planks and frame; insufficient independent edge-to-edge beam grain.",
+      "crop": null,
+      "rectification": null,
+      "sourceUpscaled": false
+    },
+    {
+      "id": "limestone_grain",
+      "decision": "new_flat_stitch_source_required",
+      "inspection": "visual_native_master",
+      "reason": "Individual blocks are small and divided by grout. A masonry-wall crop would create bricks inside the existing 3D bricks.",
+      "crop": null,
+      "rectification": null,
+      "sourceUpscaled": false
+    },
+    {
+      "id": "plaster_grain",
+      "decision": "new_flat_stitch_source_required",
+      "inspection": "visual_native_master",
+      "reason": "Infill is broken into small perspective panels by timber framing and banners. Existing clay plaster reference has slab edges and a different wall character.",
+      "crop": null,
+      "rectification": null,
+      "sourceUpscaled": false
+    },
+    {
+      "id": "linen_weave",
+      "decision": "new_flat_stitch_source_required",
+      "inspection": "visual_native_master",
+      "reason": "Banner pixels include outline, folds, motif, hanging shape and cast shading. Cropping them as a repeating cloth would bake a second banner into the surface.",
+      "crop": null,
+      "rectification": null,
+      "sourceUpscaled": false
+    }
+  ]
+}

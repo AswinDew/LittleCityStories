@@ -1,0 +1,14 @@
+{
+  "straw_grain": {
+    "file": "straw_grain.v3.source.jpg",
+    "base64Length": 913268,
+    "fnv1aBase64": "3e5ec3d4",
+    "bytes": 684950
+  },
+  "linen_weave": {
+    "file": "linen_weave.v4.source.jpg",
+    "base64Length": 1037468,
+    "fnv1aBase64": "7e7a7bfb",
+    "bytes": 778099
+  }
+}

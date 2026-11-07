@@ -285,7 +285,17 @@
       "reviewPath": "/?buildingReview=town_center",
       "scope": "one_building_only",
       "otherBuildingRolloutAuthorized": false,
-      "progress": "docs/progress/2026-11-07-town-center-fidelity.md"
+      "progress": "docs/progress/2026-11-07-town-center-fidelity.md",
+      "skin": {
+        "stage": "A",
+        "status": "awaiting_user_material_review",
+        "materials": 5,
+        "gallery": "exports/town-center-skin/review.html",
+        "sourceSpec": "exports/town-center-skin/source-spec.json",
+        "runtimeIntegrated": false,
+        "atlasCreated": false,
+        "otherBuildingRolloutAuthorized": false
+      }
     }
   }
 }
