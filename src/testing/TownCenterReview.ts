@@ -8,9 +8,11 @@ import { TownCenterDirectSkin } from '@/assets/TownCenterDirectSkin';
 import { createProjectionCamera, projectTownCenterUV } from '@/assets/TownCenterProjection';
 import { createProjectedTownCenter } from '@/assets/procedural/townCenterProjection';
 
-/** Development-only comparison. The model is the same factory asset used in the settlement. */
+/** Development-only: game-factory baseline and a separate skin prototype awaiting review. */
 export async function createTownCenterReview(root: HTMLElement): Promise<void> {
   const source = new URL('../../.stitch/designs/ancient-sites-master.jpg', import.meta.url).href;
+  const gableSource = new URL('../../.stitch/designs/town-center-uv-surfaces.jpg', import.meta.url).href;
+  const rearSource = new URL('../../.stitch/designs/town-center-uv-surfaces-final.jpg', import.meta.url).href;
   root.innerHTML = `<style>
     .town-review{position:fixed;inset:0;overflow:auto;background:#e7dabc;color:#302c36;padding:28px;pointer-events:auto;font:14px/1.5 'Segoe UI',sans-serif}
     .town-review header,.town-review footer{max-width:1100px;margin:auto}
@@ -28,7 +30,11 @@ export async function createTownCenterReview(root: HTMLElement): Promise<void> {
     <p>Bandingkan siluet, pasangan batu, rangka kayu, jendela atap, jerami dan banner. Bangunan lain menunggu review kamu.</p>
     <a href="./">Lihat di dalam game</a></header><div class="town-review-grid">
     <article><h2>Master Stitch asli</h2><svg viewBox="20 0 360 365" role="img" aria-label="Master Town Center asli dari Stitch">
-    <image href="${source}" width="1376" height="768"/></svg><p>Potongan tampilan dari master asli; gambar sumber tidak diubah.</p></article>
+    <image href="${source}" width="1376" height="768"/></svg><p>Potongan tampilan dari master asli; gambar sumber tidak diubah.</p>
+    <details><summary>Sumber UV Stitch: gable kanan dan dormer</summary><img src="${gableSource}" loading="lazy" alt="Bidang gable kanan dan dormer yang dibuat Stitch" style="width:100%;height:auto"/>
+    <p>Bidang kiri atas dipakai utuh untuk gable kanan; bagian kanan bawah untuk sisi dormer.</p></details>
+    <details><summary>Sumber UV Stitch: dinding dan atap belakang</summary><img src="${rearSource}" loading="lazy" alt="Bidang dinding dan atap belakang yang dibuat Stitch" style="width:100%;height:auto"/>
+    <p>Dinding belakang dari kanan atas; atap belakang dari kiri bawah. Fasad depan tetap memakai master asli.</p></details></article>
     <article><h2>Model game / prototipe terpisah</h2><div class="town-review-canvas"></div>
     <div><button data-appearance="baseline" aria-pressed="false">Tanpa tekstur</button><button data-appearance="skin" aria-pressed="true" disabled>Dengan tekstur</button><button data-appearance="direct" aria-pressed="false">Desain Stitch langsung</button></div>
     <p data-skin-status="loading" role="status">Memuat skin Stitch…</p>
@@ -69,6 +75,17 @@ export async function createTownCenterReview(root: HTMLElement): Promise<void> {
     camera.updateMatrixWorld(true); camera.updateProjectionMatrix();
     model.rotation.y = (viewMode === 'reference' ? Math.PI / 2 : 0) + turns * Math.PI / 2;
     if (projected) { projected.rotation.y = turns * Math.PI / 2; depthGroup.rotation.copy(projected.rotation); }
+    if (isDirect && projected && (turns % 4 !== 0 || viewMode === 'game')) {
+      projected.updateMatrixWorld(true);
+      const box = new THREE.Box3().setFromObject(projected), viewBox = new THREE.Box3();
+      for (const x of [box.min.x, box.max.x]) for (const y of [box.min.y, box.max.y]) for (const z of [box.min.z, box.max.z])
+        viewBox.expandByPoint(new THREE.Vector3(x, y, z).applyMatrix4(camera.matrixWorldInverse));
+      const center = viewBox.getCenter(new THREE.Vector3()), size = viewBox.getSize(new THREE.Vector3());
+      const height = Math.max(size.y + .6, (size.x + .6) * 366 / 360), width = height * 360 / 366;
+      camera.left = center.x - width / 2; camera.right = center.x + width / 2;
+      camera.bottom = center.y - height / 2; camera.top = center.y + height / 2;
+      camera.updateProjectionMatrix();
+    }
     canvas.style.aspectRatio = isDirect ? '360 / 366' : '1';
     for (const button of root.querySelectorAll<HTMLButtonElement>('[data-view]')) {
       button.setAttribute('aria-pressed', String(turns % 4 === 0 && button.dataset.view === viewMode));
@@ -116,7 +133,12 @@ export async function createTownCenterReview(root: HTMLElement): Promise<void> {
         return Math.hypot(uv.x * 360 - l.imagePixel[0], (1 - uv.y) * 366 - l.imagePixel[1]);
       });
       root.dataset.directLandmarkMaxError = String(Math.max(...errors));
-      status.textContent = 'Gambar Stitch langsung · 360×366 piksel native · prototipe satu sudut. Belakang, sisi kanan dan atap belakang belum memiliki sumber. Landmark mengukur alignment proyeksi, bukan kesetiaan 360°.';
+      root.dataset.directFallbackFaces = String(projected.children.filter(p => p.userData.coverage === 'fallback').length);
+      root.dataset.directCompletionFaces = String(projected.children.filter(p => p.userData.coverage === 'completion').length);
+      status.textContent = direct.spec!.completion ?
+        'Gambar Stitch asli · 360×366 piksel native + atlas sisi tambahan 512×512. Dinding belakang, gable kanan, atap belakang dan bidang penghubung sudah memiliki skin tetap. Review Town Center; belum diterapkan ke game.' :
+        'Gambar Stitch langsung · 360×366 piksel native · prototipe satu sudut. Belakang, sisi kanan dan atap belakang belum memiliki sumber.';
+      root.querySelector<HTMLButtonElement>('[data-inspect=coverage]')!.textContent = direct.spec!.completion ? 'Tandai sisi tambahan' : 'Tandai sisi tanpa sumber';
       if (wantedAppearance !== 'direct') return;
       appearance = 'direct'; model.visible = false; projected.visible = true;
       root.dataset.appearance = 'direct';
@@ -149,7 +171,7 @@ export async function createTownCenterReview(root: HTMLElement): Promise<void> {
       const key = button.dataset.inspect as keyof typeof inspect;
       inspect[key] = !inspect[key];
       direct.material.wireframe = direct.fallbackMaterial.wireframe = inspect.wireframe;
-      direct.fallbackMaterial.color.set(inspect.coverage ? '#c325d9' : '#856f59');
+      direct.fallbackMaterial.color.set(inspect.coverage ? '#c325d9' : direct.spec?.completion ? 0xffffff : '#856f59');
       depthGroup.visible = inspect.depth; updateButtons();
     }
     if (button.dataset.appearance) showAppearance(button.dataset.appearance);

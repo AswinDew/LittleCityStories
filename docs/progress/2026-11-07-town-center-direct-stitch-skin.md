@@ -1,5 +1,10 @@
 # Direct Stitch skin execution ledger
 
+> The user rejected Stage D's visual result. The corrective implementation and
+> current source mapping are recorded in
+> `docs/progress/2026-11-08-town-center-skin-correction.md`.
+> Historical passing tests below do not mean the rejected art was approved.
+
 Plan: `docs/superpowers/plans/2026-11-07-town-center-direct-stitch-skin.md`.
 
 User authorized execution on 2026-11-08. Execute A–C, then stop at the explicit
@@ -100,5 +105,85 @@ that limitation and some painted depth appears stretched off-axis. Small facade
 relief is painted into the map. Source resolution cannot support invented detail
 at higher zoom. Approval of the source-angle appearance is required before D.
 
-Stage D (additional source coverage), E (game integration), all other buildings,
-and animation are untouched. Stop here for the user's visual review.
+At that A–C checkpoint, Stage D/E, other buildings and animation were untouched.
+The continuation below records the user's subsequent review and authorization.
+
+## Stage D — additional Stitch sides (2026-11-08)
+
+User accepted the matching source side as sufficiently good, identified a raised
+rear ridge and a clipped right-front thatch tip, and authorized generation of
+missing sides in Stitch. This authorizes D and the two roof corrections. E remains
+pending another review; game routing, characters, other buildings and animation
+remain unchanged.
+
+### Source audit
+
+- Original architecture master remains the front/left source unchanged.
+- Stitch generated turnaround screen `78c261288d26411396e1a6ae965da3a8`, file
+  `07b01095cf5e4aecbf95e3f934f9764a`, saved as
+  `.stitch/designs/town-center-turnaround.jpg` (1024×1024).
+- Selected compatible architectural faces: right gable/body from the front-right
+  quadrant; plain rear long wall and full rear thatch slope from the rear quadrant.
+  The original's known facade is not replaced by a generated front variant.
+- The full candidate has inconsistent shutters on rear gables and a far-side
+  dormer projection. Those regions are not used. A targeted revision (screen
+  `6ba39e6812ce4410b260dac440dbb898`, saved as
+  `town-center-turnaround-corrected.jpg`) changed the visual style and stone/timber
+  structure too much; it was rejected entirely. Its automatically generated audit
+  page is not used. Neither candidate is claimed to be an accurate four-view model.
+- Technical face rectification selects the compatible pixels into a 512×512 RGB
+  atlas with 8px edge extrusion. Source hash, screen name, crop quads, region layout
+  and object-space bindings are preserved in source-spec/exported manifest.
+- Small hidden roof/timber/recess surfaces sample the same image's detail regions.
+  Face rectification uses nearest resampling and enlarges some panels to their
+  atlas dimensions; this does not synthesize new detail. The original 360×366 crop
+  stays native. No material swatch generation or palette remapping is performed.
+
+### Geometry and runtime
+
+- Ridge top and bottom endpoint levels now match, while retaining the source
+  projection. The previously omitted `[343,138]` thatch-outline point is included.
+- The original source-camera dormer extrusion was too large from the opposite
+  angle. It is replaced with a lower fitted dormer, a pitched opposite roof slope,
+  cheek triangle, and a roof infill behind the frame. This removes the oversized
+  wooden box and open roof voids without painting a second window on the roof.
+- Original source UVs remain fixed. Additional surface UVs use explicit model-space
+  frames. The atlas is not selected or switched based on the active camera.
+- Loader activates both maps atomically, validates the additional contract before
+  requesting images, releases successful maps if another fails, and owns/disposes
+  both maps independently of MaterialLibrary. Optional legacy single-source manifests
+  still retain their original behavior.
+- Model remains 24 meshes, with two maps (360×366 + 512×512; ~1.5 MiB uncompressed).
+  All six formerly untextured batches now have UVs and source provenance. The review
+  highlights the additional skin separately and includes the actual Stitch source sheet.
+
+### Verification
+
+- Roof endpoint, missing outline point and dormer-height tests observed RED→GREEN.
+- Additional-atlas loading/disposal and failed second-image tests observed RED→GREEN.
+- Export test observed RED→GREEN; both output maps reproduce deterministically.
+- Final full Vitest: **292 passed / 35 files**. Full Python: **41 passed**.
+- Final full development browser: **26 passed**. Production smoke: **1 passed**.
+  TypeScript/Vite build passes with the unchanged production bundle and its
+  existing size advisory. `git diff --check` reports no whitespace defects.
+- Fresh independent Stage D review confirmed fixed UVs, per-triangle atlas
+  regions, atomic texture ownership and the additional face mapping. Its Important
+  finding was a true missing inside floor between threshold and backing. An
+  upward-facing floor now bridges z=.3–1.6; the ray regression was RED→GREEN,
+  then the full unit and browser suites passed. The dark patch behind the dormer
+  was confirmed to hit textured timber, not empty background.
+- Corrected the review's documentation finding: atlas rectification sometimes
+  enlarges source patches; no new detail is synthesized. The original remains native.
+- Added review-camera fitting for the other three orientations so the asymmetric
+  source crop cannot clip the model during rotation. The calibrated source view
+  remains unchanged. Fresh four-angle images were visually inspected, including
+  the recessed doorway floor and dormer closure.
+- Composite evidence: `test-results/direct-skin/four-side-review.png`.
+- Server review URL returned HTTP 200. Stage D is complete for user review;
+  **STOP before E**. No unresolved Important review findings remain.
+
+Ruling: use only compatible faces from the first turnaround instead of adopting
+the stylistically different revision. The newly constructed back wall deliberately
+uses the source's continuous timber/plaster composition without importing its
+inconsistent gable shutters. Cost: the rendered four-view model is assembled from
+audited face references, not an unedited copy of the whole turnaround sheet.

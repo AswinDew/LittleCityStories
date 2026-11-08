@@ -1,12 +1,14 @@
 # Town Center — Direct Stitch Skin Implementation Plan
 
-> **Status: A–C SELESAI — MENUNGGU REVIEW TOWN CENTER.**
-> Pengguna memerintahkan eksekusi pada 2026-11-08. Prototipe sumber langsung
-> sudah tersedia di developer review; belum diintegrasikan ke game.
+> **Status: TAHAP D DIKOREKSI — MENUNGGU REVIEW ULANG TOWN CENTER.**
+> Hasil D sebelumnya ditolak pengguna. Koreksi geometri dan UV berbasis lembar
+> Stitch tercatat di `docs/progress/2026-11-08-town-center-skin-correction.md`.
+> Pengguna memerintahkan eksekusi dan menyetujui kelanjutan sisi tambahan pada
+> 2026-11-08. Skin empat sisi tersedia di developer review; belum diintegrasikan ke game.
 > Bukti: `docs/progress/2026-11-07-town-center-direct-stitch-skin.md`.
 >
 > **For agentic workers:** Setelah pengguna memerintahkan implementasi, gunakan
-> `superpowers:executing-plans` secara bertahap. Tahap D/E masih menunggu review
+> `superpowers:executing-plans` secara bertahap. Tahap E masih menunggu review
 > dan instruksi pengguna. Jangan melewati checkpoint review satu bangunan.
 
 **Goal:** Memasang gambar arsitektur Town Center asli dari Stitch sebagai skin
@@ -185,17 +187,18 @@ gambar/flipY diuji dengan corner fixture, bukan diasumsikan. Three.js mendokumen
 
 **Deliverable:** Cakupan skin untuk empat orientasi game pada Town Center saja.
 
-- [ ] Berdasarkan review, daftar permukaan tanpa sumber dan sudut yang memerlukan
+- [x] Berdasarkan review, daftar permukaan tanpa sumber dan sudut yang memerlukan
   perbaikan. Jika diperlukan, gunakan Stitch untuk menghasilkan referensi tambahan
   Town Center yang sama; review kesamaan arsitektur sebelum ekspor.
-- [ ] Cocokkan jumlah/posisi pintu, dormer, banner, proporsi dan arah shading antar
+- [x] Cocokkan jumlah/posisi pintu, dormer, banner, proporsi dan arah shading antar
   referensi. Jangan otomatis mirror fasad depan menjadi fasad belakang.
-- [ ] Tambahkan sumber yang diterima ke manifest dan pemetaan tetap per permukaan.
-  Pakai atlas dengan gutter jika dibutuhkan, tanpa upscale art asli. Batas awal
+- [x] Tambahkan sumber yang diterima ke manifest dan pemetaan tetap per permukaan.
+  Pakai atlas dengan gutter; crop asli tetap native, rectification memakai nearest
+  resampling tanpa membuat detail baru. Batas awal
   atlas 1024×1024 RGBA dan target maksimal 24 mesh; ukur kebutuhan sebelum menaikkan.
-- [ ] Uji seam, coverage, warna dan keempat sudut termasuk saat kamera bertransisi.
+- [x] Uji seam, coverage, warna dan keempat sudut termasuk saat kamera bertransisi.
   Jangan mengganti gambar seluruh bangunan mengikuti arah kamera sehingga terjadi popping.
-- [ ] **STOP untuk review cakupan Town Center.** Jika referensi tambahan belum
+- [x] **STOP untuk review cakupan Town Center.** Jika referensi tambahan belum
   konsisten, pertahankan prototipe sebagai review satu sudut, jangan klaim selesai 360°.
 
 ### Tahap E — Integrasi Town Center ke game, setelah disetujui

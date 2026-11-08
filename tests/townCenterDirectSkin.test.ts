@@ -1,9 +1,35 @@
 import { expect, it, vi } from 'vitest';
 import * as THREE from 'three';
-import manifest from '../public/building-skins/town-center-direct/manifest.json';
+import fullManifest from '../public/building-skins/town-center-direct/manifest.json';
 import { TownCenterDirectSkin } from '../src/assets/TownCenterDirectSkin';
 
 const texture = () => new THREE.Texture({ width: 360, height: 366 } as HTMLImageElement);
+const manifest = { ...fullManifest };
+delete (manifest as { completion?: unknown }).completion;
+
+it('loads the additional Stitch face atlas atomically and disposes both maps once', async () => {
+  const base = texture(), extra = new THREE.Texture({ width: 512, height: 512 } as HTMLImageElement);
+  const fetchTexture = vi.fn(async (url: string) => url.endsWith('/completion.png') ? extra : base);
+  const a = vi.spyOn(base, 'dispose'), b = vi.spyOn(extra, 'dispose');
+  const skin = new TownCenterDirectSkin({ fetchManifest: async () => fullManifest, fetchTexture });
+  await skin.load();
+  expect(fetchTexture).toHaveBeenCalledTimes(2);
+  expect(skin.fallbackMaterial.map).toBe(extra); expect(skin.fallbackMaterial.color.getHex()).toBe(0xffffff);
+  expect(extra.colorSpace).toBe(THREE.SRGBColorSpace); expect(extra.generateMipmaps).toBe(false);
+  skin.dispose(); skin.dispose(); expect(a).toHaveBeenCalledOnce(); expect(b).toHaveBeenCalledOnce();
+});
+
+it('releases the successful image if the other face atlas fails, and rejects untrusted completion paths', async () => {
+  const base = texture(), release = vi.spyOn(base, 'dispose');
+  const skin = new TownCenterDirectSkin({ fetchManifest: async () => fullManifest,
+    fetchTexture: async url => { if (url.endsWith('/completion.png')) throw new Error('unavailable'); return base; } });
+  await expect(skin.load()).rejects.toThrow('unavailable'); expect(release).toHaveBeenCalledOnce();
+  expect(skin.material.map).toBeNull(); expect(skin.fallbackMaterial.map).toBeNull(); skin.dispose();
+  const raw = structuredClone(fullManifest); raw.completion.image.file = '../other.png';
+  const fetchTexture = vi.fn(async () => texture());
+  const invalid = new TownCenterDirectSkin({ fetchManifest: async () => raw, fetchTexture });
+  await expect(invalid.load()).rejects.toThrow(); expect(fetchTexture).not.toHaveBeenCalled(); invalid.dispose();
+});
 
 it('loads once below BASE_URL, preserves original colors and owns only its own assets', async () => {
   const map = texture(), fetchTexture = vi.fn(async () => map);

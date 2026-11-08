@@ -299,5 +299,34 @@
         "otherBuildingRolloutAuthorized": false
       }
     }
+  },
+  "directTownCenterSkin": {
+    "status": "corrected_uv_elevations_pending_user_review",
+    "frontSource": "designs/ancient-sites-master.jpg",
+    "completionSource": [
+      "designs/town-center-uv-surfaces.jpg",
+      "designs/town-center-uv-surfaces-final.jpg"
+    ],
+    "completionScreen": [
+      "projects/9572784485551125903/screens/d51f3649e1454b2fbf2243f8a9242312",
+      "projects/9572784485551125903/screens/a1b269126a7b4781ae5679295150845c"
+    ],
+    "selection": "Whole right-gable and rear elevations; explicit datum/corner UVs; actual matching-side stair source; no mirrored facade or normal-based region guessing",
+    "rejectedRevision": {
+      "screen": "6ba39e6812ce4410b260dac440dbb898",
+      "source": "designs/town-center-turnaround-corrected.jpg",
+      "reason": "Changed style and stone/timber architecture; not used"
+    },
+    "runtime": [
+      "public/building-skins/town-center-direct/design.png",
+      "public/building-skins/town-center-direct/completion.png"
+    ],
+    "scope": "Town Center review only; game integration pending user review",
+    "correctionReport": "docs/progress/2026-11-08-town-center-skin-correction.md",
+    "unusedCleanRoofCandidate": {
+      "screen": "c19977c13a244e4da9a76abd281015e4",
+      "source": "designs/town-center-clean-front-roof.jpg",
+      "reason": "Course count differs from request; unused"
+    }
   }
 }

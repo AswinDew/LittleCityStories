@@ -194,9 +194,9 @@
       "id": "ridge-timber-1",
       "partId": "ridge-timber",
       "modelPoint": [
-        2.87322376,
-        5.12256488,
-        -0.69675317
+        2.8556179,
+        5.13694,
+        -0.67914732
       ],
       "imagePixel": [
         274,
@@ -538,6 +538,44 @@
         1,
         0.75,
         4.6
+      ],
+      "vertexPlanes": [
+        [
+          0,
+          1,
+          0,
+          5.13694
+        ],
+        [
+          0,
+          1,
+          0,
+          5.13694
+        ],
+        [
+          0,
+          1,
+          0,
+          5.13694
+        ],
+        [
+          0,
+          1,
+          0,
+          4.91275
+        ],
+        [
+          0,
+          1,
+          0,
+          4.91275
+        ],
+        [
+          0,
+          1,
+          0,
+          4.91275
+        ]
       ]
     },
     {
@@ -1213,5 +1251,388 @@
       "status": "fallback",
       "sourcePolygon": []
     }
-  ]
+  ],
+  "completionExport": {
+    "sourceFile": ".stitch/designs/town-center-uv-surfaces-final.jpg",
+    "sourceSha256": "fee10a4c80a2690813f1c655bbbec6c8a91ad7303fe868995593078906eb7f76",
+    "screenName": "projects/9572784485551125903/screens/a1b269126a7b4781ae5679295150845c",
+    "width": 512,
+    "height": 512,
+    "gutter": 8,
+    "regions": {
+      "back-wall": {
+        "rect": [
+          8,
+          8,
+          240,
+          160
+        ],
+        "quad": [
+          [
+            514,
+            136
+          ],
+          [
+            514,
+            510
+          ],
+          [
+            1022,
+            510
+          ],
+          [
+            1022,
+            136
+          ]
+        ]
+      },
+      "right-wall": {
+        "rect": [
+          264,
+          8,
+          184,
+          248
+        ],
+        "quad": [
+          [
+            90,
+            25
+          ],
+          [
+            90,
+            480
+          ],
+          [
+            424,
+            480
+          ],
+          [
+            424,
+            25
+          ]
+        ],
+        "sourceFile": ".stitch/designs/town-center-uv-surfaces.jpg",
+        "sourceSha256": "8f93e008479dc052d7335e74932c03351b0ffa63f51537bc5c1ccdb2d0e9b5b3",
+        "screenName": "projects/9572784485551125903/screens/d51f3649e1454b2fbf2243f8a9242312"
+      },
+      "right-gable": {
+        "rect": [
+          264,
+          8,
+          184,
+          248
+        ],
+        "quad": [
+          [
+            90,
+            25
+          ],
+          [
+            90,
+            480
+          ],
+          [
+            424,
+            480
+          ],
+          [
+            424,
+            25
+          ]
+        ],
+        "sourceFile": ".stitch/designs/town-center-uv-surfaces.jpg",
+        "sourceSha256": "8f93e008479dc052d7335e74932c03351b0ffa63f51537bc5c1ccdb2d0e9b5b3",
+        "screenName": "projects/9572784485551125903/screens/d51f3649e1454b2fbf2243f8a9242312"
+      },
+      "back-roof": {
+        "rect": [
+          8,
+          184,
+          240,
+          160
+        ],
+        "quad": [
+          [
+            12,
+            558
+          ],
+          [
+            12,
+            994
+          ],
+          [
+            500,
+            994
+          ],
+          [
+            500,
+            558
+          ]
+        ]
+      },
+      "roof-edge": {
+        "rect": [
+          264,
+          280,
+          112,
+          112
+        ],
+        "quad": [
+          [
+            654,
+            574
+          ],
+          [
+            654,
+            736
+          ],
+          [
+            885,
+            736
+          ],
+          [
+            885,
+            574
+          ]
+        ],
+        "sourceFile": ".stitch/designs/town-center-uv-surfaces.jpg",
+        "sourceSha256": "8f93e008479dc052d7335e74932c03351b0ffa63f51537bc5c1ccdb2d0e9b5b3",
+        "screenName": "projects/9572784485551125903/screens/d51f3649e1454b2fbf2243f8a9242312"
+      },
+      "dormer-side": {
+        "rect": [
+          392,
+          280,
+          112,
+          112
+        ],
+        "quad": [
+          [
+            666,
+            790
+          ],
+          [
+            666,
+            962
+          ],
+          [
+            880,
+            962
+          ],
+          [
+            880,
+            790
+          ]
+        ],
+        "sourceFile": ".stitch/designs/town-center-uv-surfaces.jpg",
+        "sourceSha256": "8f93e008479dc052d7335e74932c03351b0ffa63f51537bc5c1ccdb2d0e9b5b3",
+        "screenName": "projects/9572784485551125903/screens/d51f3649e1454b2fbf2243f8a9242312"
+      },
+      "ridge-edge": {
+        "rect": [
+          8,
+          440,
+          240,
+          32
+        ],
+        "quad": [
+          [
+            11,
+            531
+          ],
+          [
+            11,
+            555
+          ],
+          [
+            500,
+            555
+          ],
+          [
+            500,
+            531
+          ]
+        ]
+      },
+      "floor": {
+        "rect": [
+          264,
+          440,
+          112,
+          64
+        ],
+        "quad": [
+          [
+            729,
+            399
+          ],
+          [
+            729,
+            425
+          ],
+          [
+            684,
+            447
+          ],
+          [
+            684,
+            421
+          ]
+        ],
+        "sourceFile": ".stitch/designs/town-center-turnaround.jpg",
+        "sourceSha256": "8d8e33f0e3684535a9a85e060f0366b151f214fdd58a97fda1f4a1bcf9b5c318",
+        "screenName": "projects/9572784485551125903/screens/78c261288d26411396e1a6ae965da3a8"
+      }
+    },
+    "bindings": {
+      "back-wall": {
+        "region": "back-wall",
+        "origin": [
+          2.5,
+          3.2,
+          -2.15
+        ],
+        "uVector": [
+          -5,
+          0,
+          0
+        ],
+        "vVector": [
+          0,
+          -3.2,
+          0
+        ]
+      },
+      "right-wall": {
+        "region": "right-wall",
+        "origin": [
+          2.5,
+          4.84,
+          1.5
+        ],
+        "uVector": [
+          0,
+          0,
+          -3.65
+        ],
+        "vVector": [
+          0,
+          -4.84,
+          0
+        ]
+      },
+      "roof-end": {
+        "region": "right-gable",
+        "origin": [
+          2.5,
+          4.85,
+          1.62
+        ],
+        "uVector": [
+          0,
+          0,
+          -3.92
+        ],
+        "vVector": [
+          0,
+          -1.65,
+          0
+        ]
+      },
+      "back-roof": {
+        "region": "back-roof",
+        "origin": [
+          2.8913,
+          4.84,
+          -0.5089
+        ],
+        "uVector": [
+          -5.4771,
+          0,
+          0
+        ],
+        "vVector": [
+          0,
+          -1.64,
+          -1.7911
+        ]
+      },
+      "floor": {
+        "region": "floor",
+        "origin": [
+          -2.5,
+          0,
+          -2.15
+        ],
+        "uVector": [
+          5,
+          0,
+          0
+        ],
+        "vVector": [
+          0,
+          0,
+          3.65
+        ]
+      }
+    },
+    "cornerUVs": {
+      "right-wall": [
+        [
+          0.023952095808383235,
+          1
+        ],
+        [
+          0.9700598802395209,
+          1
+        ],
+        [
+          0.9700598802395209,
+          0.6043956043956044
+        ],
+        [
+          0.023952095808383235,
+          0.6043956043956044
+        ],
+        [
+          0.9700598802395209,
+          0.4
+        ],
+        [
+          0.023952095808383235,
+          0.4
+        ],
+        [
+          0.49700598802395207,
+          0.06593406593406594
+        ]
+      ],
+      "back-wall": [
+        [
+          0,
+          1
+        ],
+        [
+          1,
+          1
+        ],
+        [
+          1,
+          0.3048128342245989
+        ],
+        [
+          0,
+          0.3048128342245989
+        ],
+        [
+          1,
+          0
+        ],
+        [
+          0,
+          0
+        ]
+      ]
+    }
+  }
 }

@@ -7,6 +7,16 @@ export interface ProjectionPart {
   partId: string; status: 'source' | 'fallback'; sourcePolygon: Pixel[];
   plane?: ProjectionPlane; holes?: Pixel[][]; vertexPlanes?: ProjectionPlane[];
 }
+export interface CompletionBinding {
+  region: string; origin: Point; uVector: Point; vVector: Point;
+}
+export interface TownCenterCompletion {
+  image: { file: string; width: number; height: number; sha256: string };
+  sourceSha256: string; screenName: string; gutter: number;
+  regions: Record<string, [number, number, number, number]>;
+  bindings: Record<string, CompletionBinding>;
+  cornerUVs?: Record<string, Pixel[]>;
+}
 export interface TownCenterProjectionSpec {
   schemaVersion: number; buildingId: string; geometryVersion: number; sourceSha256: string;
   crop: number[]; image: { file: string; width: number; height: number; sha256: string };
@@ -14,6 +24,7 @@ export interface TownCenterProjectionSpec {
     top: number; bottom: number; near: number; far: number };
   landmarks: { id: string; partId: string; modelPoint: Point; imagePixel: Pixel }[];
   coverage: ProjectionPart[];
+  completion?: TownCenterCompletion;
 }
 
 const finite = (a: unknown, size: number): a is number[] => Array.isArray(a) && a.length === size && a.every(Number.isFinite);
@@ -46,16 +57,50 @@ export function validateProjectionSpec(raw: unknown): TownCenterProjectionSpec {
     'dormer-roof', 'dormer-gable', 'dormer-cheek', 'door-recess', 'portal-floor',
     ...Array.from({ length: 6 }, (_, i) => 'stair-' + i), 'stair-left', 'stair-right-edge'];
   const roof = s.coverage.find(p => p.partId === 'front-roof');
-  const dormer = s.coverage.filter(p => p.partId.startsWith('dormer-'));
+  const insideRoof = (pixel: Pixel) => {
+    const polygon = roof!.sourcePolygon; let inside = false;
+    for (let i = 0, j = polygon.length - 1; i < polygon.length; j = i++) {
+      const a = polygon[i], b = polygon[j];
+      if ((a[1] > pixel[1]) !== (b[1] > pixel[1]) && pixel[0] <
+        (b[0] - a[0]) * (pixel[1] - a[1]) / (b[1] - a[1]) + a[0]) inside = !inside;
+    }
+    return inside;
+  };
   const direction = createProjectionCamera(s).getWorldDirection(new THREE.Vector3());
   if (!required.every(id => s.coverage.some(p => p.partId === id && p.status === 'source')) ||
-    !roof?.holes || roof.holes.length !== 1 || !roof.holes[0].every(pixel =>
-      dormer.some(p => p.sourcePolygon.some(v => v[0] === pixel[0] && v[1] === pixel[1]))) ||
+    !roof?.holes || roof.holes.length !== 1 || !roof.holes[0].every(insideRoof) ||
     !s.coverage.filter(p => p.status === 'source').every(p => [p.plane!, ...(p.vertexPlanes ?? [])].every(n =>
       Math.abs(new THREE.Vector3(n[0], n[1], n[2]).normalize().dot(direction)) > .0001))) {
     throw new Error('Incomplete direct Stitch geometry contract');
   }
+  if (s.completion) {
+    const extra = s.completion;
+    const regions = ['back-wall', 'right-wall', 'right-gable', 'back-roof', 'dormer-side', 'roof-edge', 'ridge-edge', 'floor'];
+    if (extra.image?.file !== 'completion.png' || extra.image.width !== 512 || extra.image.height !== 512 ||
+      !hash(extra.image.sha256) || !hash(extra.sourceSha256) || extra.gutter !== 8 ||
+      !/^projects\/9572784485551125903\/screens\/[a-f0-9]{32}$/.test(extra.screenName) ||
+      !extra.regions || !regions.every(id => {
+        const r = extra.regions[id];
+        return finite(r, 4) && r.every(Number.isInteger) && r[0] >= 8 && r[1] >= 8 &&
+          r[2] > 0 && r[3] > 0 && r[0] + r[2] <= 504 && r[1] + r[3] <= 504;
+      }) || !extra.bindings || !['back-wall', 'right-wall', 'roof-end', 'back-roof', 'floor'].every(id => {
+        const b = extra.bindings[id];
+        return b && regions.includes(b.region) && finite(b.origin, 3) && finite(b.uVector, 3) && finite(b.vVector, 3) &&
+          new THREE.Vector3(...b.uVector).length() > .01 && new THREE.Vector3(...b.vVector).length() > .01 &&
+          Math.abs(new THREE.Vector3(...b.uVector).normalize().dot(new THREE.Vector3(...b.vVector).normalize())) < .001;
+      }) || !extra.cornerUVs || ![['right-wall', 7], ['back-wall', 6]].every(([id, count]) => {
+        const points = extra.cornerUVs![String(id)];
+        return Array.isArray(points) && points.length === count && points.every(v => finite(v, 2) && v.every(n => n >= 0 && n <= 1));
+      })) throw new Error('Invalid additional Stitch face atlas');
+  }
   return s;
+}
+
+export function atlasCornerUV(skin: TownCenterCompletion, region: string, uv: number[]): THREE.Vector2 {
+  const [x, y, w, h] = skin.regions[region];
+  if (!finite(uv, 2) || uv.some(v => v < 0 || v > 1)) throw new Error('Invalid architectural corner UV');
+  return new THREE.Vector2((x + .5 + uv[0] * (w - 1)) / skin.image.width,
+    1 - (y + .5 + uv[1] * (h - 1)) / skin.image.height);
 }
 
 export function createProjectionCamera(spec: TownCenterProjectionSpec): THREE.OrthographicCamera {

@@ -17,6 +17,7 @@ export class TownCenterDirectSkin {
   readonly fallbackMaterial = new THREE.MeshBasicMaterial({ color: '#856f59', toneMapped: false });
   private pending: Promise<void> | null = null;
   private texture: THREE.Texture | null = null;
+  private completionTexture: THREE.Texture | null = null;
   private readonly base: string;
   private readonly fetchManifest: (url: string) => Promise<unknown>;
   private readonly fetchTexture: (url: string) => Promise<THREE.Texture>;
@@ -41,17 +42,27 @@ export class TownCenterDirectSkin {
     this.pending = (async () => {
       const spec = validateProjectionSpec(await this.fetchManifest(this.base + 'manifest.json'));
       if (this.isDisposed()) throw new Error('Direct Stitch skin disposed');
-      const texture = await this.fetchTexture(this.base + spec.image.file);
-      if (this.isDisposed()) { texture.dispose(); throw new Error('Direct Stitch skin disposed'); }
-      if (texture.image?.width !== spec.image.width || texture.image?.height !== spec.image.height) {
-        texture.dispose(); throw new Error('Direct Stitch image dimensions mismatch');
+      const images = [spec.image, ...(spec.completion ? [spec.completion.image] : [])];
+      const results = await Promise.allSettled(images.map(image => this.fetchTexture(this.base + image.file)));
+      const maps = results.filter((r): r is PromiseFulfilledResult<THREE.Texture> => r.status === 'fulfilled').map(r => r.value);
+      const failure = results.find((r): r is PromiseRejectedResult => r.status === 'rejected');
+      if (this.isDisposed() || failure || maps.some((map, i) => map.image?.width !== images[i].width || map.image?.height !== images[i].height)) {
+        maps.forEach(map => map.dispose());
+        if (this.isDisposed()) throw new Error('Direct Stitch skin disposed');
+        if (failure) throw failure.reason;
+        throw new Error('Direct Stitch image dimensions mismatch');
       }
-      texture.colorSpace = THREE.SRGBColorSpace;
-      texture.minFilter = texture.magFilter = THREE.NearestFilter;
-      texture.wrapS = texture.wrapT = THREE.ClampToEdgeWrapping;
-      texture.generateMipmaps = false; texture.flipY = true; texture.needsUpdate = true;
-      this.texture = texture; this.spec = spec;
-      this.material.map = texture; this.material.needsUpdate = true; this.status = 'ready';
+      for (const map of maps) {
+        map.colorSpace = THREE.SRGBColorSpace;
+        map.minFilter = map.magFilter = THREE.NearestFilter;
+        map.wrapS = map.wrapT = THREE.ClampToEdgeWrapping;
+        map.generateMipmaps = false; map.flipY = true; map.needsUpdate = true;
+      }
+      this.texture = maps[0]; this.completionTexture = maps[1] ?? null; this.spec = spec;
+      this.material.map = this.texture; this.material.needsUpdate = true;
+      this.fallbackMaterial.map = this.completionTexture;
+      this.fallbackMaterial.color.set(this.completionTexture ? 0xffffff : '#856f59');
+      this.fallbackMaterial.needsUpdate = true; this.status = 'ready';
     })().catch(error => {
       if (this.status !== 'disposed') { this.status = 'fallback'; this.error = String(error); }
       throw error;
@@ -62,6 +73,7 @@ export class TownCenterDirectSkin {
   dispose(): void {
     if (this.status === 'disposed') return;
     this.status = 'disposed'; this.texture?.dispose(); this.texture = null;
+    this.completionTexture?.dispose(); this.completionTexture = null; this.fallbackMaterial.map = null;
     this.material.map = null; this.material.dispose(); this.fallbackMaterial.dispose(); this.spec = null;
   }
 }

@@ -14,14 +14,17 @@ test('a direct-skin choice made during legacy loading survives initialization', 
 });
 
 test('direct Stitch skin is an isolated native-art 3D prototype with rotation and inspection tools', async ({ page }) => {
-  const errors: string[] = []; let images = 0;
+  const errors: string[] = []; let images = 0, extraImages = 0;
   page.on('pageerror', e => errors.push(e.message));
-  page.on('request', r => { if (r.url().endsWith('/town-center-direct/design.png')) images++; });
+  page.on('request', r => { if (r.url().endsWith('/town-center-direct/design.png')) images++;
+    if (r.url().endsWith('/town-center-direct/completion.png')) extraImages++; });
   await page.goto('/?buildingReview=town_center&appearance=direct');
   await expect(page.locator('[data-town-review-ready=true]')).toBeVisible();
   await expect(page.locator('[data-direct-status]')).toHaveAttribute('data-direct-status', 'ready');
   await expect(page.getByRole('button', { name: 'Desain Stitch langsung', exact: true })).toHaveAttribute('aria-pressed', 'true');
   await expect(page.locator('[data-direct-status]')).toContainText('360×366');
+  await expect(page.locator('[data-direct-fallback-faces]')).toHaveAttribute('data-direct-fallback-faces', '0');
+  expect(Number(await page.locator('[data-direct-completion-faces]').getAttribute('data-direct-completion-faces'))).toBeGreaterThanOrEqual(5);
   expect(Number(await page.locator('[data-model-draw-calls]').getAttribute('data-model-draw-calls'))).toBeLessThanOrEqual(24);
   const frame = await page.locator('.town-review canvas').screenshot({ path: 'test-results/direct-skin/reference.png' });
   await page.screenshot({ path: 'test-results/direct-skin/comparison.png' });
@@ -32,13 +35,13 @@ test('direct Stitch skin is an isolated native-art 3D prototype with rotation an
     await page.getByRole('button', { name: 'Putar 90°', exact: true }).click();
     await page.locator('.town-review canvas').screenshot({ path: `test-results/direct-skin/turn-${i}.png` });
   }
-  await page.getByRole('button', { name: 'Tandai sisi tanpa sumber', exact: true }).click();
+  await page.getByRole('button', { name: 'Tandai sisi tambahan', exact: true }).click();
   await page.getByRole('button', { name: 'Sudut game', exact: true }).click();
   await page.locator('.town-review canvas').screenshot({ path: 'test-results/direct-skin/coverage.png' });
   await page.getByRole('button', { name: 'Wireframe', exact: true }).click();
   await page.locator('.town-review canvas').screenshot({ path: 'test-results/direct-skin/wireframe.png' });
   await page.getByRole('button', { name: 'Wireframe', exact: true }).click();
-  await page.getByRole('button', { name: 'Tandai sisi tanpa sumber', exact: true }).click();
+  await page.getByRole('button', { name: 'Tandai sisi tambahan', exact: true }).click();
   await page.getByRole('button', { name: 'Sudut Stitch', exact: true }).click();
   await page.getByRole('button', { name: 'Uji kedalaman pintu', exact: true }).click();
   await page.locator('.town-review canvas').screenshot({ path: 'test-results/direct-skin/depth.png' });
@@ -48,7 +51,7 @@ test('direct Stitch skin is an isolated native-art 3D prototype with rotation an
   await page.locator('.town-review canvas').screenshot({ path: 'test-results/direct-skin/native.png' });
   await page.getByRole('button', { name: 'Tanpa tekstur', exact: true }).click();
   expect(frame.equals(await page.locator('.town-review canvas').screenshot())).toBe(false);
-  expect(images).toBe(1); expect(errors).toEqual([]);
+  expect(images).toBe(1); expect(extraImages).toBe(1); expect(errors).toEqual([]);
 });
 
 test('failed direct-image prototype retains the existing building and material skin', async ({ page }) => {
