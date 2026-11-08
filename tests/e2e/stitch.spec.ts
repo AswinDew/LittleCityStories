@@ -1,5 +1,66 @@
 import { test, expect } from '@playwright/test';
 
+test('a direct-skin choice made during legacy loading survives initialization', async ({ page }) => {
+  let release!: () => void;
+  const hold = new Promise<void>(resolve => { release = resolve; });
+  await page.route('**/building-skins/town-center/atlas.png', async route => {
+    await hold; await route.continue();
+  });
+  await page.goto('/?buildingReview=town_center', { waitUntil: 'domcontentloaded' });
+  await page.getByRole('button', { name: 'Desain Stitch langsung', exact: true }).click();
+  await expect(page.locator('[data-direct-status]')).toHaveAttribute('data-direct-status', 'ready');
+  release(); await expect(page.locator('[data-town-review-ready=true]')).toBeVisible();
+  await expect(page.getByRole('button', { name: 'Desain Stitch langsung', exact: true })).toHaveAttribute('aria-pressed', 'true');
+});
+
+test('direct Stitch skin is an isolated native-art 3D prototype with rotation and inspection tools', async ({ page }) => {
+  const errors: string[] = []; let images = 0;
+  page.on('pageerror', e => errors.push(e.message));
+  page.on('request', r => { if (r.url().endsWith('/town-center-direct/design.png')) images++; });
+  await page.goto('/?buildingReview=town_center&appearance=direct');
+  await expect(page.locator('[data-town-review-ready=true]')).toBeVisible();
+  await expect(page.locator('[data-direct-status]')).toHaveAttribute('data-direct-status', 'ready');
+  await expect(page.getByRole('button', { name: 'Desain Stitch langsung', exact: true })).toHaveAttribute('aria-pressed', 'true');
+  await expect(page.locator('[data-direct-status]')).toContainText('360×366');
+  expect(Number(await page.locator('[data-model-draw-calls]').getAttribute('data-model-draw-calls'))).toBeLessThanOrEqual(24);
+  const frame = await page.locator('.town-review canvas').screenshot({ path: 'test-results/direct-skin/reference.png' });
+  await page.screenshot({ path: 'test-results/direct-skin/comparison.png' });
+  await page.getByRole('button', { name: 'Landmark / siluet', exact: true }).click();
+  await expect(page.locator('.direct-inspect')).toBeVisible();
+  await page.getByRole('button', { name: 'Landmark / siluet', exact: true }).click();
+  for (let i = 0; i < 4; i++) {
+    await page.getByRole('button', { name: 'Putar 90°', exact: true }).click();
+    await page.locator('.town-review canvas').screenshot({ path: `test-results/direct-skin/turn-${i}.png` });
+  }
+  await page.getByRole('button', { name: 'Tandai sisi tanpa sumber', exact: true }).click();
+  await page.getByRole('button', { name: 'Sudut game', exact: true }).click();
+  await page.locator('.town-review canvas').screenshot({ path: 'test-results/direct-skin/coverage.png' });
+  await page.getByRole('button', { name: 'Wireframe', exact: true }).click();
+  await page.locator('.town-review canvas').screenshot({ path: 'test-results/direct-skin/wireframe.png' });
+  await page.getByRole('button', { name: 'Wireframe', exact: true }).click();
+  await page.getByRole('button', { name: 'Tandai sisi tanpa sumber', exact: true }).click();
+  await page.getByRole('button', { name: 'Sudut Stitch', exact: true }).click();
+  await page.getByRole('button', { name: 'Uji kedalaman pintu', exact: true }).click();
+  await page.locator('.town-review canvas').screenshot({ path: 'test-results/direct-skin/depth.png' });
+  await page.getByRole('button', { name: 'Uji kedalaman pintu', exact: true }).click();
+  await page.locator('.town-review-canvas').evaluate(el => { (el as HTMLElement).style.width = '360px'; });
+  await page.waitForFunction(() => document.querySelector('canvas')!.width === 360 && document.querySelector('canvas')!.height === 366);
+  await page.locator('.town-review canvas').screenshot({ path: 'test-results/direct-skin/native.png' });
+  await page.getByRole('button', { name: 'Tanpa tekstur', exact: true }).click();
+  expect(frame.equals(await page.locator('.town-review canvas').screenshot())).toBe(false);
+  expect(images).toBe(1); expect(errors).toEqual([]);
+});
+
+test('failed direct-image prototype retains the existing building and material skin', async ({ page }) => {
+  const errors: string[] = []; page.on('pageerror', e => errors.push(e.message));
+  await page.route('**/town-center-direct/design.png', route => route.abort());
+  await page.goto('/?buildingReview=town_center&appearance=direct');
+  await expect(page.locator('[data-town-review-ready=true]')).toBeVisible();
+  await expect(page.locator('[data-direct-status]')).toHaveAttribute('data-direct-status', 'fallback');
+  await expect(page.getByRole('button', { name: 'Dengan tekstur', exact: true })).toHaveAttribute('aria-pressed', 'true');
+  await expect(page.locator('.town-review canvas')).toBeVisible(); expect(errors).toEqual([]);
+});
+
 test('one-building review shows the original Stitch source and the real Town Center model', async ({ page }) => {
   await page.setViewportSize({ width: 1280, height: 900 });
   const errors: string[] = [];
